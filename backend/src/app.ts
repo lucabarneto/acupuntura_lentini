@@ -1,4 +1,5 @@
 import express from "express";
+import DatabaseConnection from "./config/database_connection.ts";
 
 const app = express();
 
@@ -8,5 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
-  console.log("Hola Mundo!");
+  console.log("Server running on port", PORT);
+  DatabaseConnection.getInstance();
 });
