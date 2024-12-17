@@ -42,38 +42,38 @@ const PatientSchema = new mongoose.Schema({
     mental_vitality_jing_shen: String,
     ancestral_jing: String,
   },
-  chief_complaints: [
-    {
-      chief_complaint: {
-        type: mongoose.Schema.ObjectId,
-        ref: "chief_complaints",
-      },
-    },
-  ],
-  appointments: [
-    {
-      appointment: {
-        type: mongoose.Schema.ObjectId,
-        ref: "appointments",
-      },
-    },
-  ],
-  reports: [
-    {
-      report: {
-        type: mongoose.Schema.ObjectId,
-        ref: "reports",
-      },
-    },
-  ],
+  // chief_complaints: [
+  //   {
+  //     chief_complaint: {
+  //       type: mongoose.Schema.ObjectId,
+  //       ref: "chief_complaints",
+  //     },
+  //   },
+  // ],
+  // appointments: [
+  //   {
+  //     appointment: {
+  //       type: mongoose.Schema.ObjectId,
+  //       ref: "appointments",
+  //     },
+  //   },
+  // ],
+  // reports: [
+  //   {
+  //     report: {
+  //       type: mongoose.Schema.ObjectId,
+  //       ref: "reports",
+  //     },
+  //   },
+  // ],
 });
 
-PatientSchema.pre("find", function () {
-  this.populate([
-    "chief_complaints.chief_complaint",
-    "appointments.appointment",
-    "reports.report",
-  ]);
-});
+// PatientSchema.pre("find", function () {
+//   this.populate([
+//     "chief_complaints.chief_complaint",
+//     "appointments.appointment",
+//     "reports.report",
+//   ]);
+// });
 
 export const PatientModel = mongoose.model(PATIENTS_COLLECTION, PatientSchema);
