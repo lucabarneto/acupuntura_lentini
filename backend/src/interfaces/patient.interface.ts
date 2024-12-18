@@ -59,19 +59,24 @@ const examplePatient = {
     time: "12:05",
     location: "Caballito",
     bazi_table: {
-      heavenly_stems: [
-        "Agua Yang - Ren",
-        "Agua Yang - Ren",
-        "Agua Yang - Ren",
-        "Tierra Yang - Wu",
-      ],
-      earthly_branches: ["Rata Zi", "Tigre Yin", "Rata Zi", "Mono Shen"],
-      hidden_branches: [
-        ["Agua Yin", "", ""],
-        ["Madera Yang", "Fuego Yang", "Tierra Yang"],
-        ["Agua Yin", "", ""],
-        ["Metal Yang", "Agua Yang", "Tierra Yang"],
-      ],
+      heavenly_stems: {
+        hour: "Agua Yang",
+        day: "Agua Yang",
+        month: "Agua Yang",
+        year: "Tierra Yang",
+      },
+      earthly_branches: {
+        hour: "Rata Zi",
+        day: "Tigre Yin",
+        month: "Mono Shen",
+        year: "Tigre Yin",
+      },
+      hidden_branches: {
+        hour: ["Agua Yin", "", ""],
+        day: ["Madera Yang", "Fuego Yang", "Tierra Yang"],
+        month: ["Agua Yin", "", ""],
+        year: ["Metal Yang", "Agua Yang", "Tierra Yang"],
+      },
     },
   },
   presumptive_analysis: {

@@ -1,6 +1,7 @@
 import express from "express";
 import DatabaseConnection from "./config/database_connection.ts";
 import patientRouter from "./routes/patients.routes.ts";
+import { logger } from "./utils/logger.ts";
 
 const app = express();
 
@@ -13,6 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/patients", patientRouter);
 
 app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
+  logger.info(`Server running on port ${PORT}`);
   DatabaseConnection.getInstance();
 });

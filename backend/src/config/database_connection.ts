@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { logger } from "../utils/logger.ts";
 
 const MONGO_PASSWORD =
   "mongodb+srv://guillermolentini:rBN5qZP9Xr7UKrBd@acupunturalentini.ohffp.mongodb.net/";
@@ -15,12 +16,12 @@ class DatabaseConnection {
 
   static getInstance() {
     if (this.instance) {
-      console.log("Already connected to DB");
+      logger.warning("Already connected to DB");
       return this.instance;
     }
 
     this.instance = new DatabaseConnection();
-    console.log("Connected to DB");
+    logger.info("Connected to DB");
     return this.instance;
   }
 }

@@ -26,9 +26,24 @@ const PatientSchema = new mongoose.Schema({
     time: String,
     location: String,
     bazi_table: {
-      heavenly_stems: Array,
-      earthly_branches: Array,
-      hidden_branches: Array,
+      heavenly_stems: {
+        hour: String,
+        day: String,
+        month: String,
+        year: String,
+      },
+      earthly_branches: {
+        hour: String,
+        day: String,
+        month: String,
+        year: String,
+      },
+      hidden_stems: {
+        hour: Array,
+        day: Array,
+        month: Array,
+        year: Array,
+      },
     },
   },
   presumptive_analysis: {
