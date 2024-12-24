@@ -1,5 +1,5 @@
 import { PatientModel } from "../models/patient.model.ts";
-import IPatient from "../interfaces/patient.interface.ts";
+import IPatient from "../interfaces/IPatient.interface.ts";
 import { UpdateQuery } from "mongoose";
 
 export default class PatientDAO {
@@ -34,9 +34,13 @@ export default class PatientDAO {
 
   async update(id: string, update: UpdateQuery<IPatient>) {
     try {
-      const result = await PatientModel.findOneAndReplace({ _id: id }, update, {
-        returnDocument: "after",
-      });
+      const result = (await PatientModel.findOneAndReplace(
+        { _id: id },
+        update,
+        {
+          returnDocument: "after",
+        }
+      )) as IPatient;
 
       return { status: "success", payload: result };
     } catch (error) {

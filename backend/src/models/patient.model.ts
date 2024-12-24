@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IPatient from "../interfaces/patient.interface.ts";
+import IPatient from "../interfaces/IPatient.interface.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
 

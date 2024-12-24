@@ -1,8 +1,8 @@
-interface SuccessReturnValue {
+export interface SuccessReturnValue {
   status: "success";
   payload: unknown;
 }
-interface ErrorReturnValue {
+export interface ErrorReturnValue {
   status: "error";
   error: Error;
 }

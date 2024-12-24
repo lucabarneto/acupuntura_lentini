@@ -64,12 +64,12 @@ const PresumptiveAnalysis = z
   .optional();
 
 const IPatient = z.object({
-  first_name: z.string(),
-  last_name: z.string(),
+  first_name: z.string().min(1),
+  last_name: z.string().min(1),
   age: z.number().min(1),
   mail: z.string().email(),
   marital_status: z.enum(["single", "married"]),
-  tel: z.number(),
+  tel: z.number().min(1),
   profile_picture: z.string().optional(),
   birth: Birth,
   presumptive_analysis: PresumptiveAnalysis,

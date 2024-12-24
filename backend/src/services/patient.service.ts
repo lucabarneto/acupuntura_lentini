@@ -1,6 +1,5 @@
 import PatientDAO from "../database/patients.dao.ts";
-import IPatient from "../interfaces/patient.interface.ts";
-import { logger } from "../utils/logger.ts";
+import IPatient from "../interfaces/IPatient.interface.ts";
 
 const patientDAO = new PatientDAO();
 
@@ -10,7 +9,6 @@ export default class Patient {
 
     if (result.status === "error") throw result.error!;
 
-    logger.http(`Patients found succesfully`);
     return result.payload!;
   }
 
@@ -19,7 +17,6 @@ export default class Patient {
 
     if (result.status === "error") throw result.error!;
 
-    logger.http(`Patient found succesfully (ID: ${id})`);
     return result.payload!;
   }
 
@@ -28,7 +25,6 @@ export default class Patient {
 
     if (result.status === "error") throw result.error!;
 
-    logger.http(`Patient created succesfully`);
     return result.payload!;
   }
 
@@ -37,7 +33,6 @@ export default class Patient {
 
     if (updatedPatient.status === "error") throw updatedPatient.error!;
 
-    logger.http(`Patient updated successfully (ID: ${id})`);
     return updatedPatient.payload!;
   }
 
@@ -46,7 +41,6 @@ export default class Patient {
 
     if (result.status === "error") throw result.error!;
 
-    logger.http(`Patient deleted successfully (ID was ${id})`);
     return result.payload!;
   }
 }
