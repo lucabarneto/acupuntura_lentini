@@ -1,77 +1,52 @@
 import PatientDAO from "../database/patients.dao.ts";
-import { IPatient } from "../interfaces/patient.interface.ts";
+import IPatient from "../interfaces/patient.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 const patientDAO = new PatientDAO();
 
 export default class Patient {
   async getAllPatients() {
-    try {
-      const patients = await patientDAO.getAll();
+    const result = await patientDAO.getAll();
 
-      if (patients.status === "error") throw patients.error;
+    if (result.status === "error") throw result.error!;
 
-      logger.debug(`Patients found succesfully`);
-      return patients.payload;
-    } catch (error) {
-      logger.error(`There was an error while finding all patient: ${error}`);
-      return { status: "error", error };
-    }
+    logger.http(`Patients found succesfully`);
+    return result.payload!;
   }
 
   async getPatientById(id: string) {
-    try {
-      const patient = await patientDAO.getById(id);
+    const result = await patientDAO.getById(id);
 
-      if (patient.status === "error") throw patient.error;
+    if (result.status === "error") throw result.error!;
 
-      logger.debug(`Patient found succesfully (ID: ${id})`);
-      return patient.payload;
-    } catch (error) {
-      logger.error(`There was an error while finding the patient: ${error}`);
-      return { status: "error", error };
-    }
+    logger.http(`Patient found succesfully (ID: ${id})`);
+    return result.payload!;
   }
 
   async createPatient(patient: IPatient) {
-    try {
-      const newPatient = await patientDAO.create(patient);
+    const result = await patientDAO.create(patient);
 
-      if (newPatient.status === "error") throw newPatient.error;
+    if (result.status === "error") throw result.error!;
 
-      logger.debug(`Patient created succesfully`);
-      return newPatient.payload;
-    } catch (error) {
-      logger.error(`There was an error while creating the patient: ${error}`);
-      return { status: "error", error };
-    }
+    logger.http(`Patient created succesfully`);
+    return result.payload!;
   }
 
   async updatePatient(id: string, update: IPatient) {
-    try {
-      const updatedPatient = await patientDAO.update(id, update);
+    const updatedPatient = await patientDAO.update(id, update);
 
-      if (updatedPatient.status === "error") throw updatedPatient.error;
+    if (updatedPatient.status === "error") throw updatedPatient.error!;
 
-      logger.debug(`Patient updated successfully (ID: ${id})`);
-      return updatedPatient.payload;
-    } catch (error) {
-      logger.error(`There was an error while updating the patient: ${error}`);
-      return { status: "error", error };
-    }
+    logger.http(`Patient updated successfully (ID: ${id})`);
+    return updatedPatient.payload!;
   }
 
   async deletePatient(id: string) {
-    try {
-      const isDeleted = await patientDAO.delete(id);
+    const result = await patientDAO.delete(id);
 
-      if (isDeleted.status === "error") throw isDeleted.error;
+    if (result.status === "error") throw result.error!;
 
-      logger.debug(`Patient deleted successfully (ID was ${id})`);
-      return isDeleted.payload;
-    } catch (error) {
-      logger.error(`There was an error while deleting the patient: ${error}`);
-      return { status: "error", error };
-    }
+    logger.http(`Patient deleted successfully (ID was ${id})`);
+    return result.payload!;
   }
 }

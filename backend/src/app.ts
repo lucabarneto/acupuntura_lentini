@@ -17,3 +17,5 @@ app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
   DatabaseConnection.getInstance();
 });
+
+export default app;

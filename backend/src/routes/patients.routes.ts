@@ -1,27 +1,17 @@
 import { Router } from "express";
-import PatientRoutesController from "../controllers/patient.controller.ts";
+import PatientController from "../controllers/patient.controller.ts";
 
 const patientRouter = Router();
-const patientController = new PatientRoutesController();
+const patientController = new PatientController();
 
-patientRouter.get("/", (req, res) =>
-  patientController.getAllPatients(req, res)
-);
+patientRouter.get("/", patientController.getAllPatients);
 
-patientRouter.get("/:id", async (req, res) =>
-  patientController.getPatientById(req, res)
-);
+patientRouter.get("/:id", patientController.getPatientById);
 
-patientRouter.post("/", async (req, res) =>
-  patientController.createPatient(req, res)
-);
+patientRouter.post("/", patientController.createPatient);
 
-patientRouter.put("/:id", async (req, res) =>
-  patientController.updatePatient(req, res)
-);
+patientRouter.put("/:id", patientController.updatePatient);
 
-patientRouter.delete("/:id", async (req, res) =>
-  patientController.deletePatient(req, res)
-);
+patientRouter.delete("/:id", patientController.deletePatient);
 
 export default patientRouter;

@@ -1,12 +1,11 @@
-import { UpdateQuery } from "mongoose";
 import { PatientModel } from "../models/patient.model.ts";
-import { IPatient } from "../interfaces/patient.interface.ts";
+import IPatient from "../interfaces/patient.interface.ts";
+import { UpdateQuery } from "mongoose";
 
 export default class PatientDAO {
   async getAll() {
     try {
-      const patients = await PatientModel.find();
-
+      const patients = (await PatientModel.find()) as IPatient[];
       return { status: "success", payload: patients };
     } catch (error) {
       return { status: "error", error };
@@ -15,7 +14,7 @@ export default class PatientDAO {
 
   async getById(id: string) {
     try {
-      const patient = await PatientModel.findById(id);
+      const patient = (await PatientModel.findById(id)) as IPatient;
 
       return { status: "success", payload: patient };
     } catch (error) {
@@ -25,9 +24,7 @@ export default class PatientDAO {
 
   async create(data: IPatient) {
     try {
-      const patient = await PatientModel.create(data);
-
-      if (!patient) throw new Error("Patient was not created");
+      const patient = (await PatientModel.create(data)) as IPatient;
 
       return { status: "success", payload: patient };
     } catch (error) {
