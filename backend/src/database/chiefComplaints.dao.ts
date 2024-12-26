@@ -1,9 +1,9 @@
 import { ChiefComplaintModel } from "../models/chiefComplaint.model.ts";
-import IChiefComplaint from "../interfaces/IChiefComplaint.ts";
+import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 import { UpdateQuery } from "mongoose";
 
-export class ChiefComplaintDAO implements DAO<IChiefComplaint> {
+export default class ChiefComplaintDAO implements DAO<IChiefComplaint> {
   async getAll(): Promise<DAOReturnValue<IChiefComplaint[]>> {
     try {
       const result = (await ChiefComplaintModel.find()) as IChiefComplaint[];
@@ -44,12 +44,16 @@ export class ChiefComplaintDAO implements DAO<IChiefComplaint> {
         update,
         { returnDocument: "after" }
       )) as IChiefComplaint;
+
+      if (result === null)
+        throw new Error(`No ChiefComplaint found with ID ${id}`);
+
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
     }
   }
-  async delete(id: string): Promise<{}> {
+  async delete(id: string): Promise<DAOReturnValue<{}>> {
     try {
       const result = await ChiefComplaintModel.deleteOne({ _id: id });
 

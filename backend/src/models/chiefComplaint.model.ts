@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IChiefComplaint from "../interfaces/IChiefComplaint.ts";
+import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 
 type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
@@ -14,10 +14,6 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
   state: {
     type: String,
     enum: ["finished", "in_progress"],
-  },
-  patient: {
-    type: mongoose.Schema.ObjectId,
-    ref: "patients",
   },
 });
 
