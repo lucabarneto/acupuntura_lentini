@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Patient from "../services/patient.service.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
-import ParamsWithId from "../interfaces/paramsWithId.interface.ts";
+import ParamsWithId from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 const patient = new Patient();

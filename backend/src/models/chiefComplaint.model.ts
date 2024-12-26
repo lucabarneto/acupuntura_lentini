@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
+import IChiefComplaint from "../interfaces/IChiefComplaint.ts";
+
+type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
 const CHIEF_COMPLAINT_COLLECTION = "chief_complaints";
 
-const ChiefComplaintSchema = new mongoose.Schema({
+const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
   title: String,
   description: String,
   diagnosis: String,
@@ -16,25 +19,9 @@ const ChiefComplaintSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "patients",
   },
-  patient_evolution: [
-    {
-      session: {
-        type: mongoose.Schema.ObjectId,
-        ref: "sessions",
-      },
-    },
-  ],
-  report: {
-    type: mongoose.Schema.ObjectId,
-    ref: "reports",
-  },
 });
 
-ChiefComplaintSchema.pre("find", function () {
-  this.populate("patient_evolution.session", "patient", "report");
-});
-
-export const ChiefComplaintModel = mongoose.model(
-  CHIEF_COMPLAINT_COLLECTION,
-  ChiefComplaintSchema
-);
+export const ChiefComplaintModel = mongoose.model<
+  IChiefComplaint,
+  ChiefComplaintModel
+>(CHIEF_COMPLAINT_COLLECTION, ChiefComplaintSchema);

@@ -1,18 +1,20 @@
-export interface SuccessReturnValue {
+import { UpdateQuery } from "mongoose";
+
+interface SuccessReturnValue<T> {
   status: "success";
-  payload: unknown;
+  payload: T;
 }
-export interface ErrorReturnValue {
+interface ErrorReturnValue {
   status: "error";
-  error: Error;
+  error: unknown;
 }
 
-type DAOReturnValue = SuccessReturnValue | ErrorReturnValue;
+export type DAOReturnValue<T> = SuccessReturnValue<T> | ErrorReturnValue;
 
-export interface DAO {
-  getAll: () => Promise<DAOReturnValue>;
-  getById: (id: string) => Promise<DAOReturnValue>;
-  create: (data: unknown) => Promise<DAOReturnValue>;
-  update: (id: string, update: unknown) => Promise<DAOReturnValue>;
-  delete: (id: string) => Promise<DAOReturnValue>;
+export interface DAO<T> {
+  getAll: () => Promise<DAOReturnValue<T[]>>;
+  getById: (id: string) => Promise<DAOReturnValue<T>>;
+  create: (data: T) => Promise<DAOReturnValue<T>>;
+  update: (id: string, update: UpdateQuery<T>) => Promise<DAOReturnValue<T>>;
+  delete: (id: string) => Promise<{}>;
 }

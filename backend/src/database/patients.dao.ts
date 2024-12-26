@@ -1,9 +1,10 @@
+import { UpdateQuery } from "mongoose";
 import { PatientModel } from "../models/patient.model.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
-import { UpdateQuery } from "mongoose";
+import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 
-export default class PatientDAO {
-  async getAll() {
+export default class PatientDAO implements DAO<IPatient> {
+  async getAll(): Promise<DAOReturnValue<IPatient[]>> {
     try {
       const patients = (await PatientModel.find()) as IPatient[];
       return { status: "success", payload: patients };
@@ -12,7 +13,7 @@ export default class PatientDAO {
     }
   }
 
-  async getById(id: string) {
+  async getById(id: string): Promise<DAOReturnValue<IPatient>> {
     try {
       const patient = (await PatientModel.findById(id)) as IPatient;
 
@@ -22,7 +23,7 @@ export default class PatientDAO {
     }
   }
 
-  async create(data: IPatient) {
+  async create(data: IPatient): Promise<DAOReturnValue<IPatient>> {
     try {
       const patient = (await PatientModel.create(data)) as IPatient;
 
@@ -32,7 +33,10 @@ export default class PatientDAO {
     }
   }
 
-  async update(id: string, update: UpdateQuery<IPatient>) {
+  async update(
+    id: string,
+    update: UpdateQuery<IPatient>
+  ): Promise<DAOReturnValue<IPatient>> {
     try {
       const result = (await PatientModel.findOneAndReplace(
         { _id: id },
@@ -48,7 +52,7 @@ export default class PatientDAO {
     }
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<DAOReturnValue<{}>> {
     try {
       const result = await PatientModel.deleteOne({ _id: id });
 
