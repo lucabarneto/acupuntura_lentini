@@ -73,6 +73,14 @@ const IPatient = z.object({
   profile_picture: z.string().optional(),
   birth: Birth,
   presumptive_analysis: PresumptiveAnalysis,
+  chief_complaints: z
+    .object({
+      chief_complaint: z.string().regex(new RegExp("[0-9a-f]{24}"), {
+        message: "Invalid Chief Complaint ID",
+      }),
+    })
+    .array()
+    .default([]),
 });
 
 type IPatient = z.infer<typeof IPatient>;

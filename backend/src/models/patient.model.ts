@@ -63,6 +63,17 @@ const PresumptiveAnalysisSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const ChiefComplaintsRefSchema = new mongoose.Schema(
+  {
+    chief_complaint: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "chief_complaints",
+      match: /^[a-f\d]{24}$/,
+    },
+  },
+  { _id: false }
+);
+
 const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   first_name: {
     type: String,
@@ -92,15 +103,12 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   profile_picture: String,
   birth: BirthSchema,
   presumptive_analysis: PresumptiveAnalysisSchema,
+  chief_complaints: [ChiefComplaintsRefSchema],
 });
 
-// PatientSchema.pre("find", function () {
-//   this.populate([
-//     "chief_complaints.chief_complaint",
-//     "appointments.appointment",
-//     "reports.report",
-//   ]);
-// });
+PatientSchema.pre("find", function () {
+  this.populate(["chief_complaints.chief_complaint"]);
+});
 
 export const PatientModel = mongoose.model<IPatient, PatientModel>(
   PATIENTS_COLLECTION,

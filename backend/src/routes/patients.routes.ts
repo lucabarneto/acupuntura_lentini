@@ -1,6 +1,7 @@
 import { Router } from "express";
 import PatientController from "../controllers/patients.controller.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
+import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 
@@ -34,7 +35,11 @@ patientRouter.delete(
 );
 
 patientRouter.put(
-  "/:p_id/chiefcomplaints/:c_id",
+  "/:id/chiefcomplaints/",
+  validateRequest({
+    params: RequestParams,
+    body: IChiefComplaint,
+  }),
   patientController.addChiefComplaintToPatient
 );
 

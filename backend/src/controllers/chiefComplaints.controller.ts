@@ -17,8 +17,8 @@ export default class ChiefComplaintController {
 
       logger.http(`Chief Complaints found succesfully`);
       res.status(200).send(result);
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -32,8 +32,8 @@ export default class ChiefComplaintController {
 
       logger.http(`Chief Complaint found succesfully (ID: ${req.params.id})`);
       res.status(200).send(result);
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -46,9 +46,9 @@ export default class ChiefComplaintController {
       const result = await chiefComplaint.create(req.body);
 
       logger.http(`Chief Complaint created succesfully`);
-      res.status(200).send(result);
-    } catch (error) {
-      next(error);
+      res.status(201).send(result);
+    } catch (err) {
+      next(err);
     }
   }
 

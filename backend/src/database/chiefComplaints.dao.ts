@@ -29,6 +29,7 @@ export default class ChiefComplaintDAO implements DAO<IChiefComplaint> {
       const result = (await ChiefComplaintModel.create(
         data
       )) as IChiefComplaint;
+
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
