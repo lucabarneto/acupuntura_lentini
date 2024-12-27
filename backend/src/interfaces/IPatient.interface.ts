@@ -64,6 +64,7 @@ const PresumptiveAnalysis = z
   .optional();
 
 const IPatient = z.object({
+  _id: z.string().optional(),
   first_name: z.string().min(1),
   last_name: z.string().min(1),
   age: z.number().min(1),

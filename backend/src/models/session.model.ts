@@ -1,58 +1,35 @@
 import mongoose from "mongoose";
+import ISession from "../interfaces/ISession.interface.ts";
+
+type SessionModel = mongoose.Model<ISession>;
 
 const SESSION_COLLECTION = "sessions";
 
-const SessionSchema = new mongoose.Schema({
+const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
   date: {
     type: String,
-    require: true,
+    required: true,
   },
   treatment: {
     type: String,
-    require: true,
+    required: true,
   },
   evolution: {
     type: String,
-    require: true,
-  },
-  patient: {
-    type: mongoose.Schema.ObjectId,
-    ref: "patients",
+    required: true,
   },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
+    required: true,
   },
-  appointment: {
-    type: mongoose.Schema.ObjectId,
-    ref: "appointments",
-  },
-  resources: [
-    {
-      resource: {
-        type: mongoose.Schema.ObjectId,
-        ref: "resources",
-      },
-    },
-  ],
-  templates: [
-    {
-      template: {
-        type: mongoose.Schema.ObjectId,
-        ref: "templates",
-      },
-    },
-  ],
 });
 
-SessionSchema.pre("find", function () {
-  this.populate([
-    "patient",
-    "chief_complaint",
-    "appointment",
-    "resources.resource",
-    "templates.template",
-  ]);
-});
-
-export const SessionModel = mongoose.model(SESSION_COLLECTION, SessionSchema);
+export const SessionModel = mongoose.model<ISession, SessionModel>(
+  SESSION_COLLECTION,
+  SessionSchema
+);

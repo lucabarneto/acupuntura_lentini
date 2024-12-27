@@ -1,60 +1,60 @@
 import { UpdateQuery } from "mongoose";
-import { PatientModel } from "../models/patient.model.ts";
-import IPatient from "../interfaces/IPatient.interface.ts";
+import { SessionModel } from "../models/session.model.ts";
+import ISession from "../interfaces/ISession.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 
-export default class PatientDAO implements DAO<IPatient> {
-  async getAll(): Promise<DAOReturnValue<IPatient[]>> {
+export default class SessionDAO implements DAO<ISession> {
+  getAll = async (): Promise<DAOReturnValue<ISession[]>> => {
     try {
-      const result = (await PatientModel.find()) as IPatient[];
+      const result = (await SessionModel.find()) as ISession[];
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
     }
-  }
+  };
 
-  async getById(id: string): Promise<DAOReturnValue<IPatient>> {
+  getById = async (id: string): Promise<DAOReturnValue<ISession>> => {
     try {
-      const result = (await PatientModel.findById(id)) as IPatient;
-
-      return { status: "success", payload: result };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  }
-
-  async create(data: IPatient): Promise<DAOReturnValue<IPatient>> {
-    try {
-      const result = (await PatientModel.create(data)) as IPatient;
+      const result = (await SessionModel.findById(id)) as ISession;
 
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
     }
-  }
+  };
 
-  async update(
+  create = async (data: ISession): Promise<DAOReturnValue<ISession>> => {
+    try {
+      const result = (await SessionModel.create(data)) as ISession;
+
+      return { status: "success", payload: result };
+    } catch (error) {
+      return { status: "error", error };
+    }
+  };
+
+  update = async (
     id: string,
-    update: UpdateQuery<IPatient>
-  ): Promise<DAOReturnValue<IPatient>> {
+    update: UpdateQuery<ISession>
+  ): Promise<DAOReturnValue<ISession>> => {
     try {
-      const result = (await PatientModel.findOneAndReplace(
+      const result = (await SessionModel.findOneAndReplace(
         { _id: id },
         update,
         {
           returnDocument: "after",
         }
-      )) as IPatient;
+      )) as ISession;
 
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
     }
-  }
+  };
 
-  async delete(id: string): Promise<DAOReturnValue<{}>> {
+  delete = async (id: string): Promise<DAOReturnValue<{}>> => {
     try {
-      const result = await PatientModel.deleteOne({ _id: id });
+      const result = await SessionModel.deleteOne({ _id: id });
 
       if (result.deletedCount === 0) throw new Error("Patient was not deleted");
 
@@ -62,5 +62,5 @@ export default class PatientDAO implements DAO<IPatient> {
     } catch (error) {
       return { status: "error", error };
     }
-  }
+  };
 }

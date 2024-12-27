@@ -75,6 +75,10 @@ const ChiefComplaintsRefSchema = new mongoose.Schema(
 );
 
 const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
   first_name: {
     type: String,
     required: true,
