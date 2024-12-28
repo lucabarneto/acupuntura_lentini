@@ -1,4 +1,5 @@
 import { ChiefComplaintModel } from "../models/chiefComplaint.model.ts";
+import ID from "../interfaces/ID.interface.ts";
 import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 import { UpdateQuery } from "mongoose";
@@ -12,7 +13,7 @@ export default class ChiefComplaintDAO implements DAO<IChiefComplaint> {
       return { status: "error", error };
     }
   }
-  async getById(id: string): Promise<DAOReturnValue<IChiefComplaint>> {
+  async getById(id: ID): Promise<DAOReturnValue<IChiefComplaint>> {
     try {
       const result = (await ChiefComplaintModel.findById(
         id
@@ -36,7 +37,7 @@ export default class ChiefComplaintDAO implements DAO<IChiefComplaint> {
     }
   }
   async update(
-    id: string,
+    id: ID,
     update: UpdateQuery<IChiefComplaint>
   ): Promise<DAOReturnValue<IChiefComplaint>> {
     try {
@@ -54,7 +55,7 @@ export default class ChiefComplaintDAO implements DAO<IChiefComplaint> {
       return { status: "error", error };
     }
   }
-  async delete(id: string): Promise<DAOReturnValue<{}>> {
+  async delete(id: ID): Promise<DAOReturnValue<{}>> {
     try {
       const result = await ChiefComplaintModel.deleteOne({ _id: id });
 

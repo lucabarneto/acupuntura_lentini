@@ -1,5 +1,6 @@
 import ChiefComplaintDAO from "../database/chiefComplaints.dao.ts";
 import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
+import ID from "../interfaces/ID.interface.ts";
 
 const chiefComplaintDAO = new ChiefComplaintDAO();
 
@@ -12,7 +13,7 @@ export default class ChiefComplaint {
     return result.payload;
   }
 
-  async getById(id: string) {
+  async getById(id: ID) {
     const result = await chiefComplaintDAO.getById(id);
 
     if (result.status === "error") throw result.error;
@@ -28,7 +29,7 @@ export default class ChiefComplaint {
     return result.payload;
   }
 
-  async update(id: string, data: IChiefComplaint) {
+  async update(id: ID, data: IChiefComplaint) {
     const result = await chiefComplaintDAO.update(id, data);
 
     if (result.status === "error") throw result.error;
@@ -36,7 +37,7 @@ export default class ChiefComplaint {
     return result.payload;
   }
 
-  async delete(id: string) {
+  async delete(id: ID) {
     const result = await chiefComplaintDAO.delete(id);
 
     if (result.status === "error") throw result.error;

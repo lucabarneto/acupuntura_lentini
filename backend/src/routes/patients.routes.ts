@@ -35,10 +35,9 @@ patientRouter.delete(
 );
 
 patientRouter.put(
-  "/:id/chiefcomplaints/",
+  "/:id/chiefcomplaints/:second_id",
   validateRequest({
     params: RequestParams,
-    body: IChiefComplaint,
   }),
   patientController.addChiefComplaintToPatient
 );

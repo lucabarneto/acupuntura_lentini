@@ -1,6 +1,7 @@
 import { UpdateQuery } from "mongoose";
 import { PatientModel } from "../models/patient.model.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
+import ID from "../interfaces/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 
 export default class PatientDAO implements DAO<IPatient> {
@@ -13,7 +14,7 @@ export default class PatientDAO implements DAO<IPatient> {
     }
   }
 
-  async getById(id: string): Promise<DAOReturnValue<IPatient>> {
+  async getById(id: ID): Promise<DAOReturnValue<IPatient>> {
     try {
       const result = (await PatientModel.findById(id)) as IPatient;
 
@@ -34,7 +35,7 @@ export default class PatientDAO implements DAO<IPatient> {
   }
 
   async update(
-    id: string,
+    id: ID,
     update: UpdateQuery<IPatient>
   ): Promise<DAOReturnValue<IPatient>> {
     try {
@@ -52,7 +53,7 @@ export default class PatientDAO implements DAO<IPatient> {
     }
   }
 
-  async delete(id: string): Promise<DAOReturnValue<{}>> {
+  async delete(id: ID): Promise<DAOReturnValue<{}>> {
     try {
       const result = await PatientModel.deleteOne({ _id: id });
 

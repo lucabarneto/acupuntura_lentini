@@ -1,17 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import ChiefComplaint from "../services/chiefComplaints.service.ts";
+import PatientController from "./patients.controller.ts";
 import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 const chiefComplaint = new ChiefComplaint();
+const patientController = new PatientController();
 
 export default class ChiefComplaintController {
-  async getAllChiefComplaints(
+  getAllChiefComplaints = async (
     req: Request,
     res: Response<IChiefComplaint[]>,
     next: NextFunction
-  ) {
+  ) => {
     try {
       const result = await chiefComplaint.getAll();
 
@@ -20,13 +22,13 @@ export default class ChiefComplaintController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 
-  async getChiefComplaintById(
+  getChiefComplaintById = async (
     req: Request<RequestParams>,
     res: Response<IChiefComplaint>,
     next: NextFunction
-  ) {
+  ) => {
     try {
       const result = await chiefComplaint.getById(req.params.id);
 
@@ -35,28 +37,38 @@ export default class ChiefComplaintController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 
-  async createChiefComplaint(
-    req: Request<{}, IChiefComplaint, IChiefComplaint>,
-    res: Response<IChiefComplaint>,
+  createChiefComplaint = async (
+    req: Request<{}, {}, IChiefComplaint>,
+    res: Response,
     next: NextFunction
-  ) {
+  ) => {
     try {
       const result = await chiefComplaint.create(req.body);
 
       logger.http(`Chief Complaint created succesfully`);
-      res.status(201).send(result);
+
+      req.url = `/api/patients/:id/chiefcomplaints/:second_id`;
+      req.params = {
+        id: result.patient,
+        second_id: result._id!,
+      };
+      patientController.addChiefComplaintToPatient(
+        req as Request<RequestParams>,
+        res,
+        next
+      );
     } catch (err) {
       next(err);
     }
-  }
+  };
 
-  async updateChiefComplaint(
+  updateChiefComplaint = async (
     req: Request<RequestParams, IChiefComplaint, IChiefComplaint>,
     res: Response<IChiefComplaint>,
     next: NextFunction
-  ) {
+  ) => {
     try {
       const result = await chiefComplaint.update(req.params.id, req.body);
       logger.http(
@@ -66,13 +78,13 @@ export default class ChiefComplaintController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 
-  async deleteChiefComplaint(
+  deleteChiefComplaint = async (
     req: Request<RequestParams>,
     res: Response,
     next: NextFunction
-  ) {
+  ) => {
     try {
       const result = await chiefComplaint.delete(req.params.id);
       logger.http(
@@ -82,5 +94,5 @@ export default class ChiefComplaintController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 }

@@ -81,50 +81,20 @@ export default class PatientController {
   };
 
   addChiefComplaintToPatient = async (
-    req: Request<RequestParams, IPatient, IChiefComplaint>,
+    req: Request<RequestParams>,
     res: Response<IPatient>,
     next: NextFunction
   ) => {
     try {
-      const newChiefComplaint = await this.createChiefComplaint(req.body);
-      const result = await this.updatePatientWithChiefComplaint(
+      const result = await patient.getByIdAndAddChiefComplaint(
         req.params.id,
-        newChiefComplaint
+        req.params.second_id!
       );
 
-      logger.http(
-        `Chief complaint (ID: ${newChiefComplaint._id}) added to patient successfully`
-      );
+      logger.http(`Chief complaint added to patient successfully`);
       res.status(200).send(result);
     } catch (err) {
       next(err);
-    }
-  };
-
-  private createChiefComplaint = async (data: IChiefComplaint) => {
-    try {
-      const result = await chiefComplaint.create(data);
-      return result;
-    } catch (err) {
-      throw err;
-    }
-  };
-
-  private updatePatientWithChiefComplaint = async (
-    id: string,
-    data: IChiefComplaint
-  ) => {
-    try {
-      const update = await patient.getById(id);
-
-      update.chief_complaints!.push({
-        chief_complaint: data._id!,
-      });
-
-      const result = await patient.update(id, update);
-      return result;
-    } catch (err) {
-      throw err;
     }
   };
 }
