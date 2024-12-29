@@ -23,6 +23,14 @@ const IChiefComplaint = z.object({
 
     return new Types.ObjectId(val);
   }),
+  patient_evolution: z
+    .object({
+      session: z.string().regex(new RegExp("[0-9a-f]{24}"), {
+        message: "Invalid Session ID",
+      }),
+    })
+    .array()
+    .default([]),
 });
 
 type IChiefComplaint = z.infer<typeof IChiefComplaint>;

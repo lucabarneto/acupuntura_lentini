@@ -1,13 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import Patient from "../services/patients.service.ts";
-import ChiefComplaint from "../services/chiefComplaints.service.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
-import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 const patient = new Patient();
-const chiefComplaint = new ChiefComplaint();
 
 export default class PatientController {
   getAllPatients = async (

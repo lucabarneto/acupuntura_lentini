@@ -5,6 +5,16 @@ type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
 const CHIEF_COMPLAINT_COLLECTION = "chief_complaints";
 
+const SessionRefSchema = new mongoose.Schema(
+  {
+    session: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "sessions",
+    },
+  },
+  { _id: false }
+);
+
 const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +34,11 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
     ref: "patients",
     required: true,
   },
+  patient_evolution: [SessionRefSchema],
+});
+
+ChiefComplaintSchema.pre("find", function () {
+  this.populate(["patient_evolution.session"]);
 });
 
 export const ChiefComplaintModel = mongoose.model<

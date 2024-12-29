@@ -1,6 +1,7 @@
 import { UpdateQuery } from "mongoose";
 import { SessionModel } from "../models/session.model.ts";
 import ISession from "../interfaces/ISession.interface.ts";
+import ID from "../interfaces/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
 
 export default class SessionDAO implements DAO<ISession> {
@@ -13,7 +14,7 @@ export default class SessionDAO implements DAO<ISession> {
     }
   };
 
-  getById = async (id: string): Promise<DAOReturnValue<ISession>> => {
+  getById = async (id: ID): Promise<DAOReturnValue<ISession>> => {
     try {
       const result = (await SessionModel.findById(id)) as ISession;
 
@@ -34,7 +35,7 @@ export default class SessionDAO implements DAO<ISession> {
   };
 
   update = async (
-    id: string,
+    id: ID,
     update: UpdateQuery<ISession>
   ): Promise<DAOReturnValue<ISession>> => {
     try {
@@ -52,7 +53,7 @@ export default class SessionDAO implements DAO<ISession> {
     }
   };
 
-  delete = async (id: string): Promise<DAOReturnValue<{}>> => {
+  delete = async (id: ID): Promise<DAOReturnValue<{}>> => {
     try {
       const result = await SessionModel.deleteOne({ _id: id });
 

@@ -6,7 +6,6 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 const chiefComplaint = new ChiefComplaint();
-const patientController = new PatientController();
 
 export default class ChiefComplaintController {
   getAllChiefComplaints = async (
@@ -54,11 +53,7 @@ export default class ChiefComplaintController {
         id: result.patient,
         second_id: result._id!,
       };
-      patientController.addChiefComplaintToPatient(
-        req as Request<RequestParams>,
-        res,
-        next
-      );
+      next();
     } catch (err) {
       next(err);
     }
@@ -88,9 +83,27 @@ export default class ChiefComplaintController {
     try {
       const result = await chiefComplaint.delete(req.params.id);
       logger.http(
-        `Chief copmlaint deleted successfully (ID was ${req.params.id})`
+        `Chief complaint deleted successfully (ID was ${req.params.id})`
       );
       res.status(200).send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  addSessionToChiefComplaint = async (
+    req: Request<RequestParams>,
+    res: Response<IChiefComplaint>,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await chiefComplaint.getByIdAndAddSession(
+        req.params.id,
+        req.params.second_id!
+      );
+
+      logger.http(`Session added to chief complaint successfully`);
+      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

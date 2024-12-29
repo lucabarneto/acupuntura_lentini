@@ -51,5 +51,11 @@
     "initial_sleep_condition": "Normal",
     "initial_medicine": "Ninguna",
     "state": "in_progress"
+  },
+  {
+    "date": "2003-04-28",
+    "treatment": "Example treatment",
+    "evolution": "Example evolution",
+    "chief_complaint": "ID HERE"
   }
 ]
