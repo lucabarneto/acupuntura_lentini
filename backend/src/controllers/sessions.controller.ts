@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import Session from "../services/sessions.service.ts";
-import ChiefComplaintController from "./chiefComplaints.controller.ts";
 import ISession from "../interfaces/ISession.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";

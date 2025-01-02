@@ -1,28 +1,39 @@
 import mongoose from "mongoose";
+import IAppointment from "../interfaces/IAppointment.interface.ts";
+
+type AppointmentModel = mongoose.Model<IAppointment>;
 
 const APPOINTMENT_COLLECTION = "appointments";
 
-const AppointmentSchema = new mongoose.Schema({
-  date: String,
-  time: String,
-  patient_is_notifyed: Boolean,
-  expired: Boolean,
-  patient_assisted: Boolean,
+const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
+  date: {
+    type: String,
+    required: true,
+  },
+  time: {
+    type: String,
+    required: true,
+  },
+  patient_is_notified: {
+    type: Boolean,
+    default: false,
+  },
+  expired: {
+    type: Boolean,
+    default: false,
+  },
+  patient_assisted: {
+    type: Boolean,
+    default: false,
+  },
   patient: {
     type: mongoose.Schema.ObjectId,
     ref: "patients",
-  },
-  session: {
-    type: mongoose.Schema.ObjectId,
-    ref: "sessions",
+    required: true,
   },
 });
 
-AppointmentSchema.pre("find", function () {
-  this.populate(["session", "patient"]);
-});
-
-export const AppointmentModel = mongoose.model(
+export const AppointmentModel = mongoose.model<IAppointment, AppointmentModel>(
   APPOINTMENT_COLLECTION,
   AppointmentSchema
 );
