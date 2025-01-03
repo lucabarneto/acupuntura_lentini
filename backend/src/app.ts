@@ -3,6 +3,7 @@ import DatabaseConnection from "./config/database_connection.config.ts";
 import patientRouter from "./routes/patients.routes.ts";
 import chiefComplaintRouter from "./routes/chiefComplaints.routes.ts";
 import sessionRouter from "./routes/sessions.routes.ts";
+import appointmentRouter from "./routes/appointments.routes.ts";
 import { logger } from "./utils/logger.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/patients", patientRouter);
 app.use("/api/chiefcomplaints", chiefComplaintRouter);
 app.use("/api/sessions", sessionRouter);
+app.use("/api/appointments", appointmentRouter);
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);

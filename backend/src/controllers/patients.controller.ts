@@ -94,4 +94,22 @@ export default class PatientController {
       next(err);
     }
   };
+
+  addAppointmentToPatient = async (
+    req: Request<RequestParams>,
+    res: Response<IPatient>,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await patient.getByIdAndAddAppointment(
+        req.params.id,
+        req.params.second_id!
+      );
+
+      logger.http(`Appointment added to patient successfully`);
+      res.status(200).send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
 }

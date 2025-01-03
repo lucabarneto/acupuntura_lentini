@@ -10,10 +10,6 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
     type: mongoose.Schema.Types.ObjectId,
     auto: true,
   },
-  date: {
-    type: String,
-    required: true,
-  },
   treatment: {
     type: String,
     required: true,
@@ -22,9 +18,19 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
     type: String,
     required: true,
   },
+  patient: {
+    type: mongoose.Schema.ObjectId,
+    ref: "patients",
+    required: true,
+  },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
+    required: true,
+  },
+  appointment: {
+    type: mongoose.Schema.ObjectId,
+    ref: "appointments",
     required: true,
   },
 });

@@ -64,6 +64,23 @@ export default class Patient {
     }
   };
 
+  getByIdAndAddAppointment = async (patient_id: ID, appointment_id: ID) => {
+    try {
+      const patient = await patientDAO.getById(patient_id);
+
+      if (patient.status === "error") throw patient.error;
+
+      const result = await this.addAppointment(
+        { patient_id, appointment_id },
+        patient.payload
+      );
+
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   private addChiefComplaint = async (
     ids: { patient_id: ID; chief_complaint_id: ID },
     patient: IPatient
@@ -71,6 +88,19 @@ export default class Patient {
     patient.chief_complaints.push({
       chief_complaint: ids.chief_complaint_id,
     });
+
+    const result = await patientDAO.update(ids.patient_id, patient);
+
+    if (result.status === "error") throw result.error;
+
+    return result.payload;
+  };
+
+  private addAppointment = async (
+    ids: { patient_id: ID; appointment_id: ID },
+    patient: IPatient
+  ) => {
+    patient.appointments.push({ appointment: ids.appointment_id });
 
     const result = await patientDAO.update(ids.patient_id, patient);
 

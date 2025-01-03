@@ -82,6 +82,14 @@ const IPatient = z.object({
     })
     .array()
     .default([]),
+  appointments: z
+    .object({
+      appointment: z.string().regex(new RegExp("[0-9a-f]{24}"), {
+        message: "Invalid Chief Complaint ID",
+      }),
+    })
+    .array()
+    .default([]),
 });
 
 type IPatient = z.infer<typeof IPatient>;

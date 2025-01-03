@@ -74,6 +74,17 @@ const ChiefComplaintsRefSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const AppointmentRefSchema = new mongoose.Schema(
+  {
+    appointment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "appointments",
+      match: /^[a-f\d]{24}$/,
+    },
+  },
+  { _id: false }
+);
+
 const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -108,10 +119,14 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   birth: BirthSchema,
   presumptive_analysis: PresumptiveAnalysisSchema,
   chief_complaints: [ChiefComplaintsRefSchema],
+  appointments: [AppointmentRefSchema],
 });
 
 PatientSchema.pre("find", function () {
-  this.populate(["chief_complaints.chief_complaint"]);
+  this.populate([
+    "chief_complaints.chief_complaint",
+    "appointments.appointment",
+  ]);
 });
 
 export const PatientModel = mongoose.model<IPatient, PatientModel>(

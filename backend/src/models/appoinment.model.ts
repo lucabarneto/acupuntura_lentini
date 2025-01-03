@@ -6,6 +6,10 @@ type AppointmentModel = mongoose.Model<IAppointment>;
 const APPOINTMENT_COLLECTION = "appointments";
 
 const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
   date: {
     type: String,
     required: true,

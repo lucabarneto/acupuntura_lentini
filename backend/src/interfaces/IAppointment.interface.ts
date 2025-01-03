@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 const MongoIdFormat = /[\da-f]{24}/;
 
 const IAppointment = z.object({
+  _id: z.string().optional(),
   date: z.string().date(),
   time: z.string().time(),
   expired: z.boolean().default(false),

@@ -7,10 +7,9 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 
 const sessionRouter = Router();
 const sessionController = new SessionController();
-const chiefComplaintController = new ChiefComplaintController()
+const chiefComplaintController = new ChiefComplaintController();
 
 sessionRouter.get("/", sessionController.getAllSessions);
-
 
 sessionRouter.get(
   "/:id",

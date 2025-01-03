@@ -57,5 +57,10 @@
     "treatment": "Example treatment",
     "evolution": "Example evolution",
     "chief_complaint": "ID HERE"
+  },
+  {
+    "date": "2003-04-28",
+    "time": "12:05:00",
+    "patient": "ID HERE"
   }
 ]
