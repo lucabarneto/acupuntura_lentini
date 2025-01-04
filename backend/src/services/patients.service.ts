@@ -1,8 +1,6 @@
-import PatientDAO from "../database/patients.dao.ts";
+import { patientDAO } from "../database/patients.dao.ts";
 import IPatient from "../interfaces/IPatient.interface.ts";
 import ID from "../interfaces/ID.interface.ts";
-
-const patientDAO = new PatientDAO();
 
 export default class Patient {
   getAll = async () => {

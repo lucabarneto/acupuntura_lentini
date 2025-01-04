@@ -1,8 +1,6 @@
-import SessionDAO from "../database/sessions.dao.ts";
+import { sessionDAO } from "../database/sessions.dao.ts";
 import ISession from "../interfaces/ISession.interface.ts";
 import ID from "../interfaces/ID.interface.ts";
-
-const sessionDAO = new SessionDAO();
 
 export default class Session {
   getAll = async () => {

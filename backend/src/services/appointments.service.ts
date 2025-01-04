@@ -1,8 +1,6 @@
-import AppointmentDAO from "../database/appointments.dao.ts";
+import { appointmentDAO } from "../database/appointments.dao.ts";
 import IAppointment from "../interfaces/IAppointment.interface.ts";
 import ID from "../interfaces/ID.interface.ts";
-
-const appointmentDAO = new AppointmentDAO();
 
 export default class Appointment {
   getAll = async () => {

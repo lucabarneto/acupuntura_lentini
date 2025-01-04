@@ -1,8 +1,6 @@
-import ChiefComplaintDAO from "../database/chiefComplaints.dao.ts";
+import { chiefComplaintDAO } from "../database/chiefComplaints.dao.ts";
 import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import ID from "../interfaces/ID.interface.ts";
-
-const chiefComplaintDAO = new ChiefComplaintDAO();
 
 export default class ChiefComplaint {
   getAll = async () => {

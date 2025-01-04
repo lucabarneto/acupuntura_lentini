@@ -1,67 +1,7 @@
-import { UpdateQuery } from "mongoose";
-import { SessionModel } from "../models/session.model.ts";
 import ISession from "../interfaces/ISession.interface.ts";
-import ID from "../interfaces/ID.interface.ts";
-import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
+import { SessionModel } from "../models/session.model.ts";
+import { MongoDAO } from "./mongo.dao.ts";
 
-export default class SessionDAO implements DAO<ISession> {
-  getAll = async (): Promise<DAOReturnValue<ISession[]>> => {
-    try {
-      const result = (await SessionModel.find()) as ISession[];
-      return { status: "success", payload: result };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  };
+class SessionDAO extends MongoDAO<ISession, typeof SessionModel> {}
 
-  getById = async (id: ID): Promise<DAOReturnValue<ISession>> => {
-    try {
-      const result = (await SessionModel.findById(id)) as ISession;
-
-      return { status: "success", payload: result };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  };
-
-  create = async (data: ISession): Promise<DAOReturnValue<ISession>> => {
-    try {
-      const result = (await SessionModel.create(data)) as ISession;
-
-      return { status: "success", payload: result };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  };
-
-  update = async (
-    id: ID,
-    update: UpdateQuery<ISession>
-  ): Promise<DAOReturnValue<ISession>> => {
-    try {
-      const result = (await SessionModel.findOneAndReplace(
-        { _id: id },
-        update,
-        {
-          returnDocument: "after",
-        }
-      )) as ISession;
-
-      return { status: "success", payload: result };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  };
-
-  delete = async (id: ID): Promise<DAOReturnValue<{}>> => {
-    try {
-      const result = await SessionModel.deleteOne({ _id: id });
-
-      if (result.deletedCount === 0) throw new Error("Patient was not deleted");
-
-      return { status: "success", payload: {} };
-    } catch (error) {
-      return { status: "error", error };
-    }
-  };
-}
+export const sessionDAO = new SessionDAO(SessionModel);
