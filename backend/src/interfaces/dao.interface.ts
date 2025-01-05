@@ -1,5 +1,3 @@
-import { UpdateQuery } from "mongoose";
-
 interface SuccessReturnValue<T> {
   status: "success";
   payload: T;
@@ -15,6 +13,6 @@ export interface DAO<T> {
   getAll: () => Promise<DAOReturnValue<T[]>>;
   getById: (id: string) => Promise<DAOReturnValue<T>>;
   create: (data: T) => Promise<DAOReturnValue<T>>;
-  update: (id: string, update: UpdateQuery<T>) => Promise<DAOReturnValue<T>>;
-  delete: (id: string) => Promise<{}>;
+  update: (id: string, update: T) => Promise<DAOReturnValue<T>>;
+  delete: (id: string) => Promise<DAOReturnValue<{}>>;
 }

@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import Session from "../services/sessions.service.ts";
+import { sessionService } from "../services/sessions.service.ts";
 import ISession from "../interfaces/ISession.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
-
-const session = new Session();
 
 export default class SessionController {
   getAllSessions = async (
@@ -13,7 +11,7 @@ export default class SessionController {
     next: NextFunction
   ) => {
     try {
-      const result = await session.getAll();
+      const result = await sessionService.getAll();
       logger.http(`Sessions found succesfully`);
       res.status(200).send(result);
     } catch (err) {
@@ -27,7 +25,7 @@ export default class SessionController {
     next: NextFunction
   ) => {
     try {
-      const result = await session.getById(req.params.id);
+      const result = await sessionService.getById(req.params.id);
       logger.http(`Session found succesfully (ID: ${req.params.id})`);
       res.status(200).send(result);
     } catch (err) {
@@ -41,7 +39,7 @@ export default class SessionController {
     next: NextFunction
   ) => {
     try {
-      const result = await session.create(req.body);
+      const result = await sessionService.create(req.body);
       logger.http(`Session created succesfully`);
 
       req.url = `/api/chiefcomplaints/:id/sessions/:second_id`;
@@ -61,7 +59,7 @@ export default class SessionController {
     next: NextFunction
   ) => {
     try {
-      const result = await session.update(req.params.id, req.body);
+      const result = await sessionService.update(req.params.id, req.body);
       logger.http(`Session updated successfully (ID: ${req.params.id})`);
       res.status(201).send(result);
     } catch (err) {
@@ -75,7 +73,7 @@ export default class SessionController {
     next: NextFunction
   ) => {
     try {
-      const result = await session.delete(req.params.id);
+      const result = await sessionService.delete(req.params.id);
       logger.http(`Session deleted successfully (ID was ${req.params.id})`);
       res.status(200).send(result);
     } catch (err) {

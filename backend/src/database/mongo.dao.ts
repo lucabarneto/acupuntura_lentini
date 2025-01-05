@@ -1,4 +1,3 @@
-import { UpdateQuery } from "mongoose";
 import ID from "../interfaces/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../interfaces/DAO.interface.ts";
 import mongoose from "mongoose";
@@ -43,10 +42,7 @@ export abstract class MongoDAO<
     }
   }
 
-  async update(
-    id: ID,
-    update: UpdateQuery<Interface>
-  ): Promise<DAOReturnValue<Interface>> {
+  async update(id: ID, update: Interface): Promise<DAOReturnValue<Interface>> {
     try {
       const result = (await this.model.findOneAndReplace({ _id: id }, update, {
         returnDocument: "after",

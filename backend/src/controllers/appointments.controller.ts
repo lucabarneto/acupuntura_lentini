@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import Appointment from "../services/appointments.service.ts";
+import { appointmentService } from "../services/appointments.service.ts";
 import IAppointment from "../interfaces/IAppointment.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
-
-const appointment = new Appointment();
 
 export default class AppointmentController {
   getAllAppointments = async (
@@ -13,7 +11,7 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointment.getAll();
+      const result = await appointmentService.getAll();
       logger.http(`Appointments found succesfully`);
       res.status(200).send(result);
     } catch (err) {
@@ -27,7 +25,7 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointment.getById(req.params.id);
+      const result = await appointmentService.getById(req.params.id);
       logger.http(`Appointment found succesfully (ID: ${req.params.id})`);
       res.status(200).send(result);
     } catch (err) {
@@ -41,7 +39,7 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointment.create(req.body);
+      const result = await appointmentService.create(req.body);
       logger.http(`Appointment created succesfully`);
 
       req.url = `/api/patient/:id/appointments/:second_id`;
@@ -61,7 +59,7 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointment.update(req.params.id, req.body);
+      const result = await appointmentService.update(req.params.id, req.body);
       logger.http(`Appointment updated successfully (ID: ${req.params.id})`);
       res.status(201).send(result);
     } catch (err) {
@@ -75,7 +73,7 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointment.delete(req.params.id);
+      const result = await appointmentService.delete(req.params.id);
       logger.http(`Appointment deleted successfully (ID was ${req.params.id})`);
       res.status(200).send(result);
     } catch (err) {
