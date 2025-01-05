@@ -5,7 +5,7 @@ const IResource = z.object({
   title: z.string(),
   description: z.string(),
   image: z.string(),
-  input_values: z.string().array(),
+  input_values: z.string().array().default([]),
 });
 
 type IResource = z.infer<typeof IResource>;

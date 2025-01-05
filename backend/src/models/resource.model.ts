@@ -21,6 +21,7 @@ const ResourseSchema = new mongoose.Schema<IResource, ResourceModel>({
   image: {
     type: String,
     required: true,
+    default: "",
   },
   input_values: [String],
 });
