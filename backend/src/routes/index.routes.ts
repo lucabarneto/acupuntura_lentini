@@ -3,6 +3,7 @@ import chiefComplaintRouter from "./chiefComplaints.routes.ts";
 import patientRouter from "./patients.routes.ts";
 import sessionRouter from "./sessions.routes.ts";
 import resourceRouter from "./resources.routes.ts";
+import templateRouter from "./templates.routes.ts";
 
 export const router = {
   appointmentRouter,
@@ -10,4 +11,5 @@ export const router = {
   patientRouter,
   sessionRouter,
   resourceRouter,
+  templateRouter,
 };

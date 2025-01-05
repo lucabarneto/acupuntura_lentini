@@ -17,6 +17,7 @@ app.use("/api/chiefcomplaints", router.chiefComplaintRouter);
 app.use("/api/sessions", router.sessionRouter);
 app.use("/api/appointments", router.appointmentRouter);
 app.use("/api/resources", router.resourceRouter);
+app.use("/api/templates", router.templateRouter);
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
