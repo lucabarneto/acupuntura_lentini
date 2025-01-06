@@ -3,6 +3,7 @@ import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
 import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
+import { patientService } from "../services/patients.service.ts";
 
 export default class ChiefComplaintController {
   handleId = async (
@@ -50,22 +51,23 @@ export default class ChiefComplaintController {
     }
   };
 
-  createChiefComplaint = async (
+  createChiefComplaintAndAddToPatient = async (
     req: Request<{}, {}, IChiefComplaint>,
     res: Response,
     next: NextFunction
   ) => {
     try {
+      const patient = await patientService.getById(req.body.patient.toString());
+
       const result = await chiefComplaintService.create(req.body);
 
-      logger.http(`Chief Complaint created succesfully`);
+      await patientService.addChiefComplaintToPatient(
+        { patient_id: patient._id!, chief_complaint_id: result._id! },
+        patient
+      );
 
-      req.url = `/api/patients/:id/chiefcomplaints/:second_id`;
-      req.params = {
-        id: result.patient,
-        second_id: result._id!,
-      };
-      next();
+      logger.http(`Chief Complaint created succesfully`);
+      res.status(201).send(result);
     } catch (err) {
       next(err);
     }
@@ -101,24 +103,6 @@ export default class ChiefComplaintController {
         `Chief complaint deleted successfully (ID was ${req.params.id})`
       );
       res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  addSessionToChiefComplaint = async (
-    req: Request<RequestParams>,
-    res: Response<IChiefComplaint>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await chiefComplaintService.getByIdAndAddSession(
-        req.params.id,
-        req.params.second_id!
-      );
-
-      logger.http(`Session added to chief complaint successfully`);
-      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

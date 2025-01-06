@@ -22,6 +22,21 @@ const IAppointment = z.object({
 
     return new Types.ObjectId(val);
   }),
+  session: z
+    .string()
+    .transform((val, ctx) => {
+      if (!MongoIdFormat.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Invalid Patient Id",
+        });
+
+        return z.NEVER;
+      }
+
+      return new Types.ObjectId(val);
+    })
+    .optional(),
 });
 
 type IAppointment = z.infer<typeof IAppointment>;

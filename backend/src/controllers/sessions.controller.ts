@@ -3,6 +3,9 @@ import { sessionService } from "../services/sessions.service.ts";
 import ISession from "../interfaces/ISession.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
+import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
+import { appointmentService } from "../services/appointments.service.ts";
+import { patientService } from "../services/patients.service.ts";
 
 export default class SessionController {
   handleId = async (
@@ -48,21 +51,34 @@ export default class SessionController {
     }
   };
 
-  createSession = async (
+  createSessionAndAddToChiefComplaintAndAppointments = async (
     req: Request<{}, {}, ISession>,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const result = await sessionService.create(req.body);
-      logger.http(`Session created succesfully`);
+      await patientService.getById(req.body.patient.toString());
+      const chiefComplaint = await chiefComplaintService.getById(
+        req.body.chief_complaint.toString()
+      );
+      const appointment = await appointmentService.getById(
+        req.body.appointment.toString()
+      );
 
-      req.url = `/api/chiefcomplaints/:id/sessions/:second_id`;
-      req.params = {
-        id: result.chief_complaint,
-        second_id: result._id!,
-      };
-      next();
+      const result = await sessionService.create(req.body);
+
+      await chiefComplaintService.addSessionToChiefComplaint(
+        { chief_complaint_id: chiefComplaint._id!, session_id: result._id! },
+        chiefComplaint
+      );
+
+      await appointmentService.addSessionToAppointment(
+        { appointment_id: appointment._id!, session_id: result._id! },
+        appointment
+      );
+
+      logger.http(`Session created succesfully`);
+      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

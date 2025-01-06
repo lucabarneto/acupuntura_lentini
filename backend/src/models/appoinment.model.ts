@@ -35,6 +35,10 @@ const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
     ref: "patients",
     required: true,
   },
+  session: {
+    type: mongoose.Schema.ObjectId,
+    ref: "sessions",
+  },
 });
 
 export const AppointmentModel = mongoose.model<IAppointment, AppointmentModel>(

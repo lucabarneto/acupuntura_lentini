@@ -1,13 +1,11 @@
 import { Router } from "express";
 import SessionController from "../controllers/sessions.controller.ts";
-import ChiefComplaintController from "../controllers/chiefComplaints.controller.ts";
 import ISession from "../interfaces/ISession.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 
 const sessionRouter = Router();
 const sessionController = new SessionController();
-const chiefComplaintController = new ChiefComplaintController();
 
 sessionRouter.param("id", sessionController.handleId);
 
@@ -22,8 +20,7 @@ sessionRouter.get(
 sessionRouter.post(
   "/",
   validateRequest({ body: ISession }),
-  sessionController.createSession,
-  chiefComplaintController.addSessionToChiefComplaint
+  sessionController.createSessionAndAddToChiefComplaintAndAppointments
 );
 
 sessionRouter.put(

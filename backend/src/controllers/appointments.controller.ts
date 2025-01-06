@@ -3,6 +3,7 @@ import { appointmentService } from "../services/appointments.service.ts";
 import IAppointment from "../interfaces/IAppointment.interface.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
+import { patientService } from "../services/patients.service.ts";
 
 export default class AppointmentController {
   handleId = async (
@@ -48,16 +49,22 @@ export default class AppointmentController {
     }
   };
 
-  createAppointment = async (
+  createAppointmentAndAddToPatient = async (
     req: Request<{}, IAppointment, IAppointment>,
     res: Response<IAppointment>,
     next: NextFunction
   ) => {
     try {
-      await appointmentService.create(req.body);
+      const patient = await patientService.getById(req.body.patient.toString());
+
+      const result = await appointmentService.create(req.body);
+
+      await patientService.addAppointmentToPatient(
+        { patient_id: patient._id!, appointment_id: result._id! },
+        patient
+      );
       logger.http(`Appointment created succesfully`);
-      req.url = "/api/patients/:id/chiefcomplaints/:second_id";
-      next();
+      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

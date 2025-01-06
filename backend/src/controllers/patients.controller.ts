@@ -90,40 +90,4 @@ export default class PatientController {
       next(err);
     }
   };
-
-  addChiefComplaintToPatient = async (
-    req: Request<RequestParams>,
-    res: Response<IPatient>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await patientService.getByIdAndAddChiefComplaint(
-        req.params.id,
-        req.params.second_id!
-      );
-
-      logger.http(`Chief complaint added to patientService successfully`);
-      res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  addAppointmentToPatient = async (
-    req: Request<RequestParams>,
-    res: Response<IPatient>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await patientService.getByIdAndAddAppointment(
-        req.params.id,
-        req.params.second_id!
-      );
-
-      logger.http(`Appointment added to patientService successfully`);
-      res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
 }
