@@ -16,6 +16,7 @@ export abstract class MongoDAO<
   async getAll(): Promise<DAOReturnValue<Interface[]>> {
     try {
       const result = (await this.model.find()) as Interface[];
+
       return { status: "success", payload: result };
     } catch (error) {
       return { status: "error", error };
@@ -25,6 +26,8 @@ export abstract class MongoDAO<
   async getById(id: ID): Promise<DAOReturnValue<Interface>> {
     try {
       const result = (await this.model.findById(id)) as Interface;
+
+      if (!result) throw new Error(`Not found (searched ID: ${id})`);
 
       return { status: "success", payload: result };
     } catch (error) {

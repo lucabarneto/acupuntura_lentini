@@ -9,6 +9,8 @@ const chiefComplaintRouter = Router();
 const chiefComplaintController = new ChiefComplaintController();
 const patientController = new PatientController();
 
+chiefComplaintRouter.param("id", chiefComplaintController.handleId);
+
 chiefComplaintRouter.get("/", chiefComplaintController.getAllChiefComplaints);
 
 chiefComplaintRouter.get(

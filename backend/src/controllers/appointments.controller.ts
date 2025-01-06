@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class AppointmentController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await appointmentService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllAppointments = async (
     req: Request,
     res: Response<IAppointment[]>,
@@ -39,14 +54,9 @@ export default class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointmentService.create(req.body);
+      await appointmentService.create(req.body);
       logger.http(`Appointment created succesfully`);
-
-      req.url = `/api/patient/:id/appointments/:second_id`;
-      req.params = {
-        id: result.patient,
-        second_id: result._id,
-      };
+      req.url = "/api/patients/:id/chiefcomplaints/:second_id";
       next();
     } catch (err) {
       next(err);

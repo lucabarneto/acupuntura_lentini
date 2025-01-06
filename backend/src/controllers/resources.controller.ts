@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class ResourceController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await resourceService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllResources = async (
     req: Request,
     res: Response<IResource[]>,

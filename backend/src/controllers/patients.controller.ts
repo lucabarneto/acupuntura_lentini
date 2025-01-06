@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class PatientController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await patientService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllPatients = async (
     req: Request,
     res: Response<IPatient[]>,
@@ -25,6 +40,7 @@ export default class PatientController {
     next: NextFunction
   ) => {
     try {
+      logger.debug("Patient was found in validations!");
       const result = await patientService.getById(req.params.id);
       logger.http(`Patient found succesfully (ID: ${req.params.id})`);
       res.status(200).send(result);

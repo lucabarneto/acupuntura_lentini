@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class TemplateController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await templateService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllTemplates = async (
     req: Request,
     res: Response<ITemplate[]>,

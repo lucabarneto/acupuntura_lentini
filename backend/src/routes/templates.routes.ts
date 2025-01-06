@@ -1,12 +1,13 @@
 import { Router } from "express";
 import TemplateController from "../controllers/templates.controller.ts";
-
 import ITemplate from "../interfaces/ITemplate.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import RequestParams from "../interfaces/RequestParams.interface.ts";
 
 const templateRouter = Router();
 const templateController = new TemplateController();
+
+templateRouter.param("id", templateController.handleId);
 
 templateRouter.get("/", templateController.getAllTemplates);
 

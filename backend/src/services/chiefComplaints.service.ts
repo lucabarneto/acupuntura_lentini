@@ -22,6 +22,7 @@ class ChiefComplaintService extends BaseService<
       throw err;
     }
   };
+
   private addSession = async (
     ids: { chief_complaint_id: ID; session_Id: ID },
     chief_complaint: IChiefComplaint
@@ -36,6 +37,17 @@ class ChiefComplaintService extends BaseService<
     if (result.status === "error") throw result.error;
     return result.payload;
   };
+
+  findEqual = (
+    data: IChiefComplaint,
+    chiefComplaints: IChiefComplaint[]
+  ): boolean =>
+    chiefComplaints.some(
+      (chiefComplaint) =>
+        chiefComplaint.state !== "finished" &&
+        chiefComplaint.title.toLowerCase() === data.title.toLowerCase() &&
+        chiefComplaint.patient.toString() === data.patient.toString()
+    );
 }
 
 export const chiefComplaintService = new ChiefComplaintService(

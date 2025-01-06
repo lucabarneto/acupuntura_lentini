@@ -8,6 +8,8 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 const resourceRouter = Router();
 const resourceController = new ResourceController();
 
+resourceRouter.param("id", resourceController.handleId);
+
 resourceRouter.get("/", resourceController.getAllResources);
 
 resourceRouter.get(

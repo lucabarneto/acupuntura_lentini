@@ -27,8 +27,10 @@ export abstract class BaseService<Interface, Dao extends DAO<Interface>>
     return result.payload;
   };
 
-  create = async (appointment: Interface): Promise<Interface> => {
-    const result = await this.dao.create(appointment);
+  create = async (data: Interface): Promise<Interface> => {
+    await this.isAlreadyInDatabase(data);
+
+    const result = await this.dao.create(data);
 
     if (result.status === "error") throw result.error;
 
@@ -36,6 +38,8 @@ export abstract class BaseService<Interface, Dao extends DAO<Interface>>
   };
 
   update = async (id: ID, update: Interface): Promise<Interface> => {
+    await this.isAlreadyInDatabase(update);
+
     const result = await this.dao.update(id, update);
 
     if (result.status === "error") throw result.error;
@@ -49,4 +53,16 @@ export abstract class BaseService<Interface, Dao extends DAO<Interface>>
 
     return result.payload;
   };
+
+  private isAlreadyInDatabase = async (data: Interface): Promise<void> => {
+    const documents = await this.getAll();
+
+    if (documents.length !== 0) {
+      const result = this.findEqual(data, documents);
+
+      if (result) throw new Error("Already in database");
+    }
+  };
+
+  abstract findEqual: (suspect: Interface, dbDocuments: Interface[]) => boolean;
 }

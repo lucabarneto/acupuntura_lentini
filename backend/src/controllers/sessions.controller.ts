@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class SessionController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await sessionService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllSessions = async (
     req: Request,
     res: Response<ISession[]>,

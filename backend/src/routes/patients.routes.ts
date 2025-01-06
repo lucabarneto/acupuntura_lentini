@@ -9,6 +9,8 @@ import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
 const patientRouter = Router();
 const patientController = new PatientController();
 
+patientRouter.param("id", patientController.handleId);
+
 patientRouter.get("/", patientController.getAllPatients);
 
 patientRouter.get(
@@ -27,6 +29,8 @@ patientRouter.post(
 
 patientRouter.put(
   "/:id",
+  multerUpload.single("profile_picture"),
+  cloudinaryUpload,
   validateRequest({ params: RequestParams, body: IPatient }),
   patientController.updatePatient
 );

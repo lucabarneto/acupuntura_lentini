@@ -5,6 +5,21 @@ import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class ChiefComplaintController {
+  handleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    id: string
+  ) => {
+    try {
+      logger.debug("Checking for existing ID");
+      await chiefComplaintService.getById(id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
   getAllChiefComplaints = async (
     req: Request,
     res: Response<IChiefComplaint[]>,

@@ -9,6 +9,8 @@ const sessionRouter = Router();
 const sessionController = new SessionController();
 const chiefComplaintController = new ChiefComplaintController();
 
+sessionRouter.param("id", sessionController.handleId);
+
 sessionRouter.get("/", sessionController.getAllSessions);
 
 sessionRouter.get(

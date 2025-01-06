@@ -2,6 +2,28 @@ import ITemplate from "../interfaces/ITemplate.interface.ts";
 import { templateDAO } from "../database/templates.dao.ts";
 import { BaseService } from "./base.service.ts";
 
-class TemplateService extends BaseService<ITemplate, typeof templateDAO> {}
+const TEST_FAILED = false;
+const TEST_PASSED = true;
+
+class TemplateService extends BaseService<ITemplate, typeof templateDAO> {
+  findEqual = (data: ITemplate, templates: ITemplate[]): boolean => {
+    let result: boolean = TEST_FAILED;
+
+    templates.forEach((template) => {
+      const test: boolean[] = [];
+
+      for (let i = 0; i < template.resources.length; i++) {
+        if (template.resources[i].resource !== data.resources[i].resource) {
+          test.push(TEST_FAILED);
+          break;
+        }
+      }
+
+      if (!test.includes(TEST_FAILED)) result = TEST_PASSED;
+    });
+
+    return result;
+  };
+}
 
 export const templateService = new TemplateService(templateDAO);
