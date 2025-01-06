@@ -1,8 +1,8 @@
 import { Router } from "express";
 import PatientController from "../controllers/patients.controller.ts";
-import IPatient from "../types/IPatient.interface.ts";
+import IPatient from "../interfaces/IPatient.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.interface.ts";
+import RequestParams from "../interfaces/RequestParams.interface.ts";
 import { multerUpload } from "../utils/multer.ts";
 import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
 

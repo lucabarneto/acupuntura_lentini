@@ -1,9 +1,9 @@
 import { Router } from "express";
 import ResourceController from "../controllers/resources.controller.ts";
 
-import IResource from "../types/IResource.interface.ts";
+import IResource from "../interfaces/IResource.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.interface.ts";
+import RequestParams from "../interfaces/RequestParams.interface.ts";
 
 const resourceRouter = Router();
 const resourceController = new ResourceController();

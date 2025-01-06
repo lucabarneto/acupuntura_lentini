@@ -1,4 +1,4 @@
-import IChiefComplaint from "../types/IChiefComplaint.interface.ts";
+import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
 import { ChiefComplaintModel } from "../models/chiefComplaint.model.ts";
 import { MongoDAO } from "./mongo.dao.ts";
 

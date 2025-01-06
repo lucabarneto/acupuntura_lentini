@@ -1,4 +1,4 @@
-import ITemplate from "../types/ITemplate.interface.ts";
+import ITemplate from "../interfaces/ITemplate.interface.ts";
 import { TemplateModel } from "../models/template.model.ts";
 import { MongoDAO } from "./mongo.dao.ts";
 

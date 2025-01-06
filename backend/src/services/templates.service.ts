@@ -1,4 +1,4 @@
-import ITemplate from "../types/ITemplate.interface.ts";
+import ITemplate from "../interfaces/ITemplate.interface.ts";
 import { templateDAO } from "../database/templates.dao.ts";
 import { BaseService } from "./base.service.ts";
 

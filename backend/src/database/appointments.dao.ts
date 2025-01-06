@@ -1,4 +1,4 @@
-import IAppointment from "../types/IAppointment.interface.ts";
+import IAppointment from "../interfaces/IAppointment.interface.ts";
 import { AppointmentModel } from "../models/appoinment.model.ts";
 import { MongoDAO } from "./mongo.dao.ts";
 

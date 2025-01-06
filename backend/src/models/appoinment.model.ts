@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IAppointment from "../types/IAppointment.interface.ts";
+import IAppointment from "../interfaces/IAppointment.interface.ts";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 
