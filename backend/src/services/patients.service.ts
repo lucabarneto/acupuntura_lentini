@@ -1,7 +1,7 @@
 import { patientDAO } from "../database/patients.dao.ts";
-import IPatient from "../interfaces/IPatient.interface.ts";
+import IPatient from "../types/IPatient.interface.ts";
 import { BaseService } from "./base.service.ts";
-import ID from "../interfaces/ID.interface.ts";
+import ID from "../types/ID.interface.ts";
 
 class Patient extends BaseService<IPatient, typeof patientDAO> {
   addChiefComplaintToPatient = async (

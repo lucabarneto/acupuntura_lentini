@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { patientService } from "../services/patients.service.ts";
-import IPatient from "../interfaces/IPatient.interface.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import IPatient from "../types/IPatient.interface.ts";
+import RequestParams from "../types/express/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class PatientController {

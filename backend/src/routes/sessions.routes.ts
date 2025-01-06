@@ -1,8 +1,8 @@
 import { Router } from "express";
 import SessionController from "../controllers/sessions.controller.ts";
-import ISession from "../interfaces/ISession.interface.ts";
+import ISession from "../types/ISession.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import RequestParams from "../types/express/RequestParams.interface.ts";
 
 const sessionRouter = Router();
 const sessionController = new SessionController();

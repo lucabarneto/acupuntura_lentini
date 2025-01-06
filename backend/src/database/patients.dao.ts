@@ -1,4 +1,4 @@
-import IPatient from "../interfaces/IPatient.interface.ts";
+import IPatient from "../types/IPatient.interface.ts";
 import { PatientModel } from "../models/patient.model.ts";
 import { MongoDAO } from "./mongo.dao.ts";
 

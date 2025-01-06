@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { resourceService } from "../services/resources.service.ts";
-import IResource from "../interfaces/IResource.interface.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import IResource from "../types/IResource.interface.ts";
+import RequestParams from "../types/express/RequestParams.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class ResourceController {

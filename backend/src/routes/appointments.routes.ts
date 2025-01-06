@@ -1,8 +1,8 @@
 import { Router } from "express";
 import AppointmentController from "../controllers/appointments.controller.ts";
-import IAppointment from "../interfaces/IAppointment.interface.ts";
+import IAppointment from "../types/IAppointment.interface.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import RequestParams from "../types/express/RequestParams.interface.ts";
 
 const appointmentRouter = Router();
 const appointmentController = new AppointmentController();

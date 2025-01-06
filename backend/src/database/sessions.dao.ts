@@ -1,4 +1,4 @@
-import ISession from "../interfaces/ISession.interface.ts";
+import ISession from "../types/ISession.interface.ts";
 import { SessionModel } from "../models/session.model.ts";
 import { MongoDAO } from "./mongo.dao.ts";
 
