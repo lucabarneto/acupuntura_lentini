@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
+import IChiefComplaint from "../types/mongo/IChiefComplaint.ts";
 
 type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 

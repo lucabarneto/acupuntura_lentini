@@ -1,6 +1,13 @@
-import { Service } from "../interfaces/Service.interface.ts";
-import { DAO } from "../interfaces/Dao.interface.ts";
-import ID from "../interfaces/ID.interface.ts";
+import { DAO } from "../types/general/Dao.interface.ts";
+import ID from "../types/general/ID.interface.ts";
+
+interface Service<T> {
+  getAll: () => Promise<T[]>;
+  getById: (id: string) => Promise<T>;
+  create: (data: T) => Promise<T>;
+  update: (id: string, update: T) => Promise<T>;
+  delete: (id: string) => Promise<{}>;
+}
 
 export abstract class BaseService<Interface, Dao extends DAO<Interface>>
   implements Service<Interface>

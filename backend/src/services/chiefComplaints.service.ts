@@ -1,6 +1,6 @@
 import { chiefComplaintDAO } from "../database/chiefComplaints.dao.ts";
-import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
-import ID from "../interfaces/ID.interface.ts";
+import IChiefComplaint from "../types/mongo/IChiefComplaint.ts";
+import ID from "../types/general/ID.interface.ts";
 import { BaseService } from "./base.service.ts";
 
 class ChiefComplaintService extends BaseService<

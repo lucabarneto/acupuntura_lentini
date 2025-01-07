@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IResource from "../interfaces/IResource.interface.ts";
+import IResource from "../types/mongo/IResource.ts";
 
 type ResourceModel = mongoose.Model<IResource>;
 

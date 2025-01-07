@@ -1,8 +1,8 @@
 import { Router } from "express";
 import ChiefComplaintController from "../controllers/chiefComplaints.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import IChiefComplaint from "../interfaces/IChiefComplaint.interface.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import IChiefComplaint from "../types/mongo/IChiefComplaint.ts";
+import RequestParams from "../types/express/RequestParams.ts";
 
 const chiefComplaintRouter = Router();
 const chiefComplaintController = new ChiefComplaintController();

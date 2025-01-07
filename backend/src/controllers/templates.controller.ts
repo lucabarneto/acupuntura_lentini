@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { templateService } from "../services/templates.service.ts";
-import ITemplate from "../interfaces/ITemplate.interface.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import ITemplate from "../types/mongo/ITemplate.ts";
+import RequestParams from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 
 export default class TemplateController {

@@ -1,4 +1,4 @@
-import ITemplate from "../interfaces/ITemplate.interface.ts";
+import ITemplate from "../types/mongo/ITemplate.ts";
 import { templateDAO } from "../database/templates.dao.ts";
 import { BaseService } from "./base.service.ts";
 

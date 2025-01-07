@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { customZodError } from "../utils/customZodError.ts";
-import { RequestValidators } from "../interfaces/RequestValidators.interface.ts";
+import { AnyZodObject } from "zod";
+
+interface RequestValidators {
+  body?: AnyZodObject;
+  params?: AnyZodObject;
+  query?: AnyZodObject;
+}
 
 export const validateRequest = (validators: RequestValidators) => {
   return async (req: Request, res: Response, next: NextFunction) => {

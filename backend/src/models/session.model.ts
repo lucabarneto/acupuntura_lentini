@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ISession from "../interfaces/ISession.interface.ts";
+import ISession from "../types/mongo/ISession.ts";
 
 type SessionModel = mongoose.Model<ISession>;
 

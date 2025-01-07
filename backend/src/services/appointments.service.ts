@@ -1,6 +1,6 @@
 import { appointmentDAO } from "../database/appointments.dao.ts";
-import IAppointment from "../interfaces/IAppointment.interface.ts";
-import ID from "../interfaces/ID.interface.ts";
+import IAppointment from "../types/mongo/IAppointment.ts";
+import ID from "../types/general/ID.interface.ts";
 import { BaseService } from "./base.service.ts";
 import { Types } from "mongoose";
 

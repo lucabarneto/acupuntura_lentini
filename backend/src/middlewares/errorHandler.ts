@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger.ts";
 import { ZodError } from "zod";
-import { ErrorResponse } from "../interfaces/ErrorResponse.interface.ts";
+import { ErrorResponse } from "../types/express/ErrorResponse.ts";
 
 export const errorHandler = (
   err: Error,

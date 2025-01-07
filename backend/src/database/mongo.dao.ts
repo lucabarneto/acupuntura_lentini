@@ -1,5 +1,5 @@
-import ID from "../interfaces/ID.interface.ts";
-import { DAO, DAOReturnValue } from "../interfaces/Dao.interface.ts";
+import ID from "../types/general/ID.interface.ts";
+import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
 import mongoose from "mongoose";
 
 export abstract class MongoDAO<

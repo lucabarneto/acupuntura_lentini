@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { appointmentService } from "../services/appointments.service.ts";
-import IAppointment from "../interfaces/IAppointment.interface.ts";
-import RequestParams from "../interfaces/RequestParams.interface.ts";
+import IAppointment from "../types/mongo/IAppointment.ts";
+import RequestParams from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 import { patientService } from "../services/patients.service.ts";
 
