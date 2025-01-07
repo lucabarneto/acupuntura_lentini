@@ -2,7 +2,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { logger } from "../utils/logger.ts";
 
-class DatabaseConnection {
+export class DatabaseConnection {
   private static instance: DatabaseConnection | undefined;
 
   constructor() {
@@ -23,5 +23,3 @@ class DatabaseConnection {
     return this.instance;
   }
 }
-
-export default DatabaseConnection;

@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const MongoIdFormat = /[\da-f]{24}/;
 
-const IChiefComplaint = z.object({
+export const IChiefComplaint = z.object({
   _id: z.string().optional(),
   title: z.string().min(1),
   description: z.string().optional(),
@@ -33,6 +33,6 @@ const IChiefComplaint = z.object({
     .default([]),
 });
 
-type IChiefComplaint = z.infer<typeof IChiefComplaint>;
+export type IChiefComplaint = z.infer<typeof IChiefComplaint>;
 
-export default IChiefComplaint;
+IChiefComplaint;

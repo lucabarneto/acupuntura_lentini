@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 
 const MongoIdFormat = /[\da-f]{24}/;
 
-const IAppointment = z.object({
+export const IAppointment = z.object({
   _id: z.string().optional(),
   date: z.string().date(),
   time: z.string().time(),
@@ -39,6 +39,6 @@ const IAppointment = z.object({
     .optional(),
 });
 
-type IAppointment = z.infer<typeof IAppointment>;
+export type IAppointment = z.infer<typeof IAppointment>;
 
-export default IAppointment;
+IAppointment;

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import AppointmentController from "../controllers/appointments.controller.ts";
-import IAppointment from "../types/mongo/IAppointment.ts";
+import { IAppointment } from "../types/mongo/IAppointment.ts";
+import { AppointmentController } from "../controllers/appointments.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 
 const appointmentRouter = Router();
 const appointmentController = new AppointmentController();

@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 
 const MongoIdFormat = /[\da-f]{24}/;
 
-const ISession = z.object({
+export const ISession = z.object({
   _id: z.string().optional(),
   treatment: z.string(),
   evolution: z.string(),
@@ -45,6 +45,4 @@ const ISession = z.object({
   }),
 });
 
-type ISession = z.infer<typeof ISession>;
-
-export default ISession;
+export type ISession = z.infer<typeof ISession>;

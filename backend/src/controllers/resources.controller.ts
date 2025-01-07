@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { IResource } from "../types/mongo/IResource.ts";
 import { resourceService } from "../services/resources.service.ts";
-import IResource from "../types/mongo/IResource.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 
-export default class ResourceController {
+export class ResourceController {
   handleId = async (
     req: Request,
     res: Response,

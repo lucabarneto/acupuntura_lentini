@@ -63,7 +63,7 @@ const PresumptiveAnalysis = z
   })
   .optional();
 
-const IPatient = z.object({
+export const IPatient = z.object({
   _id: z.string().optional(),
   first_name: z.string().min(1),
   last_name: z.string().min(1),
@@ -92,6 +92,4 @@ const IPatient = z.object({
     .default([]),
 });
 
-type IPatient = z.infer<typeof IPatient>;
-
-export default IPatient;
+export type IPatient = z.infer<typeof IPatient>;

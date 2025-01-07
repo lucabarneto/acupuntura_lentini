@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
+import { ISession } from "../types/mongo/ISession.ts";
 import { sessionService } from "../services/sessions.service.ts";
-import ISession from "../types/mongo/ISession.ts";
-import RequestParams from "../types/express/RequestParams.ts";
-import { logger } from "../utils/logger.ts";
 import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
 import { appointmentService } from "../services/appointments.service.ts";
 import { patientService } from "../services/patients.service.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
+import { logger } from "../utils/logger.ts";
 
-export default class SessionController {
+export class SessionController {
   handleId = async (
     req: Request,
     res: Response,

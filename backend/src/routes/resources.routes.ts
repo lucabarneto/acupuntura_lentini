@@ -1,9 +1,8 @@
 import { Router } from "express";
-import ResourceController from "../controllers/resources.controller.ts";
-
-import IResource from "../types/mongo/IResource.ts";
+import { IResource } from "../types/mongo/IResource.ts";
+import { ResourceController } from "../controllers/resources.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 
 const resourceRouter = Router();
 const resourceController = new ResourceController();

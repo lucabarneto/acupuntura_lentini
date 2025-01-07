@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const ITemplate = z.object({
+export const ITemplate = z.object({
   _id: z.string().optional(),
   title: z.string(),
   description: z.string(),
@@ -14,6 +14,4 @@ const ITemplate = z.object({
     .default([]),
 });
 
-type ITemplate = z.infer<typeof ITemplate>;
-
-export default ITemplate;
+export type ITemplate = z.infer<typeof ITemplate>;

@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
 import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
-import IChiefComplaint from "../types/mongo/IChiefComplaint.ts";
-import RequestParams from "../types/express/RequestParams.ts";
-import { logger } from "../utils/logger.ts";
 import { patientService } from "../services/patients.service.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
+import { logger } from "../utils/logger.ts";
 
-export default class ChiefComplaintController {
+export class ChiefComplaintController {
   handleId = async (
     req: Request,
     res: Response,

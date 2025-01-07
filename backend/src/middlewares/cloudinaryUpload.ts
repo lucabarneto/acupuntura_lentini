@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
 import streamifier from "streamifier";
 import { v2 as cloudinary } from "cloudinary";
+import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger.ts";
 
 export const cloudinaryUpload = async (

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import SessionController from "../controllers/sessions.controller.ts";
-import ISession from "../types/mongo/ISession.ts";
+import { ISession } from "../types/mongo/ISession.ts";
+import { SessionController } from "../controllers/sessions.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 
 const sessionRouter = Router();
 const sessionController = new SessionController();

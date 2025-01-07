@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { IPatient } from "../types/mongo/IPatient.ts";
 import { patientService } from "../services/patients.service.ts";
-import IPatient from "../types/mongo/IPatient.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 
-export default class PatientController {
+export class PatientController {
   handleId = async (
     req: Request,
     res: Response,

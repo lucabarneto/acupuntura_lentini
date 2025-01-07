@@ -1,5 +1,5 @@
+import { ISession } from "../types/mongo/ISession.ts";
 import { sessionDAO } from "../database/sessions.dao.ts";
-import ISession from "../types/mongo/ISession.ts";
 import { BaseService } from "./base.service.ts";
 
 class SessionService extends BaseService<ISession, typeof sessionDAO> {

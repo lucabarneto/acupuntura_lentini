@@ -1,5 +1,5 @@
 import express from "express";
-import DatabaseConnection from "./config/database_connection.config.ts";
+import { DatabaseConnection } from "./config/database_connection.config.ts";
 import { router } from "./routes/index.routes.ts";
 import { logger } from "./utils/logger.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";

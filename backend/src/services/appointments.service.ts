@@ -1,8 +1,8 @@
-import { appointmentDAO } from "../database/appointments.dao.ts";
-import IAppointment from "../types/mongo/IAppointment.ts";
-import ID from "../types/general/ID.interface.ts";
-import { BaseService } from "./base.service.ts";
 import { Types } from "mongoose";
+import { IAppointment } from "../types/mongo/IAppointment.ts";
+import { appointmentDAO } from "../database/appointments.dao.ts";
+import { BaseService } from "./base.service.ts";
+import { ID } from "../types/general/ID.interface.ts";
 
 class AppointmentService extends BaseService<
   IAppointment,

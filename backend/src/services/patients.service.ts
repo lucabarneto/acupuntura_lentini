@@ -1,7 +1,7 @@
+import { IPatient } from "../types/mongo/IPatient.ts";
 import { patientDAO } from "../database/patients.dao.ts";
-import IPatient from "../types/mongo/IPatient.ts";
 import { BaseService } from "./base.service.ts";
-import ID from "../types/general/ID.interface.ts";
+import { ID } from "../types/general/ID.interface.ts";
 
 class Patient extends BaseService<IPatient, typeof patientDAO> {
   addChiefComplaintToPatient = async (

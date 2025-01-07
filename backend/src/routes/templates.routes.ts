@@ -1,8 +1,8 @@
 import { Router } from "express";
-import TemplateController from "../controllers/templates.controller.ts";
-import ITemplate from "../types/mongo/ITemplate.ts";
+import { ITemplate } from "../types/mongo/ITemplate.ts";
+import { TemplateController } from "../controllers/templates.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
-import RequestParams from "../types/express/RequestParams.ts";
+import { RequestParams } from "../types/express/RequestParams.ts";
 
 const templateRouter = Router();
 const templateController = new TemplateController();
