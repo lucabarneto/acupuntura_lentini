@@ -1,10 +1,9 @@
 import { Types } from "mongoose";
 import { z } from "zod";
-
-const MongoIdFormat = /[\da-f]{24}/;
+import { MONGO_ID_REGEX } from "../../constants/mongoIdRegex.ts";
 
 export const IChiefComplaint = z.object({
-  _id: z.string().optional(),
+  _id: z.string().regex(MONGO_ID_REGEX).optional(),
   title: z.string().min(1),
   description: z.string().optional(),
   diagnosis: z.string().min(1),
@@ -12,7 +11,7 @@ export const IChiefComplaint = z.object({
   initial_medicine: z.string(),
   state: z.enum(["finished", "in_progress"]),
   patient: z.string().transform((val, ctx) => {
-    if (!MongoIdFormat.test(val)) {
+    if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Invalid Patient Id",

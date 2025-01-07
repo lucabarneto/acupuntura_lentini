@@ -1,14 +1,13 @@
 import { z } from "zod";
 import { Types } from "mongoose";
-
-const MongoIdFormat = /[\da-f]{24}/;
+import { MONGO_ID_REGEX } from "../../constants/mongoIdRegex.ts";
 
 export const ISession = z.object({
-  _id: z.string().optional(),
+  _id: z.string().regex(MONGO_ID_REGEX).optional(),
   treatment: z.string(),
   evolution: z.string(),
   patient: z.string().transform((val, ctx) => {
-    if (!MongoIdFormat.test(val)) {
+    if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Invalid Patient Id",
@@ -20,7 +19,7 @@ export const ISession = z.object({
     return new Types.ObjectId(val);
   }),
   chief_complaint: z.string().transform((val, ctx) => {
-    if (!MongoIdFormat.test(val)) {
+    if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Invalid Chief complaint Id",
@@ -32,7 +31,7 @@ export const ISession = z.object({
     return new Types.ObjectId(val);
   }),
   appointment: z.string().transform((val, ctx) => {
-    if (!MongoIdFormat.test(val)) {
+    if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Invalid Appointment Id",

@@ -1,12 +1,13 @@
 import { z } from "zod";
+import { MONGO_ID_REGEX } from "../../constants/mongoIdRegex.ts";
 
 export const ITemplate = z.object({
-  _id: z.string().optional(),
+  _id: z.string().regex(MONGO_ID_REGEX).optional(),
   title: z.string(),
   description: z.string(),
   resources: z
     .object({
-      resource: z.string().regex(new RegExp("[0-9a-f]{24}"), {
+      resource: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Chief Complaint ID",
       }),
     })

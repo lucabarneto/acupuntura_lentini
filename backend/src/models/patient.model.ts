@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {IPatient} from "../types/mongo/IPatient.ts";
+import { IPatient } from "../types/mongo/IPatient.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
 
@@ -33,15 +33,14 @@ const BirthSchema = new mongoose.Schema(
   {
     date: {
       type: String,
-      required: true,
+      match: /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
     },
     time: {
       type: String,
-      required: true,
+      match: /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/,
     },
     location: {
       type: String,
-      required: true,
     },
     bazi_table: BaziTableSchema,
   },
@@ -68,7 +67,6 @@ const ChiefComplaintsRefSchema = new mongoose.Schema(
     chief_complaint: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "chief_complaints",
-      match: /^[a-f\d]{24}$/,
     },
   },
   { _id: false }
@@ -79,7 +77,6 @@ const AppointmentRefSchema = new mongoose.Schema(
     appointment: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "appointments",
-      match: /^[a-f\d]{24}$/,
     },
   },
   { _id: false }
