@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc",
-    "dev": "nodemon --exec node --trace-warnings --loader ts-node/esm src/app.ts"
+    "dev": "nodemon --exec node --loader ts-node/esm src/app.ts"
   },
   "author": "",
   "license": "ISC",

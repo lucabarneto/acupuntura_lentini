@@ -1,3 +1,4 @@
+import { Request } from "express";
 import IAppointment from "./IAppointment.interface.ts";
 import IChiefComplaint from "./IChiefComplaint.interface.ts";
 import IPatient from "./IPatient.interface.ts";

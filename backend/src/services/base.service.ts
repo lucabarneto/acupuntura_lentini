@@ -1,5 +1,5 @@
 import { Service } from "../interfaces/Service.interface.ts";
-import { DAO } from "../interfaces/DAO.interface.ts";
+import { DAO } from "../interfaces/Dao.interface.ts";
 import ID from "../interfaces/ID.interface.ts";
 
 export abstract class BaseService<Interface, Dao extends DAO<Interface>>
