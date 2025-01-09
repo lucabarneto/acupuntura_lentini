@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { IAppointment } from "../types/mongo/IAppointment.ts";
+import { PatientModel } from "./patient.model.ts";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 
@@ -35,10 +36,19 @@ const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
     ref: "patients",
     required: true,
   },
-  session: {
-    type: mongoose.Schema.ObjectId,
-    ref: "sessions",
-  },
+});
+
+/* schema middlewares */
+
+AppointmentSchema.pre("deleteOne", async function () {
+  const appointment = (await this.model.findOne(
+    this.getQuery()
+  )) as IAppointment;
+
+  await PatientModel.updateOne(
+    { _id: appointment.patient },
+    { $pull: { appointments: { appointment: appointment._id!.toString() } } }
+  );
 });
 
 export const AppointmentModel = mongoose.model<IAppointment, AppointmentModel>(

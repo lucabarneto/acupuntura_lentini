@@ -17,12 +17,6 @@ sessionRouter.get(
   sessionController.getSessionById
 );
 
-sessionRouter.post(
-  "/",
-  validateRequest({ body: ISession }),
-  sessionController.createSessionAndAddToChiefComplaintAndAppointments
-);
-
 sessionRouter.put(
   "/:id",
   validateRequest({ params: RequestParams, body: ISession }),

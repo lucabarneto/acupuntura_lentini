@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { IAppointment } from "../types/mongo/IAppointment.ts";
 import { appointmentService } from "../services/appointments.service.ts";
-import { patientService } from "../services/patients.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 
@@ -14,7 +13,8 @@ export class AppointmentController {
   ) => {
     try {
       logger.debug("Checking for existing ID");
-      await appointmentService.getById(id);
+      req.appointment = await appointmentService.getById(id);
+
       next();
     } catch (err) {
       next(err);
@@ -41,30 +41,8 @@ export class AppointmentController {
     next: NextFunction
   ) => {
     try {
-      const result = await appointmentService.getById(req.params.id);
       logger.http(`Appointment found succesfully (ID: ${req.params.id})`);
-      res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  createAppointmentAndAddToPatient = async (
-    req: Request<{}, IAppointment, IAppointment>,
-    res: Response<IAppointment>,
-    next: NextFunction
-  ) => {
-    try {
-      const patient = await patientService.getById(req.body.patient.toString());
-
-      const result = await appointmentService.create(req.body);
-
-      await patientService.addAppointmentToPatient(
-        { patient_id: patient._id!, appointment_id: result._id! },
-        patient
-      );
-      logger.http(`Appointment created succesfully`);
-      res.status(201).send(result);
+      res.status(200).send(req.appointment);
     } catch (err) {
       next(err);
     }

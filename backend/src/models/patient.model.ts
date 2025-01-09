@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { IPatient } from "../types/mongo/IPatient.ts";
+import { ChiefComplaintModel } from "./chiefComplaint.model.ts";
+import { AppointmentModel } from "./appoinment.model.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
 
@@ -118,6 +120,31 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   chief_complaints: [ChiefComplaintsRefSchema],
   appointments: [AppointmentRefSchema],
 });
+
+/* schema middlewares */
+
+PatientSchema.pre("deleteOne", async function () {
+  const patient = (await this.model.findOne(this.getQuery())) as IPatient;
+
+  await deletePatientChiefComplaints(patient);
+  await deletePatientAppointments(patient);
+});
+
+const deletePatientAppointments = async (patient: IPatient) => {
+  for (let i = 0; i < patient.appointments.length; i++) {
+    await AppointmentModel.deleteOne({
+      _id: patient.appointments[i].appointment.toString(),
+    });
+  }
+};
+
+const deletePatientChiefComplaints = async (patient: IPatient) => {
+  for (let i = 0; i < patient.chief_complaints.length; i++) {
+    await ChiefComplaintModel.deleteOne({
+      _id: patient.chief_complaints[i].chief_complaint.toString(),
+    });
+  }
+};
 
 PatientSchema.pre("find", function () {
   this.populate([

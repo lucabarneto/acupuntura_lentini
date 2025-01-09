@@ -1,27 +1,34 @@
 import { IPatient } from "../types/mongo/IPatient.ts";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
+import { IAppointment } from "../types/mongo/IAppointment.ts";
 import { patientDAO } from "../database/patients.dao.ts";
 import { BaseService } from "./base.service.ts";
-import { ID } from "../types/general/ID.interface.ts";
+import { chiefComplaintService } from "./chiefComplaints.service.ts";
+import { appointmentService } from "./appointments.service.ts";
 
 class Patient extends BaseService<IPatient, typeof patientDAO> {
-  addChiefComplaintToPatient = async (
-    ids: { patient_id: ID; chief_complaint_id: ID },
-    patient: IPatient
-  ): Promise<void> => {
-    patient.chief_complaints.push({
-      chief_complaint: ids.chief_complaint_id,
-    });
-    const result = await patientDAO.update(ids.patient_id, patient);
+  addNewChiefComplaint = async (data: IChiefComplaint, patient: IPatient) => {
+    const newChiefComplaint = await chiefComplaintService.create(data);
+
+    patient.chief_complaints.push({ chief_complaint: newChiefComplaint._id! });
+
+    const result = await patientDAO.update(patient._id!, patient);
+
     if (result.status === "error") throw result.error;
+
+    return result.payload;
   };
 
-  addAppointmentToPatient = async (
-    ids: { patient_id: ID; appointment_id: ID },
-    patient: IPatient
-  ): Promise<void> => {
-    patient.appointments.push({ appointment: ids.appointment_id });
-    const result = await patientDAO.update(ids.patient_id, patient);
+  addNewAppointment = async (data: IAppointment, patient: IPatient) => {
+    const newAppointment = await appointmentService.create(data);
+
+    patient.appointments.push({ appointment: newAppointment._id! });
+
+    const result = await patientDAO.update(patient._id!, patient);
+
     if (result.status === "error") throw result.error;
+
+    return result.payload;
   };
 
   findEqual = (data: IPatient, patients: IPatient[]): boolean =>

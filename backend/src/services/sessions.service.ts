@@ -5,8 +5,7 @@ import { BaseService } from "./base.service.ts";
 class SessionService extends BaseService<ISession, typeof sessionDAO> {
   findEqual = (data: ISession, sessions: ISession[]): boolean =>
     sessions.some(
-      (session) =>
-        session.appointment.toString() === data.appointment.toString()
+      (session) => session.date.toString() === data.date.toString()
     );
 }
 

@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ISession } from "../types/mongo/ISession.ts";
 import { sessionService } from "../services/sessions.service.ts";
-import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
-import { appointmentService } from "../services/appointments.service.ts";
-import { patientService } from "../services/patients.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
 
@@ -46,39 +43,6 @@ export class SessionController {
       const result = await sessionService.getById(req.params.id);
       logger.http(`Session found succesfully (ID: ${req.params.id})`);
       res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  createSessionAndAddToChiefComplaintAndAppointments = async (
-    req: Request<{}, {}, ISession>,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      await patientService.getById(req.body.patient.toString());
-      const chiefComplaint = await chiefComplaintService.getById(
-        req.body.chief_complaint.toString()
-      );
-      const appointment = await appointmentService.getById(
-        req.body.appointment.toString()
-      );
-
-      const result = await sessionService.create(req.body);
-
-      await chiefComplaintService.addSessionToChiefComplaint(
-        { chief_complaint_id: chiefComplaint._id!, session_id: result._id! },
-        chiefComplaint
-      );
-
-      await appointmentService.addSessionToAppointment(
-        { appointment_id: appointment._id!, session_id: result._id! },
-        appointment
-      );
-
-      logger.http(`Session created succesfully`);
-      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

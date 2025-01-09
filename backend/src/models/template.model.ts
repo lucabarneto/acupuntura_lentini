@@ -19,11 +19,13 @@ const TemplateSchema = new mongoose.Schema<ITemplate, TemplateModel>({
   _id: mongoose.Schema.Types.ObjectId,
   title: {
     type: String,
-    require: true,
+    required: true,
   },
   description: String,
   resources: [ResourceRefSchema],
 });
+
+/* schame middlewares */
 
 export const TemplateModel = mongoose.model<ITemplate, TemplateModel>(
   TEMPLATE_COLLECTION,

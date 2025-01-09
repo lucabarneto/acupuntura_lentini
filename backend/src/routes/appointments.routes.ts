@@ -17,12 +17,6 @@ appointmentRouter.get(
   appointmentController.getAppointmentById
 );
 
-appointmentRouter.post(
-  "/",
-  validateRequest({ body: IAppointment }),
-  appointmentController.createAppointmentAndAddToPatient
-);
-
 appointmentRouter.put(
   "/:id",
   validateRequest({ params: RequestParams, body: IAppointment }),
