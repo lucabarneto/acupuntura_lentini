@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { IAppointment } from "../types/mongo/IAppointment.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { patientMiddlewares } from "./patient.model.ts";
+import { DATE_REGEX, TIME_REGEX } from "../constants/constants.ts";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 
@@ -15,10 +16,12 @@ const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
   date: {
     type: String,
     required: true,
+    match: DATE_REGEX,
   },
   time: {
     type: String,
     required: true,
+    match: TIME_REGEX,
   },
   patient_is_notified: {
     type: Boolean,

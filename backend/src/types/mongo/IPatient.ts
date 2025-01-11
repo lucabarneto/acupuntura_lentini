@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX } from "../../constants/mongoIdRegex.ts";
+import { MONGO_ID_REGEX } from "../../constants/constants.ts";
 
 const TableProps = z.enum(["hour", "day", "month", "year"]);
 

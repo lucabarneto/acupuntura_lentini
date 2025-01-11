@@ -2,14 +2,10 @@ import mongoose from "mongoose";
 import { ID } from "../types/general/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
 
-export abstract class MongoDAO<
-  Interface,
-  Model extends mongoose.Model<Interface>
-> implements DAO<Interface>
-{
-  private model: Model;
+export abstract class MongoDAO<Interface> implements DAO<Interface> {
+  private model: mongoose.Model<Interface>;
 
-  constructor(model: Model) {
+  constructor(model: mongoose.Model<Interface>) {
     this.model = model;
   }
 

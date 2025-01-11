@@ -3,6 +3,7 @@ import { IPatient } from "../types/mongo/IPatient.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { appointmentMiddlewares } from "./appoinment.model.ts";
+import { DATE_REGEX, TIME_REGEX } from "../constants/constants.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
 
@@ -36,11 +37,11 @@ const BirthSchema = new mongoose.Schema(
   {
     date: {
       type: String,
-      match: /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
+      match: DATE_REGEX,
     },
     time: {
       type: String,
-      match: /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/,
+      match: TIME_REGEX,
     },
     location: {
       type: String,

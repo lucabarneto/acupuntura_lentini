@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { ISession } from "../types/mongo/ISession.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
+import { DATE_REGEX } from "../constants/constants.ts";
 
 type SessionModel = mongoose.Model<ISession>;
 
@@ -25,7 +26,7 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
   },
   date: {
     type: String,
-    match: /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
+    match: DATE_REGEX,
     required: true,
   },
   treatment: {

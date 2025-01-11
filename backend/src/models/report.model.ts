@@ -1,17 +1,30 @@
 import mongoose from "mongoose";
+import { IReport } from "../types/mongo/IReport.ts";
+import { DATE_REGEX } from "../constants/constants.ts";
+
+type ReportModel = mongoose.Model<IReport>;
 
 const REPORT_COLLECTION = "reports";
 
-const ReportSchema = new mongoose.Schema({
+const ReportSchema = new mongoose.Schema<IReport, ReportModel>({
+  _id: {
+    type: mongoose.Types.ObjectId,
+    auto: true,
+  },
   date: {
     type: String,
     require: true,
+    match: DATE_REGEX,
   },
   treatment: {
     type: String,
     require: true,
   },
-  last_evolution: {
+  diagnosis: {
+    type: String,
+    require: true,
+  },
+  last_recorded_evolution: {
     type: String,
     require: true,
   },
@@ -23,11 +36,11 @@ const ReportSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
   },
-  tongue_comparison: Array,
+  initial_patient_tongue: String,
+  last_recorded_patient_tongue: String,
 });
 
-ReportSchema.pre("find", function () {
-  this.populate(["patient", "chief_complaint"]);
-});
-
-export const ReportModel = mongoose.model(REPORT_COLLECTION, ReportSchema);
+export const ReportModel = mongoose.model<IReport, ReportModel>(
+  REPORT_COLLECTION,
+  ReportSchema
+);
