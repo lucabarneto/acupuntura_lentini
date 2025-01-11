@@ -5,8 +5,6 @@ import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { multerUpload } from "../utils/multer.ts";
 import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
-import { IAppointment } from "../types/mongo/IAppointment.ts";
 
 const patientRouter = Router();
 const patientController = new PatientController();
@@ -41,18 +39,6 @@ patientRouter.delete(
   "/:id",
   validateRequest({ params: RequestParams }),
   patientController.deletePatient
-);
-
-patientRouter.put(
-  "/:id/chiefcomplaints",
-  validateRequest({ params: RequestParams, body: IChiefComplaint }),
-  patientController.addNewChiefComplaintToPatient
-);
-
-patientRouter.put(
-  "/:id/appointments",
-  validateRequest({ params: RequestParams, body: IAppointment }),
-  patientController.addNewAppointmentToPatient
 );
 
 export default patientRouter;

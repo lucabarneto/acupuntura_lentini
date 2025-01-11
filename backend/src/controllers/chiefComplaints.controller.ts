@@ -3,7 +3,6 @@ import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
 import { chiefComplaintService } from "../services/chiefComplaints.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
-import { ISession } from "../types/mongo/ISession.ts";
 
 export class ChiefComplaintController {
   handleId = async (
@@ -51,6 +50,20 @@ export class ChiefComplaintController {
     }
   };
 
+  createChiefComplaint = async (
+    req: Request<{}, IChiefComplaint, IChiefComplaint>,
+    res: Response<IChiefComplaint>,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await chiefComplaintService.create(req.body);
+      logger.http(`Chief Complaint created succesfully`);
+      res.status(201).send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   updateChiefComplaint = async (
     req: Request<RequestParams, IChiefComplaint, IChiefComplaint>,
     res: Response<IChiefComplaint>,
@@ -81,23 +94,6 @@ export class ChiefComplaintController {
         `Chief complaint deleted successfully (ID was ${req.params.id})`
       );
       res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  addNewSessionToChiefComplaint = async (
-    req: Request<RequestParams, IChiefComplaint, ISession>,
-    res: Response<IChiefComplaint>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await chiefComplaintService.addNewSession(
-        req.body,
-        req.chief_complaint
-      );
-      logger.http(`Session added to chief complaint successfully`);
-      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

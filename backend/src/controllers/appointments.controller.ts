@@ -48,6 +48,20 @@ export class AppointmentController {
     }
   };
 
+  createAppointment = async (
+    req: Request<RequestParams, IAppointment, IAppointment>,
+    res: Response<IAppointment>,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await appointmentService.create(req.body);
+      logger.http(`Appointment created succesfully`);
+      res.status(200).send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   updateAppointment = async (
     req: Request<RequestParams, IAppointment, IAppointment>,
     res: Response<IAppointment>,

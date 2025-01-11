@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { ISession } from "../types/mongo/ISession.ts";
-import { ChiefComplaintModel } from "./chiefComplaint.model.ts";
+import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
+import { ModelMiddlewares } from "./modelMiddlewares.ts";
 
 type SessionModel = mongoose.Model<ISession>;
 
@@ -24,11 +25,6 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
     type: String,
     required: true,
   },
-  patient: {
-    type: mongoose.Schema.ObjectId,
-    ref: "patients",
-    required: true,
-  },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
@@ -36,18 +32,26 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
   },
 });
 
-/* schema middlewares */
+/* :: Schema middlewares :: */
 
 SessionSchema.pre("deleteOne", async function () {
   const session = (await this.model.findOne(this.getQuery())) as ISession;
 
-  await ChiefComplaintModel.updateOne(
-    { _id: session.chief_complaint },
-    {
-      $pull: {
-        patient_evolution: { session: session._id!.toString() },
-      },
-    }
+  await chiefComplaintMiddlewares.removeDeletedReferenceFromDocument(
+    { id: session._id!, key: "patient_evolution" },
+    session.chief_complaint.toString()
+  );
+});
+
+SessionSchema.pre("save", async function () {
+  const chiefComplaint =
+    await chiefComplaintMiddlewares.checkForNonExistingDocument(
+      this.chief_complaint.toString()
+    );
+
+  await chiefComplaintMiddlewares.addReferenceToDocument(
+    { id: this._id, key: "patient_evolution" },
+    chiefComplaint
   );
 });
 
@@ -55,3 +59,7 @@ export const SessionModel = mongoose.model<ISession, SessionModel>(
   SESSION_COLLECTION,
   SessionSchema
 );
+
+class SessionMiddlewares extends ModelMiddlewares<ISession> {}
+
+export const sessionMiddlewares = new SessionMiddlewares(SessionModel);

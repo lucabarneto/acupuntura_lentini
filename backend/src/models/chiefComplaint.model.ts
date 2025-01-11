@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
-import { PatientModel } from "./patient.model.ts";
-import { SessionModel } from "./session.model.ts";
+import { ModelMiddlewares } from "./modelMiddlewares.ts";
+import { sessionMiddlewares } from "./session.model.ts";
+import { patientMiddlewares } from "./patient.model.ts";
 
 type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
@@ -39,45 +40,49 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
   patient_evolution: [SessionRefSchema],
 });
 
-/* schema middlewares */
+/* :: Schema middlewares :: */
 
 ChiefComplaintSchema.pre("deleteOne", async function () {
   const chiefComplaint = (await this.model.findOne(
     this.getQuery()
   )) as IChiefComplaint;
 
-  await removeChiefComplaintFromPatient(chiefComplaint);
-  await deleteChiefComplaintSessions(chiefComplaint);
-});
+  if (chiefComplaint.patient_evolution.length !== 0)
+    await sessionMiddlewares.deleteNestedReferencesOffDatabase(
+      chiefComplaint.patient_evolution
+    );
 
-const removeChiefComplaintFromPatient = async (
-  chiefComplaint: IChiefComplaint
-) => {
-  await PatientModel.updateOne(
-    { _id: chiefComplaint.patient },
+  await patientMiddlewares.removeDeletedReferenceFromDocument(
     {
-      $pull: {
-        chief_complaints: { chief_complaint: chiefComplaint._id!.toString() },
-      },
-    }
+      id: chiefComplaint._id!,
+      key: "chief_complaints",
+    },
+    chiefComplaint.patient.toString()
   );
-};
-
-const deleteChiefComplaintSessions = async (
-  chiefComplaint: IChiefComplaint
-) => {
-  for (let i = 0; i < chiefComplaint.patient_evolution.length; i++) {
-    await SessionModel.deleteOne({
-      _id: chiefComplaint.patient_evolution[i].session.toString(),
-    });
-  }
-};
+});
 
 ChiefComplaintSchema.pre("find", function () {
   this.populate(["patient_evolution.session"]);
+});
+
+ChiefComplaintSchema.pre("save", async function () {
+  const patient = await patientMiddlewares.checkForNonExistingDocument(
+    this.patient.toString()
+  );
+
+  await patientMiddlewares.addReferenceToDocument(
+    { id: this._id, key: "chief_complaints" },
+    patient
+  );
 });
 
 export const ChiefComplaintModel = mongoose.model<
   IChiefComplaint,
   ChiefComplaintModel
 >(CHIEF_COMPLAINT_COLLECTION, ChiefComplaintSchema);
+
+class ChiefComplaintMiddlewares extends ModelMiddlewares<IChiefComplaint> {}
+
+export const chiefComplaintMiddlewares = new ChiefComplaintMiddlewares(
+  ChiefComplaintModel
+);

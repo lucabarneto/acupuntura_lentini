@@ -7,18 +7,6 @@ export const ISession = z.object({
   date: z.string().date(),
   treatment: z.string(),
   evolution: z.string(),
-  patient: z.string().transform((val, ctx) => {
-    if (!MONGO_ID_REGEX.test(val)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Invalid Patient Id",
-      });
-
-      return z.NEVER;
-    }
-
-    return new Types.ObjectId(val);
-  }),
   chief_complaint: z.string().transform((val, ctx) => {
     if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({

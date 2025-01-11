@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { IAppointment } from "../types/mongo/IAppointment.ts";
-import { PatientModel } from "./patient.model.ts";
+import { ModelMiddlewares } from "./modelMiddlewares.ts";
+import { patientMiddlewares } from "./patient.model.ts";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 
@@ -38,20 +39,36 @@ const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
   },
 });
 
-/* schema middlewares */
+/* :: Schema middlewares :: */
 
 AppointmentSchema.pre("deleteOne", async function () {
   const appointment = (await this.model.findOne(
     this.getQuery()
   )) as IAppointment;
 
-  await PatientModel.updateOne(
-    { _id: appointment.patient },
-    { $pull: { appointments: { appointment: appointment._id!.toString() } } }
+  await patientMiddlewares.removeDeletedReferenceFromDocument(
+    { id: appointment._id!, key: "appointments" },
+    appointment.patient.toString()
+  );
+});
+
+AppointmentSchema.pre("save", async function () {
+  const patient = await patientMiddlewares.checkForNonExistingDocument(
+    this.patient.toString()
+  );
+
+  await patientMiddlewares.addReferenceToDocument(
+    { id: this._id, key: "appointments" },
+    patient
   );
 });
 
 export const AppointmentModel = mongoose.model<IAppointment, AppointmentModel>(
   APPOINTMENT_COLLECTION,
   AppointmentSchema
+);
+
+class AppointmentMiddlewares extends ModelMiddlewares<IAppointment> {}
+export const appointmentMiddlewares = new AppointmentMiddlewares(
+  AppointmentModel
 );

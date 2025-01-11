@@ -3,8 +3,6 @@ import { IPatient } from "../types/mongo/IPatient.ts";
 import { patientService } from "../services/patients.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
-import { IAppointment } from "../types/mongo/IAppointment.ts";
 
 export class PatientController {
   handleId = async (
@@ -86,40 +84,6 @@ export class PatientController {
       const result = await patientService.delete(req.params.id);
       logger.http(`Patient deleted successfully (ID was ${req.params.id})`);
       res.status(200).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  addNewChiefComplaintToPatient = async (
-    req: Request<RequestParams, IPatient, IChiefComplaint>,
-    res: Response<IPatient>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await patientService.addNewChiefComplaint(
-        req.body,
-        req.patient
-      );
-      logger.http(`Chief complaint added to patient successfully`);
-      res.status(201).send(result);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  addNewAppointmentToPatient = async (
-    req: Request<RequestParams, IPatient, IAppointment>,
-    res: Response<IPatient>,
-    next: NextFunction
-  ) => {
-    try {
-      const result = await patientService.addNewAppointment(
-        req.body,
-        req.patient
-      );
-      logger.http(`Appointment added to patient successfully`);
-      res.status(201).send(result);
     } catch (err) {
       next(err);
     }

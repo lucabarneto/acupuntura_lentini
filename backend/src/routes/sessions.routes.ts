@@ -17,6 +17,12 @@ sessionRouter.get(
   sessionController.getSessionById
 );
 
+sessionRouter.post(
+  "/",
+  validateRequest({ body: ISession }),
+  sessionController.createSession
+);
+
 sessionRouter.put(
   "/:id",
   validateRequest({ params: RequestParams, body: ISession }),

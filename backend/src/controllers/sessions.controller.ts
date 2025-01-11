@@ -48,6 +48,20 @@ export class SessionController {
     }
   };
 
+  createSession = async (
+    req: Request<{}, ISession, ISession>,
+    res: Response<ISession>,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await sessionService.create(req.body);
+      logger.http(`Session created succesfully`);
+      res.status(201).send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   updateSession = async (
     req: Request<RequestParams, ISession, ISession>,
     res: Response<ISession>,
