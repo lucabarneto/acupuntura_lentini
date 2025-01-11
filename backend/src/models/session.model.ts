@@ -7,6 +7,17 @@ type SessionModel = mongoose.Model<ISession>;
 
 const SESSION_COLLECTION = "sessions";
 
+const ResourceRefSchema = new mongoose.Schema(
+  {
+    resource: { type: mongoose.Types.ObjectId, ref: "resources" },
+    selected_value: {
+      type: String,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,11 +36,13 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
     type: String,
     required: true,
   },
+  patient_tongue: { type: String, default: "" },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
     required: true,
   },
+  resources: [ResourceRefSchema],
 });
 
 /* :: Schema middlewares :: */

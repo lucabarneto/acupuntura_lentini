@@ -24,7 +24,7 @@ export const IChiefComplaint = z.object({
   }),
   patient_evolution: z
     .object({
-      session: z.string().regex(new RegExp("[0-9a-f]{24}"), {
+      session: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Session ID",
       }),
     })

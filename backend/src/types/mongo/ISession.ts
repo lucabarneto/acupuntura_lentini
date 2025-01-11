@@ -7,6 +7,7 @@ export const ISession = z.object({
   date: z.string().date(),
   treatment: z.string(),
   evolution: z.string(),
+  patient_tongue: z.string().default(""),
   chief_complaint: z.string().transform((val, ctx) => {
     if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
@@ -19,6 +20,15 @@ export const ISession = z.object({
 
     return new Types.ObjectId(val);
   }),
+  resources: z
+    .object({
+      resource: z.string().regex(MONGO_ID_REGEX, {
+        message: "Invalid Session ID",
+      }),
+      selected_value: z.string(),
+    })
+    .array()
+    .default([]),
 });
 
 export type ISession = z.infer<typeof ISession>;

@@ -3,31 +3,30 @@ import { v2 as cloudinary } from "cloudinary";
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger.ts";
 
-export const cloudinaryUpload = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const result = await uploadStream(req);
+type AssetFolders = "profile_picture" | "patient_tongue";
 
-  if (!result) {
-    logger.debug("No profile_picture sent");
-    next();
-  } else {
-    logger.debug("profile_picture sent!");
-    req.body.profile_picture = result.url;
-    next();
-  }
+export const cloudinaryUpload = (asset_folder: AssetFolders) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const result = await uploadStream(req, asset_folder);
+
+    if (!result) {
+      logger.debug("No profile_picture sent");
+      next();
+    } else {
+      logger.debug("profile_picture sent!");
+      req.body[asset_folder] = result.url;
+      next();
+    }
+  };
 };
 
-const uploadStream = (req: Request): any => {
+const uploadStream = (req: Request, asset_folder: AssetFolders): any => {
   if (!req.file) return null;
 
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
       {
-        public_id: `${req.body.first_name}_${req.body.last_name}`,
-        asset_folder: "profile_pictures",
+        asset_folder,
       },
       (error, result) => {
         if (result) {

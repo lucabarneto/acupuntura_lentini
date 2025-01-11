@@ -22,7 +22,7 @@ patientRouter.get(
 patientRouter.post(
   "/",
   multerUpload.single("profile_picture"),
-  cloudinaryUpload,
+  cloudinaryUpload("profile_picture"),
   validateRequest({ body: IPatient }),
   patientController.createPatient
 );
@@ -30,7 +30,7 @@ patientRouter.post(
 patientRouter.put(
   "/:id",
   multerUpload.single("profile_picture"),
-  cloudinaryUpload,
+  cloudinaryUpload("profile_picture"),
   validateRequest({ params: RequestParams, body: IPatient }),
   patientController.updatePatient
 );

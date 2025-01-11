@@ -25,8 +25,6 @@ const TemplateSchema = new mongoose.Schema<ITemplate, TemplateModel>({
   resources: [ResourceRefSchema],
 });
 
-/* schame middlewares */
-
 export const TemplateModel = mongoose.model<ITemplate, TemplateModel>(
   TEMPLATE_COLLECTION,
   TemplateSchema
