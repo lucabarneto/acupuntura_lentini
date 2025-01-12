@@ -9,12 +9,10 @@ interface Service<T> {
   delete: (id: string) => Promise<{}>;
 }
 
-export abstract class BaseService<Interface, Dao extends DAO<Interface>>
-  implements Service<Interface>
-{
-  private dao: Dao;
+export abstract class BaseService<Interface> implements Service<Interface> {
+  private dao: DAO<Interface>;
 
-  constructor(dao: Dao) {
+  constructor(dao: DAO<Interface>) {
     this.dao = dao;
   }
 

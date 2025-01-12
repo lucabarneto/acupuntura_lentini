@@ -4,7 +4,7 @@ import { AppointmentController } from "../controllers/appointments.controller.ts
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 
-const appointmentRouter = Router();
+export const appointmentRouter = Router();
 const appointmentController = new AppointmentController();
 
 appointmentRouter.param("id", appointmentController.handleId);
@@ -34,5 +34,3 @@ appointmentRouter.delete(
   validateRequest({ params: RequestParams }),
   appointmentController.deleteAppointment
 );
-
-export default appointmentRouter;

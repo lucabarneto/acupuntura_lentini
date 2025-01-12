@@ -5,7 +5,7 @@ import { BaseService } from "./base.service.ts";
 const TEST_FAILED = false;
 const TEST_PASSED = true;
 
-class TemplateService extends BaseService<ITemplate, typeof templateDAO> {
+class TemplateService extends BaseService<ITemplate> {
   findEqual = (data: ITemplate, templates: ITemplate[]): boolean => {
     let result: boolean = TEST_FAILED;
 

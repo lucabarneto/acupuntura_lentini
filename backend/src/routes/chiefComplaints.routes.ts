@@ -4,7 +4,7 @@ import { ChiefComplaintController } from "../controllers/chiefComplaints.control
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 
-const chiefComplaintRouter = Router();
+export const chiefComplaintRouter = Router();
 const chiefComplaintController = new ChiefComplaintController();
 
 chiefComplaintRouter.param("id", chiefComplaintController.handleId);
@@ -34,5 +34,3 @@ chiefComplaintRouter.delete(
   validateRequest({ params: RequestParams }),
   chiefComplaintController.deleteChiefComplaint
 );
-
-export default chiefComplaintRouter;

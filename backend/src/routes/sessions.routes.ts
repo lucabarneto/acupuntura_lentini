@@ -6,7 +6,7 @@ import { RequestParams } from "../types/express/RequestParams.ts";
 import { multerUpload } from "../utils/multer.ts";
 import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
 
-const sessionRouter = Router();
+export const sessionRouter = Router();
 const sessionController = new SessionController();
 
 sessionRouter.param("id", sessionController.handleId);
@@ -40,5 +40,3 @@ sessionRouter.delete(
   validateRequest({ params: RequestParams }),
   sessionController.deleteSession
 );
-
-export default sessionRouter;

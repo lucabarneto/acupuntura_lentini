@@ -4,7 +4,7 @@ import { ResourceController } from "../controllers/resources.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 
-const resourceRouter = Router();
+export const resourceRouter = Router();
 const resourceController = new ResourceController();
 
 resourceRouter.param("id", resourceController.handleId);
@@ -34,5 +34,3 @@ resourceRouter.delete(
   validateRequest({ params: RequestParams }),
   resourceController.deleteResource
 );
-
-export default resourceRouter;

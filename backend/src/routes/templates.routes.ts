@@ -4,7 +4,7 @@ import { TemplateController } from "../controllers/templates.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 
-const templateRouter = Router();
+export const templateRouter = Router();
 const templateController = new TemplateController();
 
 templateRouter.param("id", templateController.handleId);
@@ -34,5 +34,3 @@ templateRouter.delete(
   validateRequest({ params: RequestParams }),
   templateController.deleteTemplate
 );
-
-export default templateRouter;

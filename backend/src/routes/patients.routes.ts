@@ -6,7 +6,7 @@ import { RequestParams } from "../types/express/RequestParams.ts";
 import { multerUpload } from "../utils/multer.ts";
 import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
 
-const patientRouter = Router();
+export const patientRouter = Router();
 const patientController = new PatientController();
 
 patientRouter.param("id", patientController.handleId);
@@ -40,5 +40,3 @@ patientRouter.delete(
   validateRequest({ params: RequestParams }),
   patientController.deletePatient
 );
-
-export default patientRouter;

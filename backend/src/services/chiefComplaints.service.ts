@@ -3,8 +3,7 @@ import { chiefComplaintDAO } from "../database/chiefComplaints.dao.ts";
 import { BaseService } from "./base.service.ts";
 
 class ChiefComplaintService extends BaseService<
-  IChiefComplaint,
-  typeof chiefComplaintDAO
+  IChiefComplaint
 > {
   findEqual = (
     data: IChiefComplaint,
