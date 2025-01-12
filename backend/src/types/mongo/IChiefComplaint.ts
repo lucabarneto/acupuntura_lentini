@@ -22,7 +22,22 @@ export const IChiefComplaint = z.object({
 
     return new Types.ObjectId(val);
   }),
-  patient_evolution: z
+  report: z
+    .string()
+    .transform((val, ctx) => {
+      if (!MONGO_ID_REGEX.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Invalid Patient Id",
+        });
+
+        return z.NEVER;
+      }
+
+      return new Types.ObjectId(val);
+    })
+    .optional(),
+  sessions: z
     .object({
       session: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Session ID",

@@ -43,8 +43,6 @@ export abstract class BaseService<Interface> implements Service<Interface> {
   };
 
   update = async (id: ID, update: Interface): Promise<Interface> => {
-    await this.isAlreadyInDatabase(update);
-
     const result = await this.dao.update(id, update);
 
     if (result.status === "error") throw result.error;

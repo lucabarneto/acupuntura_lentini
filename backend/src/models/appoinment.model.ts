@@ -50,19 +50,17 @@ AppointmentSchema.pre("deleteOne", async function () {
   )) as IAppointment;
 
   await patientMiddlewares.removeDeletedReferenceFromDocument(
-    { id: appointment._id!, key: "appointments" },
+    { ref_id: appointment._id!, ref_key: "appointments", isInsideArray: true },
     appointment.patient.toString()
   );
 });
 
 AppointmentSchema.pre("save", async function () {
-  const patient = await patientMiddlewares.checkForNonExistingDocument(
-    this.patient.toString()
-  );
+  await patientMiddlewares.checkForNonExistingDocument(this.patient.toString());
 
   await patientMiddlewares.addReferenceToDocument(
-    { id: this._id, key: "appointments" },
-    patient
+    { ref_id: this._id, ref_key: "appointments", isInsideArray: true },
+    this.patient.toString()
   );
 });
 

@@ -52,20 +52,19 @@ SessionSchema.pre("deleteOne", async function () {
   const session = (await this.model.findOne(this.getQuery())) as ISession;
 
   await chiefComplaintMiddlewares.removeDeletedReferenceFromDocument(
-    { id: session._id!, key: "patient_evolution" },
+    { ref_id: session._id!, ref_key: "sessions", isInsideArray: true },
     session.chief_complaint.toString()
   );
 });
 
 SessionSchema.pre("save", async function () {
-  const chiefComplaint =
-    await chiefComplaintMiddlewares.checkForNonExistingDocument(
-      this.chief_complaint.toString()
-    );
+  await chiefComplaintMiddlewares.checkForNonExistingDocument(
+    this.chief_complaint.toString()
+  );
 
   await chiefComplaintMiddlewares.addReferenceToDocument(
-    { id: this._id, key: "patient_evolution" },
-    chiefComplaint
+    { ref_id: this._id, ref_key: "sessions", isInsideArray: true },
+    this.chief_complaint.toString()
   );
 });
 

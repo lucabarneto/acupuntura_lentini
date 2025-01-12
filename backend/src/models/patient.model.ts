@@ -3,6 +3,7 @@ import { IPatient } from "../types/mongo/IPatient.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { appointmentMiddlewares } from "./appoinment.model.ts";
+import { reportMiddlewares } from "./report.model.ts";
 import { DATE_REGEX, TIME_REGEX } from "../constants/constants.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
@@ -86,6 +87,16 @@ const AppointmentRefSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const ReportsRefSchema = new mongoose.Schema(
+  {
+    report: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "reports",
+    },
+  },
+  { _id: false }
+);
+
 const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -121,6 +132,7 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   presumptive_analysis: PresumptiveAnalysisSchema,
   chief_complaints: [ChiefComplaintsRefSchema],
   appointments: [AppointmentRefSchema],
+  reports: [ReportsRefSchema],
 });
 
 /* :: Schema middlewares :: */
@@ -128,19 +140,25 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
 PatientSchema.pre("deleteOne", async function () {
   const patient = (await this.model.findOne(this.getQuery())) as IPatient;
 
-  await chiefComplaintMiddlewares.deleteNestedReferencesOffDatabase(
-    patient.chief_complaints
-  );
+  if (patient.chief_complaints.length !== 0)
+    await chiefComplaintMiddlewares.deleteNestedReferencesOffDatabase(
+      patient.chief_complaints
+    );
 
-  await appointmentMiddlewares.deleteNestedReferencesOffDatabase(
-    patient.appointments
-  );
+  if (patient.appointments.length !== 0)
+    await appointmentMiddlewares.deleteNestedReferencesOffDatabase(
+      patient.appointments
+    );
+
+  if (patient.reports.length !== 0)
+    await reportMiddlewares.deleteNestedReferencesOffDatabase(patient.reports);
 });
 
 PatientSchema.pre("find", function () {
   this.populate([
     "chief_complaints.chief_complaint",
     "appointments.appointment",
+    "reports.report",
   ]);
 });
 

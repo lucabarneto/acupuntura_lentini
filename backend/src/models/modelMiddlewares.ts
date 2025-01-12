@@ -1,14 +1,26 @@
 import { Model } from "mongoose";
 import { ID } from "../types/general/ID.interface.ts";
 
+type Reference = {
+  ref_id: ID;
+  ref_key: ReferenceKey;
+  isInsideArray: boolean;
+};
+
+type ReferenceKey =
+  | "appointments"
+  | "chief_complaints"
+  | "sessions"
+  | "reports";
+
 interface NestedReference {
   [ref: string]: ID;
 }
 
-type ReferenceKey = "appointments" | "chief_complaints" | "patient_evolution";
-
 const RAW_REFERENCE = 4;
 const ID_POSITION = 0;
+
+const makeStringSingular = (string: string) => string.slice(-string.length, -1);
 
 export abstract class ModelMiddlewares<Interface> {
   model: Model<Interface>;
@@ -28,7 +40,7 @@ export abstract class ModelMiddlewares<Interface> {
 
   deleteNestedReferencesOffDatabase = async (
     nestedReferences: NestedReference[]
-  ) => {
+  ): Promise<void> => {
     for (let i = 0; i < nestedReferences.length; i++) {
       const rawReference = Object.values(nestedReferences[i])[RAW_REFERENCE];
       const referenceId = Object.values(rawReference)[ID_POSITION].toString();
@@ -44,82 +56,69 @@ export abstract class ModelMiddlewares<Interface> {
   };
 
   removeDeletedReferenceFromDocument = async (
-    reference: { id: ID; key: ReferenceKey },
-    document_id: ID
-  ) => {
-    const referenceToPull = this.createPullOrPushObject("pull", reference);
+    reference: Reference,
+    document: ID
+  ): Promise<void> => {
+    const refToRemove = this.removeReference(reference) as any;
 
-    const result = await this.model.updateOne(
-      { _id: document_id },
-      {
-        $pull: referenceToPull,
-      }
-    );
+    const result = await this.model.updateOne({ _id: document }, refToRemove);
 
     if (result.modifiedCount === 0)
       throw new Error(
-        `Could not remove reference from document (reference Id '${reference.id}')`
+        `Could not remove reference from document (reference Id '${reference.ref_id}')`
       );
   };
 
   addReferenceToDocument = async (
-    reference: { id: ID; key: ReferenceKey },
-    document: any
-  ) => {
-    const referenceToPush = this.createPullOrPushObject("push", reference);
+    reference: Reference,
+    document: ID
+  ): Promise<void> => {
+    const refToAdd = this.addReference(reference) as any;
 
-    document[reference.key].push(referenceToPush);
-
-    const result = await this.model.replaceOne(
-      { _id: document._id },
-      document!
-    );
+    const result = await this.model.updateOne({ _id: document }, refToAdd);
 
     if (result.modifiedCount === 0)
       throw new Error(
-        `Could not add reference to document (reference Id '${reference.id}')`
+        `Could not add reference to document (reference Id '${reference.ref_id}')`
       );
   };
 
-  private createPullOrPushObject = (
-    type: "pull" | "push",
-    reference: { id: ID; key: ReferenceKey }
-  ) => {
-    let pullOrPushObject: any;
+  private addReference = (reference: Reference) => {
+    const refKeyInSingular = makeStringSingular(reference.ref_key);
 
-    switch (reference.key) {
-      case "chief_complaints":
-        if (type === "pull") {
-          pullOrPushObject = {
-            chief_complaints: { chief_complaint: reference.id.toString() },
-          };
-        } else {
-          pullOrPushObject = { chief_complaint: reference.id.toString() };
-        }
-        break;
-      case "patient_evolution":
-        if (type === "pull") {
-          pullOrPushObject = {
-            patient_evolution: { session: reference.id.toString() },
-          };
-        } else {
-          pullOrPushObject = { session: reference.id.toString() };
-        }
-        break;
-      case "appointments":
-        if (type === "pull") {
-          pullOrPushObject = {
-            appointments: { appointment: reference.id.toString() },
-          };
-        } else {
-          pullOrPushObject = { appointment: reference.id.toString() };
-        }
-        break;
-      default:
-        const _exhaustiveCheck: never = reference.key;
-        return _exhaustiveCheck;
+    let refToAdd;
+
+    if (reference.isInsideArray) {
+      refToAdd = {
+        $addToSet: {
+          [reference.ref_key]: { [refKeyInSingular]: reference.ref_id },
+        },
+      };
+    } else {
+      refToAdd = { $set: { [refKeyInSingular]: reference.ref_id } };
     }
 
-    return pullOrPushObject;
+    return refToAdd;
+  };
+
+  private removeReference = (reference: Reference) => {
+    const refKeyInSingular = makeStringSingular(reference.ref_key);
+    let refToRemove;
+
+    if (reference.isInsideArray) {
+      refToRemove = {
+        $pull: {
+          [reference.ref_key]: {
+            [refKeyInSingular]: reference.ref_id.toString(),
+          },
+        },
+      };
+    } else {
+      refToRemove = {
+        $unset: { [refKeyInSingular]: reference.ref_id.toString() },
+      };
+    }
+
+    return refToRemove;
   };
 }

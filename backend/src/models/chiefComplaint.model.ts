@@ -3,6 +3,7 @@ import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { sessionMiddlewares } from "./session.model.ts";
 import { patientMiddlewares } from "./patient.model.ts";
+import { reportMiddlewares } from "./report.model.ts";
 
 type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
@@ -31,13 +32,18 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
   state: {
     type: String,
     enum: ["finished", "in_progress"],
+    required: true,
   },
   patient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "patients",
     required: true,
   },
-  patient_evolution: [SessionRefSchema],
+  report: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "reports",
+  },
+  sessions: [SessionRefSchema],
 });
 
 /* :: Schema middlewares :: */
@@ -47,32 +53,42 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
     this.getQuery()
   )) as IChiefComplaint;
 
-  if (chiefComplaint.patient_evolution.length !== 0)
+  if (chiefComplaint.sessions.length !== 0)
     await sessionMiddlewares.deleteNestedReferencesOffDatabase(
-      chiefComplaint.patient_evolution
+      chiefComplaint.sessions
     );
 
   await patientMiddlewares.removeDeletedReferenceFromDocument(
     {
-      id: chiefComplaint._id!,
-      key: "chief_complaints",
+      ref_id: chiefComplaint._id!,
+      ref_key: "chief_complaints",
+      isInsideArray: true,
     },
     chiefComplaint.patient.toString()
   );
+
+  if (chiefComplaint.report) {
+    await reportMiddlewares.removeDeletedReferenceFromDocument(
+      {
+        ref_id: chiefComplaint._id!,
+        ref_key: "chief_complaints",
+        isInsideArray: false,
+      },
+      chiefComplaint.report.toString()
+    );
+  }
 });
 
 ChiefComplaintSchema.pre("find", function () {
-  this.populate(["patient_evolution.session"]);
+  this.populate(["sessions.session"]);
 });
 
 ChiefComplaintSchema.pre("save", async function () {
-  const patient = await patientMiddlewares.checkForNonExistingDocument(
-    this.patient.toString()
-  );
+  await patientMiddlewares.checkForNonExistingDocument(this.patient.toString());
 
   await patientMiddlewares.addReferenceToDocument(
-    { id: this._id, key: "chief_complaints" },
-    patient
+    { ref_id: this._id, ref_key: "chief_complaints", isInsideArray: true },
+    this.patient.toString()
   );
 });
 

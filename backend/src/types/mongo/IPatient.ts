@@ -91,6 +91,14 @@ export const IPatient = z.object({
     })
     .array()
     .default([]),
+  reports: z
+    .object({
+      report: z.string().regex(MONGO_ID_REGEX, {
+        message: "Invalid Report ID",
+      }),
+    })
+    .array()
+    .default([]),
 });
 
 export type IPatient = z.infer<typeof IPatient>;
