@@ -4,7 +4,7 @@ import { patientService } from "../services/patients.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { logger } from "../utils/logger.ts";
-import { SortQueries } from "../types/general/UrlQueries.ts";
+import { SortQueries } from "../types/general/SortQueries.ts";
 
 export class PatientController {
   handleId = async (

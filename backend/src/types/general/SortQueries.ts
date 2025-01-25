@@ -6,12 +6,7 @@ type PatientSortQueries = {
 };
 
 type ReportSortQueries = {
-  date: SortOrder;
+  creation_date: SortOrder;
 };
 
-type PatientFilterQueries = {};
-
-type ReportFilterQueries = {};
-
 export type SortQueries = PatientSortQueries | ReportSortQueries;
-export type FilterQueries = PatientFilterQueries | ReportFilterQueries;

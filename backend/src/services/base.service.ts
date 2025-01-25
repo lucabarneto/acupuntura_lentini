@@ -1,12 +1,9 @@
 import { DAO } from "../types/general/Dao.interface.ts";
 import { ID } from "../types/general/ID.interface.ts";
-import { SortQueries, FilterQueries } from "../types/general/UrlQueries.ts";
+import { SortQueries } from "../types/general/SortQueries.ts";
 
 interface Service<T> {
-  getAll: (
-    sort: undefined | SortQueries,
-    filters: undefined | FilterQueries
-  ) => Promise<T[]>;
+  getAll: (sort: undefined | SortQueries) => Promise<T[]>;
   getById: (id: string) => Promise<T>;
   create: (data: T) => Promise<T>;
   update: (id: string, update: T) => Promise<T>;
@@ -21,10 +18,9 @@ export abstract class BaseService<Interface> implements Service<Interface> {
   }
 
   getAll = async (
-    sort: undefined | SortQueries = undefined,
-    filters: undefined | FilterQueries = undefined
+    sort: undefined | SortQueries = undefined
   ): Promise<Interface[]> => {
-    const result = await this.dao.getAll(sort, filters);
+    const result = await this.dao.getAll(sort);
 
     if (result.status === "error") throw result.error;
 

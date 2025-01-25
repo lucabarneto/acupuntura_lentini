@@ -1,4 +1,4 @@
-import { SortQueries, FilterQueries } from "./UrlQueries.ts";
+import { SortQueries } from "./SortQueries.ts";
 
 interface SuccessReturnValue<T> {
   status: "success";
@@ -12,10 +12,7 @@ interface ErrorReturnValue {
 export type DAOReturnValue<T> = SuccessReturnValue<T> | ErrorReturnValue;
 
 export interface DAO<T> {
-  getAll: (
-    sort: undefined | SortQueries,
-    filters: undefined | FilterQueries
-  ) => Promise<DAOReturnValue<T[]>>;
+  getAll: (sort: undefined | SortQueries) => Promise<DAOReturnValue<T[]>>;
   getById: (id: string) => Promise<DAOReturnValue<T>>;
   create: (data: T) => Promise<DAOReturnValue<T>>;
   update: (id: string, update: T) => Promise<DAOReturnValue<T>>;
