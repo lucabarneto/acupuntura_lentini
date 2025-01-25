@@ -3,10 +3,16 @@ import { DatabaseConnection } from "./config/database_connection.config.ts";
 import { router } from "./routes/index.routes.ts";
 import { logger } from "./utils/logger.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
+import passport from "passport";
+import { initializePassport } from "./config/passport.config.ts";
 
 const app = express();
 
 const PORT = process.env.PORT || 8080;
+
+/* Passport init */
+initializePassport();
+passport.initialize();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
