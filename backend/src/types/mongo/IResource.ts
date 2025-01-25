@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX } from "../../constants/constants.ts";
+import { MONGO_ID_REGEX } from "../../constants.ts";
 
 export const IResource = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),

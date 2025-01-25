@@ -1,11 +1,10 @@
 import { z } from "zod";
 import { Types } from "mongoose";
-import { MONGO_ID_REGEX } from "../../constants/constants.ts";
+import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.ts";
 
 export const IAppointment = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),
-  date: z.string().date(),
-  time: z.string().time(),
+  date: z.number().min(MIN_DATE),
   expired: z.boolean().default(false),
   patient_is_notified: z.boolean().default(false),
   patient_assisted: z.boolean().default(false),
@@ -24,5 +23,3 @@ export const IAppointment = z.object({
 });
 
 export type IAppointment = z.infer<typeof IAppointment>;
-
-IAppointment;

@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { IPatient } from "../types/mongo/IPatient.ts";
 import { patientService } from "../services/patients.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
+import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { logger } from "../utils/logger.ts";
+import { SortQueries } from "../types/general/UrlQueries.ts";
 
 export class PatientController {
   handleId = async (
@@ -21,12 +23,18 @@ export class PatientController {
   };
 
   getAllPatients = async (
-    req: Request,
+    req: Request<RequestQueries>,
     res: Response<IPatient[]>,
     next: NextFunction
   ) => {
     try {
-      const result = await patientService.getAll();
+      const sort = req.query.first_name
+        ? ({ first_name: req.query.first_name } as SortQueries)
+        : req.query.next_appointment
+        ? ({ next_appointment: req.query.next_appointment } as SortQueries)
+        : undefined;
+
+      const result = await patientService.getAll(sort);
       logger.http(`Patients found succesfully`);
       res.status(200).send(result);
     } catch (err) {

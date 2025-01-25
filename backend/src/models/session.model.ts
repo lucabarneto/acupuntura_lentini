@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { ISession } from "../types/mongo/ISession.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
-import { DATE_REGEX } from "../constants/constants.ts";
+import { DATE_REGEX } from "../constants.ts";
 
 type SessionModel = mongoose.Model<ISession>;
 

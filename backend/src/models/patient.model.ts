@@ -4,11 +4,14 @@ import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { appointmentMiddlewares } from "./appoinment.model.ts";
 import { reportMiddlewares } from "./report.model.ts";
-import { DATE_REGEX, TIME_REGEX } from "../constants/constants.ts";
+import { DATE_REGEX, TIME_REGEX, MIN_DATE } from "../constants.ts";
+import { ID } from "../types/general/ID.interface.ts";
 
 type PatientModel = mongoose.Model<IPatient>;
 
 const PATIENTS_COLLECTION = "patients";
+
+const NEXT_APPOINTMENT_POSITION = 0;
 
 const BaziTableSchema = new mongoose.Schema(
   {
@@ -82,6 +85,12 @@ const AppointmentRefSchema = new mongoose.Schema(
     appointment: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "appointments",
+      required: true,
+    },
+    date: {
+      type: Number,
+      required: true,
+      min: MIN_DATE,
     },
   },
   { _id: false }
@@ -128,6 +137,10 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
     required: true,
   },
   profile_picture: String,
+  next_appointment: {
+    type: Number,
+    min: MIN_DATE,
+  },
   birth: BirthSchema,
   presumptive_analysis: PresumptiveAnalysisSchema,
   chief_complaints: [ChiefComplaintsRefSchema],
@@ -142,19 +155,24 @@ PatientSchema.pre("deleteOne", async function () {
 
   if (patient.chief_complaints.length !== 0)
     await chiefComplaintMiddlewares.deleteNestedReferencesOffDatabase(
-      patient.chief_complaints
+      patient.chief_complaints,
+      "chief_complaints"
     );
 
   if (patient.appointments.length !== 0)
     await appointmentMiddlewares.deleteNestedReferencesOffDatabase(
-      patient.appointments
+      patient.appointments,
+      "appointments"
     );
 
   if (patient.reports.length !== 0)
-    await reportMiddlewares.deleteNestedReferencesOffDatabase(patient.reports);
+    await reportMiddlewares.deleteNestedReferencesOffDatabase(
+      patient.reports,
+      "reports"
+    );
 });
 
-PatientSchema.pre("find", function () {
+PatientSchema.pre("findOne", function () {
   this.populate([
     "chief_complaints.chief_complaint",
     "appointments.appointment",
@@ -167,6 +185,28 @@ export const PatientModel = mongoose.model<IPatient, PatientModel>(
   PatientSchema
 );
 
-class PatientMiddlewares extends ModelMiddlewares<IPatient> {}
+class PatientMiddlewares extends ModelMiddlewares<IPatient> {
+  setNextAppointment = async (
+    appointments: any[],
+    document_id: ID
+  ): Promise<void> => {
+    if (appointments.length === 0) return;
+
+    const next_appointment =
+      appointments.length === 1
+        ? appointments[NEXT_APPOINTMENT_POSITION].date
+        : appointments
+            .filter((appointment) => appointment.date >= Date.now())
+            .sort((a, b) => a.date - b.date)[NEXT_APPOINTMENT_POSITION].date;
+
+    const result = await this.model.updateOne(
+      { _id: document_id },
+      { next_appointment }
+    );
+
+    if (result.matchedCount === 0)
+      throw new Error(`Could not set next appointment to patient correctly`);
+  };
+}
 
 export const patientMiddlewares = new PatientMiddlewares(PatientModel);

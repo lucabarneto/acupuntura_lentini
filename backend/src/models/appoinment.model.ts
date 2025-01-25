@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { IAppointment } from "../types/mongo/IAppointment.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { patientMiddlewares } from "./patient.model.ts";
-import { DATE_REGEX, TIME_REGEX } from "../constants/constants.ts";
+import { MIN_DATE } from "../constants.ts";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 
@@ -14,14 +14,9 @@ const AppointmentSchema = new mongoose.Schema<IAppointment, AppointmentModel>({
     auto: true,
   },
   date: {
-    type: String,
+    type: Number,
     required: true,
-    match: DATE_REGEX,
-  },
-  time: {
-    type: String,
-    required: true,
-    match: TIME_REGEX,
+    min: MIN_DATE,
   },
   patient_is_notified: {
     type: Boolean,
@@ -53,13 +48,38 @@ AppointmentSchema.pre("deleteOne", async function () {
     { ref_id: appointment._id!, ref_key: "appointments", isInsideArray: true },
     appointment.patient.toString()
   );
+
+  const patient = await patientMiddlewares.checkForNonExistingDocument(
+    appointment.patient.toString()
+  );
+
+  await patientMiddlewares.setNextAppointment(
+    patient.appointments,
+    appointment.patient.toString()
+  );
 });
 
 AppointmentSchema.pre("save", async function () {
   await patientMiddlewares.checkForNonExistingDocument(this.patient.toString());
 
   await patientMiddlewares.addReferenceToDocument(
-    { ref_id: this._id, ref_key: "appointments", isInsideArray: true },
+    {
+      ref_id: this._id,
+      ref_key: "appointments",
+      isInsideArray: true,
+      aditional_value: this.date,
+    },
+    this.patient.toString()
+  );
+});
+
+AppointmentSchema.post("save", async function () {
+  const patient = await patientMiddlewares.checkForNonExistingDocument(
+    this.patient.toString()
+  );
+
+  await patientMiddlewares.setNextAppointment(
+    patient.appointments,
     this.patient.toString()
   );
 });

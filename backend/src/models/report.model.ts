@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { IReport } from "../types/mongo/IReport.ts";
-import { DATE_REGEX } from "../constants/constants.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { patientMiddlewares } from "./patient.model.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
+import { MIN_DATE } from "../constants.ts";
 
 type ReportModel = mongoose.Model<IReport>;
 
@@ -14,10 +14,10 @@ const ReportSchema = new mongoose.Schema<IReport, ReportModel>({
     type: mongoose.Types.ObjectId,
     auto: true,
   },
-  date: {
-    type: String,
+  creation_date: {
+    type: Number,
     required: true,
-    match: DATE_REGEX,
+    min: MIN_DATE,
   },
   treatment: {
     type: String,
@@ -62,13 +62,11 @@ ReportSchema.pre("deleteOne", async function () {
 });
 
 ReportSchema.pre("save", async function () {
-  await patientMiddlewares.checkForNonExistingDocument(
-    this.patient.toString()
-  );
+  await patientMiddlewares.checkForNonExistingDocument(this.patient.toString());
 
-    await chiefComplaintMiddlewares.checkForNonExistingDocument(
-      this.chief_complaint.toString()
-    );
+  await chiefComplaintMiddlewares.checkForNonExistingDocument(
+    this.chief_complaint.toString()
+  );
 
   await patientMiddlewares.addReferenceToDocument(
     { ref_id: this._id, ref_key: "reports", isInsideArray: true },

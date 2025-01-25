@@ -7,8 +7,7 @@ class AppointmentService extends BaseService<IAppointment> {
     appointments.some(
       (appointment) =>
         appointment.patient.toString() === data.patient.toString() &&
-        appointment.date === data.date &&
-        appointment.time === data.time
+        appointment.date === data.date
     );
 }
 

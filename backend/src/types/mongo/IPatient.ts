@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX } from "../../constants/constants.ts";
+import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.ts";
 
 const TableProps = z.enum(["hour", "day", "month", "year"]);
 
@@ -75,6 +75,7 @@ export const IPatient = z.object({
   profile_picture: z.string().optional(),
   birth: Birth,
   presumptive_analysis: PresumptiveAnalysis,
+  next_appointment: z.number().min(MIN_DATE).optional(),
   chief_complaints: z
     .object({
       chief_complaint: z.string().regex(MONGO_ID_REGEX, {
@@ -88,6 +89,7 @@ export const IPatient = z.object({
       appointment: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Appointment ID",
       }),
+      date: z.number().min(MIN_DATE),
     })
     .array()
     .default([]),

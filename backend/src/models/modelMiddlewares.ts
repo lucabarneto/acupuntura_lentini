@@ -1,24 +1,19 @@
 import { Model } from "mongoose";
-import { ID } from "../types/general/ID.interface.ts";
+import { ID } from "..//types/general/ID.interface.ts";
 
 type Reference = {
   ref_id: ID;
   ref_key: ReferenceKey;
   isInsideArray: boolean;
+  aditional_value?: string | number;
 };
 
 type ReferenceKey =
   | "appointments"
   | "chief_complaints"
   | "sessions"
-  | "reports";
-
-interface NestedReference {
-  [ref: string]: ID;
-}
-
-const RAW_REFERENCE = 4;
-const ID_POSITION = 0;
+  | "reports"
+  | "resources";
 
 const makeStringSingular = (string: string) => string.slice(-string.length, -1);
 
@@ -29,8 +24,8 @@ export abstract class ModelMiddlewares<Interface> {
     this.model = model;
   }
 
-  checkForNonExistingDocument = async (id: ID) => {
-    const result = await this.model.findOne({ _id: id });
+  checkForNonExistingDocument = async (id: ID): Promise<Interface> => {
+    const result = (await this.model.findOne({ _id: id })) as Interface;
 
     if (!result)
       throw new Error(`Id '${id}' referenced in the document does not exist`);
@@ -39,18 +34,18 @@ export abstract class ModelMiddlewares<Interface> {
   };
 
   deleteNestedReferencesOffDatabase = async (
-    nestedReferences: NestedReference[]
+    nestedReferences: any[],
+    reference_key: ReferenceKey
   ): Promise<void> => {
-    for (let i = 0; i < nestedReferences.length; i++) {
-      const rawReference = Object.values(nestedReferences[i])[RAW_REFERENCE];
-      const referenceId = Object.values(rawReference)[ID_POSITION].toString();
+    const refKeyInSingular = makeStringSingular(reference_key);
 
+    for (let i = 0; i < nestedReferences.length; i++) {
       const result = await this.model.deleteOne({
-        _id: referenceId,
+        _id: nestedReferences[i][refKeyInSingular]._id,
       });
       if (result.deletedCount === 0)
         throw new Error(
-          `Could not delete nested document (Id '${referenceId}')`
+          `Could not delete nested document (Id '${nestedReferences[i][reference_key]._id}')`
         );
     }
   };
@@ -86,27 +81,26 @@ export abstract class ModelMiddlewares<Interface> {
   private addReference = (reference: Reference) => {
     const refKeyInSingular = makeStringSingular(reference.ref_key);
 
-    let refToAdd;
-
     if (reference.isInsideArray) {
-      refToAdd = {
-        $addToSet: {
-          [reference.ref_key]: { [refKeyInSingular]: reference.ref_id },
-        },
-      };
+      return reference.aditional_value &&
+        (reference.ref_key === "appointments" ||
+          reference.ref_key === "resources")
+        ? this.addReferenceWithAditionalValue(reference)
+        : {
+            $addToSet: {
+              [reference.ref_key]: { [refKeyInSingular]: reference.ref_id },
+            },
+          };
     } else {
-      refToAdd = { $set: { [refKeyInSingular]: reference.ref_id } };
+      return { $set: { [refKeyInSingular]: reference.ref_id } };
     }
-
-    return refToAdd;
   };
 
   private removeReference = (reference: Reference) => {
     const refKeyInSingular = makeStringSingular(reference.ref_key);
-    let refToRemove;
 
     if (reference.isInsideArray) {
-      refToRemove = {
+      return {
         $pull: {
           [reference.ref_key]: {
             [refKeyInSingular]: reference.ref_id.toString(),
@@ -114,11 +108,35 @@ export abstract class ModelMiddlewares<Interface> {
         },
       };
     } else {
-      refToRemove = {
+      return {
         $unset: { [refKeyInSingular]: reference.ref_id.toString() },
       };
     }
+  };
 
-    return refToRemove;
+  private addReferenceWithAditionalValue = (reference: Reference) => {
+    const refKeyInSingular = makeStringSingular(reference.ref_key);
+
+    if (reference.ref_key === "appointments") {
+      return {
+        $addToSet: {
+          [reference.ref_key]: {
+            [refKeyInSingular]: reference.ref_id,
+            date: reference.aditional_value,
+          },
+        },
+      };
+    }
+
+    if (reference.ref_key === "resources") {
+      return {
+        $addToSet: {
+          [reference.ref_key]: {
+            [refKeyInSingular]: reference.ref_id,
+            selected_input: reference.aditional_value,
+          },
+        },
+      };
+    }
   };
 }

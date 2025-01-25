@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { ID } from "../types/general/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
+import { SortQueries, FilterQueries } from "../types/general/UrlQueries.ts";
 
 export abstract class MongoDAO<Interface> implements DAO<Interface> {
   private model: mongoose.Model<Interface>;
@@ -9,9 +10,17 @@ export abstract class MongoDAO<Interface> implements DAO<Interface> {
     this.model = model;
   }
 
-  async getAll(): Promise<DAOReturnValue<Interface[]>> {
+  async getAll(
+    sort: undefined | SortQueries = undefined,
+    filters: undefined | FilterQueries = undefined
+  ): Promise<DAOReturnValue<Interface[]>> {
     try {
-      const result = (await this.model.find()) as Interface[];
+      let result: Interface[];
+      if (filters) {
+        result = (await this.model.find(filters).sort(sort)) as Interface[];
+      } else {
+        result = (await this.model.find().sort(sort)) as Interface[];
+      }
 
       return { status: "success", payload: result };
     } catch (error) {

@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { z } from "zod";
-import { MONGO_ID_REGEX } from "../../constants/constants.ts";
+import { MONGO_ID_REGEX } from "../../constants.ts";
 
 export const IChiefComplaint = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),
@@ -48,5 +48,3 @@ export const IChiefComplaint = z.object({
 });
 
 export type IChiefComplaint = z.infer<typeof IChiefComplaint>;
-
-IChiefComplaint;

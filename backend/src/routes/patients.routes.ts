@@ -3,6 +3,7 @@ import { IPatient } from "../types/mongo/IPatient.ts";
 import { PatientController } from "../controllers/patients.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
+import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { multerUpload } from "../utils/multer.ts";
 import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
 
@@ -11,7 +12,11 @@ const patientController = new PatientController();
 
 patientRouter.param("id", patientController.handleId);
 
-patientRouter.get("/", patientController.getAllPatients);
+patientRouter.get(
+  "/",
+  validateRequest({ query: RequestQueries }),
+  patientController.getAllPatients
+);
 
 patientRouter.get(
   "/:id",

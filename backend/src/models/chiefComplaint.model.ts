@@ -55,7 +55,8 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
 
   if (chiefComplaint.sessions.length !== 0)
     await sessionMiddlewares.deleteNestedReferencesOffDatabase(
-      chiefComplaint.sessions
+      chiefComplaint.sessions,
+      "sessions"
     );
 
   await patientMiddlewares.removeDeletedReferenceFromDocument(
@@ -79,7 +80,7 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
   }
 });
 
-ChiefComplaintSchema.pre("find", function () {
+ChiefComplaintSchema.pre("findOne", function () {
   this.populate(["sessions.session"]);
 });
 

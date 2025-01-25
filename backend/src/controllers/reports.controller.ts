@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { IReport } from "../types/mongo/IReport.ts";
 import { reportService } from "../services/reports.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
+import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { logger } from "../utils/logger.ts";
+import { SortQueries } from "../types/general/UrlQueries.ts";
 
 export class ReportController {
   handleId = async (
@@ -21,12 +23,16 @@ export class ReportController {
   };
 
   getAllReports = async (
-    req: Request,
+    req: Request<RequestQueries>,
     res: Response<IReport[]>,
     next: NextFunction
   ) => {
     try {
-      const result = await reportService.getAll();
+      const sort = req.query.creation_date
+        ? ({ creation_date: req.query.creation_date } as SortQueries)
+        : undefined;
+
+      const result = await reportService.getAll(sort);
       logger.http(`Reports found succesfully`);
       res.status(200).send(result);
     } catch (err) {
