@@ -5,7 +5,7 @@ import { logger } from "../utils/logger.ts";
 
 type AssetFolders = "profile_picture" | "patient_tongue";
 
-export const cloudinaryUpload = (asset_folder: AssetFolders) => {
+export const uploadImage = (asset_folder: AssetFolders) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const result = await uploadStream(req, asset_folder);
 

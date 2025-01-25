@@ -3,8 +3,8 @@ import { ISession } from "../types/mongo/ISession.ts";
 import { SessionController } from "../controllers/sessions.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
-import { multerUpload } from "../utils/multer.ts";
-import { cloudinaryUpload } from "../middlewares/cloudinaryUpload.ts";
+import multer from "multer";
+import { uploadImage } from "../middlewares/uploadImage.ts";
 
 export const sessionRouter = Router();
 const sessionController = new SessionController();
@@ -21,16 +21,16 @@ sessionRouter.get(
 
 sessionRouter.post(
   "/",
-  multerUpload.single("patient_tongue"),
-  cloudinaryUpload("patient_tongue"),
+  multer().single("patient_tongue"),
+  uploadImage("patient_tongue"),
   validateRequest({ body: ISession }),
   sessionController.createSession
 );
 
 sessionRouter.put(
   "/:id",
-  multerUpload.single("patient_tongue"),
-  cloudinaryUpload("patient_tongue"),
+  multer().single("patient_tongue"),
+  uploadImage("patient_tongue"),
   validateRequest({ params: RequestParams, body: ISession }),
   sessionController.updateSession
 );
