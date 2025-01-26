@@ -21,4 +21,13 @@ export class SessionController {
       next(err);
     }
   };
+
+  logUserOut = (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.clearCookie("authCookie").redirect("/login");
+      logger.info("User logged out.");
+    } catch (err) {
+      next(err);
+    }
+  };
 }

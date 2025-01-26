@@ -4,7 +4,7 @@ import { ResourceController } from "../controllers/resources.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { authenticate } from "../middlewares/authenticate.ts";
-import { adminAuthorization } from "../middlewares/adminAuthorization.ts";
+import { adminCredentials } from "../middlewares/adminCredentials.ts";
 
 const resourceController = new ResourceController();
 
@@ -28,7 +28,7 @@ resourceRouter.get(
 resourceRouter.post(
   "/",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ body: IResource }),
   resourceController.createResource
 );
@@ -36,7 +36,7 @@ resourceRouter.post(
 resourceRouter.put(
   "/:id",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ params: RequestParams, body: IResource }),
   resourceController.updateResource
 );
@@ -44,7 +44,7 @@ resourceRouter.put(
 resourceRouter.delete(
   "/:id",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ params: RequestParams }),
   resourceController.deleteResource
 );

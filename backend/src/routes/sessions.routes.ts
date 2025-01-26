@@ -11,3 +11,9 @@ sessionRouter.post(
   authenticate("login", { session: false }),
   sessionController.logUserIn
 );
+
+sessionRouter.post(
+  "/logout",
+  authenticate("jwt", { session: false }),
+  sessionController.logUserOut
+);

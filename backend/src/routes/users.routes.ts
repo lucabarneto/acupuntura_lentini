@@ -4,7 +4,7 @@ import { UserController } from "../controllers/users.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { authenticate } from "../middlewares/authenticate.ts";
-import { adminAuthorization } from "../middlewares/adminAuthorization.ts";
+import { adminCredentials } from "../middlewares/adminCredentials.ts";
 
 const userController = new UserController();
 
@@ -15,14 +15,14 @@ userRouter.param("id", userController.handleId);
 userRouter.get(
   "/",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   userController.getAllUsers
 );
 
 userRouter.get(
   "/:id",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ params: RequestParams }),
   userController.getUserById
 );
@@ -30,7 +30,7 @@ userRouter.get(
 userRouter.post(
   "/",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ body: IUser }),
   userController.createUser
 );
@@ -38,7 +38,7 @@ userRouter.post(
 userRouter.put(
   "/:id",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ params: RequestParams, body: IUser }),
   userController.updateUser
 );
@@ -46,7 +46,7 @@ userRouter.put(
 userRouter.delete(
   "/:id",
   authenticate("jwt", { session: false }),
-  adminAuthorization,
+  adminCredentials,
   validateRequest({ params: RequestParams }),
   userController.deleteUser
 );
