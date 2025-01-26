@@ -2,7 +2,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 import { MONGO_ID_REGEX } from "../../constants.ts";
 
-export const ISession = z.object({
+export const IConsultation = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),
   date: z.string().date(),
   treatment: z.string(),
@@ -23,7 +23,7 @@ export const ISession = z.object({
   resources: z
     .object({
       resource: z.string().regex(MONGO_ID_REGEX, {
-        message: "Invalid Session ID",
+        message: "Invalid Consultation ID",
       }),
       selected_value: z.string(),
     })
@@ -31,4 +31,4 @@ export const ISession = z.object({
     .default([]),
 });
 
-export type ISession = z.infer<typeof ISession>;
+export type IConsultation = z.infer<typeof IConsultation>;

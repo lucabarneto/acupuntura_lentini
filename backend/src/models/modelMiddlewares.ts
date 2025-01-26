@@ -11,7 +11,7 @@ type Reference = {
 type ReferenceKey =
   | "appointments"
   | "chief_complaints"
-  | "sessions"
+  | "consultations"
   | "reports"
   | "resources";
 

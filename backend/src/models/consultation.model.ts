@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-import { ISession } from "../types/mongo/ISession.ts";
+import { IConsultation } from "../types/mongo/IConsultation.ts";
 import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
 import { DATE_REGEX } from "../constants.ts";
 
-type SessionModel = mongoose.Model<ISession>;
+type ConsultationModel = mongoose.Model<IConsultation>;
 
-const SESSION_COLLECTION = "sessions";
+const CONSULTATION_COLLECTION = "consultations";
 
 const ResourceRefSchema = new mongoose.Schema(
   {
@@ -19,7 +19,10 @@ const ResourceRefSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
+const ConsultationSchema = new mongoose.Schema<
+  IConsultation,
+  ConsultationModel
+>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     auto: true,
@@ -48,31 +51,39 @@ const SessionSchema = new mongoose.Schema<ISession, SessionModel>({
 
 /* :: Schema middlewares :: */
 
-SessionSchema.pre("deleteOne", async function () {
-  const session = (await this.model.findOne(this.getQuery())) as ISession;
+ConsultationSchema.pre("deleteOne", async function () {
+  const consultation = (await this.model.findOne(
+    this.getQuery()
+  )) as IConsultation;
 
   await chiefComplaintMiddlewares.removeDeletedReferenceFromDocument(
-    { ref_id: session._id!, ref_key: "sessions", isInsideArray: true },
-    session.chief_complaint.toString()
+    {
+      ref_id: consultation._id!,
+      ref_key: "consultations",
+      isInsideArray: true,
+    },
+    consultation.chief_complaint.toString()
   );
 });
 
-SessionSchema.pre("save", async function () {
+ConsultationSchema.pre("save", async function () {
   await chiefComplaintMiddlewares.checkForNonExistingDocument(
     this.chief_complaint.toString()
   );
 
   await chiefComplaintMiddlewares.addReferenceToDocument(
-    { ref_id: this._id, ref_key: "sessions", isInsideArray: true },
+    { ref_id: this._id, ref_key: "consultations", isInsideArray: true },
     this.chief_complaint.toString()
   );
 });
 
-export const SessionModel = mongoose.model<ISession, SessionModel>(
-  SESSION_COLLECTION,
-  SessionSchema
+export const ConsultationModel = mongoose.model<
+  IConsultation,
+  ConsultationModel
+>(CONSULTATION_COLLECTION, ConsultationSchema);
+
+class ConsultationMiddlewares extends ModelMiddlewares<IConsultation> {}
+
+export const consultationMiddlewares = new ConsultationMiddlewares(
+  ConsultationModel
 );
-
-class SessionMiddlewares extends ModelMiddlewares<ISession> {}
-
-export const sessionMiddlewares = new SessionMiddlewares(SessionModel);

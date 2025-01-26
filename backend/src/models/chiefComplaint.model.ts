@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
 import { ModelMiddlewares } from "./modelMiddlewares.ts";
-import { sessionMiddlewares } from "./session.model.ts";
+import { consultationMiddlewares } from "./consultation.model.ts";
 import { patientMiddlewares } from "./patient.model.ts";
 import { reportMiddlewares } from "./report.model.ts";
 
@@ -9,11 +9,11 @@ type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 
 const CHIEF_COMPLAINT_COLLECTION = "chief_complaints";
 
-const SessionRefSchema = new mongoose.Schema(
+const ConsultationRefSchema = new mongoose.Schema(
   {
-    session: {
+    consultation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "sessions",
+      ref: "consultations",
     },
   },
   { _id: false }
@@ -43,7 +43,7 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
     type: mongoose.Schema.Types.ObjectId,
     ref: "reports",
   },
-  sessions: [SessionRefSchema],
+  consultations: [ConsultationRefSchema],
 });
 
 /* :: Schema middlewares :: */
@@ -53,10 +53,10 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
     this.getQuery()
   )) as IChiefComplaint;
 
-  if (chiefComplaint.sessions.length !== 0)
-    await sessionMiddlewares.deleteNestedReferencesOffDatabase(
-      chiefComplaint.sessions,
-      "sessions"
+  if (chiefComplaint.consultations.length !== 0)
+    await consultationMiddlewares.deleteNestedReferencesOffDatabase(
+      chiefComplaint.consultations,
+      "consultations"
     );
 
   await patientMiddlewares.removeDeletedReferenceFromDocument(
@@ -81,7 +81,7 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
 });
 
 ChiefComplaintSchema.pre("findOne", function () {
-  this.populate(["sessions.session"]);
+  this.populate(["consultations.consultation"]);
 });
 
 ChiefComplaintSchema.pre("save", async function () {

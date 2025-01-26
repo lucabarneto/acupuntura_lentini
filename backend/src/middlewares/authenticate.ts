@@ -5,7 +5,7 @@ export const authenticate = (
   strategy: "login" | "jwt",
   options: passport.AuthenticateOptions
 ) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(
       strategy,
       options,
@@ -13,7 +13,7 @@ export const authenticate = (
         try {
           if (error) throw error;
 
-          if (user!) throw new Error("Unauthenticated");
+          if (!user) throw new Error("Unauthenticated");
 
           req.user = user!;
 
@@ -22,6 +22,6 @@ export const authenticate = (
           next(err);
         }
       }
-    );
+    )(req, res, next);
   };
 };

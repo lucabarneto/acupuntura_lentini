@@ -1,9 +1,11 @@
+import "dotenv/config";
 import express from "express";
+import passport from "passport";
+import cookieParser from "cookie-parser";
 import { DatabaseConnection } from "./config/database_connection.config.ts";
 import { router } from "./routes/index.routes.ts";
 import { logger } from "./utils/logger.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
-import passport from "passport";
 import { initializePassport } from "./config/passport.config.ts";
 
 const app = express();
@@ -14,18 +16,20 @@ const PORT = process.env.PORT || 8080;
 initializePassport();
 passport.initialize();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* Routes middlewares */
 app.use("/api/patients", router.patientRouter);
 app.use("/api/chiefcomplaints", router.chiefComplaintRouter);
-app.use("/api/sessions", router.sessionRouter);
+app.use("/api/consultations", router.consultationRouter);
 app.use("/api/appointments", router.appointmentRouter);
 app.use("/api/resources", router.resourceRouter);
 app.use("/api/templates", router.templateRouter);
 app.use("/api/reports", router.reportRouter);
 app.use("/api/users", router.userRouter);
+app.use("/api/sessions", router.sessionRouter);
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);

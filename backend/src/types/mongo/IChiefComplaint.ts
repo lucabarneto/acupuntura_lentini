@@ -37,9 +37,9 @@ export const IChiefComplaint = z.object({
       return new Types.ObjectId(val);
     })
     .optional(),
-  sessions: z
+  consultations: z
     .object({
-      session: z.string().regex(MONGO_ID_REGEX, {
+      consultation: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Session ID",
       }),
     })
