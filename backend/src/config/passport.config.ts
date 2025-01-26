@@ -1,17 +1,6 @@
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
+import { loginStrategy } from "./strategies/login.strategy.ts";
 
 export const initializePassport = () => {
-  passport.use(
-    "login",
-    new LocalStrategy(
-      { usernameField: "email" },
-      async (username, password, done) => {
-        try {
-        } catch (err) {
-          done(err);
-        }
-      }
-    )
-  );
+  passport.use("login", loginStrategy);
 };

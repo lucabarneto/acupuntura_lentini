@@ -7,7 +7,9 @@ export class Encryption {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(saltRounds));
   }
 
-  static validatePassword(password: string, hash: string) {
-    return bcrypt.compareSync(password, hash);
+  static validatePassword(password: string, hash: string): void {
+    const result = bcrypt.compareSync(password, hash);
+
+    if (!result) throw new Error("Incorrect Password");
   }
 }
