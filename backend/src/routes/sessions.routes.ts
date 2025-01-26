@@ -9,5 +9,5 @@ export const sessionRouter = Router();
 sessionRouter.post(
   "/login",
   authenticate("login", { session: false }),
-  sessionController.logUser
+  sessionController.logUserIn
 );

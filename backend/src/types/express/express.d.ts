@@ -21,6 +21,10 @@ declare global {
       user?: any;
       myUser: IUser;
     }
+
+    export interface User {
+      role: "admin" | "user";
+    }
   }
 }
 

@@ -3,7 +3,7 @@ import { logger } from "../utils/logger.ts";
 import { AccessToken } from "../utils/jwt.ts";
 
 export class SessionController {
-  logUser = (req: Request, res: Response, next: NextFunction) => {
+  logUserIn = (req: Request, res: Response, next: NextFunction) => {
     try {
       const accessToken = AccessToken.generateToken(req.user!);
 
@@ -12,7 +12,10 @@ export class SessionController {
         httpOnly: true,
       });
 
+      console.log("TOKEN: " + accessToken);
+
       logger.info(`User logged in.`);
+
       res.redirect("/");
     } catch (err) {
       next(err);

@@ -22,7 +22,7 @@ export const loginStrategy = new LocalStrategy(
         role: result!.role,
       };
 
-      return done(null, user);
+      done(null, user);
     } catch (err) {
       done(err);
     }
