@@ -5,6 +5,7 @@ import { sessionRouter } from "./sessions.routes.ts";
 import { resourceRouter } from "./resources.routes.ts";
 import { templateRouter } from "./templates.routes.ts";
 import { reportRouter } from "./reports.routes.ts";
+import { userRouter } from "./users.routes.ts";
 
 export const router = {
   appointmentRouter,
@@ -14,4 +15,5 @@ export const router = {
   resourceRouter,
   templateRouter,
   reportRouter,
+  userRouter,
 };

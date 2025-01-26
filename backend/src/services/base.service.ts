@@ -11,7 +11,7 @@ interface Service<T> {
 }
 
 export abstract class BaseService<Interface> implements Service<Interface> {
-  private dao: DAO<Interface>;
+  protected dao: DAO<Interface>;
 
   constructor(dao: DAO<Interface>) {
     this.dao = dao;
@@ -60,7 +60,7 @@ export abstract class BaseService<Interface> implements Service<Interface> {
     return result.payload;
   };
 
-  private isAlreadyInDatabase = async (data: Interface): Promise<void> => {
+  isAlreadyInDatabase = async (data: Interface): Promise<void> => {
     const documents = await this.getAll();
 
     if (documents.length !== 0) {

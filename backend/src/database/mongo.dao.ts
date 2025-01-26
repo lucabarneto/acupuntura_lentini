@@ -4,7 +4,7 @@ import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
 import { SortQueries } from "../types/general/SortQueries.ts";
 
 export abstract class MongoDAO<Interface> implements DAO<Interface> {
-  private model: mongoose.Model<Interface>;
+  protected model: mongoose.Model<Interface>;
 
   constructor(model: mongoose.Model<Interface>) {
     this.model = model;

@@ -6,6 +6,7 @@ import { IResource } from "../mongo/IResource.ts";
 import { ISession } from "../mongo/ISession.ts";
 import { ITemplate } from "../mongo/ITemplate.ts";
 import { IReport } from "../mongo/IReport.ts";
+import { IUser } from "../mongo/IUser.ts";
 
 declare global {
   namespace Express {
@@ -17,6 +18,8 @@ declare global {
       session?: ISession;
       template?: ITemplate;
       report?: IReport;
+      user?: any;
+      myUser: IUser;
     }
   }
 }
