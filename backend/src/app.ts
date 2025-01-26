@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import passport from "passport";
 import cookieParser from "cookie-parser";
 import { DatabaseConnection } from "./config/database_connection.config.ts";
@@ -12,11 +13,13 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
+app.use(cors()); // ***** CONFIGURE WHITELIST AFTER FINISHING FRONTEND *****
+
 /* Passport init */
 initializePassport();
 passport.initialize();
 
-app.use(cookieParser());
+app.use(cookieParser()); // ***** TRY ADDING PROCESS SECRET KEY *****
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,6 +37,10 @@ app.use("/api/sessions", router.sessionRouter);
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
   DatabaseConnection.getInstance();
+});
+
+app.get("/", (req, res) => {
+  res.send("Success!");
 });
 
 app.use(errorHandler);
