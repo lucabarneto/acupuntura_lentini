@@ -3,7 +3,7 @@ import { appointmentDAO } from "../database/appointments.dao.ts";
 import { BaseService } from "./base.service.ts";
 
 class AppointmentService extends BaseService<IAppointment> {
-  findEqual = (data: IAppointment, appointments: IAppointment[]) =>
+  findEqual = (data: IAppointment, appointments: IAppointment[]): boolean =>
     appointments.some(
       (appointment) =>
         appointment.patient.toString() === data.patient.toString() &&

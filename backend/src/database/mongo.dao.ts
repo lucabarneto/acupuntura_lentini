@@ -14,21 +14,21 @@ export abstract class MongoDAO<Interface> implements DAO<Interface> {
     sort: undefined | SortQueries = undefined
   ): Promise<DAOReturnValue<Interface[]>> {
     try {
-      const result = (await this.model.find().sort(sort)) as Interface[];
+      const result = await this.model.find().sort(sort);
 
-      return { status: "success", payload: result };
+      return { status: "success", payload: result as Interface[] };
     } catch (error) {
       return { status: "error", error };
     }
   }
 
-  async getById(id: ID): Promise<DAOReturnValue<Interface>> {
+  async getById(_id: ID): Promise<DAOReturnValue<Interface>> {
     try {
-      const result = (await this.model.findById(id)) as Interface;
+      const result = await this.model.findById(_id);
 
-      if (!result) throw new Error(`Not found (searched ID: ${id})`);
+      if (!result) throw new Error(`Not found (searched ID: ${_id})`);
 
-      return { status: "success", payload: result };
+      return { status: "success", payload: result as Interface };
     } catch (error) {
       return { status: "error", error };
     }
@@ -36,29 +36,29 @@ export abstract class MongoDAO<Interface> implements DAO<Interface> {
 
   async create(data: Interface): Promise<DAOReturnValue<Interface>> {
     try {
-      const result = (await this.model.create(data)) as Interface;
+      const result = await this.model.create(data);
 
-      return { status: "success", payload: result };
+      return { status: "success", payload: result as Interface };
     } catch (error) {
       return { status: "error", error };
     }
   }
 
-  async update(id: ID, update: Interface): Promise<DAOReturnValue<Interface>> {
+  async update(_id: ID, update: Interface): Promise<DAOReturnValue<Interface>> {
     try {
-      const result = (await this.model.findOneAndReplace({ _id: id }, update, {
+      const result = await this.model.findOneAndReplace({ _id }, update, {
         returnDocument: "after",
-      })) as Interface;
+      });
 
-      return { status: "success", payload: result };
+      return { status: "success", payload: result as Interface };
     } catch (error) {
       return { status: "error", error };
     }
   }
 
-  async delete(id: ID): Promise<DAOReturnValue<{}>> {
+  async delete(_id: ID): Promise<DAOReturnValue<{}>> {
     try {
-      const result = await this.model.deleteOne({ _id: id });
+      const result = await this.model.deleteOne({ _id });
 
       if (result.deletedCount === 0) throw new Error("Patient was not deleted");
 

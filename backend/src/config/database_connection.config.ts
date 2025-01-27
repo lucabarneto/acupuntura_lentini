@@ -18,8 +18,8 @@ export class DatabaseConnection {
       return this.instance;
     }
 
-    this.instance = new DatabaseConnection();
     logger.info("Connected to DB");
+    this.instance = new DatabaseConnection();
     return this.instance;
   }
 }

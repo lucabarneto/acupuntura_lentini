@@ -12,11 +12,9 @@ export class SessionController {
         httpOnly: true,
       });
 
-      console.log("TOKEN: " + accessToken);
-
       logger.info(`User logged in.`);
 
-      res.redirect("/");
+      res.send({ token: accessToken });
     } catch (err) {
       next(err);
     }
