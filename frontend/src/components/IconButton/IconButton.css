@@ -1,0 +1,63 @@
+.icon-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.icon-button:focus-visible {
+  outline: none;
+}
+
+.icon-button::after {
+  content: "";
+  display: inline-block;
+
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: transparent;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-button.disabled {
+  color: var(--clr-disabled);
+  pointer-events: none;
+}
+
+.icon-button.filled {
+  color: var(--clr-primary);
+}
+
+.icon-button.filled:hover::after {
+  background-color: var(--state-layer-on-primary-container-16);
+}
+
+.icon-button.filled:focus-visible::after {
+  background-color: var(--state-layer-on-primary-container-24);
+}
+
+.icon-button.standard {
+  color: var(--clr-on-surface);
+}
+
+.icon-button.standard:hover::after {
+  background-color: var(--state-layer-on-surface-16);
+}
+
+.icon-button.standard:focus-visible::after {
+  background-color: var(--state-layer-on-surface-24);
+}
