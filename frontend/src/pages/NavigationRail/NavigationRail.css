@@ -1,0 +1,18 @@
+.navigation-rail {
+  width: 5rem;
+  height: 100vh;
+  background-color: var(--clr-surface-container-highest);
+  padding-top: 2.5rem;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.navigation-rail nav {
+  margin-top: 2.5rem;
+}
+
+.navigation-rail .fab {
+  margin-top: 0.5rem;
+}

@@ -38,6 +38,10 @@
   pointer-events: none;
 }
 
+.icon-button.presentation {
+  pointer-events: none;
+}
+
 .icon-button.filled {
   color: var(--clr-primary);
 }

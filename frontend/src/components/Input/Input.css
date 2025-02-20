@@ -1,0 +1,117 @@
+.field-input {
+  border: thin solid var(--clr-outline);
+  height: 3.5rem;
+  width: inherit;
+  border-radius: 0.25rem;
+  padding: 0 1rem;
+  background-color: transparent;
+  color: var(--clr-on-surface);
+  cursor: pointer;
+}
+
+.field-input::placeholder {
+  color: transparent;
+}
+
+.field-input:hover {
+  border-color: var(--clr-on-surface);
+}
+
+.field-input:hover ~ .field-label {
+  color: var(--clr-on-surface);
+}
+
+.field-input:not(:placeholder-shown) {
+  outline: none;
+  border-color: var(--clr-primary);
+}
+
+.field-input:focus-visible {
+  outline: none;
+  border: medium solid var(--clr-primary);
+}
+
+.field-input:not(:placeholder-shown) ~ .field-label,
+.field-input:focus-visible ~ .field-label {
+  color: var(--clr-primary);
+  top: 0;
+}
+
+.field-input:focus-visible ~ .field-label {
+  font-weight: 700;
+}
+
+.field-input.invalid {
+  outline: none;
+  border-color: var(--clr-error);
+  color: var(--clr-error);
+}
+
+.field-input.invalid ~ .field-label {
+  color: var(--clr-error);
+}
+
+.field-input.invalid:hover {
+  border-color: var(--clr-on-error-container);
+  color: var(--clr-error);
+}
+
+.filed-input.invalid:hover ~ .field-label {
+  color: var(--clr-on-error-container);
+}
+
+.field-input.invalid:focus-visible {
+  border: medium solid var(--clr-error);
+  color: var(--clr-error);
+}
+
+.filed-input.invalid:focus-visible ~ .field-label {
+  color: var(--clr-error);
+}
+
+.field-input ~ .icon-button,
+.field-input ~ .icon {
+  position: absolute;
+  top: 50%;
+  right: 0.25rem;
+  transform: translateY(-50%);
+}
+
+.field-input ~ .icon {
+  right: 1rem;
+}
+
+.field-input.invalid ~ .icon-button,
+.field-input.invalid ~ .icon {
+  color: var(--clr-error);
+}
+
+.field-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.field-select:hover {
+  border-color: var(--clr-on-surface);
+}
+.field-select:hover ~ .field-label {
+  color: var(--clr-on-surface);
+}
+
+.field-textarea {
+  height: 5rem; /* *: la altura tiene que poder adaptarse a la estructura del formulario donde se encuentre */
+  padding: 1rem;
+  resize: none;
+}
+
+.field-textarea:hover {
+  border-color: var(--clr-on-surface);
+}
+
+.field-textarea:hover ~ .field-label {
+  color: var(--clr-on-surface);
+}

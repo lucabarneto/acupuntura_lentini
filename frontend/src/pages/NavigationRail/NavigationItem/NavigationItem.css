@@ -1,0 +1,70 @@
+.navigation-item {
+  height: 5rem;
+  width: 5rem; /* *: eliminar estos valores luego. Deben poder adaptarse al contenedor que los envuelva */
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  align-items: center;
+
+  color: var(--clr-on-surface-variant);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 2rem;
+  width: 4rem;
+  border-radius: 2rem;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-container::after {
+  content: "";
+  display: inline-block;
+
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.navigation-item:hover .icon-container::after {
+  background-color: var(--state-layer-on-surface-variant-16);
+}
+
+.navigation-item:focus {
+  outline: none;
+}
+
+.navigation-item:focus .icon-container::after {
+  background-color: var(--state-layer-on-surface-variant-24);
+}
+
+.navigation-item.selected,
+.navigation-item:focus {
+  color: var(--clr-on-surface);
+}
+
+.navigation-item.selected .icon-container {
+  background-color: var(--clr-secondary-container);
+  color: var(--clr-on-secondary-container);
+}
+
+.navigation-item.selected:hover .icon-container::after {
+  background-color: var(--state-layer-on-secondary-container-16);
+}
+
+.navigation-item.selected:focus .icon-container::after {
+  background-color: var(--state-layer-on-secondary-container-24);
+}

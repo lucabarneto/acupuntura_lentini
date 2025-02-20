@@ -1,31 +1,63 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+html {
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
 
-  color-scheme: light dark;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
+:root {
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400; */
+
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
 
   /* Color palette */
 
   --clr-primary: #005526;
-  --clr_on_primary: #ffffff;
+  --clr-on-primary: #ffffff;
   --clr-primary-container: #8bd6ab;
   --clr-on-primary-container: #003b1a;
 
+  --clr-secondary: #005255;
+  --clr-on-secondary: #ffffff;
+  --clr-secondary-container: #8ed2d3;
+  --clr-on-secondary-container: #00383a;
+
+  --clr-surface: #f8fafb;
   --clr-on-surface: #151d20;
+  --clr-surface-container: #e1eaed;
   --clr-surface-container-highest: #cbdae0;
+  --clr-surface-variant: #dde4e8;
+  --clr-on-surface-variant: #3a4953;
+  --clr-inverse-surface: #21333a;
+  --clr-inverse-on-surface: #e9eff2;
 
   --clr-outline: #667a87;
   --clr-outline-variant: #bcc8d1;
 
+  --clr-error: #b12d22;
+  --clr-on-error: #ffffff;
+  --clr-error-container: #ffd7cc;
+  --clr-on-error-container: #891d16;
+
   --clr-disabled: #a7a7a7;
+  --clr-scrim: #00000032;
 
   /* State layers */
   --state-layer-primary-16: #00552616;
@@ -41,30 +73,43 @@
   --state-layer-on-primary-container-24: #003b1a24;
   --state-layer-on-primary-container-32: #003b1a32;
 
+  --state-layer-secondary-16: #00525516;
+  --state-layer-secondary-24: #00525524;
+  --state-layer-secondary-32: #00525532;
+  --state-layer-on-secondary-16: #ffffff16;
+  --state-layer-on-secondary-24: #ffffff24;
+  --state-layer-on-secondary-32: #ffffff32;
+  --state-layer-secondary-container-16: #8ed2d316;
+  --state-layer-secondary-container-24: #8ed2d324;
+  --state-layer-secondary-container-32: #8ed2d332;
+  --state-layer-on-secondary-container-16: #00383a16;
+  --state-layer-on-secondary-container-24: #00383a24;
+  --state-layer-on-secondary-container-32: #00383a32;
+
+  --state-layer-surface-16: #f8fafb16;
+  --state-layer-surface-24: #f8fafb24;
+  --state-layer-surface-32: #f8fafb32;
   --state-layer-on-surface-16: #151d2016;
   --state-layer-on-surface-24: #151d2024;
   --state-layer-on-surface-32: #151d2032;
-}
+  --state-layer-surface-variant-16: #dde4e816;
+  --state-layer-surface-variant-24: #dde4e824;
+  --state-layer-surface-variant-32: #dde4e832;
+  --state-layer-on-surface-variant-16: #3a495316;
+  --state-layer-on-surface-variant-24: #3a495324;
+  --state-layer-on-surface-variant-32: #3a495332;
 
-html {
-  font-size: 16px;
-  box-sizing: border-box;
-}
+  /* Elevations */
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  font-family: inherit;
+  --elevation-1: 0px 1px 2px 0px #0000004d, 0px 1px 3px 1px #00000026;
+  --elevation-2: 0px 1px 2px 0px #0000004d, 0px 2px 6px 2px #00000026;
+  --elevation-3: 0px 4px 8px 3px #00000026, 0px 1px 3px 0px #0000004d;
+  --elevation-4: 0px 6px 10px 4px #00000026, 0px 2px 3px 0px #0000004d;
+  --elevation-5: 0px 8px 12px 6px #00000026, 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  text-decoration: none;
 }
 
 body {
@@ -75,29 +120,34 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
 }
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+h1 {
+  font-size: 2.25rem;
 }
-button:hover {
-  border-color: #646cff;
+
+h2 {
+  font-size: 1.75rem;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
+
+h3 {
+  font-size: 1.675rem;
+}
+
+h4 {
+  font-size: 1.375rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

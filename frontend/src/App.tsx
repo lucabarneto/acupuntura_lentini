@@ -2,8 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button } from "./components/Button";
-import { IconButton } from "./components/IconButton";
+import { NavigationRail } from "./pages/NavigationRail";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,8 +29,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <Button label="Enviar" type="filled" icon="add" />
-      <IconButton icon="add" type="standard" />
+      <br />
+      <br />
+      <NavigationRail />
     </>
   );
 }

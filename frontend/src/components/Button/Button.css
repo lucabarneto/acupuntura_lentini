@@ -8,10 +8,15 @@
   border-radius: 0.5rem;
   border: none;
   font-weight: bold;
+  font-size: 1rem;
 
   position: relative;
   overflow: hidden;
   cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: var(--elevation-1);
 }
 
 .button:focus-visible {
@@ -31,7 +36,7 @@
   left: 0;
 }
 
-.button.hasIcon {
+.button.has-icon {
   gap: 0.5rem;
   padding-left: 1rem;
 }

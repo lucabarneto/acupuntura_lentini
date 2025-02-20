@@ -1,8 +1,12 @@
 import "./Icon.css";
 
 type Props = {
-  label: string;
+  icon: string;
+  filled?: true;
 };
-export const Icon = ({ label }: Props) => {
-  return <span className={`icon material-symbols-outlined`}>{label}</span>;
+export const Icon = ({ icon, filled }: Props) => {
+  let className = "icon material-symbols-outlined";
+  if (filled) className += " filled";
+
+  return <span className={className}>{icon}</span>;
 };

@@ -1,0 +1,46 @@
+.fab {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--clr-primary-container);
+  color: var(--clr-on-primary-container);
+  box-shadow: var(--elevation-3);
+  border: none;
+  border-radius: 0.75rem;
+
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.fab::after {
+  content: "";
+  display: inline-block;
+
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fab:hover {
+  box-shadow: var(--elevation-4);
+}
+
+.fab:hover::after {
+  background-color: var(--state-layer-on-primary-container-16);
+}
+
+.fab:focus-visible {
+  outline: none;
+}
+
+.fab:focus-visible::after {
+  background-color: var(--state-layer-on-primary-container-24);
+}

@@ -13,7 +13,7 @@ export const IconButton = ({ disabled, type, icon }: Props) => {
 
   return (
     <button className={className}>
-      <Icon label={icon} />
+      <Icon icon={icon} />
     </button>
   );
 };
