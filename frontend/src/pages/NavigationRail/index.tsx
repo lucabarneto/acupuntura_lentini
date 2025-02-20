@@ -11,10 +11,14 @@ export const NavigationRail = () => {
         <FAB />
       </div>
       <nav className="navigation-item-container">
-        <NavigationItem icon="home" label="inicio" selected />
-        <NavigationItem icon="groups" label="pacientes" />
-        <NavigationItem icon="calendar_month" label="turnos" />
-        <NavigationItem icon="lab_profile" label="reportes" />
+        <NavigationItem icon="home" label="inicio" href="/" />
+        <NavigationItem icon="groups" label="pacientes" href="/patients" />
+        <NavigationItem
+          icon="calendar_month"
+          label="turnos"
+          href="/appointments"
+        />
+        <NavigationItem icon="lab_profile" label="reportes" href="/reports" />
       </nav>
     </aside>
   );

@@ -1,6 +1,6 @@
 .navigation-item {
   height: 5rem;
-  width: 5rem; /* *: eliminar estos valores luego. Deben poder adaptarse al contenedor que los envuelva */
+  width: 100%;
 
   display: inline-flex;
   flex-direction: column;
@@ -59,6 +59,7 @@
 .navigation-item.selected .icon-container {
   background-color: var(--clr-secondary-container);
   color: var(--clr-on-secondary-container);
+  font-variation-settings: "FILL" 1;
 }
 
 .navigation-item.selected:hover .icon-container::after {

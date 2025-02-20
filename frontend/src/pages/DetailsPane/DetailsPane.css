@@ -1,0 +1,12 @@
+.details-pane {
+  grid-area: details-pane;
+  background-color: var(--clr-surface);
+
+  height: calc(100vh - 3rem);
+  padding: 1rem;
+  margin: 0 1.5rem;
+  border-radius: 1.5rem;
+
+  overflow: hidden scroll;
+  scrollbar-width: none;
+}
