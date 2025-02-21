@@ -1,0 +1,40 @@
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  max-width: 100%;
+  min-height: 3.5rem;
+  padding: 0.5rem 1rem;
+
+  list-style-type: none;
+  text-align: left;
+
+  position: relative;
+}
+
+.list-item h4 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.list-item-overline,
+.list-item-supporting-text {
+  font-size: 0.875rem;
+}
+
+.list-item-overline {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.list-item-supporting-text {
+  margin-top: 0.25rem;
+}
+
+.list-item img {
+  width: 3.5rem;
+  height: 3.5rem;
+
+  align-self: flex-start;
+}

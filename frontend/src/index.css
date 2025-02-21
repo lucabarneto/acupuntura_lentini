@@ -41,7 +41,10 @@ html {
 
   --clr-surface: #f8fafb;
   --clr-on-surface: #151d20;
+  --clr-surface-container-lowest: #f8fafb;
+  --clr-surface-container-low: #f0f4f6;
   --clr-surface-container: #e1eaed;
+  --clr-surface-container-high: #dae5e9;
   --clr-surface-container-highest: #cbdae0;
   --clr-surface-variant: #dde4e8;
   --clr-on-surface-variant: #3a4953;
@@ -147,6 +150,11 @@ h4 {
 
 h5 {
   font-size: 1.25rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 @media (prefers-color-scheme: light) {

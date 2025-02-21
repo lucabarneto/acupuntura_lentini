@@ -1,0 +1,23 @@
+.patients-pane {
+  height: inherit;
+  position: relative;
+}
+
+.patients-pane h1 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  padding: 0 1rem;
+}
+
+.patients-pane ul {
+  background-color: var(--clr-surface-container-low);
+  margin: 1rem 0;
+}
+
+.search-box {
+  padding: 1rem 1rem;
+}
+
+.query-buttons {
+  padding: 0.5rem 1rem 1rem;
+}

@@ -1,7 +1,8 @@
 import "./Icon.css";
+import { IconName } from "../../types/icon.types";
 
 type Props = {
-  icon: string;
+  icon: IconName;
   filled?: true;
 };
 export const Icon = ({ icon, filled }: Props) => {

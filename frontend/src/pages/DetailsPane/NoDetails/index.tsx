@@ -1,3 +1,19 @@
+import { Icon } from "../../../components/Icon";
+import "./NoDetails.css";
+
 export const NoDetails = () => {
-  return <h1>No hay detalles seleccionados</h1>;
+  return (
+    <>
+      <div className="no-details">
+        <div className="no-details-content">
+          <Icon icon="desktop_windows" />
+          <h2>Panel de detalles</h2>
+          <p>
+            Aquí verás los <em>detalles</em> de los items que selecciones en el{" "}
+            <b>panel principal</b> de la izquierda
+          </p>
+        </div>
+      </div>
+    </>
+  );
 };

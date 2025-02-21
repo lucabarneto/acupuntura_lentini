@@ -15,10 +15,6 @@
   cursor: pointer;
 }
 
-.button:hover {
-  box-shadow: var(--elevation-1);
-}
-
 .button:focus-visible {
   outline: none;
 }
@@ -58,6 +54,11 @@
   background-color: transparent;
   color: var(--clr-primary);
   border: thin solid var(--clr-outline);
+}
+
+.button.filled:hover,
+.button.outlined:hover {
+  box-shadow: var(--elevation-1);
 }
 
 .button.text {

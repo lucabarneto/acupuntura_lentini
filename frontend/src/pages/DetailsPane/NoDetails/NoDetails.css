@@ -1,0 +1,35 @@
+.no-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--clr-surface-container);
+  color: var(--clr-on-surface-variant);
+}
+
+.no-details-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 1;
+
+  max-width: 566px;
+  padding: 1rem;
+}
+
+.no-details .icon {
+  font-size: 2.5rem;
+}
+
+.no-details h2 {
+  font-weight: 400;
+}
+
+.no-details p {
+  font-size: 1.125rem;
+}

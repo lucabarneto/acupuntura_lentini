@@ -1,11 +1,14 @@
 import "./Button.css";
+import { IconName } from "../../types/icon.types";
 import { Icon } from "../Icon";
 
 type Props = {
   label: string;
   type: "filled" | "outlined" | "text";
+  icon?: IconName;
   disabled?: true;
-  icon?: string;
+  aria: object;
+
   onclickEvent?(): void;
 };
 
@@ -14,6 +17,7 @@ export const Button = ({
   label,
   type,
   disabled,
+  aria,
   onclickEvent,
 }: Props) => {
   let className = `button ${type}`;
@@ -21,7 +25,7 @@ export const Button = ({
   if (icon) className += " has-icon";
 
   return (
-    <button className={className} onClick={onclickEvent}>
+    <button className={className} {...aria} onClick={onclickEvent}>
       {icon && <Icon icon={icon} />}
       {label}
     </button>

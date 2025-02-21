@@ -4,9 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { NavigationRail } from "./pages/NavigationRail";
 import { MainPane } from "./pages/MainPane";
 import { Home } from "./pages/MainPane/Home";
-import { PatientList } from "./pages/MainPane/PatientList";
+import { PatientList } from "./pages/MainPane/Patients";
 import { DetailsPane } from "./pages/DetailsPane";
-import { NoDetails } from "./pages/NoDetails";
+import { NoDetails } from "./pages/DetailsPane/NoDetails";
 
 function App() {
   return (
@@ -30,9 +30,14 @@ function App() {
           <Route
             path="/patients"
             element={
-              <MainPane>
-                <PatientList />
-              </MainPane>
+              <>
+                <MainPane>
+                  <PatientList />
+                </MainPane>
+                <DetailsPane>
+                  <NoDetails />
+                </DetailsPane>
+              </>
             }
           />
         </Routes>

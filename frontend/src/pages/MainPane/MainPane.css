@@ -4,9 +4,9 @@
   background-color: var(--clr-surface);
 
   height: calc(100vh - 3rem);
-  padding: 1rem;
   border-radius: 1.5rem;
 
   overflow: hidden scroll;
   scrollbar-width: none;
+  text-align: left;
 }
