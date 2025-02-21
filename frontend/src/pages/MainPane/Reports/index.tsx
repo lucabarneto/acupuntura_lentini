@@ -1,14 +1,12 @@
-import "./Patients.css";
-import { List } from "../../../components/List";
+import "./Reports.css";
+import { useRef } from "react";
 import { Search } from "../components/Search";
 import { Button } from "../../../components/Button";
+import { List } from "../../../components/List";
 import { Menu } from "../components/Menu";
 import { RadioInput } from "../../../components/Input/Radio";
-import { useRef } from "react";
 
-/* la ul debe mostrar un map de todos los pacientes que se recojan de la base de datos */
-
-export const Patients = () => {
+export const Reports = () => {
   const menu = useRef<null | HTMLDialogElement>(null);
 
   const toggleMenu = () => {
@@ -33,53 +31,35 @@ export const Patients = () => {
           icon="sort"
           aria={{
             "aria-haspopup": "dialog",
-            "aria-controls": "sort-query-menu-patients",
+            "aria-controls": "sort-query-menu-reports",
             "aria-expanded": "false",
           }}
           onclickEvent={toggleMenu}
         />
       </div>
-      <h1>Lista de pacientes</h1>
+      <h1>Lista de reportes</h1>
       <ul>
         <List
-          type="image"
-          image="src/assets/placeholder.svg"
-          alt="placeholder image"
-          title="Luca Barneto"
-          overline="Paciente"
-          text="Proximo turno el 28/04/2025"
+          type="default"
+          title="Reporte del 28/04/2025"
+          overline="Reporte"
+          text="Reporte del paciente Luca Barneto"
           divider
         />
       </ul>
-      <Menu
-        id="sort-query-menu-patients"
-        aria={{ "aria-hidden": "true" }}
-        ref={menu}
-      >
+      <Menu id="sort-query-menu" aria={{ "aria-hidden": "true" }} ref={menu}>
         <form>
           <RadioInput
-            id="sort-name-asc"
-            label="Nombre ascendente (A-Z)"
+            id="sort-date-asc"
+            label="Más recientes"
             name="sort"
-            value="name-asc"
+            value="date-asc"
           />
           <RadioInput
-            id="sort-name-desc"
-            label="Nombre descendente (Z-A)"
+            id="sort-date-desc"
+            label="Menos recientes"
             name="sort"
             value="name-desc"
-          />
-          <RadioInput
-            id="sort-appointment-asc"
-            label="Turno más cercano"
-            name="sort"
-            value="appointment-asc"
-          />
-          <RadioInput
-            id="sort-appointment-desc"
-            label="Turno más lejano"
-            name="sort"
-            value="appointment-desc"
           />
         </form>
       </Menu>
