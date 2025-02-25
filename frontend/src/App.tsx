@@ -1,6 +1,7 @@
 import "./App.css";
-
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import { NavigationRail } from "./pages/NavigationRail";
 import { MainPane } from "./pages/MainPane";
 import { Home } from "./pages/MainPane/Home";
@@ -11,7 +12,7 @@ import { Reports } from "./pages/MainPane/Reports";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
         <NavigationRail />
         <Routes>
@@ -56,7 +57,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 }
 

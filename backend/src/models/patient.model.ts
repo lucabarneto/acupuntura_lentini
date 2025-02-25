@@ -120,9 +120,13 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
     required: true,
   },
   age: {
-    type: Number,
+    type: String,
     required: true,
   },
+  // age: {
+  //   type: Number,
+  //   required: true,
+  // },
   mail: {
     type: String,
     required: true,
@@ -133,9 +137,13 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
     required: true,
   },
   tel: {
-    type: Number,
+    type: String,
     required: true,
   },
+  // tel: {
+  //   type: Number,
+  //   required: true,
+  // },
   profile_picture: String,
   next_appointment: {
     type: Number,

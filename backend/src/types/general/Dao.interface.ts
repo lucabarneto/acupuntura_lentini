@@ -1,10 +1,10 @@
 import { SortQueries } from "./SortQueries.ts";
 
-interface SuccessReturnValue<T> {
+export interface SuccessReturnValue<T> {
   status: "success";
   payload: T;
 }
-interface ErrorReturnValue {
+export interface ErrorReturnValue {
   status: "error";
   error: unknown;
 }

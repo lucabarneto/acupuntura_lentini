@@ -1,4 +1,12 @@
 import "./Patients.css";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../app/store";
+import {
+  selectAllPatients,
+  getAllPatients,
+} from "../../../features/patients/patientsSlice";
+
 import { List } from "../../../components/List";
 import { Search } from "../components/Search";
 import { Button } from "../../../components/Button";
@@ -9,6 +17,13 @@ import { useRef } from "react";
 /* la ul debe mostrar un map de todos los pacientes que se recojan de la base de datos */
 
 export const Patients = () => {
+  const patients = useSelector(selectAllPatients);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPatients());
+  }, []);
+
   const menu = useRef<null | HTMLDialogElement>(null);
 
   const toggleMenu = () => {
@@ -41,7 +56,19 @@ export const Patients = () => {
       </div>
       <h1>Lista de pacientes</h1>
       <ul>
-        <List
+        {patients.map((patient, index) => (
+          <List
+            key={index}
+            type="image"
+            image="src/assets/placeholder.svg"
+            alt="placeholder image"
+            title={`${patient.first_name} ${patient.last_name}`}
+            overline="Paciente"
+            text="Proximo turno el 28/04/2025"
+            divider
+          />
+        ))}
+        {/* <List
           type="image"
           image="src/assets/placeholder.svg"
           alt="placeholder image"
@@ -49,7 +76,7 @@ export const Patients = () => {
           overline="Paciente"
           text="Proximo turno el 28/04/2025"
           divider
-        />
+        /> */}
       </ul>
       <Menu
         id="sort-query-menu-patients"
