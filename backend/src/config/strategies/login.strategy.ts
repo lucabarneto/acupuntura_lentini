@@ -2,6 +2,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { userService } from "../../services/users.service.ts";
 import { Encryption } from "../../utils/bcrypt.ts";
 import { IUser } from "../../types/mongo/IUser.ts";
+import { logger } from "../../utils/logger.ts";
 
 type DataSafeUser = {
   first_name: string;
@@ -17,7 +18,6 @@ export const loginStrategy = new LocalStrategy(
 
       done(null, user);
     } catch (err) {
-      console.log("Inside Catch block!");
       done(err);
     }
   }
@@ -40,7 +40,9 @@ const validateUser = async (
   password: string
 ): Promise<IUser> => {
   const result = await userService.getByEmail(email);
+  logger.debug("Usuario encontrado en la base de datos");
   Encryption.validatePassword(password, result!.password);
+  logger.debug("Contraseña correcta");
 
   return result as IUser;
 };

@@ -5,6 +5,7 @@ import { RequestParams } from "../types/express/RequestParams.ts";
 import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { logger } from "../utils/logger.ts";
 import { SortQueries } from "../types/general/SortQueries.ts";
+import { SuccessResponse } from "../types/express/Response.ts";
 
 export class ReportController {
   handleId = async (
@@ -24,7 +25,7 @@ export class ReportController {
 
   getAllReports = async (
     req: Request<RequestQueries>,
-    res: Response<IReport[]>,
+    res: Response<SuccessResponse<IReport[]>>,
     next: NextFunction
   ) => {
     try {
@@ -34,7 +35,9 @@ export class ReportController {
 
       const result = await reportService.getAll(sort);
       logger.http(`Reports found succesfully`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }
@@ -42,40 +45,46 @@ export class ReportController {
 
   getReportById = async (
     req: Request<RequestParams>,
-    res: Response<IReport>,
+    res: Response<SuccessResponse<IReport>>,
     next: NextFunction
   ) => {
     try {
       logger.http(`Report found succesfully (ID: ${req.params.id})`);
-      res.status(200).send(req.report);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: req.report! });
     } catch (err) {
       next(err);
     }
   };
 
   createReport = async (
-    req: Request<{}, IReport, IReport>,
-    res: Response<IReport>,
+    req: Request<{}, SuccessResponse<IReport>, IReport>,
+    res: Response<SuccessResponse<IReport>>,
     next: NextFunction
   ) => {
     try {
       const result = await reportService.create(req.body);
       logger.http(`Report created succesfully`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
   };
 
   updateReport = async (
-    req: Request<RequestParams, IReport, IReport>,
-    res: Response<IReport>,
+    req: Request<RequestParams, SuccessResponse<IReport>, IReport>,
+    res: Response<SuccessResponse<IReport>>,
     next: NextFunction
   ) => {
     try {
       const result = await reportService.update(req.params.id, req.body);
       logger.http(`Report updated successfully (ID: ${req.params.id})`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
@@ -83,13 +92,15 @@ export class ReportController {
 
   deleteReport = async (
     req: Request<RequestParams>,
-    res: Response,
+    res: Response<SuccessResponse<{}>>,
     next: NextFunction
   ) => {
     try {
       const result = await reportService.delete(req.params.id);
       logger.http(`Report deleted successfully (ID was ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }

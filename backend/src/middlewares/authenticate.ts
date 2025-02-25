@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from "express";
 import passport from "passport";
+import { Request, Response, NextFunction } from "express";
+import { AuthenticationError } from "../services/errors/authentication.error.ts";
 
 export const authenticate = (
   strategy: "login" | "jwt",
@@ -13,9 +14,9 @@ export const authenticate = (
         try {
           if (error) throw error;
 
-          if (!user) throw new Error("Unauthenticated");
+          if (!user) throw new AuthenticationError("Unauthenticated");
 
-          req.user = user!;
+          req.user = user;
 
           next();
         } catch (err) {

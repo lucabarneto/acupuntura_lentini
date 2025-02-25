@@ -5,6 +5,7 @@ import { RequestParams } from "../types/express/RequestParams.ts";
 import { RequestQueries } from "../types/express/RequestQueries.ts";
 import { logger } from "../utils/logger.ts";
 import { SortQueries } from "../types/general/SortQueries.ts";
+import { SuccessResponse } from "../types/express/Response.ts";
 
 export class PatientController {
   handleId = async (
@@ -24,7 +25,7 @@ export class PatientController {
 
   getAllPatients = async (
     req: Request<RequestQueries>,
-    res: Response<IPatient[]>,
+    res: Response<SuccessResponse<IPatient[]>>,
     next: NextFunction
   ) => {
     try {
@@ -36,7 +37,9 @@ export class PatientController {
 
       const result = await patientService.getAll(sort);
       logger.http(`Patients found succesfully`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }
@@ -44,40 +47,46 @@ export class PatientController {
 
   getPatientById = async (
     req: Request<RequestParams>,
-    res: Response<IPatient>,
+    res: Response<SuccessResponse<IPatient>>,
     next: NextFunction
   ) => {
     try {
       logger.http(`Patient found succesfully (ID: ${req.params.id})`);
-      res.status(200).send(req.patient);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: req.patient! });
     } catch (err) {
       next(err);
     }
   };
 
   createPatient = async (
-    req: Request<{}, IPatient, IPatient>,
-    res: Response<IPatient>,
+    req: Request<{}, SuccessResponse<IPatient>, IPatient>,
+    res: Response<SuccessResponse<IPatient>>,
     next: NextFunction
   ) => {
     try {
       const result = await patientService.create(req.body);
       logger.http(`Patient created succesfully`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
   };
 
   updatePatient = async (
-    req: Request<RequestParams, IPatient, IPatient>,
-    res: Response<IPatient>,
+    req: Request<RequestParams, SuccessResponse<IPatient>, IPatient>,
+    res: Response<SuccessResponse<IPatient>>,
     next: NextFunction
   ) => {
     try {
       const result = await patientService.update(req.params.id, req.body);
       logger.http(`Patient updated successfully (ID: ${req.params.id})`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
@@ -85,13 +94,15 @@ export class PatientController {
 
   deletePatient = async (
     req: Request<RequestParams>,
-    res: Response,
+    res: Response<SuccessResponse<{}>>,
     next: NextFunction
   ) => {
     try {
       const result = await patientService.delete(req.params.id);
       logger.http(`Patient deleted successfully (ID was ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }

@@ -3,6 +3,7 @@ import { IResource } from "../types/mongo/IResource.ts";
 import { resourceService } from "../services/resources.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
+import { SuccessResponse } from "../types/express/Response.ts";
 
 export class ResourceController {
   handleId = async (
@@ -13,7 +14,7 @@ export class ResourceController {
   ) => {
     try {
       logger.debug("Checking for existing ID");
-      await resourceService.getById(id);
+      req.resource = await resourceService.getById(id);
       next();
     } catch (err) {
       next(err);
@@ -22,13 +23,15 @@ export class ResourceController {
 
   getAllResources = async (
     req: Request,
-    res: Response<IResource[]>,
+    res: Response<SuccessResponse<IResource[]>>,
     next: NextFunction
   ) => {
     try {
       const result = await resourceService.getAll();
       logger.http(`Resources found succesfully`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }
@@ -36,42 +39,47 @@ export class ResourceController {
 
   getResourceById = async (
     req: Request<RequestParams>,
-    res: Response<IResource>,
+    res: Response<SuccessResponse<IResource>>,
     next: NextFunction
   ) => {
     try {
-      const result = await resourceService.getById(req.params.id);
       logger.http(`Resource found succesfully (ID: ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: req.resource! });
     } catch (err) {
       next(err);
     }
   };
 
   createResource = async (
-    req: Request<{}, {}, IResource>,
-    res: Response,
+    req: Request<{}, SuccessResponse<IResource>, IResource>,
+    res: Response<SuccessResponse<IResource>>,
     next: NextFunction
   ) => {
     try {
       const result = await resourceService.create(req.body);
       logger.http(`Resource created succesfully`);
 
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
   };
 
   updateResource = async (
-    req: Request<RequestParams, IResource, IResource>,
-    res: Response<IResource>,
+    req: Request<RequestParams, SuccessResponse<IResource>, IResource>,
+    res: Response<SuccessResponse<IResource>>,
     next: NextFunction
   ) => {
     try {
       const result = await resourceService.update(req.params.id, req.body);
       logger.http(`Resource updated successfully (ID: ${req.params.id})`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
@@ -79,13 +87,15 @@ export class ResourceController {
 
   deleteResource = async (
     req: Request<RequestParams>,
-    res: Response,
+    res: Response<SuccessResponse<{}>>,
     next: NextFunction
   ) => {
     try {
       const result = await resourceService.delete(req.params.id);
       logger.http(`Resource deleted successfully (ID was ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }

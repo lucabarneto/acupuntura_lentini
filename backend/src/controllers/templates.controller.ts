@@ -3,6 +3,7 @@ import { ITemplate } from "../types/mongo/ITemplate.ts";
 import { templateService } from "../services/templates.service.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
 import { logger } from "../utils/logger.ts";
+import { SuccessResponse } from "../types/express/Response.ts";
 
 export class TemplateController {
   handleId = async (
@@ -13,7 +14,7 @@ export class TemplateController {
   ) => {
     try {
       logger.debug("Checking for existing ID");
-      await templateService.getById(id);
+      req.template = await templateService.getById(id);
       next();
     } catch (err) {
       next(err);
@@ -22,13 +23,15 @@ export class TemplateController {
 
   getAllTemplates = async (
     req: Request,
-    res: Response<ITemplate[]>,
+    res: Response<SuccessResponse<ITemplate[]>>,
     next: NextFunction
   ) => {
     try {
       const result = await templateService.getAll();
       logger.http(`Templates found succesfully`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }
@@ -36,42 +39,47 @@ export class TemplateController {
 
   getTemplateById = async (
     req: Request<RequestParams>,
-    res: Response<ITemplate>,
+    res: Response<SuccessResponse<ITemplate>>,
     next: NextFunction
   ) => {
     try {
-      const result = await templateService.getById(req.params.id);
       logger.http(`Template found succesfully (ID: ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: req.template! });
     } catch (err) {
       next(err);
     }
   };
 
   createTemplate = async (
-    req: Request<{}, {}, ITemplate>,
-    res: Response,
+    req: Request<{}, SuccessResponse<ITemplate>, ITemplate>,
+    res: Response<SuccessResponse<ITemplate>>,
     next: NextFunction
   ) => {
     try {
       const result = await templateService.create(req.body);
       logger.http(`Template created succesfully`);
 
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
   };
 
   updateTemplate = async (
-    req: Request<RequestParams, ITemplate, ITemplate>,
-    res: Response<ITemplate>,
+    req: Request<RequestParams, SuccessResponse<ITemplate>, ITemplate>,
+    res: Response<SuccessResponse<ITemplate>>,
     next: NextFunction
   ) => {
     try {
       const result = await templateService.update(req.params.id, req.body);
       logger.http(`Template updated successfully (ID: ${req.params.id})`);
-      res.status(201).send(result);
+      res
+        .status(201)
+        .send({ status: "success", statusCode: 201, payload: result });
     } catch (err) {
       next(err);
     }
@@ -79,13 +87,15 @@ export class TemplateController {
 
   deleteTemplate = async (
     req: Request<RequestParams>,
-    res: Response,
+    res: Response<SuccessResponse<{}>>,
     next: NextFunction
   ) => {
     try {
       const result = await templateService.delete(req.params.id);
       logger.http(`Template deleted successfully (ID was ${req.params.id})`);
-      res.status(200).send(result);
+      res
+        .status(200)
+        .send({ status: "success", statusCode: 200, payload: result });
     } catch (err) {
       next(err);
     }

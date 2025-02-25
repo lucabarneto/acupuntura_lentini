@@ -1,26 +1,23 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
-import { ErrorResponse } from "../types/express/ErrorResponse.ts";
+import { ErrorResponse } from "../types/express/Response.ts";
+import { CustomError } from "../types/general/Error.interface.ts";
 import { logger } from "../utils/logger.ts";
 
 export const errorHandler = (
-  err: Error,
+  err: CustomError,
   req: Request,
   res: Response<ErrorResponse>,
   next: NextFunction
 ) => {
   logger.error(err instanceof ZodError ? err.issues[0].message : err.message);
 
-  const statusCode =
-    err instanceof ZodError
-      ? 422
-      : err.message.includes("Not found")
-      ? 404
-      : 500;
+  const statusCode = err.statusCode || 500;
 
   res.status(statusCode).send({
     status: "error",
     statusCode: statusCode,
+    name: err.name,
     message: err instanceof ZodError ? err.issues[0].message : err.message,
   });
 };

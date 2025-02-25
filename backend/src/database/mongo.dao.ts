@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { ID } from "../types/general/ID.interface.ts";
 import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
 import { SortQueries } from "../types/general/SortQueries.ts";
+import { NotFoundError } from "../services/errors/not_found.error.ts";
 
 export abstract class MongoDAO<Interface> implements DAO<Interface> {
   protected model: mongoose.Model<Interface>;
@@ -26,7 +27,7 @@ export abstract class MongoDAO<Interface> implements DAO<Interface> {
     try {
       const result = await this.model.findById(_id);
 
-      if (!result) throw new Error(`Not found (searched ID: ${_id})`);
+      if (!result) throw new NotFoundError(`Not found (searched ID: ${_id})`);
 
       return { status: "success", payload: result as Interface };
     } catch (error) {
