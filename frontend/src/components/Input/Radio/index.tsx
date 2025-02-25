@@ -7,13 +7,30 @@ type Props = {
   value: string;
   label: string;
   divider?: true;
+  inputProps?: object;
+  onclickEvent: () => void;
 };
 
-export const RadioInput = ({ id, name, value, label, divider }: Props) => {
+export const RadioInput = ({
+  id,
+  name,
+  value,
+  label,
+  divider,
+  inputProps,
+  onclickEvent,
+}: Props) => {
   return (
     <div className="radio-input">
       <label htmlFor={id}>{label}</label>
-      <input type="radio" name={name} id={id} value={value} />
+      <input
+        type="radio"
+        name={name}
+        id={id}
+        {...inputProps}
+        value={value}
+        onClick={onclickEvent}
+      />
       {divider && <Divider />}
     </div>
   );
