@@ -1,5 +1,6 @@
 export type IconName =
   | "add"
+  | "arrow_back"
   | "calendar_month"
   | "close"
   | "error"

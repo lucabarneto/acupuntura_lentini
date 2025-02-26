@@ -1,6 +1,6 @@
 import "./Reports.css";
 import { useRef } from "react";
-import { Search } from "../components/Search";
+import { Search } from "../Search";
 import { Button } from "../../../components/Button";
 import { List } from "../../../components/List";
 import { Menu } from "../components/Menu";

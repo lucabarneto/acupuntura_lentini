@@ -9,7 +9,7 @@ import {
 } from "../../../features/patients/patientsSlice";
 
 import { List } from "../../../components/List";
-import { Search } from "../components/Search";
+import { Search } from "../Search";
 import { Button } from "../../../components/Button";
 import { Menu } from "../components/Menu";
 import { RadioInput } from "../../../components/Input/Radio";
@@ -31,9 +31,7 @@ export const Patients = () => {
 
   return (
     <section className="patients-pane">
-      <div className="search-box">
-        <Search />
-      </div>
+      <Search />
       <div className="query-buttons">
         <Button
           type="text"
@@ -83,7 +81,7 @@ export const Patients = () => {
             label="Nombre ascendente (A-Z)"
             name="sort"
             value="name-asc"
-            inputProps={{ checked: "true" }}
+            inputProps={{ defaultChecked: true }}
             onclickEvent={() => {
               dispatch(sortByName("asc"));
               toggleModal();

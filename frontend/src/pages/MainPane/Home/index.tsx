@@ -1,5 +1,5 @@
 import { List } from "../../../components/List";
-import { Search } from "../components/Search";
+import { Search } from "../Search";
 
 export const Home = () => {
   return (

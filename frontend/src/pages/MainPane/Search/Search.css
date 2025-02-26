@@ -1,0 +1,94 @@
+.search-bar {
+  display: grid;
+  grid-template-columns: 1fr 3.5rem;
+  align-items: center;
+
+  height: 3.5rem;
+  width: calc(100% - 2rem);
+  border-radius: 1rem;
+  padding: 0 0.25rem 0 1rem;
+  margin: 1rem 1rem;
+
+  background-color: var(--clr-surface-container);
+  color: var(--clr-on-surface-variant);
+
+  cursor: pointer;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 3.5rem;
+  align-items: center;
+
+  height: 4.5rem;
+  width: 100%;
+  padding: 0 0.25rem;
+
+  background-color: var(--clr-surface-container);
+  color: var(--clr-on-surface-variant);
+
+  position: relative;
+}
+
+.search-bar input,
+.search-form input {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--clr-on-surface);
+}
+
+.search-bar input::placeholder,
+.search-form input::placeholder {
+  color: var(--clr-on-surface-variant);
+  font-size: 1rem;
+}
+
+.search-bar input:focus-visible,
+.search-form input:focus-visible {
+  outline: none;
+}
+
+.search-view {
+  height: 100%;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 500;
+}
+
+.search-results {
+  width: 100%;
+  height: calc(100% - 4.5rem);
+
+  background-color: var(--clr-surface);
+
+  position: absolute;
+  top: 4.5rem;
+}
+
+.search-results > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+  height: 100%;
+  padding: 0 2rem;
+
+  color: var(--clr-on-surface);
+
+  text-align: center;
+}
+
+.search-results > div .icon {
+  font-size: 2.5rem;
+}
+
+.search-results > div p {
+  font-size: 1.125rem;
+}

@@ -6,19 +6,15 @@ type Props = {
   icon: IconName;
   type: "filled" | "standard";
   disabled?: true;
-  submit?: true;
+  onclickEvent?: (e?: React.MouseEvent) => void;
 };
 
-export const IconButton = ({ disabled, type, icon, submit }: Props) => {
+export const IconButton = ({ disabled, type, icon, onclickEvent }: Props) => {
   let className = `icon-button ${type}`;
   if (disabled) className += " disabled";
 
-  return submit ? (
-    <button className={className} type="submit">
-      <Icon icon={icon} />
-    </button>
-  ) : (
-    <button className={className}>
+  return (
+    <button className={className} onClick={onclickEvent}>
       <Icon icon={icon} />
     </button>
   );
