@@ -1,0 +1,23 @@
+.search-no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+  height: 100%;
+  padding: 0 2rem;
+
+  color: var(--clr-on-surface);
+
+  text-align: center;
+}
+
+.search-no-results .icon {
+  font-size: 2.5rem;
+}
+
+.search-no-results p {
+  font-size: 1.125rem;
+}

@@ -9,7 +9,7 @@ import "./List.css";
 
 type Props = DefaultListitem | IconListItem | ImageListItem;
 
-export const List = (props: Props) => {
+export const ListItem = (props: Props) => {
   return (
     <li className="list-item">
       {props.type === "icon" && <Icon icon={props.icon} />}

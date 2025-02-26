@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IPatient } from "./IPatient";
+import { IPatient } from "../types/IPatient";
 
 const URL = "http://localhost:8080/api/patients";
 

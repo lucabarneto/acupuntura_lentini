@@ -1,6 +1,6 @@
-import { RootState } from "../../app/store";
-import { IPatient } from "./IPatient";
-import { patientsAPI } from "./patientsAPI";
+import { RootState } from "../../../app/store";
+import { IPatient } from "../types/IPatient";
+import { patientsAPI } from "../services/patientsAPI";
 import {
   createSlice,
   createAsyncThunk,

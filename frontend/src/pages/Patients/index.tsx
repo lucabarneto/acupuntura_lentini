@@ -1,20 +1,22 @@
 import "./Patients.css";
 import { useEffect } from "react";
+import { useRef } from "react";
+import { useModal } from "../../hooks/useModal";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import {
   selectAllPatients,
   fetchAllPatients,
   sortByName,
-} from "../../features/patients/patientsSlice";
+} from "../../features/patients/slices/patientsSlice";
 
-import { List } from "../../components/ui/List";
-import { Search } from "../../features/search/Search";
+import { Search } from "../../features/search/components/Search";
 import { Button } from "../../components/ui/Button";
 import { Menu } from "../../components/ui/Menu";
 import { RadioInput } from "../../components/ui/Input/Radio";
-import { useRef } from "react";
-import { useModal } from "../../hooks/useModal";
+import { PatientListItem } from "../../features/patients/components/PatientListItem";
+import { SearchNoQuery } from "../../features/patients/components/Search/SearchNoQuery";
+import { SearchNoResults } from "../../features/patients/components/Search/SearchNoResults";
 
 export const Patients = () => {
   const patients = useSelector(selectAllPatients);
@@ -31,7 +33,14 @@ export const Patients = () => {
 
   return (
     <section className="patients-pane">
-      <Search />
+      <Search
+        entities={patients}
+        noQueryView={<SearchNoQuery />}
+        noResultsView={<SearchNoResults />}
+        mapResults={(patient) => (
+          <PatientListItem key={patient._id} patient={patient} />
+        )}
+      />
       <div className="query-buttons">
         <Button
           type="text"
@@ -48,26 +57,7 @@ export const Patients = () => {
       <h1>Lista de pacientes</h1>
       <ul>
         {patients.map((patient) => (
-          <List
-            key={patient._id}
-            type="image"
-            image={
-              patient.profile_picture
-                ? patient.profile_picture
-                : "src/assets/placeholder.svg"
-            }
-            alt="Rostro de la persona paciente"
-            title={`${patient.first_name} ${patient.last_name}`}
-            overline="Paciente"
-            text={
-              patient.next_appointment
-                ? `Próximo turno el ${new Date(
-                    patient.next_appointment
-                  ).toLocaleDateString()}`
-                : "No posee un turno agendado."
-            }
-            divider
-          />
+          <PatientListItem key={patient._id} patient={patient} />
         ))}
       </ul>
       <Menu
