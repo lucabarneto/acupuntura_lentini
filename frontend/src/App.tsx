@@ -2,19 +2,19 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { NavigationRail } from "./pages/NavigationRail";
-import { MainPane } from "./pages/MainPane";
-import { Home } from "./pages/MainPane/Home";
-import { Patients } from "./pages/MainPane/Patients";
-import { DetailsPane } from "./pages/DetailsPane";
-import { NoDetails } from "./pages/DetailsPane/NoDetails";
-import { Reports } from "./pages/MainPane/Reports";
+import { NavigationPane } from "./components/panes/NavigationPane";
+import { MainPane } from "./components/panes/MainPane";
+import { Home } from "./pages/Home";
+import { Patients } from "./pages/Patients";
+import { DetailsPane } from "./components/panes/DetailsPane";
+import { NoDetails } from "./pages/NoDetails";
+import { Reports } from "./pages/Reports";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <NavigationRail />
+        <NavigationPane />
         <Routes>
           <Route
             path="/"

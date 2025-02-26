@@ -1,0 +1,13 @@
+.field-textarea {
+  height: 5rem; /* *: la altura tiene que poder adaptarse a la estructura del formulario donde se encuentre */
+  padding: 1rem;
+  resize: none;
+}
+
+.field-textarea:hover {
+  border-color: var(--clr-on-surface);
+}
+
+.field-textarea:hover ~ .field-label {
+  color: var(--clr-on-surface);
+}
