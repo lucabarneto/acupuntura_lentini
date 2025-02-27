@@ -7,14 +7,26 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
-export const fetchAllPatients = createAsyncThunk(
+export const getAllPatients = createAsyncThunk(
   "patients/getAllPatients",
   async () => {
     try {
-      const patients = await patientsAPI.fetchAllPatients();
+      const patients = await patientsAPI.getAllPatients();
       return patients as IPatient[];
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+export const deletePatient = createAsyncThunk(
+  "patients/deletePatient",
+  async (patientId: string) => {
+    try {
+      const result = await patientsAPI.deletePatient(patientId);
+      return result;
+    } catch (err) {
+      console.error(err);
     }
   }
 );
@@ -51,15 +63,26 @@ const patientsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAllPatients.pending, (state, action) => {
+    builder.addCase(getAllPatients.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(fetchAllPatients.fulfilled, (state, action) => {
+    builder.addCase(getAllPatients.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       patientsAdapter.setAll(state, action.payload!);
+    });
+
+    builder.addCase(deletePatient.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(deletePatient.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      patientsAdapter.removeOne(state, action.meta.arg);
     });
   },
 });

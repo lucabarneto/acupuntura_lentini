@@ -1,12 +1,11 @@
 import "./Patients.css";
 import { useEffect } from "react";
-import { useRef } from "react";
 import { useModal } from "../../hooks/useModal";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import {
   selectAllPatients,
-  fetchAllPatients,
+  getAllPatients,
   sortByName,
 } from "../../features/patients/slices/patientsSlice";
 
@@ -21,14 +20,10 @@ import { SearchNoResults } from "../../features/patients/components/Search/Searc
 export const Patients = () => {
   const patients = useSelector(selectAllPatients);
   const dispatch = useAppDispatch();
-  const menu = useRef<null | HTMLDialogElement>(null);
-  const { toggleModal } = useModal(
-    menu.current as HTMLDialogElement,
-    "non-modal"
-  );
+  const { modal, toggleModal } = useModal("non-modal");
 
   useEffect(() => {
-    dispatch(fetchAllPatients());
+    dispatch(getAllPatients());
   }, [dispatch]);
 
   return (
@@ -63,7 +58,7 @@ export const Patients = () => {
       <Menu
         id="sort-query-menu-patients"
         aria={{ "aria-hidden": "true" }}
-        ref={menu}
+        ref={modal}
       >
         <form>
           <RadioInput

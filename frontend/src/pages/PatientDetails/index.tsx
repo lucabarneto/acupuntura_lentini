@@ -1,13 +1,20 @@
+import "./PatientDetails.css";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
-import { fetchAllPatients } from "../../features/patients/slices/patientsSlice";
+import {
+  getAllPatients,
+  deletePatient,
+} from "../../features/patients/slices/patientsSlice";
 import { RootState } from "../../app/store";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { selectPatientById } from "../../features/patients/slices/patientsSlice";
 import { PersonalData } from "../../features/patients/components/PersonalData";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
+import { Modal } from "../../components/ui/Modal";
+import { Button } from "../../components/ui/Button";
+import { useModal } from "../../hooks/useModal";
 
 export const PatientDetails = () => {
   const patientId = useParams().id!;
@@ -15,15 +22,23 @@ export const PatientDetails = () => {
     selectPatientById(state, patientId)
   );
   const dispatch = useAppDispatch();
+  const { modal, openModal, closeModal } = useModal("modal");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (patient === undefined) dispatch(fetchAllPatients());
+    if (patient === undefined) dispatch(getAllPatients());
   }, []);
+
+  const deleteEntity = () => {
+    dispatch(deletePatient(patientId)).then(() => {
+      navigate("/patients");
+    });
+  };
 
   return (
     patient && (
-      <>
-        <TopAppBar title="Paciente" />
+      <section className="patient-details-pane">
+        <TopAppBar title="Paciente" deleteAction={openModal} />
         <PersonalData
           firstName={patient.first_name}
           lastName={patient.last_name}
@@ -41,7 +56,24 @@ export const PatientDetails = () => {
             bazi_table={patient.birth.bazi_table}
           />
         )}
-      </>
+        <Modal ref={modal}>
+          <div className="modal-content">
+            <h3>Eliminar paciente</h3>
+            <p>
+              Una vez eliminado, no podrás recuperar la información del
+              paciente. ¿Estás seguro que quieres eliminarlo?
+            </p>
+            <div className="modal-buttons">
+              <Button type="text" label="Cancelar" onclickEvent={closeModal} />
+              <Button
+                type="filled"
+                label="Eliminar"
+                onclickEvent={deleteEntity}
+              />
+            </div>
+          </div>
+        </Modal>
+      </section>
     )
   );
 };

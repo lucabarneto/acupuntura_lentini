@@ -1,20 +1,13 @@
 import "./Modal.css";
-import { useRef, useEffect } from "react";
 
 type Props = {
   children: React.ReactNode;
+  ref: React.RefObject<HTMLDialogElement | null>;
 };
 
-export const Modal = ({ children }: Props) => {
-  const modal = useRef<null | HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (modal && modal.current && !modal.current.open)
-      modal.current.showModal();
-  }, []);
-
+export const Modal = ({ children, ref }: Props) => {
   return (
-    <dialog ref={modal} className="modal">
+    <dialog ref={ref} className="modal">
       {children}
     </dialog>
   );
