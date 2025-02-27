@@ -1,6 +1,8 @@
 .patients-pane {
   height: inherit;
   position: relative;
+
+  padding: 1rem 0;
 }
 
 .patients-pane h1 {

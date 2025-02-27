@@ -1,6 +1,7 @@
 import { IconName } from "./icon.types";
 
 export interface ImageListItem {
+  link: string;
   type: "image";
   image: string;
   alt: string;
@@ -11,6 +12,7 @@ export interface ImageListItem {
 }
 
 export interface IconListItem {
+  link: string;
   type: "icon";
   icon: IconName;
   trailing_icon?: IconName;
@@ -21,6 +23,7 @@ export interface IconListItem {
 }
 
 export interface DefaultListitem {
+  link: string;
   type: "default";
   title: string;
   overline?: string;

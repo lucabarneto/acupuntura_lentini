@@ -9,6 +9,7 @@ import { Patients } from "./pages/Patients";
 import { DetailsPane } from "./components/panes/DetailsPane";
 import { NoDetails } from "./pages/NoDetails";
 import { Reports } from "./pages/Reports";
+import { PatientDetails } from "./pages/PatientDetails";
 
 function App() {
   return (
@@ -29,19 +30,34 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/patients"
-            element={
-              <>
-                <MainPane>
-                  <Patients />
-                </MainPane>
-                <DetailsPane>
-                  <NoDetails />
-                </DetailsPane>
-              </>
-            }
-          />
+          <Route path="/patients">
+            <Route
+              index
+              element={
+                <>
+                  <MainPane>
+                    <Patients />
+                  </MainPane>
+                  <DetailsPane>
+                    <NoDetails />
+                  </DetailsPane>
+                </>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <>
+                  <MainPane>
+                    <Patients />
+                  </MainPane>
+                  <DetailsPane>
+                    <PatientDetails />
+                  </DetailsPane>
+                </>
+              }
+            />
+          </Route>
           <Route
             path="/reports"
             element={

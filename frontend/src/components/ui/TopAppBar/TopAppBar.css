@@ -1,0 +1,22 @@
+.top-app-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-items: center;
+
+  height: 4rem;
+  width: 100%;
+  padding: 0 1rem 0 2rem;
+
+  color: var(--clr-on-surface);
+  background-color: var(--clr-surface);
+
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.top-app-bar h3 {
+  font-weight: 400;
+  justify-self: left;
+}

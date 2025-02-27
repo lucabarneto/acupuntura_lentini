@@ -1,0 +1,17 @@
+.no-table {
+  padding: 2.5rem 5rem;
+  margin-top: 1.5rem;
+
+  color: var(--clr-on-surface);
+  background-color: var(--clr-surface-container);
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.no-table .icon {
+  font-size: 1.125rem;
+}
+
+.no-table p {
+  margin-top: 1rem;
+}

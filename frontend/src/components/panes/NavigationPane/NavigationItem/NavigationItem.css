@@ -51,6 +51,10 @@
   background-color: var(--state-layer-on-surface-variant-24);
 }
 
+.navigation-item.selected {
+  pointer-events: none;
+}
+
 .navigation-item.selected,
 .navigation-item:focus {
   color: var(--clr-on-surface);

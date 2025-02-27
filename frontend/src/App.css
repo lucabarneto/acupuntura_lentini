@@ -2,6 +2,8 @@
   width: 100vw;
   text-align: center;
 
+  color: var(--clr-on-surface);
+
   display: grid;
   grid-template-columns: 88px 510px 1fr;
   grid-template-rows: 1fr;

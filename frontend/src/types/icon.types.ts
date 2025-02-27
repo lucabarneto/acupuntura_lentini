@@ -12,4 +12,8 @@ export type IconName =
   | "filter_alt"
   | "sort"
   | "radio_button_unchecked"
-  | "radio_button_checked";
+  | "radio_button_checked"
+  | "mail"
+  | "delete"
+  | "edit"
+  | "chat";

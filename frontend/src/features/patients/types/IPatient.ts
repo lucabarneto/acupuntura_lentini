@@ -2,10 +2,10 @@ export interface IPatient {
   _id: string;
   first_name: string;
   last_name: string;
-  age: number;
+  age: string;
   mail: string;
   marital_status: "single" | "married";
-  tel: number;
+  tel: string;
   profile_picture?: string;
   birth?: Birth;
   presumptive_analysis?: PresumptiveAnalysis;
@@ -28,7 +28,7 @@ interface ReportsRef {
   report: string;
 }
 
-interface PresumptiveAnalysis {
+export interface PresumptiveAnalysis {
   meridian_time: string;
   feeding: string;
   yin: string;
@@ -47,7 +47,7 @@ interface Birth {
   bazi_table: BaziTable;
 }
 
-interface BaziTable {
+export interface BaziTable {
   heavenly_stems: Record<TableProps, Stems>;
   earthly_branches: Record<TableProps, Branches>;
   hidden_stems: Record<TableProps, [Stems, Stems, Stems]>;
