@@ -1,15 +1,18 @@
 import { IPatient } from "../../types/IPatient";
 import { ListItem } from "../../../../components/ui/ListItem";
+import { LinkState } from "../../../../types/link.types";
 
 type Props = {
   patient: IPatient;
+  state?: LinkState;
 };
 
-export const PatientListItem = ({ patient }: Props) => {
+export const PatientListItem = ({ patient, state }: Props) => {
   return (
     <ListItem
       key={patient._id}
       link={`/patients/${patient._id}`}
+      state={state}
       type="image"
       image={
         patient.profile_picture

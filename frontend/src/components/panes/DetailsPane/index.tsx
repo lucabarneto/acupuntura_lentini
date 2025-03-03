@@ -1,12 +1,12 @@
 import "./DetailsPane.css";
 
 type Props = {
-  children: React.ReactNode;
+  pane: React.ReactNode;
 };
-export const DetailsPane = ({ children }: Props) => {
+export const DetailsPane = ({ pane }: Props) => {
   return (
     <section id="details-pane" className="details-pane">
-      {children}
+      {pane}
     </section>
   );
 };

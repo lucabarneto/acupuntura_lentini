@@ -2,7 +2,7 @@ import "./AddPatient.css";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { useProgressBar } from "../../hooks/useProgressBar";
 import { Button } from "../../components/ui/Button";
@@ -11,18 +11,19 @@ import { TextInput } from "../../components/ui/Input/Text";
 import { DateInput } from "../../components/ui/Input/Date";
 import { BaziTable } from "../../features/patients/components/Birth/BaziTable";
 import { FileInput } from "../../components/ui/Input/File";
+import { LinkState } from "../../types/link.types";
 
 const progressSteps = 3;
 
 export const AddPatient = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { modal, associatedValue, closeModal, openModal } = useModal("modal");
   const { segments, currentStage, moveToNextStage, moveToPreviousStage } =
     useProgressBar(progressSteps);
 
-  const leaveAddFlow = (link: string) => {
-    navigate(link);
-  };
+  const leaveAddFlow = (link: string, state?: LinkState) =>
+    state ? navigate(link, { state }) : navigate(link);
 
   const confirmLeaveAddFlow = (e: React.MouseEvent, link?: string) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ export const AddPatient = () => {
     <>
       <AddHeader
         title="Añadir paciente"
-        oncloseEvent={(e) => confirmLeaveAddFlow(e!, "/add")}
+        oncloseEvent={(e) => confirmLeaveAddFlow(e!, "/add/")}
       />
       <main>
         <AddOptions onclickEvent={(e) => confirmLeaveAddFlow(e!)} />
@@ -155,7 +156,9 @@ export const AddPatient = () => {
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
         oncancelEvent={closeModal}
-        onconfirmEvent={() => leaveAddFlow(associatedValue!)}
+        onconfirmEvent={() =>
+          leaveAddFlow(associatedValue!, { from: location.pathname })
+        }
       />
     </>
   );

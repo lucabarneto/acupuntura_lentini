@@ -15,6 +15,7 @@ export const ListItem = (props: Props) => {
     <li>
       <NavLink
         to={props.link}
+        state={props.state}
         className={({ isActive }) =>
           isActive ? "list-item selected" : "list-item"
         }
