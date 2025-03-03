@@ -10,6 +10,8 @@ import { DetailsPane } from "./components/panes/DetailsPane";
 import { NoDetails } from "./pages/NoDetails";
 import { Reports } from "./pages/Reports";
 import { PatientDetails } from "./pages/PatientDetails";
+import { Add } from "./pages/Add";
+import { AddPatient } from "./pages/AddPatient";
 
 function App() {
   return (
@@ -71,6 +73,34 @@ function App() {
               </>
             }
           />
+          <Route path="/add">
+            <Route
+              index
+              element={
+                <>
+                  <MainPane>
+                    <Home />
+                  </MainPane>
+                  <DetailsPane>
+                    <Add />
+                  </DetailsPane>
+                </>
+              }
+            />
+            <Route
+              path="patient"
+              element={
+                <>
+                  <MainPane>
+                    <Home />
+                  </MainPane>
+                  <DetailsPane>
+                    <AddPatient />
+                  </DetailsPane>
+                </>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>

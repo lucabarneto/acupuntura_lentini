@@ -14,6 +14,7 @@ export type IconName =
   | "radio_button_unchecked"
   | "radio_button_checked"
   | "mail"
+  | "check"
   | "delete"
   | "edit"
   | "chat";

@@ -1,13 +1,13 @@
 import "./Birth.css";
+import { BaziTableType } from "../../types/IPatient";
 import { NoTable } from "./NoTable";
-import { BaziTableRow } from "./BaziTableRow";
-import { BaziTable } from "../../types/IPatient";
+import { BaziTable } from "./BaziTable";
 
 type Props = {
   date: string;
   time: string;
   location: string;
-  bazi_table?: BaziTable;
+  bazi_table?: BaziTableType;
 };
 
 export const Birth = ({ date, time, location, bazi_table }: Props) => {
@@ -26,33 +26,7 @@ export const Birth = ({ date, time, location, bazi_table }: Props) => {
         </span>
       </div>
       {bazi_table ? (
-        <table className="bazi-table">
-          <caption>Tabla BaZi</caption>
-          <thead>
-            <tr>
-              <th className="empty-cell"></th>
-              <th>Hora</th>
-              <th>Día</th>
-              <th>Mes</th>
-              <th>Año</th>
-            </tr>
-          </thead>
-          <tbody>
-            <BaziTableRow
-              heading="Troncos celestiales"
-              tabularData={bazi_table.heavenly_stems}
-            />
-            <BaziTableRow
-              heading="Ramas terrestres"
-              tabularData={bazi_table.earthly_branches}
-            />
-            <BaziTableRow
-              heading="Troncos ocultos"
-              tabularData={bazi_table.hidden_stems}
-              nestedRows
-            />
-          </tbody>
-        </table>
+        <BaziTable bazi_table={bazi_table} type="readonly" />
       ) : (
         <NoTable />
       )}

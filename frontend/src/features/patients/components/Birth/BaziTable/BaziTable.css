@@ -1,0 +1,56 @@
+.bazi-table {
+  width: 100%;
+}
+
+caption {
+  margin: 1rem 0 0.5rem;
+
+  color: var(--clr-on-surface);
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.bazi-table tr {
+  width: 100%;
+
+  margin-top: 0.5rem;
+}
+
+.bazi-table td,
+.bazi-table th {
+  height: 2.5rem;
+  min-height: 2.5rem;
+  border: thin solid var(--clr-outline-variant);
+
+  background-color: var(--clr-surface-container-low);
+}
+
+.bazi-table th.empty-cell {
+  border: none;
+  background-color: transparent;
+}
+
+.bazi-table td {
+  color: var(--clr-on-surface-variant);
+}
+
+.bazi-table th:not(.empty-cell) {
+  color: var(--clr-on-surface);
+  font-weight: 400;
+}
+
+.bazi-table td input {
+  width: 100%;
+  border: none;
+  height: 100%;
+}
+
+.bazi-table td input:focus {
+  outline: none;
+}
+
+.bazi-table td:has(input:focus) {
+  border-color: var(--clr-primary);
+}

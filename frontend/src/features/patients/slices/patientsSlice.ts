@@ -7,7 +7,26 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
-export const getAllPatients = createAsyncThunk(
+const patientsAdapter = createEntityAdapter({
+  selectId: (patient: IPatient) => patient._id,
+  sortComparer: (a, b) => a.first_name.localeCompare(b.first_name),
+});
+
+const initialState = patientsAdapter.getInitialState<{
+  loading: "idle" | "pending";
+  activeRequestId: string | null;
+  previousCrudAction: null | "get" | "post" | "delete" | "put";
+}>({
+  loading: "idle",
+  activeRequestId: null,
+  previousCrudAction: null,
+});
+
+export const getAllPatients = createAsyncThunk<
+  IPatient[] | undefined,
+  undefined,
+  { state: RootState }
+>(
   "patients/getAllPatients",
   async () => {
     try {
@@ -16,6 +35,14 @@ export const getAllPatients = createAsyncThunk(
     } catch (err) {
       console.log(err);
     }
+  },
+  {
+    condition: (arg: undefined, { getState }) => {
+      const { patients } = getState();
+
+      if (patients.ids.length !== 0 && patients.previousCrudAction === "get")
+        return false;
+    },
   }
 );
 
@@ -30,19 +57,6 @@ export const deletePatient = createAsyncThunk(
     }
   }
 );
-
-const patientsAdapter = createEntityAdapter({
-  selectId: (patient: IPatient) => patient._id,
-  sortComparer: (a, b) => a.first_name.localeCompare(b.first_name),
-});
-
-const initialState = patientsAdapter.getInitialState<{
-  loading: "idle" | "pending";
-  activeRequestId: string | null;
-}>({
-  loading: "idle",
-  activeRequestId: null,
-});
 
 const patientsSlice = createSlice({
   name: "patients",
@@ -71,6 +85,7 @@ const patientsSlice = createSlice({
     builder.addCase(getAllPatients.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
+      state.previousCrudAction = "get";
       patientsAdapter.setAll(state, action.payload!);
     });
 
@@ -82,6 +97,7 @@ const patientsSlice = createSlice({
     builder.addCase(deletePatient.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
+      state.previousCrudAction = "delete";
       patientsAdapter.removeOne(state, action.meta.arg);
     });
   },

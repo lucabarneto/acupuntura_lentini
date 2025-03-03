@@ -1,0 +1,41 @@
+.current-stage {
+  margin-bottom: 0.5rem;
+}
+
+.add-content-container header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 2.5rem 2rem 1.5rem;
+}
+
+.personal-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+
+  justify-items: start;
+}
+
+.stage-buttons {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.birth {
+  padding: 0 2rem;
+}
+
+.birth-data {
+  display: flex;
+  gap: 1rem;
+}
+
+.presumptive-analysis {
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+}

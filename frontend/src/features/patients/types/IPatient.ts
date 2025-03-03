@@ -44,10 +44,10 @@ interface Birth {
   date: string;
   time: string;
   location: string;
-  bazi_table: BaziTable;
+  bazi_table: BaziTableType;
 }
 
-export interface BaziTable {
+export interface BaziTableType {
   heavenly_stems: Record<TableProps, Stems>;
   earthly_branches: Record<TableProps, Branches>;
   hidden_stems: Record<TableProps, [Stems, Stems, Stems]>;

@@ -1,0 +1,68 @@
+.segmented-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: thin solid var(--clr-outline);
+  background-color: transparent;
+  color: var(--clr-on-surface);
+
+  line-height: 1;
+
+  position: relative;
+}
+
+.segmented-button::after {
+  content: "";
+  display: inline-block;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: transparent;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.segmented-button:hover {
+  border: thin solid var(--clr-on-surface);
+}
+
+.segmented-button:hover::after {
+  background-color: var(--state-layer-on-surface-16);
+}
+
+.segmented-button:focus-visible {
+  outline: none;
+  border: thin solid var(--clr-on-surface);
+}
+
+.segmented-button:focus-visible::after {
+  background-color: var(--state-layer-on-surface-24);
+}
+
+.segmented-button.middle {
+  border-radius: 0;
+}
+
+.segmented-button.left {
+  border-radius: 2.5rem 0 0 2.5rem;
+}
+
+.segmented-button.right {
+  border-radius: 0 2.5rem 2.5rem 0;
+}
+
+.segmented-button.selected {
+  background-color: var(--clr-secondary-container);
+  color: var(--clr-on-secondary-container);
+  border-color: var(--clr-on-secondary-container);
+
+  pointer-events: none;
+}
+
+.segmented-button.selected .icon {
+  font-size: 1.125rem;
+}

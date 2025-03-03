@@ -13,7 +13,6 @@ import { PersonalData } from "../../features/patients/components/PersonalData";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
-import { Button } from "../../components/ui/Button";
 import { useModal } from "../../hooks/useModal";
 
 export const PatientDetails = () => {
@@ -56,23 +55,14 @@ export const PatientDetails = () => {
             bazi_table={patient.birth.bazi_table}
           />
         )}
-        <Modal ref={modal}>
-          <div className="modal-content">
-            <h3>Eliminar paciente</h3>
-            <p>
-              Una vez eliminado, no podrás recuperar la información del
-              paciente. ¿Estás seguro que quieres eliminarlo?
-            </p>
-            <div className="modal-buttons">
-              <Button type="text" label="Cancelar" onclickEvent={closeModal} />
-              <Button
-                type="filled"
-                label="Eliminar"
-                onclickEvent={deleteEntity}
-              />
-            </div>
-          </div>
-        </Modal>
+        <Modal
+          ref={modal}
+          title="Eliminar paciente"
+          text="Una vez eliminado, no podrás recuperar la información del paciente. ¿Estás seguro que quieres eliminarlo?"
+          buttonConfirmLabel="Eliminar"
+          oncancelEvent={closeModal}
+          onconfirmEvent={deleteEntity}
+        />
       </section>
     )
   );

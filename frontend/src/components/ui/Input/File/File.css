@@ -1,0 +1,44 @@
+.file-field {
+  grid-row: span 3;
+}
+
+.file-field img {
+  width: 230px;
+  height: 230px;
+  cursor: pointer;
+}
+
+.file-field input {
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  width: 230px;
+
+  color: transparent;
+
+  position: relative;
+
+  cursor: pointer;
+}
+
+.file-field input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.file-field input::before {
+  content: "Seleccionar imagen";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 2.5rem;
+  padding: 0 1rem;
+
+  color: var(--clr-primary);
+  font-weight: bold;
+  font-size: 1rem;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

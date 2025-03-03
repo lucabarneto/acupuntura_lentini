@@ -10,13 +10,13 @@ type Props = {
 
 export const TopAppBar = ({ title, navigation, deleteAction }: Props) => {
   return (
-    <div className="top-app-bar">
+    <header className="top-app-bar">
       {navigation && <IconButton icon="arrow_back" type="standard" />}
       <h3>{title}</h3>
       <div>
         <IconButton icon="edit" type="standard" />
         <IconButton icon="delete" type="standard" onclickEvent={deleteAction} />
       </div>
-    </div>
+    </header>
   );
 };

@@ -8,6 +8,7 @@ type Props = {
     year: string | [string, string, string];
   };
 };
+
 export const BaziTableRow = ({ heading, tabularData, nestedRows }: Props) => {
   return nestedRows ? (
     <>
