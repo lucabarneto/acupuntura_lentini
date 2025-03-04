@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormFields, FormErrors, SubmittableForm } from "../types/form.types";
+import { FormFields, FormErrors, AdaptableForm } from "../types/form.types";
 import { FieldValidator } from "../utils/fieldValidator";
 
 interface UseFormMethods {
@@ -8,27 +8,25 @@ interface UseFormMethods {
   handleSubmit: (e: React.FormEvent) => void;
 }
 
-interface UseFormStates<T extends object> {
+interface UseFormStates {
   errors: FormErrors;
   canSubmit: boolean;
   rawForm: FormFields;
-  formToSubmit: T | null;
+  adaptableForm: AdaptableForm | null;
 }
 
-export interface UseForm<T extends object>
-  extends UseFormStates<T>,
-    UseFormMethods {}
+export interface UseForm extends UseFormStates, UseFormMethods {}
 
 const KEY_POSITION = 0;
-const VALUE_POSITION = 1;
+const FIELD_POSITION = 1;
 
-export const useForm = <T extends object>(
-  initialForm: FormFields
-): UseForm<T> => {
+export const useForm = (initialForm: FormFields): UseForm => {
   const [rawForm, setRawForm] = useState<FormFields>(initialForm);
   const [errors, setErrors] = useState<FormErrors>({});
   const [canSubmit, setCanSubmit] = useState<boolean>(false);
-  const [formToSubmit, setFormToSubmit] = useState<T | null>(null);
+  const [adaptableForm, setAdaptableForm] = useState<AdaptableForm | null>(
+    null
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,30 +57,37 @@ export const useForm = <T extends object>(
 
     if (Object.values(errors).length === 0) {
       setCanSubmit(true);
-      setFormToSubmit(createSubmittableForm(rawForm));
+      setAdaptableForm(createAdaptableForm(rawForm));
     }
   };
 
-  const createSubmittableForm = (formTemplate: FormFields): T => {
-    const submittableForm: SubmittableForm = {};
+  const createAdaptableForm = (formTemplate: FormFields): AdaptableForm => {
+    const submittableForm: AdaptableForm = {};
 
-    const formEntries = Object.entries(formTemplate);
+    const entries = Object.entries(formTemplate);
 
-    for (let i = 0; i < formEntries.length; i++) {
-      const key = formEntries[i][KEY_POSITION];
-      const value = formEntries[i][VALUE_POSITION].value;
+    for (let i = 0; i < entries.length; i++) {
+      const key = entries[i][KEY_POSITION];
+      const field = entries[i][FIELD_POSITION];
+      let value;
+
+      if (field.group) {
+        value = { group: field.group, value: field.value };
+      } else {
+        value = field.value;
+      }
 
       submittableForm[key] = value;
     }
 
-    return submittableForm as T;
+    return submittableForm;
   };
 
   return {
     rawForm,
     errors,
     canSubmit,
-    formToSubmit,
+    adaptableForm,
     handleBlur,
     handleChange,
     handleSubmit,

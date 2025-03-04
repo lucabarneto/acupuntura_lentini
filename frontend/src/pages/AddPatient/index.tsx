@@ -10,7 +10,6 @@ import { AddOptions } from "../../features/add/components/AddOptions";
 import { LinkState } from "../../types/link.types";
 import { patientInitialForm } from "../../features/add/utils/patientInitialForm";
 import { useForm } from "../../hooks/useForm";
-import { IPatient } from "../../features/patients/types/IPatient";
 import { AddPatientForm } from "../../features/add/components/AddPatientForm";
 
 const progressSteps = 3;
@@ -18,7 +17,7 @@ const progressSteps = 3;
 export const AddPatient = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const form = useForm<IPatient>(patientInitialForm);
+  const form = useForm(patientInitialForm);
   const { modal, associatedValue, closeModal, openModal } = useModal("modal");
   const { segments, currentStage, moveToNextStage, moveToPreviousStage } =
     useProgressBar(progressSteps);
@@ -85,7 +84,12 @@ export const AddPatient = () => {
                     label="Volver"
                     onclickEvent={moveToPreviousStage}
                   />
-                  <Button type="filled" icon="add" label="Añadir paciente" />
+                  <Button
+                    type="filled"
+                    icon="add"
+                    label="Añadir paciente"
+                    buttonProps={{ type: "submit", form: "add-patient-form" }}
+                  />
                 </div>
               </>
             )}

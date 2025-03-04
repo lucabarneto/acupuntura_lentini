@@ -1,4 +1,3 @@
-import { IPatient } from "../../../patients/types/IPatient";
 import { UseForm } from "../../../../hooks/useForm";
 import { FileInput } from "../../../../components/ui/Input/File";
 import { TextInput } from "../../../../components/ui/Input/Text";
@@ -6,14 +5,18 @@ import { DateInput } from "../../../../components/ui/Input/Date";
 import { BaziTable } from "../../../patients/components/Birth/BaziTable";
 
 type Props = {
-  form: UseForm<IPatient>;
+  form: UseForm;
   currentStage: number;
 };
 export const AddPatientForm = ({ form, currentStage }: Props) => {
-  const { rawForm, errors, handleChange, handleBlur } = form;
+  const { rawForm, errors, handleChange, handleBlur, handleSubmit } = form;
 
   return (
-    <form>
+    <form
+      encType="multipart/form-data"
+      onSubmit={handleSubmit}
+      id="add-patient-form"
+    >
       {currentStage === 1 && (
         <div className="personal-data">
           <FileInput

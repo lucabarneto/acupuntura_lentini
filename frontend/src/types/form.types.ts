@@ -17,6 +17,13 @@ export interface FormErrors {
   [key: string]: string;
 }
 
-export interface SubmittableForm {
-  [key: string]: string;
+export type AdaptableField = string;
+
+export interface NestedAdaptableField {
+  value: string;
+  group: string[];
+}
+
+export interface AdaptableForm {
+  [key: string]: AdaptableField | NestedAdaptableField;
 }

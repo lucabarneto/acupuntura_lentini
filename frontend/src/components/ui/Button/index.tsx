@@ -7,6 +7,7 @@ type Props = {
   type: "filled" | "outlined" | "text";
   icon?: IconName;
   disabled?: true;
+  buttonProps?: object;
   aria?: object;
 
   onclickEvent?(): void;
@@ -18,7 +19,12 @@ export const Button = (props: Props) => {
   if (props.icon) className += " has-icon";
 
   return (
-    <button className={className} {...props.aria} onClick={props.onclickEvent}>
+    <button
+      className={className}
+      {...props.aria}
+      onClick={props.onclickEvent}
+      {...props.buttonProps}
+    >
       {props.icon && <Icon icon={props.icon} />}
       {props.label}
     </button>
