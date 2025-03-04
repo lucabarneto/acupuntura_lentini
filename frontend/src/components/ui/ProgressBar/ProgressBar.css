@@ -1,3 +1,7 @@
+.current-stage {
+  margin-bottom: 0.5rem;
+}
+
 .progress-bar {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
