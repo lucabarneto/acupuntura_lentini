@@ -1,11 +1,23 @@
-import { useState, useRef } from "react";
+import { useState, useRef, RefObject } from "react";
 
-export const useModal = (type: "modal" | "non-modal") => {
+interface UseModalMethods {
+  openModal(extra?: string): void;
+  closeModal(): void;
+}
+
+interface UseModalStates {
+  modal: RefObject<HTMLDialogElement | null>;
+  associatedValue: null | string;
+}
+
+interface UseModal extends UseModalStates, UseModalMethods {}
+
+export const useModal = (type: "modal" | "non-modal"): UseModal => {
   const modal = useRef<null | HTMLDialogElement>(null);
   const [display, setDisplay] = useState<"visible" | "hidden">("hidden");
   const [associatedValue, setAssociatedValue] = useState<null | string>(null);
 
-  const openModal = (extra?: string) => {
+  const openModal = (extra?: string): void => {
     const currentModal = modal.current as HTMLDialogElement;
 
     if (display === "visible") return;
@@ -21,7 +33,7 @@ export const useModal = (type: "modal" | "non-modal") => {
     if (extra) setAssociatedValue(extra);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     const currentModal = modal.current as HTMLDialogElement;
 
     if (display === "hidden") return;
@@ -31,13 +43,5 @@ export const useModal = (type: "modal" | "non-modal") => {
     setDisplay("hidden");
   };
 
-  const toggleModal = () => {
-    if (display === "hidden") {
-      openModal();
-    } else {
-      closeModal();
-    }
-  };
-
-  return { modal, associatedValue, closeModal, openModal, toggleModal };
+  return { modal, associatedValue, closeModal, openModal };
 };

@@ -7,17 +7,18 @@ import { ProgressBar } from "../../components/ui/ProgressBar";
 import { useProgressBar } from "../../hooks/useProgressBar";
 import { Button } from "../../components/ui/Button";
 import { AddOptions } from "../../features/add/components/AddOptions";
-import { TextInput } from "../../components/ui/Input/Text";
-import { DateInput } from "../../components/ui/Input/Date";
-import { BaziTable } from "../../features/patients/components/Birth/BaziTable";
-import { FileInput } from "../../components/ui/Input/File";
 import { LinkState } from "../../types/link.types";
+import { patientInitialForm } from "../../features/add/utils/patientInitialForm";
+import { useForm } from "../../hooks/useForm";
+import { IPatient } from "../../features/patients/types/IPatient";
+import { AddPatientForm } from "../../features/add/components/AddPatientForm";
 
 const progressSteps = 3;
 
 export const AddPatient = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const form = useForm<IPatient>(patientInitialForm);
   const { modal, associatedValue, closeModal, openModal } = useModal("modal");
   const { segments, currentStage, moveToNextStage, moveToPreviousStage } =
     useProgressBar(progressSteps);
@@ -89,64 +90,7 @@ export const AddPatient = () => {
               </>
             )}
           </header>
-          <div>
-            <form>
-              {currentStage === 1 && (
-                <div className="personal-data">
-                  <FileInput />
-                  <TextInput label="Nombre" id="first_name" type="text" />
-                  <TextInput label="Apellido" id="last_name" type="text" />
-                  <TextInput label="Correo" id="mail" type="email" />
-                  <TextInput label="Edad" id="age" type="text" />
-                  <TextInput label="Teléfono" id="tel" type="tel" />
-                  <TextInput
-                    label="Estado civil"
-                    id="marital_status"
-                    type="text"
-                  />
-                </div>
-              )}
-              {currentStage === 2 && (
-                <div className="birth">
-                  <div className="birth-data">
-                    <DateInput id="birth_date" label="Fecha" />
-                    <TextInput type="text" id="birth-time" label="Hora" />
-                    <TextInput
-                      type="text"
-                      id="birth_location"
-                      label="Localidad"
-                    />
-                  </div>
-                  <BaziTable type="input" />
-                </div>
-              )}
-              {currentStage === progressSteps && (
-                <div className="presumptive-analysis">
-                  <TextInput
-                    id="meridian_time"
-                    label="Horario de Meridiano"
-                    type="text"
-                  />
-                  <TextInput id="feeding" label="Alimentación" type="text" />
-                  <TextInput id="yin" label="Yin" type="text" />
-                  <TextInput id="yang" label="Yang" type="text" />
-                  <TextInput id="qi" label="Qi" type="text" />
-                  <TextInput id="xue" label="Xue" type="text" />
-                  <TextInput id="jin_ye" label="Jin Ye" type="text" />
-                  <TextInput
-                    id="mental_vitality_jing_shen"
-                    label="Jing Shen Vit. Mental"
-                    type="text"
-                  />
-                  <TextInput
-                    id="ancestral_jing"
-                    label="Jing Ancestral"
-                    type="text"
-                  />
-                </div>
-              )}
-            </form>
-          </div>
+          <AddPatientForm form={form} currentStage={currentStage} />
         </section>
       </main>
 

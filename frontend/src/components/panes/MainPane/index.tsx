@@ -15,7 +15,7 @@ export const MainPane = ({ defaultPane }: Props) => {
 
   const selectMainPaneContent = () => {
     if (!originalPath) return defaultPane;
-    if (originalPath.includes("/patient")) return <Patients />;
+    if (originalPath.includes("/patients")) return <Patients />;
 
     return <Home />;
   };

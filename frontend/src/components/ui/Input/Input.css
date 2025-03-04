@@ -110,3 +110,9 @@
 .field-input.invalid ~ .icon {
   color: var(--clr-error);
 }
+
+.error-message {
+  text-align: left;
+  color: var(--clr-error);
+  margin-top: 0.25rem;
+}
