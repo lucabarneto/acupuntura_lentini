@@ -6,6 +6,7 @@ import {
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
+import { AdaptableForm } from "../../../types/form.types";
 
 const patientsAdapter = createEntityAdapter({
   selectId: (patient: IPatient) => patient._id,
@@ -43,6 +44,18 @@ export const getAllPatients = createAsyncThunk<
       if (patients.ids.length !== 0 && patients.previousCrudAction === "get")
         return false;
     },
+  }
+);
+
+export const addPatient = createAsyncThunk(
+  "patients/addPatient",
+  async (adaptableForm: AdaptableForm) => {
+    try {
+      const newPatient = await patientsAPI.addPatient(adaptableForm);
+      return newPatient as IPatient;
+    } catch (err) {
+      console.log(err);
+    }
   }
 );
 
@@ -87,6 +100,18 @@ const patientsSlice = createSlice({
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       patientsAdapter.setAll(state, action.payload!);
+    });
+
+    builder.addCase(addPatient.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(addPatient.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "post";
+      patientsAdapter.addOne(state, action.payload!);
     });
 
     builder.addCase(deletePatient.pending, (state, action) => {

@@ -42,7 +42,7 @@ export const patientInitialForm: FormFields = {
   time: {
     group: ["birth"],
     value: "",
-    regex: /\d{2}:\d{2}/,
+    regex: /\d{2}:\d{2}:\d{2}/,
   },
   location: {
     group: ["birth"],

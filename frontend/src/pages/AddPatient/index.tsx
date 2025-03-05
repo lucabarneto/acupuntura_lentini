@@ -1,5 +1,6 @@
 import "./AddPatient.css";
-import { useLocation } from "react-router";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useAdd } from "../../features/add/hooks/useAdd";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
@@ -7,10 +8,14 @@ import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Button } from "../../components/ui/Button";
 import { AddOptions } from "../../features/add/components/AddOptions";
 import { AddPatientForm } from "../../features/add/components/AddPatientForm";
+import { useAppDispatch } from "../../app/store";
+import { addPatient } from "../../features/patients/slices/patientsSlice";
 
 const totalProgressStages = 3;
 
 export const AddPatient = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const {
     progress,
@@ -19,6 +24,14 @@ export const AddPatient = () => {
     leaveAddFlow,
     confirmLeaveAddFlow,
   } = useAdd(totalProgressStages);
+
+  useEffect(() => {
+    if (form.canSubmit)
+      dispatch(addPatient(form.adaptableForm!)).then(() => {
+        form.resetForm();
+        navigate("/patients");
+      });
+  }, [form.canSubmit]);
 
   return (
     <>

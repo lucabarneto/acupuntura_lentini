@@ -4,16 +4,18 @@ export interface IPatient {
   last_name: string;
   age: string;
   mail: string;
-  marital_status: "single" | "married";
+  marital_status: "casado/a" | "soltero/a";
   tel: string;
   profile_picture?: string;
   birth?: Birth;
   presumptive_analysis?: PresumptiveAnalysis;
   next_appointment?: number;
-  chief_complaints: ChiefComplaintRef[];
-  appointments: AppointmentsRef[];
-  reports: ReportsRef[];
+  chief_complaints?: ChiefComplaintRef[];
+  appointments?: AppointmentsRef[];
+  reports?: ReportsRef[];
 }
+
+export type IPatientNoId = Omit<IPatient, "_id">;
 
 interface ChiefComplaintRef {
   chief_complaint: string;
@@ -29,22 +31,22 @@ interface ReportsRef {
 }
 
 export interface PresumptiveAnalysis {
-  meridian_time: string;
-  feeding: string;
-  yin: string;
-  yang: string;
-  qi: string;
-  xue: string;
-  jin_ye: string;
-  mental_vitality_jing_shen: string;
-  ancestral_jing: string;
+  meridian_time?: string;
+  feeding?: string;
+  yin?: string;
+  yang?: string;
+  qi?: string;
+  xue?: string;
+  jin_ye?: string;
+  mental_vitality_jing_shen?: string;
+  ancestral_jing?: string;
 }
 
 interface Birth {
-  date: string;
-  time: string;
-  location: string;
-  bazi_table: BaziTableType;
+  date?: string;
+  time?: string;
+  location?: string;
+  bazi_table?: BaziTableType;
 }
 
 export interface BaziTableType {

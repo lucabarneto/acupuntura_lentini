@@ -6,6 +6,7 @@ interface UseFormMethods {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
+  resetForm(): void;
 }
 
 interface UseFormStates {
@@ -30,8 +31,6 @@ export const useForm = (initialForm: FormFields): UseForm => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    console.log("nombre:", name, "valor", value);
 
     rawForm[name].value = value;
     setRawForm({ ...rawForm });
@@ -59,6 +58,11 @@ export const useForm = (initialForm: FormFields): UseForm => {
       setCanSubmit(true);
       setAdaptableForm(createAdaptableForm(rawForm));
     }
+  };
+
+  const resetForm = () => {
+    setAdaptableForm({});
+    setCanSubmit(false);
   };
 
   const createAdaptableForm = (formTemplate: FormFields): AdaptableForm => {
@@ -91,5 +95,6 @@ export const useForm = (initialForm: FormFields): UseForm => {
     handleBlur,
     handleChange,
     handleSubmit,
+    resetForm,
   };
 };

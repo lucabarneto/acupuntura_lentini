@@ -123,27 +123,20 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
     type: String,
     required: true,
   },
-  // age: {
-  //   type: Number,
-  //   required: true,
-  // },
+
   mail: {
     type: String,
     required: true,
   },
   marital_status: {
     type: String,
-    enum: ["married", "single"],
+    enum: ["casado/a", "soltero/a"],
     required: true,
   },
   tel: {
     type: String,
     required: true,
   },
-  // tel: {
-  //   type: Number,
-  //   required: true,
-  // },
   profile_picture: String,
   next_appointment: {
     type: Number,

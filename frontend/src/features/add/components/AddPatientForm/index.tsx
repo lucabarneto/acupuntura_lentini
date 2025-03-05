@@ -8,15 +8,12 @@ type Props = {
   form: UseForm;
   currentStage: number;
 };
+
 export const AddPatientForm = ({ form, currentStage }: Props) => {
   const { rawForm, errors, handleChange, handleBlur, handleSubmit } = form;
 
   return (
-    <form
-      encType="multipart/form-data"
-      onSubmit={handleSubmit}
-      id="add-patient-form"
-    >
+    <form onSubmit={handleSubmit} id="add-patient-form">
       {currentStage === 1 && (
         <div className="personal-data">
           <FileInput
