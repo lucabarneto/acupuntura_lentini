@@ -24,7 +24,11 @@ class PatientsAPI {
     try {
       const body = PatientDTO.adapt(formdata);
 
-      const res = await axios.post(this.url, body);
+      const res = await axios.post(this.url, body, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       return res.data.payload as IPatient;
     } catch (err) {

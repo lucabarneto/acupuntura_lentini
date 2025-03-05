@@ -7,6 +7,7 @@ type Props = {
   type: TextInputTypes;
   required?: true;
   title?: string;
+  form?: string;
   value: string;
   error: string | undefined;
   onchangeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
@@ -20,6 +21,8 @@ export const TextInput = ({
   label,
   value,
   error,
+  required,
+  form,
   onchangeEvent,
   onblurEvent,
 }: Props) => {
@@ -32,6 +35,7 @@ export const TextInput = ({
         <input
           className={inputClassName}
           type={type}
+          form={form}
           id={id}
           name={id}
           placeholder="Escribe aquí"
@@ -39,6 +43,7 @@ export const TextInput = ({
           value={value}
           onChange={onchangeEvent}
           onBlur={onblurEvent}
+          required={required}
         />
         <label htmlFor={id} className="field-label">
           {label}

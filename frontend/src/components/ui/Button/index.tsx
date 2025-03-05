@@ -1,6 +1,7 @@
 import "./Button.css";
 import { IconName } from "../../../types/icon.types";
 import { Icon } from "../Icon";
+import { RefObject } from "react";
 
 type Props = {
   label: string;
@@ -9,8 +10,9 @@ type Props = {
   disabled?: true;
   buttonProps?: object;
   aria?: object;
+  ref?: RefObject<null | HTMLButtonElement>;
 
-  onclickEvent?(): void;
+  onclickEvent?(e?: React.MouseEvent): void;
 };
 
 export const Button = (props: Props) => {
@@ -20,6 +22,7 @@ export const Button = (props: Props) => {
 
   return (
     <button
+      ref={props.ref}
       className={className}
       {...props.aria}
       onClick={props.onclickEvent}

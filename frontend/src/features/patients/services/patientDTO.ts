@@ -8,10 +8,10 @@ const FIELD_POSITION = 1;
 
 interface IPatientTemplate {
   [key: string]: any;
-  birth: {
+  birth?: {
     [key: string]: any;
   };
-  presumptive_analysis: {
+  presumptive_analysis?: {
     [key: string]: any;
   };
 }
@@ -19,33 +19,48 @@ interface IPatientTemplate {
 export class PatientDTO {
   static adapt(form: AdaptableForm): IPatientNoId {
     const entries = Object.entries(form);
-    const patient: IPatientTemplate = { birth: {}, presumptive_analysis: {} };
+    const patient: IPatientTemplate = {};
+
+    const hasBirthFields = entries.some(
+      (entry) =>
+        entry[FIELD_POSITION].type === "text" &&
+        entry[FIELD_POSITION].value !== "" &&
+        entry[FIELD_POSITION].group &&
+        entry[FIELD_POSITION].group[0] === "birth"
+    );
+
+    const hasPresumptiveAnalysisFields = entries.some(
+      (entry) =>
+        entry[FIELD_POSITION].type === "text" &&
+        entry[FIELD_POSITION].value !== "" &&
+        entry[FIELD_POSITION].group &&
+        entry[FIELD_POSITION].group[0] === "birth"
+    );
+
+    if (hasBirthFields) patient.birth = {};
+    if (hasPresumptiveAnalysisFields) patient.presumptive_analysis = {};
 
     for (let i = 0; i < entries.length; i++) {
       const key = entries[i][KEY_POSITION];
       const field = entries[i][FIELD_POSITION];
 
-      if (typeof field === "string" && field === "") continue;
-      if (typeof field !== "string" && field.value === "") continue;
+      if (field.type === "text" && field.value === "") continue;
 
-      if (typeof field === "string") {
-        patient[key] = field;
-      }
-
-      if (typeof field !== "string" && field.group[0] === "birth") {
-        patient.birth[key] = field.value;
-      }
-
-      if (
-        typeof field !== "string" &&
-        field.group[0] === "presumptive_analysis"
-      ) {
-        patient.presumptive_analysis[key] = field.value;
+      if (field.type === "text") {
+        if (field.group) {
+          if (field.group[0] === "birth") patient.birth![key] = field.value;
+          if (field.group[0] === "presumptive_analysis")
+            patient.presumptive_analysis![key] = field.value;
+        } else {
+          patient[key] = field.value;
+        }
+      } else {
+        console.log("foto de perfil: ", field.value);
+        patient[key] = field.value;
       }
     }
 
-    console.log(patient);
-
+    console.log("paciente final: ", patient);
     return patient as IPatientNoId;
   }
 }

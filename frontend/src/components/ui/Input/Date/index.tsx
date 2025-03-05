@@ -4,6 +4,7 @@ type Props = {
   id: string;
   label: string;
   title?: string;
+  form?: string;
   value: string;
   error: string;
   onchangeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
@@ -14,6 +15,7 @@ export const DateInput = ({
   id,
   label,
   title,
+  form,
   value,
   error,
   onchangeEvent,
@@ -25,6 +27,7 @@ export const DateInput = ({
         className="field-input field-date"
         type="date"
         id={id}
+        form={form}
         name={id}
         placeholder="YYYY-MM-DD"
         title={title}

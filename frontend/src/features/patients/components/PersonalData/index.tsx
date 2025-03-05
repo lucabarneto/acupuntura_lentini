@@ -5,7 +5,7 @@ type Props = {
   firstName: string;
   lastName: string;
   age: string;
-  maritalStatus: "single" | "married";
+  maritalStatus: "casado/a" | "soltero/a";
   tel: string;
   mail: string;
   profilePicture?: string;

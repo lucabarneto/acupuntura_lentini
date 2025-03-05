@@ -4,9 +4,9 @@ import { NoTable } from "./NoTable";
 import { BaziTable } from "./BaziTable";
 
 type Props = {
-  date: string;
-  time: string;
-  location: string;
+  date?: string;
+  time?: string;
+  location?: string;
   bazi_table?: BaziTableType;
 };
 

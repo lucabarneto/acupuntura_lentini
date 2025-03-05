@@ -6,7 +6,7 @@ export interface IPatient {
   mail: string;
   marital_status: "casado/a" | "soltero/a";
   tel: string;
-  profile_picture?: string;
+  profile_picture?: string | File;
   birth?: Birth;
   presumptive_analysis?: PresumptiveAnalysis;
   next_appointment?: number;

@@ -45,7 +45,7 @@ export const PatientDetails = () => {
           tel={patient.tel}
           mail={patient.mail}
           maritalStatus={patient.marital_status}
-          profilePicture={patient.profile_picture}
+          profilePicture={patient.profile_picture as string}
         />
         {patient.birth && (
           <Birth

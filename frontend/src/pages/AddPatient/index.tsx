@@ -1,23 +1,28 @@
 import "./AddPatient.css";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { useAdd } from "../../features/add/hooks/useAdd";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { ProgressBar } from "../../components/ui/ProgressBar";
-import { Button } from "../../components/ui/Button";
 import { AddOptions } from "../../features/add/components/AddOptions";
-import { AddPatientForm } from "../../features/add/components/AddPatientForm";
 import { useAppDispatch } from "../../app/store";
 import { addPatient } from "../../features/patients/slices/patientsSlice";
+import { PersonalDataForm } from "../../features/add/components/AddPatientForm/PersonalDataForm";
+import { BirthForm } from "../../features/add/components/AddPatientForm/BirthForm";
+import { PresumptiveAnalysisForm } from "../../features/add/components/AddPatientForm/PresumptiveAnalysisForm";
 
 const totalProgressStages = 3;
 
+const PERSONAL_DATA_STAGE = 1;
+const BIRTH_STAGE = 2;
+const PRESUMPTIVE_ANALYSIS_STAGE = 3;
+
 export const AddPatient = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const {
+    submitButton,
     progress,
     form,
     leaveAddFlowModal,
@@ -25,21 +30,22 @@ export const AddPatient = () => {
     confirmLeaveAddFlow,
   } = useAdd(totalProgressStages);
 
+  const originalPathName = location.state?.from;
+
   useEffect(() => {
     if (form.canSubmit)
-      dispatch(addPatient(form.adaptableForm!)).then(() => {
-        form.resetForm();
-        navigate("/patients");
-      });
+      dispatch(addPatient(form.adaptableForm!)).then(() =>
+        leaveAddFlow("/add/", { from: originalPathName })
+      );
   }, [form.canSubmit]);
 
   return (
-    <>
+    <section className="add-patient-pane">
       <AddHeader
         title="Añadir paciente"
         oncloseEvent={(e) => confirmLeaveAddFlow(e!, "/add/")}
       />
-      <main>
+      <div>
         <AddOptions onclickEvent={(e) => confirmLeaveAddFlow(e!)} />
         <ProgressBar
           segments={progress.segments}
@@ -47,56 +53,33 @@ export const AddPatient = () => {
           totalStages={totalProgressStages}
         />
         <section className="add-content-container">
-          <header>
-            {progress.currentStage === 1 && (
-              <>
-                <h1>Datos personales</h1>
-                <Button
-                  type="filled"
-                  label="Continuar"
-                  onclickEvent={progress.moveToNextStage}
-                />
-              </>
-            )}
-            {progress.currentStage === 2 && (
-              <>
-                <h1>Nacimiento</h1>
-                <div className="stage-buttons">
-                  <Button
-                    type="text"
-                    label="Volver"
-                    onclickEvent={progress.moveToPreviousStage}
-                  />
-                  <Button
-                    type="filled"
-                    label="Continuar"
-                    onclickEvent={progress.moveToNextStage}
-                  />
-                </div>
-              </>
-            )}
-            {progress.currentStage === totalProgressStages && (
-              <>
-                <h1>Análisis Presuntivo</h1>
-                <div className="stage-buttons">
-                  <Button
-                    type="text"
-                    label="Volver"
-                    onclickEvent={progress.moveToPreviousStage}
-                  />
-                  <Button
-                    type="filled"
-                    icon="add"
-                    label="Añadir paciente"
-                    buttonProps={{ type: "submit", form: "add-patient-form" }}
-                  />
-                </div>
-              </>
-            )}
-          </header>
-          <AddPatientForm form={form} currentStage={progress.currentStage} />
+          <form id="add-patient-form" onSubmit={form.handleSubmit}></form>
+          {progress.currentStage === PERSONAL_DATA_STAGE && (
+            <PersonalDataForm
+              formData={form}
+              moveToNextStage={progress.moveToNextStage}
+            />
+          )}
+          {progress.currentStage === BIRTH_STAGE && (
+            <BirthForm
+              formData={form}
+              moveToNextStage={progress.moveToNextStage}
+              moveToPreviousStage={progress.moveToPreviousStage}
+            />
+          )}
+          {progress.currentStage === PRESUMPTIVE_ANALYSIS_STAGE && (
+            <PresumptiveAnalysisForm
+              formData={form}
+              moveToPreviousStage={progress.moveToPreviousStage}
+              submitButton={submitButton}
+            />
+          )}
+          <p className="required-fields-tip">
+            Completa todos los <strong>campos requeridos</strong> (<b>*</b>)
+            para poder agregar a la persona paciente al sistema
+          </p>
         </section>
-      </main>
+      </div>
 
       <Modal
         ref={leaveAddFlowModal.modal}
@@ -110,6 +93,6 @@ export const AddPatient = () => {
           })
         }
       />
-    </>
+    </section>
   );
 };

@@ -1,4 +1,5 @@
-export interface Field {
+export interface TextField {
+  type: "text";
   group?: string[];
   value: string;
   regex?: RegExp;
@@ -9,21 +10,23 @@ export interface Field {
   };
 }
 
+export interface FileField {
+  type: "file";
+  value: File | string;
+}
+
 export interface FormFields {
-  [key: string]: Field;
+  [key: string]: TextField | FileField;
 }
 
 export interface FormErrors {
   [key: string]: string;
 }
 
-export type AdaptableField = string;
-
-export interface NestedAdaptableField {
-  value: string;
-  group: string[];
-}
+export type AdaptableField =
+  | { type: "text"; value: string; group?: string[] }
+  | { type: "file"; value: string | File };
 
 export interface AdaptableForm {
-  [key: string]: AdaptableField | NestedAdaptableField;
+  [key: string]: AdaptableField;
 }

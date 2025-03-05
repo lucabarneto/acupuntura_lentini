@@ -1,3 +1,7 @@
+.add-patient-pane {
+  padding-bottom: 2rem;
+}
+
 .add-content-container header {
   display: flex;
   align-items: center;
@@ -6,7 +10,7 @@
   padding: 2.5rem 2rem 1.5rem;
 }
 
-.personal-data {
+.personal-data-form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, auto);
@@ -19,7 +23,7 @@
   gap: 0.5rem;
 }
 
-.birth {
+.birth-form {
   padding: 0 2rem;
 }
 
@@ -28,10 +32,18 @@
   gap: 1rem;
 }
 
-.presumptive-analysis {
+.presumptive-analysis-form {
   padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 1rem;
+}
+
+.required-fields-tip {
+  text-align: left;
+  margin-top: 1.5rem;
+  padding: 0 2rem;
+  color: var(--clr-on-surface-variant);
+  font-size: 0.875rem;
 }

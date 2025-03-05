@@ -56,7 +56,11 @@ li {
   width: 3.5rem;
   height: 3.5rem;
 
+  object-fit: cover;
+  object-position: top;
+
   border-radius: 0.5rem;
+  overflow-clip-margin: unset;
   overflow: hidden;
 
   align-self: flex-start;
