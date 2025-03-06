@@ -1,21 +1,20 @@
 import "./IconButton.css";
-import { IconName } from "../../../types/icon.types";
 import { Icon } from "../Icon";
+import { IconButtonType } from "./icon_button.types";
 
-type Props = {
-  icon: IconName;
-  type: "filled" | "standard";
-  disabled?: true;
-  onclickEvent?: (e?: React.MouseEvent) => void;
-};
+type Props = IconButtonType;
 
 export const IconButton = (props: Props) => {
-  let className = `icon-button ${props.type}`;
-  if (props.disabled) className += " disabled";
+  const { icon, ariaLabel, clickEvent, disabled } = props;
 
   return (
-    <button className={className} onClick={props.onclickEvent}>
-      <Icon icon={props.icon} />
+    <button
+      className="icon-button"
+      aria-label={ariaLabel}
+      disabled={disabled ? true : false}
+      onClick={clickEvent}
+    >
+      <Icon icon={icon} />
     </button>
   );
 };

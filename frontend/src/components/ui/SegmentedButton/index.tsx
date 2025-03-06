@@ -1,25 +1,12 @@
-import { LinkState } from "../../../types/link.types";
 import "./SegmentedButton.css";
 import { NavLink } from "react-router";
+import { SegmentedButtonType } from "./segmented_button.types";
 
-type Props = {
-  id: string;
-  label: string;
-  position: "left" | "middle" | "right";
-  link: string;
-  state?: LinkState;
+type Props = SegmentedButtonType;
 
-  onclickEvent?(e?: React.MouseEvent): void;
-};
-
-export const SegmentedButton = ({
-  label,
-  id,
-  position,
-  link,
-  state,
-  onclickEvent,
-}: Props) => {
+export const SegmentedButton = (props: Props) => {
+  const { label, id, position, link, state, clickEvent, ariaDescription } =
+    props;
   const className = `button segmented-button ${position}`;
 
   return (
@@ -27,10 +14,11 @@ export const SegmentedButton = ({
       to={link}
       state={state}
       id={id}
+      aria-description={ariaDescription}
       className={({ isActive }) =>
         isActive ? `${className} selected` : className
       }
-      onClick={onclickEvent}
+      onClick={clickEvent}
     >
       {label}
     </NavLink>

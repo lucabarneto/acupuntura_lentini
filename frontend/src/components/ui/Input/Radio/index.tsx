@@ -1,25 +1,11 @@
 import "./RadioInput.css";
-import { Divider } from "../../Divider";
+import { RadioInputType } from "../input.types";
 
-type Props = {
-  id: string;
-  name: string;
-  value: string;
-  label: string;
-  divider?: true;
-  inputProps?: object;
-  onclickEvent: () => void;
-};
+type Props = RadioInputType;
 
-export const RadioInput = ({
-  id,
-  name,
-  value,
-  label,
-  divider,
-  inputProps,
-  onclickEvent,
-}: Props) => {
+export const RadioInput = (props: Props) => {
+  const { id, label, value, name, checked, clickEvent } = props;
+
   return (
     <div className="radio-input">
       <label htmlFor={id}>{label}</label>
@@ -27,11 +13,10 @@ export const RadioInput = ({
         type="radio"
         name={name}
         id={id}
-        {...inputProps}
         value={value}
-        onClick={onclickEvent}
+        defaultChecked={checked ? true : false}
+        onClick={clickEvent}
       />
-      {divider && <Divider />}
     </div>
   );
 };

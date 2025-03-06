@@ -1,21 +1,29 @@
 import { IconButton } from "../IconButton";
+import { TopAppBarType } from "./top_app_bar.types";
 import "./TopAppBar.css";
 
-type Props = {
-  title: string;
-  navigation?: true;
+type Props = TopAppBarType;
 
-  deleteAction(): void;
-};
+export const TopAppBar = (props: Props) => {
+  const { title, navigationIcon, deleteEvent } = props;
 
-export const TopAppBar = ({ title, navigation, deleteAction }: Props) => {
   return (
     <header className="top-app-bar">
-      {navigation && <IconButton icon="arrow_back" type="standard" />}
+      {navigationIcon && (
+        <IconButton
+          icon="arrow_back"
+          clickEvent={() => {}}
+          ariaLabel="Volver"
+        />
+      )}
       <h3>{title}</h3>
       <div>
-        <IconButton icon="edit" type="standard" />
-        <IconButton icon="delete" type="standard" onclickEvent={deleteAction} />
+        <IconButton icon="edit" clickEvent={() => {}} ariaLabel="Editar" />
+        <IconButton
+          icon="delete"
+          clickEvent={deleteEvent}
+          ariaLabel="Eliminar"
+        />
       </div>
     </header>
   );

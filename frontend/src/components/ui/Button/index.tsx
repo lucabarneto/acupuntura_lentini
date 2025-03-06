@@ -1,35 +1,40 @@
 import "./Button.css";
-import { IconName } from "../../../types/icon.types";
+import { ButtonType, SubmitButtonType } from "./button.types";
 import { Icon } from "../Icon";
-import { RefObject } from "react";
 
-type Props = {
-  label: string;
-  type: "filled" | "outlined" | "text";
-  icon?: IconName;
-  disabled?: true;
-  buttonProps?: object;
-  aria?: object;
-  ref?: RefObject<null | HTMLButtonElement>;
-
-  onclickEvent?(e?: React.MouseEvent): void;
-};
+type Props = SubmitButtonType | ButtonType;
 
 export const Button = (props: Props) => {
-  let className = `button ${props.type}`;
-  if (props.disabled) className += " disabled";
-  if (props.icon) className += " has-icon";
+  const { variant, label, ref, disabled, icon, ariaProps, clickEvent, type } =
+    props;
 
-  return (
+  let className = `button ${variant}`;
+  if (icon) className += " has-icon";
+
+  return type === "button" ? (
     <button
-      ref={props.ref}
+      type="button"
+      ref={ref}
       className={className}
-      {...props.aria}
-      onClick={props.onclickEvent}
-      {...props.buttonProps}
+      {...ariaProps}
+      disabled={disabled ? true : false}
+      onClick={clickEvent}
     >
-      {props.icon && <Icon icon={props.icon} />}
-      {props.label}
+      {icon && <Icon icon={icon} />}
+      {label}
+    </button>
+  ) : (
+    <button
+      type="submit"
+      form={props.form}
+      ref={ref}
+      className={className}
+      {...ariaProps}
+      disabled={disabled ? true : false}
+      onClick={clickEvent}
+    >
+      {icon && <Icon icon={icon} />}
+      {label}
     </button>
   );
 };

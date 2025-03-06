@@ -18,7 +18,8 @@ export const AddOptions = ({ onclickEvent }: Props) => {
         label="Paciente"
         position="left"
         link="/add/patient"
-        onclickEvent={onclickEvent}
+        clickEvent={onclickEvent}
+        ariaDescription="Ir a interfaz añadir paciente"
       />
       <SegmentedButton
         id="chief_complaint"
@@ -26,7 +27,8 @@ export const AddOptions = ({ onclickEvent }: Props) => {
         label="Motivo de consulta"
         position="middle"
         link="/add/chief_complaint"
-        onclickEvent={onclickEvent}
+        clickEvent={onclickEvent}
+        ariaDescription="Ir a interfaz añadir motivo de consulta"
       />
       <SegmentedButton
         id="consultation"
@@ -34,7 +36,8 @@ export const AddOptions = ({ onclickEvent }: Props) => {
         label="Sesión"
         position="middle"
         link="/add/consultation"
-        onclickEvent={onclickEvent}
+        clickEvent={onclickEvent}
+        ariaDescription="Ir a interfaz añadir sesión"
       />
       <SegmentedButton
         id="appointment"
@@ -42,7 +45,8 @@ export const AddOptions = ({ onclickEvent }: Props) => {
         label="Turno"
         position="middle"
         link="/add/appointment"
-        onclickEvent={onclickEvent}
+        clickEvent={onclickEvent}
+        ariaDescription="Ir a interfaz añadir turno"
       />
       <SegmentedButton
         id="template"
@@ -50,7 +54,8 @@ export const AddOptions = ({ onclickEvent }: Props) => {
         label="Plantilla"
         position="right"
         link="/add/template"
-        onclickEvent={onclickEvent}
+        clickEvent={onclickEvent}
+        ariaDescription="Ir a interfaz añadir plantilla"
       />
     </div>
   );

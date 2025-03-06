@@ -1,28 +1,21 @@
+import { ProgressBarType } from "./progress.types";
 import "./ProgressBar.css";
-import { ProgressSegmentType } from "../../../types/progress.types";
-import { ProgressSegment } from "./ProgressSegment";
 
-type Props = {
-  segments: ProgressSegmentType[];
-  currentStage: number;
-  totalStages: number;
-};
+type Props = ProgressBarType;
 
-export const ProgressBar = ({ segments, currentStage, totalStages }: Props) => {
+export const ProgressBar = (props: Props) => {
+  const { currentStage, totalStages } = props;
+
   return (
     <div className="total-progress">
       <div className="current-stage">
         {currentStage} de {totalStages}
       </div>
-      <div className="progress-bar">
-        {segments.map((segment, index) => (
-          <ProgressSegment
-            key={index}
-            position={segment.position}
-            filled={segment.filled}
-          />
-        ))}
-      </div>
+      <progress
+        className="progress-bar"
+        aria-label="progreso del flujo"
+        value={currentStage / totalStages}
+      ></progress>
     </div>
   );
 };

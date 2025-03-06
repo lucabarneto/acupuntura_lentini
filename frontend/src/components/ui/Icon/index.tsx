@@ -1,13 +1,13 @@
 import "./Icon.css";
-import { IconName } from "../../../types/icon.types";
+import { IconType } from "./icon.types";
 
-type Props = {
-  icon: IconName;
-  filled?: true;
-};
+type Props = IconType;
+
 export const Icon = (props: Props) => {
-  let className = "icon material-symbols-outlined";
-  if (props.filled) className += " filled";
+  const { icon, filled } = props;
 
-  return <span className={className}>{props.icon}</span>;
+  let className = "icon material-symbols-outlined";
+  if (filled) className += " filled";
+
+  return <span className={className}>{icon}</span>;
 };

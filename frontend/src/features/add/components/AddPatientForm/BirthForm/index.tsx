@@ -1,6 +1,6 @@
 import { Button } from "../../../../../components/ui/Button";
 import { TextInput } from "../../../../../components/ui/Input/Text";
-import { DateInput } from "../../../../../components/ui/Input/Date";
+// import { DateInput } from "../../../../../components/ui/Input/Date";
 import { UseForm } from "../../../../../hooks/useForm";
 import { BaziTable } from "../../../../patients/components/Birth/BaziTable";
 
@@ -22,27 +22,40 @@ export const BirthForm = ({
         <h1>Nacimiento</h1>
         <div className="stage-buttons">
           <Button
-            type="text"
+            type="button"
+            variant="text"
             label="Volver"
-            onclickEvent={moveToPreviousStage}
+            clickEvent={moveToPreviousStage}
           />
           <Button
-            type="filled"
+            type="button"
+            variant="filled"
             label="Continuar"
-            onclickEvent={moveToNextStage}
+            clickEvent={moveToNextStage}
           />
         </div>
       </header>
       <div className="birth-form">
         <div className="birth-data">
-          <DateInput
+          {/* <DateInput
+            type="date"
             id="date"
             label="Fecha"
             form="add-patient-form"
             value={rawForm.date.value as string}
             error={errors.date}
-            onblurEvent={handleBlur}
-            onchangeEvent={handleChange}
+            blurEvent={handleBlur}
+            changeEvent={handleChange}
+          /> */}
+          <TextInput
+            type="date"
+            id="date"
+            label="Fecha"
+            form="add-patient-form"
+            value={rawForm.date.value as string}
+            error={errors.date}
+            blurEvent={handleBlur}
+            changeEvent={handleChange}
           />
           <TextInput
             type="text"
@@ -51,8 +64,8 @@ export const BirthForm = ({
             form="add-patient-form"
             value={rawForm.time.value as string}
             error={errors.time}
-            onblurEvent={handleBlur}
-            onchangeEvent={handleChange}
+            blurEvent={handleBlur}
+            changeEvent={handleChange}
           />
           <TextInput
             type="text"
@@ -61,8 +74,8 @@ export const BirthForm = ({
             form="add-patient-form"
             value={rawForm.location.value as string}
             error={errors.location}
-            onblurEvent={handleBlur}
-            onchangeEvent={handleChange}
+            blurEvent={handleBlur}
+            changeEvent={handleChange}
           />
         </div>
         <BaziTable type="input" />

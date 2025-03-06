@@ -1,17 +1,21 @@
 import "./Field.css";
+import { FieldType } from "./field.types";
 
-type Props = {
-  id: string;
-  label: string;
-  children: React.ReactNode;
-};
+type Props = FieldType;
 export const Field = (props: Props) => {
+  const { label, id, error, children } = props;
+
   return (
     <div className="field">
-      {props.children}
-      <label htmlFor={props.id} className="field-label">
-        {props.label}
+      {children}
+      <label htmlFor={id} className="field-label">
+        {label}
       </label>
+      {error && (
+        <p id={`${id}-error`} className="field-error-message">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

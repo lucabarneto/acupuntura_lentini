@@ -33,8 +33,18 @@ export const PersonalData = ({
           <li>Teléfono: {tel}</li>
         </ul>
         <div className="contact-buttons-container">
-          <Button icon="chat" label="Enviar Mensaje" type="outlined" />
-          <Button icon="mail" label="Enviar Correo" type="outlined" />
+          <Button
+            icon="chat"
+            label="Enviar Mensaje"
+            variant="outlined"
+            type="button"
+          />
+          <Button
+            icon="mail"
+            label="Enviar Correo"
+            variant="outlined"
+            type="button"
+          />
         </div>
       </div>
     </article>

@@ -1,55 +1,48 @@
+import { Field } from "../../Field";
+import { TextInputType } from "../input.types";
 import "../Input.css";
-import { TextInputTypes } from "../../../../types/input.types";
+import "./TextInput.css";
 
-type Props = {
-  id: string;
-  label: string;
-  type: TextInputTypes;
-  required?: true;
-  title?: string;
-  form?: string;
-  value: string;
-  error: string | undefined;
-  onchangeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
-  onblurEvent(e: React.ChangeEvent<HTMLInputElement>): void;
-};
+type Props = TextInputType;
 
-export const TextInput = ({
-  id,
-  title,
-  type,
-  label,
-  value,
-  error,
-  required,
-  form,
-  onchangeEvent,
-  onblurEvent,
-}: Props) => {
-  let inputClassName = "field-input";
-  if (error) inputClassName += " invalid";
+export const TextInput = (props: Props) => {
+  const {
+    id,
+    title,
+    placeholder,
+    type,
+    label,
+    regex,
+    value,
+    error,
+    required,
+    form,
+    changeEvent,
+    blurEvent,
+  } = props;
+
+  let className = "field-input";
+  if (type === "date") className += " field-date";
+  if (error) className += " invalid";
 
   return (
-    <>
-      <div className="field">
-        <input
-          className={inputClassName}
-          type={type}
-          form={form}
-          id={id}
-          name={id}
-          placeholder="Escribe aquí"
-          title={title}
-          value={value}
-          onChange={onchangeEvent}
-          onBlur={onblurEvent}
-          required={required}
-        />
-        <label htmlFor={id} className="field-label">
-          {label}
-        </label>
-        {error !== "" && <p className="error-message">{error}</p>}
-      </div>
-    </>
+    <Field id={id} label={label} error={error}>
+      <input
+        className={className}
+        type={type}
+        form={form}
+        id={id}
+        name={id}
+        pattern={regex}
+        placeholder={placeholder ? placeholder : "Escribe aquí"}
+        title={title}
+        value={value}
+        onChange={changeEvent}
+        onBlur={blurEvent}
+        required={required ? true : false}
+        aria-invalid={error ? true : false}
+        aria-errormessage={error ? `${id}-error` : undefined}
+      />
+    </Field>
   );
 };

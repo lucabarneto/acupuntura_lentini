@@ -48,7 +48,6 @@ export const AddPatient = () => {
       <div>
         <AddOptions onclickEvent={(e) => confirmLeaveAddFlow(e!)} />
         <ProgressBar
-          segments={progress.segments}
           currentStage={progress.currentStage}
           totalStages={totalProgressStages}
         />
@@ -86,8 +85,8 @@ export const AddPatient = () => {
         title="Salir de añadir paciente"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        oncancelEvent={leaveAddFlowModal.closeModal}
-        onconfirmEvent={() =>
+        cancelEvent={leaveAddFlowModal.closeModal}
+        confirmEvent={() =>
           leaveAddFlow(leaveAddFlowModal.associatedValue!, {
             from: location.pathname,
           })

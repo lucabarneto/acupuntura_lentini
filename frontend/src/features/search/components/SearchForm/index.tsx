@@ -1,26 +1,19 @@
 import "./SearchForm.css";
 import { Divider } from "../../../../components/ui/Divider";
 import { IconButton } from "../../../../components/ui/IconButton";
+import { SearchFormType } from "../../types/search.types";
 
-type Props = {
-  query: string;
-  onClearSearchEvent(e?: React.MouseEvent): void;
-  onCloseSearchEvent(e?: React.MouseEvent): void;
-  onchangeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
-};
+type Props = SearchFormType;
 
-export const SearchForm = ({
-  query,
-  onClearSearchEvent,
-  onCloseSearchEvent,
-  onchangeEvent,
-}: Props) => {
+export const SearchForm = (props: Props) => {
+  const { query, clearSearchEvent, closeSearchEvent, changeEvent } = props;
+
   return (
     <form className="search search-form">
       <IconButton
-        type="standard"
         icon="arrow_back"
-        onclickEvent={onCloseSearchEvent}
+        ariaLabel="Volver"
+        clickEvent={closeSearchEvent}
       />
       <input
         type="text"
@@ -28,12 +21,12 @@ export const SearchForm = ({
         id="q"
         placeholder="Buscar pacientes..."
         value={query}
-        onChange={onchangeEvent}
+        onChange={changeEvent}
       />
       <IconButton
         icon="close"
-        type="standard"
-        onclickEvent={onClearSearchEvent}
+        ariaLabel="Borrar"
+        clickEvent={clearSearchEvent}
       />
       <Divider />
     </form>

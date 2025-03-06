@@ -1,21 +1,45 @@
 import "../Input.css";
 import "./Select.css";
-import { SelectOptions } from "../../../../types/input.types";
+import { Field } from "../../Field";
+import { SelectInputType } from "../input.types";
 
-type Props = {
-  id: string;
-  options: SelectOptions[];
-};
+type Props = SelectInputType;
+export const SelectInput = (props: Props) => {
+  const {
+    id,
+    label,
+    options,
+    title,
+    required,
+    value,
+    form,
+    error,
+    changeEvent,
+    blurEvent,
+  } = props;
 
-export const SelectInput = ({ id, options }: Props) => {
   return (
-    <select className="field-input field-select" name={id} id={id}>
-      <option value="">Elige una opción</option>
-      {options.map((option, index) => (
-        <option key={`option_${index}`} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <Field id={id} label={label} error={error}>
+      <select
+        className="field-input field-select"
+        name={id}
+        id={id}
+        form={form}
+        title={title}
+        required={required ? true : false}
+        value={value}
+        onChange={changeEvent}
+        onBlur={blurEvent}
+        aria-invalid={error ? true : false}
+        aria-errormessage={error ? `${id}-error` : undefined}
+      >
+        <option value="">Elige una opción</option>
+        {options.map((option, index) => (
+          <option key={`option_${index}`} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </Field>
   );
 };

@@ -1,12 +1,11 @@
 import "./Snackbar.css";
 import { Icon } from "../Icon";
+import { SnackbarType } from "./snackbar.types";
 
-type Props = {
-  message: string;
-  type: "info" | "success" | "error";
-};
+type Props = SnackbarType;
 
-export const Snackbar = ({ message, type }: Props) => {
+export const Snackbar = (props: Props) => {
+  const { message, type } = props;
   const className = `snackbar ${type}`;
 
   return (

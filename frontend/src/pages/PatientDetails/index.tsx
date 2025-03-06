@@ -37,7 +37,7 @@ export const PatientDetails = () => {
   return (
     patient && (
       <section className="patient-details-pane">
-        <TopAppBar title="Paciente" deleteAction={openModal} />
+        <TopAppBar title="Paciente" deleteEvent={() => openModal} />
         <PersonalData
           firstName={patient.first_name}
           lastName={patient.last_name}
@@ -60,8 +60,8 @@ export const PatientDetails = () => {
           title="Eliminar paciente"
           text="Una vez eliminado, no podrás recuperar la información del paciente. ¿Estás seguro que quieres eliminarlo?"
           buttonConfirmLabel="Eliminar"
-          oncancelEvent={closeModal}
-          onconfirmEvent={deleteEntity}
+          cancelEvent={closeModal}
+          confirmEvent={deleteEntity}
         />
       </section>
     )

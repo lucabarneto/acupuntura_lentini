@@ -3,6 +3,7 @@ import { useState, useRef, RefObject } from "react";
 interface UseModalMethods {
   openModal(extra?: string): void;
   closeModal(): void;
+  toggleModal(): void;
 }
 
 interface UseModalStates {
@@ -43,5 +44,8 @@ export const useModal = (type: "modal" | "non-modal"): UseModal => {
     setDisplay("hidden");
   };
 
-  return { modal, associatedValue, closeModal, openModal };
+  const toggleModal = (): void =>
+    display === "visible" ? setDisplay("hidden") : setDisplay("visible");
+
+  return { modal, associatedValue, closeModal, openModal, toggleModal };
 };

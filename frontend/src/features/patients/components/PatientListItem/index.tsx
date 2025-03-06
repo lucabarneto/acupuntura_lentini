@@ -13,10 +13,10 @@ export const PatientListItem = ({ patient, state }: Props) => {
       key={patient._id}
       link={`/patients/${patient._id}`}
       state={state}
-      type="image"
+      variant="image"
       image={
         patient.profile_picture
-          ? patient.profile_picture
+          ? (patient.profile_picture as string)
           : "/src/assets/placeholder.svg"
       }
       alt="Rostro de la persona paciente"

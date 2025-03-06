@@ -1,15 +1,12 @@
 import "./Menu.css";
+import { MenuType } from "./menu.types";
 
-type Props = {
-  children: React.ReactNode;
-  id: string;
-  aria?: object;
-  ref: React.RefObject<HTMLDialogElement | null>;
-};
+type Props = MenuType;
 
-export const Menu = ({ children, id, ref, aria }: Props) => {
+export const Menu = (props: Props) => {
+  const { id, ref, children } = props;
   return (
-    <dialog className="menu" id={id} ref={ref} {...aria}>
+    <dialog className="menu" id={id} ref={ref} role="menu">
       <div className="scrim"></div>
       <div className="menu-content">{children}</div>
     </dialog>

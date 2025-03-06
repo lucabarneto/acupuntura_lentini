@@ -21,16 +21,18 @@ export const PresumptiveAnalysisForm = ({
         <h1>Análisis Presuntivo</h1>
         <div className="stage-buttons">
           <Button
-            type="text"
+            type="button"
+            variant="text"
             label="Volver"
-            onclickEvent={moveToPreviousStage}
+            clickEvent={moveToPreviousStage}
           />
           <Button
-            type="filled"
+            type="submit"
+            variant="filled"
             ref={submitButton}
             icon="add"
             label="Añadir paciente"
-            buttonProps={{ type: "submit", form: "add-patient-form" }}
+            form="add-patient-form"
           />
         </div>
       </header>
@@ -42,8 +44,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.meridian_time.value as string}
           error={errors.meridian_time}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="feeding"
@@ -52,8 +54,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.feeding.value as string}
           error={errors.feeding}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="yin"
@@ -62,8 +64,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.yin.value as string}
           error={errors.yin}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="yang"
@@ -72,8 +74,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.yang.value as string}
           error={errors.yang}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="qi"
@@ -82,8 +84,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.qi.value as string}
           error={errors.qi}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="xue"
@@ -92,8 +94,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.xue.value as string}
           error={errors.xue}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="jin_ye"
@@ -102,8 +104,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.jin_ye.value as string}
           error={errors.jin_ye}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="mental_vitality_jing_shen"
@@ -112,8 +114,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.mental_vitality_jing_shen.value as string}
           error={errors.mental_vitality_jing_shen}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
         <TextInput
           id="ancestral_jing"
@@ -122,8 +124,8 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.ancestral_jing.value as string}
           error={errors.ancestral_jing}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
         />
       </div>
     </>

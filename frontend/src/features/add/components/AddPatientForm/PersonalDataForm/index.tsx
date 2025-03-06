@@ -13,9 +13,10 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
       <header>
         <h1>Datos personales</h1>
         <Button
-          type="filled"
+          type="button"
+          variant="filled"
           label="Continuar"
-          onclickEvent={(e) => {
+          clickEvent={(e) => {
             e!.preventDefault();
             moveToNextStage();
           }}
@@ -30,8 +31,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           value={rawForm.first_name.value as string}
           error={errors.first_name}
-          onchangeEvent={handleChange}
-          onblurEvent={handleBlur}
+          changeEvent={handleChange}
+          blurEvent={handleBlur}
           required
         />
         <TextInput
@@ -41,8 +42,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           value={rawForm.last_name.value as string}
           error={errors.last_name}
-          onchangeEvent={handleChange}
-          onblurEvent={handleBlur}
+          changeEvent={handleChange}
+          blurEvent={handleBlur}
           required
         />
         <TextInput
@@ -52,8 +53,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           value={rawForm.mail.value as string}
           error={errors.mail}
-          onchangeEvent={handleChange}
-          onblurEvent={handleBlur}
+          changeEvent={handleChange}
+          blurEvent={handleBlur}
           required
         />
         <TextInput
@@ -63,8 +64,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           value={rawForm.age.value as string}
           error={errors.age}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
           required
         />
         <TextInput
@@ -74,8 +75,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           value={rawForm.tel.value as string}
           error={errors.tel}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
           required
         />
         <TextInput
@@ -85,8 +86,8 @@ export const PersonalDataForm = ({ formData, moveToNextStage }: Props) => {
           form="add-patient-form"
           error={errors.marital_status}
           value={rawForm.marital_status.value as string}
-          onblurEvent={handleBlur}
-          onchangeEvent={handleChange}
+          blurEvent={handleBlur}
+          changeEvent={handleChange}
           required
         />
       </div>

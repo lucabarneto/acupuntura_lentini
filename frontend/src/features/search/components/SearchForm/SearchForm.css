@@ -12,3 +12,22 @@
 
   position: relative;
 }
+
+.search input,
+.search input {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--clr-on-surface);
+}
+
+.search input::placeholder,
+.search input::placeholder {
+  color: var(--clr-on-surface-variant);
+  font-size: 1rem;
+}
+
+.search input:focus-visible,
+.search input:focus-visible {
+  outline: none;
+}

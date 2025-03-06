@@ -77,20 +77,20 @@
   background-color: var(--state-layer-primary-24);
 }
 
-.button.disabled {
+.button:disabled {
   pointer-events: none;
 }
 
-.button.filled.disabled {
+.button.filled:disabled {
   background-color: var(--clr-disabled);
   color: var(--clr-on-primary);
 }
 
-.button.outlined.disabled {
+.button.outlined:disabled {
   border-color: var(--clr-disabled);
   color: var(--clr-disabled);
 }
 
-.button.text.disabled {
+.button.text:disabled {
   color: var(--clr-disabled);
 }

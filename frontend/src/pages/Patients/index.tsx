@@ -8,14 +8,11 @@ import {
   getAllPatients,
   sortByName,
 } from "../../features/patients/slices/patientsSlice";
-
-import { Search } from "../../features/search/components/Search";
 import { Button } from "../../components/ui/Button";
 import { Menu } from "../../components/ui/Menu";
 import { RadioInput } from "../../components/ui/Input/Radio";
 import { PatientListItem } from "../../features/patients/components/PatientListItem";
-import { SearchNoQuery } from "../../features/patients/components/Search/SearchNoQuery";
-import { SearchNoResults } from "../../features/patients/components/Search/SearchNoResults";
+import { SearchViewPatient } from "../../features/patients/components/Search/SearchPatient";
 
 export const Patients = () => {
   const patients = useSelector(selectAllPatients);
@@ -28,25 +25,24 @@ export const Patients = () => {
 
   return (
     <section className="patients-pane">
-      <Search
+      <SearchViewPatient
         entities={patients}
-        noQueryView={<SearchNoQuery />}
-        noResultsView={<SearchNoResults />}
-        mapResults={(patient) => (
+        mappedResults={(patient) => (
           <PatientListItem key={patient._id} patient={patient} />
         )}
       />
       <div className="query-buttons">
         <Button
-          type="text"
+          type="button"
+          variant="text"
           label="Ordenar por"
           icon="sort"
-          aria={{
+          ariaProps={{
             "aria-haspopup": "dialog",
             "aria-controls": "sort-query-menu-patients",
             "aria-expanded": "false",
           }}
-          onclickEvent={toggleModal}
+          clickEvent={toggleModal}
         />
       </div>
       <h1>Lista de pacientes</h1>
@@ -55,19 +51,15 @@ export const Patients = () => {
           <PatientListItem key={patient._id} patient={patient} />
         ))}
       </ul>
-      <Menu
-        id="sort-query-menu-patients"
-        aria={{ "aria-hidden": "true" }}
-        ref={modal}
-      >
+      <Menu id="sort-query-menu-patients" ref={modal}>
         <form>
           <RadioInput
             id="sort-name-asc"
             label="Nombre ascendente (A-Z)"
             name="sort"
             value="name-asc"
-            inputProps={{ defaultChecked: true }}
-            onclickEvent={() => {
+            checked
+            clickEvent={() => {
               dispatch(sortByName("asc"));
               toggleModal();
             }}
@@ -77,7 +69,7 @@ export const Patients = () => {
             label="Nombre descendente (Z-A)"
             name="sort"
             value="name-desc"
-            onclickEvent={() => {
+            clickEvent={() => {
               dispatch(sortByName("desc"));
               toggleModal();
             }}

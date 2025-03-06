@@ -13,7 +13,7 @@ export const AddHeader = ({ title, oncloseEvent }: Props) => {
   return (
     <header className="add-header">
       <NavLink to="/add" state={{ from: originalPathname }}>
-        <IconButton icon="close" onclickEvent={oncloseEvent} type="standard" />
+        <IconButton icon="close" clickEvent={oncloseEvent} ariaLabel="Cerrar" />
       </NavLink>
       <h3>{title}</h3>
     </header>

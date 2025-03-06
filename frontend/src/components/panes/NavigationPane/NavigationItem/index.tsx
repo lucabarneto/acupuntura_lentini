@@ -1,7 +1,7 @@
 import "./NavigationItem.css";
 import { NavLink } from "react-router";
 import { Icon } from "../../../ui/Icon";
-import { IconName } from "../../../../types/icon.types";
+import { IconName } from "../../../ui/Icon/icon.types";
 
 type Props = {
   href: string;

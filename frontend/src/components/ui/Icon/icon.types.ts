@@ -1,3 +1,8 @@
+export interface IconType {
+  icon: IconName;
+  filled?: true;
+}
+
 export type IconName =
   | "add"
   | "arrow_back"

@@ -1,34 +1,33 @@
-import { IconName } from "./icon.types";
-import { LinkState } from "./link.types";
+import { IconName } from "../Icon/icon.types";
+import { LinkState } from "../../../types/link.types";
 
-export interface ImageListItem {
-  link: string;
-  state?: LinkState;
-  type: "image";
+export interface ImageListItemType {
+  variant: "image";
   image: string;
   alt: string;
+  link: string;
+  state?: LinkState;
   title: string;
   overline?: string;
   text?: string;
   divider?: true;
 }
 
-export interface IconListItem {
-  link: string;
-  state?: LinkState;
-  type: "icon";
+export interface IconListItemType {
+  variant: "icon";
   icon: IconName;
-  trailing_icon?: IconName;
+  link: string;
+  state?: LinkState;
   title: string;
   overline?: string;
   text?: string;
   divider?: true;
 }
 
-export interface DefaultListitem {
+export interface ListitemType {
+  variant: "default";
   link: string;
   state?: LinkState;
-  type: "default";
   title: string;
   overline?: string;
   text?: string;

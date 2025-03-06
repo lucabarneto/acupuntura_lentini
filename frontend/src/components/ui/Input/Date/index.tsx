@@ -1,28 +1,15 @@
+import { Field } from "../../Field";
+import { TextInputType } from "../input.types";
 import "./Date.css";
 
-type Props = {
-  id: string;
-  label: string;
-  title?: string;
-  form?: string;
-  value: string;
-  error: string;
-  onchangeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
-  onblurEvent(e: React.ChangeEvent<HTMLInputElement>): void;
-};
+type Props = TextInputType;
 
-export const DateInput = ({
-  id,
-  label,
-  title,
-  form,
-  value,
-  error,
-  onchangeEvent,
-  onblurEvent,
-}: Props) => {
+export const DateInput = (props: Props) => {
+  const { id, label, title, form, value, error, changeEvent, blurEvent } =
+    props;
+
   return (
-    <div className="field">
+    <Field id={id} label={label} error={error}>
       <input
         className="field-input field-date"
         type="date"
@@ -32,13 +19,9 @@ export const DateInput = ({
         placeholder="YYYY-MM-DD"
         title={title}
         value={value}
-        onChange={onchangeEvent}
-        onBlur={onblurEvent}
+        onChange={changeEvent}
+        onBlur={blurEvent}
       />
-      <label htmlFor={id} className="field-label">
-        {label}
-      </label>
-      {error !== "" && <p className="error-message">{error}</p>}
-    </div>
+    </Field>
   );
 };
