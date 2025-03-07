@@ -1,43 +1,22 @@
 import "./PatientDetails.css";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../app/store";
-import {
-  getAllPatients,
-  deletePatient,
-} from "../../features/patients/slices/patientsSlice";
-import { RootState } from "../../app/store";
 import { useNavigate, useParams } from "react-router";
-import { selectPatientById } from "../../features/patients/slices/patientsSlice";
 import { PersonalData } from "../../features/patients/components/PersonalData";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
+import { usePatient } from "../../features/patients/hooks/usePatient";
 
 export const PatientDetails = () => {
   const patientId = useParams().id!;
-  const patient = useSelector((state: RootState) =>
-    selectPatientById(state, patientId)
-  );
-  const dispatch = useAppDispatch();
+  const { patient, deletePatient } = usePatient(patientId);
   const { modal, openModal, closeModal } = useModal("modal");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (patient === undefined) dispatch(getAllPatients());
-  }, []);
-
-  const deleteEntity = () => {
-    dispatch(deletePatient(patientId)).then(() => {
-      navigate("/patients");
-    });
-  };
 
   return (
     patient && (
       <section className="patient-details-pane">
-        <TopAppBar title="Paciente" deleteEvent={() => openModal} />
+        <TopAppBar title="Paciente" deleteEvent={() => openModal()} />
         <PersonalData
           firstName={patient.first_name}
           lastName={patient.last_name}
@@ -61,7 +40,9 @@ export const PatientDetails = () => {
           text="Una vez eliminado, no podrás recuperar la información del paciente. ¿Estás seguro que quieres eliminarlo?"
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
-          confirmEvent={deleteEntity}
+          confirmEvent={() =>
+            deletePatient(patientId, () => navigate("/patients"))
+          }
         />
       </section>
     )

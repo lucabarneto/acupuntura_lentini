@@ -23,9 +23,18 @@ export interface FormErrors {
   [key: string]: string;
 }
 
-export type AdaptableField =
-  | { type: "text"; value: string; group?: string[] }
-  | { type: "file"; value: string | File };
+export interface TextAdaptableField {
+  type: "text";
+  value: string;
+  group?: string[];
+}
+
+export interface FileAdaptableField {
+  type: "file";
+  value: string;
+}
+
+export type AdaptableField = TextAdaptableField | FileAdaptableField;
 
 export interface AdaptableForm {
   [key: string]: AdaptableField;

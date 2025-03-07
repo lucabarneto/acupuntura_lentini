@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IPatient {
   _id: string;
   first_name: string;
@@ -84,3 +85,13 @@ type Branches =
   | "perro xu"
   | "cerdo hai"
   | "";
+
+export interface IPatientTemplate {
+  [key: string]: any;
+  birth?: {
+    [key: string]: any;
+  };
+  presumptive_analysis?: {
+    [key: string]: any;
+  };
+}

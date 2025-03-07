@@ -6,11 +6,10 @@ import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { AddOptions } from "../../features/add/components/AddOptions";
-import { useAppDispatch } from "../../app/store";
-import { addPatient } from "../../features/patients/slices/patientsSlice";
 import { PersonalDataForm } from "../../features/add/components/AddPatientForm/PersonalDataForm";
 import { BirthForm } from "../../features/add/components/AddPatientForm/BirthForm";
 import { PresumptiveAnalysisForm } from "../../features/add/components/AddPatientForm/PresumptiveAnalysisForm";
+import { usePatient } from "../../features/patients/hooks/usePatient";
 
 const totalProgressStages = 3;
 
@@ -19,8 +18,9 @@ const BIRTH_STAGE = 2;
 const PRESUMPTIVE_ANALYSIS_STAGE = 3;
 
 export const AddPatient = () => {
-  const dispatch = useAppDispatch();
+  const { addPatient } = usePatient();
   const location = useLocation();
+  const originalPathName = location.state?.from;
   const {
     submitButton,
     progress,
@@ -30,11 +30,9 @@ export const AddPatient = () => {
     confirmLeaveAddFlow,
   } = useAdd(totalProgressStages);
 
-  const originalPathName = location.state?.from;
-
   useEffect(() => {
     if (form.canSubmit)
-      dispatch(addPatient(form.adaptableForm!)).then(() =>
+      addPatient(form.adaptableForm!, () =>
         leaveAddFlow("/add/", { from: originalPathName })
       );
   }, [form.canSubmit]);

@@ -16,7 +16,7 @@ const patientsAdapter = createEntityAdapter({
 const initialState = patientsAdapter.getInitialState<{
   loading: "idle" | "pending";
   activeRequestId: string | null;
-  previousCrudAction: null | "get" | "post" | "delete" | "put";
+  previousCrudAction: null | "get" | "post" | "put" | "delete";
 }>({
   loading: "idle",
   activeRequestId: null,
@@ -41,8 +41,10 @@ export const getAllPatients = createAsyncThunk<
     condition: (arg: undefined, { getState }) => {
       const { patients } = getState();
 
-      if (patients.ids.length !== 0 && patients.previousCrudAction === "get")
+      if (patients.ids.length !== 0 && patients.previousCrudAction !== null) {
+        console.log("Fetch to server was cancelled for patient entity");
         return false;
+      }
     },
   }
 );

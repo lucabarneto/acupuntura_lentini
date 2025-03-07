@@ -1,13 +1,6 @@
 import "./Patients.css";
-import { useEffect } from "react";
+import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useModal } from "../../hooks/useModal";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../app/store";
-import {
-  selectAllPatients,
-  getAllPatients,
-  sortByName,
-} from "../../features/patients/slices/patientsSlice";
 import { Button } from "../../components/ui/Button";
 import { Menu } from "../../components/ui/Menu";
 import { RadioInput } from "../../components/ui/Input/Radio";
@@ -15,18 +8,13 @@ import { PatientListItem } from "../../features/patients/components/PatientListI
 import { SearchViewPatient } from "../../features/patients/components/Search/SearchPatient";
 
 export const Patients = () => {
-  const patients = useSelector(selectAllPatients);
-  const dispatch = useAppDispatch();
+  const { allPatients, sortPatients } = usePatient();
   const { modal, toggleModal } = useModal("non-modal");
-
-  useEffect(() => {
-    dispatch(getAllPatients());
-  }, [dispatch]);
 
   return (
     <section className="patients-pane">
       <SearchViewPatient
-        entities={patients}
+        entities={allPatients}
         mappedResults={(patient) => (
           <PatientListItem key={patient._id} patient={patient} />
         )}
@@ -47,7 +35,7 @@ export const Patients = () => {
       </div>
       <h1>Lista de pacientes</h1>
       <ul>
-        {patients.map((patient) => (
+        {allPatients.map((patient) => (
           <PatientListItem key={patient._id} patient={patient} />
         ))}
       </ul>
@@ -60,7 +48,7 @@ export const Patients = () => {
             value="name-asc"
             checked
             clickEvent={() => {
-              dispatch(sortByName("asc"));
+              sortPatients("asc");
               toggleModal();
             }}
           />
@@ -70,7 +58,7 @@ export const Patients = () => {
             name="sort"
             value="name-desc"
             clickEvent={() => {
-              dispatch(sortByName("desc"));
+              sortPatients("desc");
               toggleModal();
             }}
           />
