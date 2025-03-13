@@ -17,6 +17,7 @@ export const TextInput = (props: Props) => {
     error,
     required,
     form,
+    group,
     changeEvent,
     blurEvent,
   } = props;
@@ -37,6 +38,7 @@ export const TextInput = (props: Props) => {
         placeholder={placeholder ? placeholder : "Escribe aquí"}
         title={title}
         value={value}
+        data-group={group}
         onChange={changeEvent}
         onBlur={blurEvent}
         required={required ? true : false}

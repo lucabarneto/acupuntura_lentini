@@ -2,42 +2,8 @@
   padding-bottom: 2rem;
 }
 
-.add-content-container header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 2.5rem 2rem 1.5rem;
-}
-
-.personal-data-form {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, auto);
-
-  justify-items: start;
-}
-
-.stage-buttons {
-  display: inline-flex;
-  gap: 0.5rem;
-}
-
-.birth-form {
-  padding: 0 2rem;
-}
-
-.birth-data {
-  display: flex;
-  gap: 1rem;
-}
-
-.presumptive-analysis-form {
-  padding: 0 2rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1rem;
+.add-patient-pane header {
+  margin-bottom: 1.5rem;
 }
 
 .required-fields-tip {

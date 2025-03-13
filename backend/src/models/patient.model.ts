@@ -130,7 +130,7 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
   },
   marital_status: {
     type: String,
-    enum: ["casado/a", "soltero/a"],
+    enum: ["casado", "soltero", "casada", "soltera"],
     required: true,
   },
   tel: {

@@ -44,9 +44,10 @@ const BaziTable = z
 const Birth = z
   .object({
     date: z.string().date(),
-    time: z.string().time(),
+    time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
     location: z.string(),
-    bazi_table: BaziTable,
+
+    bazi_table: BaziTable.optional(),
   })
   .optional();
 
@@ -70,7 +71,7 @@ export const IPatient = z.object({
   last_name: z.string().min(1),
   age: z.string(),
   mail: z.string().email(),
-  marital_status: z.enum(["casado/a", "soltero/a"]),
+  marital_status: z.enum(["casado", "soltero", "casada", "soltera"]),
   tel: z.string(),
   profile_picture: z.string().optional(),
   birth: Birth,

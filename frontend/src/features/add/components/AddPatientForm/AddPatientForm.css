@@ -1,0 +1,26 @@
+.add-patient-form {
+  padding: 0 2rem;
+}
+
+.add-patient-form h2 {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.add-patient-personal-data-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 1rem;
+  justify-items: start;
+}
+
+.add-patient-personal-data-inputs .file-field {
+  grid-column: 3/4;
+  grid-row: 1/4;
+}
+
+.add-patient-birth-data-inputs {
+  display: flex;
+  gap: 1rem;
+}

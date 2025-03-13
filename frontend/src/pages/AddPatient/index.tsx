@@ -1,83 +1,61 @@
 import "./AddPatient.css";
-import { useEffect } from "react";
-import { useLocation } from "react-router";
-import { useAdd } from "../../features/add/hooks/useAdd";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
-import { ProgressBar } from "../../components/ui/ProgressBar";
-import { AddOptions } from "../../features/add/components/AddOptions";
-import { PersonalDataForm } from "../../features/add/components/AddPatientForm/PersonalDataForm";
-import { BirthForm } from "../../features/add/components/AddPatientForm/BirthForm";
-import { PresumptiveAnalysisForm } from "../../features/add/components/AddPatientForm/PresumptiveAnalysisForm";
+import { AddPatientForm } from "../../features/add/components/AddPatientForm";
+import { IPatientForm } from "../../features/patients/types/IPatient";
+import { useAdd } from "../../features/add/hooks/useAdd";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 
-const totalProgressStages = 3;
+const initialForm: IPatientForm = {
+  first_name: "",
+  last_name: "",
+  mail: "",
+  tel: "",
+  age: "",
+  marital_status: "",
+  profile_picture: "",
+  birth: {
+    date: "",
+    time: "",
+    location: "",
+  },
+};
 
-const PERSONAL_DATA_STAGE = 1;
-const BIRTH_STAGE = 2;
-const PRESUMPTIVE_ANALYSIS_STAGE = 3;
+const totalStages = 1;
 
 export const AddPatient = () => {
   const { addPatient } = usePatient();
+  const { formData, leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } =
+    useAdd(totalStages, initialForm);
+  const { form } = formData;
   const location = useLocation();
-  const originalPathName = location.state?.from;
-  const {
-    submitButton,
-    progress,
-    form,
-    leaveAddFlowModal,
-    leaveAddFlow,
-    confirmLeaveAddFlow,
-  } = useAdd(totalProgressStages);
+  const originalPathname = location.state?.from;
+
+  console.log(originalPathname);
 
   useEffect(() => {
-    if (form.canSubmit)
-      addPatient(form.adaptableForm!, () =>
-        leaveAddFlow("/add/", { from: originalPathName })
-      );
-  }, [form.canSubmit]);
+    if (form.isSubmittable)
+      addPatient(form.fields, (patient) => {
+        leaveAddFlow(`/patients/${patient._id}`);
+      });
+  }, [form.isSubmittable]);
 
   return (
     <section className="add-patient-pane">
       <AddHeader
         title="Añadir paciente"
-        oncloseEvent={(e) => confirmLeaveAddFlow(e!, "/add/")}
+        closeEvent={confirmLeaveAddFlow}
+        formId="add-patient-form"
       />
-      <div>
-        <AddOptions onclickEvent={(e) => confirmLeaveAddFlow(e!)} />
-        <ProgressBar
-          currentStage={progress.currentStage}
-          totalStages={totalProgressStages}
-        />
-        <section className="add-content-container">
-          <form id="add-patient-form" onSubmit={form.handleSubmit}></form>
-          {progress.currentStage === PERSONAL_DATA_STAGE && (
-            <PersonalDataForm
-              formData={form}
-              moveToNextStage={progress.moveToNextStage}
-            />
-          )}
-          {progress.currentStage === BIRTH_STAGE && (
-            <BirthForm
-              formData={form}
-              moveToNextStage={progress.moveToNextStage}
-              moveToPreviousStage={progress.moveToPreviousStage}
-            />
-          )}
-          {progress.currentStage === PRESUMPTIVE_ANALYSIS_STAGE && (
-            <PresumptiveAnalysisForm
-              formData={form}
-              moveToPreviousStage={progress.moveToPreviousStage}
-              submitButton={submitButton}
-            />
-          )}
-          <p className="required-fields-tip">
-            Completa todos los <strong>campos requeridos</strong> (<b>*</b>)
-            para poder agregar a la persona paciente al sistema
-          </p>
-        </section>
+      <div className="add-content-container">
+        <AddPatientForm formData={formData} />
+        <p className="required-fields-tip">
+          Completa todos los <strong>campos requeridos</strong> (<b>*</b>) para
+          poder agregar a la persona paciente al sistema
+        </p>
       </div>
-
       <Modal
         ref={leaveAddFlowModal.modal}
         title="Salir de añadir paciente"
@@ -86,7 +64,7 @@ export const AddPatient = () => {
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
           leaveAddFlow(leaveAddFlowModal.associatedValue!, {
-            from: location.pathname,
+            from: originalPathname,
           })
         }
       />

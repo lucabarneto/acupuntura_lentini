@@ -8,6 +8,8 @@ export interface InputType<HTMLInput> {
   form?: string;
   value: string;
   error?: string;
+  group?: string;
+
   changeEvent?(e: React.ChangeEvent<HTMLInput>): void;
   blurEvent?(e: React.ChangeEvent<HTMLInput>): void;
 }

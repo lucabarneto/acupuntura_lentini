@@ -44,6 +44,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.meridian_time.value as string}
           error={errors.meridian_time}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -54,6 +55,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.feeding.value as string}
           error={errors.feeding}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -64,6 +66,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.yin.value as string}
           error={errors.yin}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -74,6 +77,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.yang.value as string}
           error={errors.yang}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -84,6 +88,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.qi.value as string}
           error={errors.qi}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -94,6 +99,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.xue.value as string}
           error={errors.xue}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -104,6 +110,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.jin_ye.value as string}
           error={errors.jin_ye}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -114,6 +121,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.mental_vitality_jing_shen.value as string}
           error={errors.mental_vitality_jing_shen}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />
@@ -124,6 +132,7 @@ export const PresumptiveAnalysisForm = ({
           form="add-patient-form"
           value={rawForm.ancestral_jing.value as string}
           error={errors.ancestral_jing}
+          group="presumptive_analysis"
           blurEvent={handleBlur}
           changeEvent={handleChange}
         />

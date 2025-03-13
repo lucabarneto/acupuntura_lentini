@@ -7,6 +7,4 @@ export interface SegmentedButtonType {
   link: string;
   state?: LinkState;
   ariaDescription: string;
-
-  clickEvent?(e?: React.MouseEvent): void;
 }

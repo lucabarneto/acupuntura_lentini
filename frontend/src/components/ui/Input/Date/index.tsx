@@ -5,8 +5,17 @@ import "./Date.css";
 type Props = TextInputType;
 
 export const DateInput = (props: Props) => {
-  const { id, label, title, form, value, error, changeEvent, blurEvent } =
-    props;
+  const {
+    id,
+    label,
+    title,
+    form,
+    value,
+    group,
+    error,
+    changeEvent,
+    blurEvent,
+  } = props;
 
   return (
     <Field id={id} label={label} error={error}>
@@ -19,6 +28,7 @@ export const DateInput = (props: Props) => {
         placeholder="YYYY-MM-DD"
         title={title}
         value={value}
+        data-group={group}
         onChange={changeEvent}
         onBlur={blurEvent}
       />

@@ -37,16 +37,6 @@ export const BirthForm = ({
       </header>
       <div className="birth-form">
         <div className="birth-data">
-          {/* <DateInput
-            type="date"
-            id="date"
-            label="Fecha"
-            form="add-patient-form"
-            value={rawForm.date.value as string}
-            error={errors.date}
-            blurEvent={handleBlur}
-            changeEvent={handleChange}
-          /> */}
           <TextInput
             type="date"
             id="date"
@@ -54,6 +44,7 @@ export const BirthForm = ({
             form="add-patient-form"
             value={rawForm.date.value as string}
             error={errors.date}
+            group="birth"
             blurEvent={handleBlur}
             changeEvent={handleChange}
           />
@@ -64,6 +55,7 @@ export const BirthForm = ({
             form="add-patient-form"
             value={rawForm.time.value as string}
             error={errors.time}
+            group="birth"
             blurEvent={handleBlur}
             changeEvent={handleChange}
           />
@@ -74,6 +66,7 @@ export const BirthForm = ({
             form="add-patient-form"
             value={rawForm.location.value as string}
             error={errors.location}
+            group="birth"
             blurEvent={handleBlur}
             changeEvent={handleChange}
           />

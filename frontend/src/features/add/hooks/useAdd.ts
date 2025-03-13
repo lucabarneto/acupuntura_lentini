@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router";
 import { useModal } from "../../../hooks/useModal";
 import { LinkState } from "../../../types/link.types";
-import { useForm } from "../../../hooks/useForm";
-import { patientInitialForm } from "../utils/patientInitialForm";
 import { useProgressBar } from "../../../hooks/useProgressBar";
-import { useRef } from "react";
+import { useForm } from "../../../hooks/useForm";
 
-export const useAdd = (totalStages: number) => {
+export const useAdd = <T extends { [key: string]: unknown }>(
+  totalStages: number,
+  initialForm: T
+) => {
   const navigate = useNavigate();
-  const submitButton = useRef<null | HTMLButtonElement>(null);
   const leaveAddFlowModal = useModal("modal");
-  const form = useForm(patientInitialForm, submitButton.current!);
   const progress = useProgressBar(totalStages);
+  const formData = useForm(initialForm);
 
   const leaveAddFlow = (link: string, state?: LinkState) => {
-    form.resetFormData();
+    formData.formMethods.handleReset();
     return state ? navigate(link, { state }) : navigate(link);
   };
 
@@ -26,10 +26,9 @@ export const useAdd = (totalStages: number) => {
   };
 
   return {
-    submitButton,
     progress,
-    form,
     leaveAddFlowModal,
+    formData,
     leaveAddFlow,
     confirmLeaveAddFlow,
   };

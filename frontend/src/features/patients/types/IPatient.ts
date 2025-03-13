@@ -5,9 +5,9 @@ export interface IPatient {
   last_name: string;
   age: string;
   mail: string;
-  marital_status: "casado/a" | "soltero/a";
+  marital_status: "casado" | "soltero" | "casada" | "soltera";
   tel: string;
-  profile_picture?: string | File;
+  profile_picture: string;
   birth?: Birth;
   presumptive_analysis?: PresumptiveAnalysis;
   next_appointment?: number;
@@ -17,6 +17,21 @@ export interface IPatient {
 }
 
 export type IPatientNoId = Omit<IPatient, "_id">;
+
+export type IPatientForm = {
+  first_name: string;
+  last_name: string;
+  age: string;
+  mail: string;
+  marital_status: string;
+  tel: string;
+  profile_picture: string | File;
+  birth: {
+    date: string;
+    time: string;
+    location: string;
+  };
+};
 
 interface ChiefComplaintRef {
   chief_complaint: string;
@@ -31,24 +46,23 @@ interface ReportsRef {
   report: string;
 }
 
-export interface PresumptiveAnalysis {
-  meridian_time?: string;
-  feeding?: string;
-  yin?: string;
-  yang?: string;
-  qi?: string;
-  xue?: string;
-  jin_ye?: string;
-  mental_vitality_jing_shen?: string;
-  ancestral_jing?: string;
-}
+export type PresumptiveAnalysis = {
+  meridian_time: string;
+  feeding: string;
+  yin: string;
+  yang: string;
+  qi: string;
+  xue: string;
+  jin_ye: string;
+  mental_vitality_jing_shen: string;
+  ancestral_jing: string;
+};
 
-interface Birth {
-  date?: string;
-  time?: string;
-  location?: string;
-  bazi_table?: BaziTableType;
-}
+export type Birth = {
+  date: string;
+  time: string;
+  location: string;
+};
 
 export interface BaziTableType {
   heavenly_stems: Record<TableProps, Stems>;

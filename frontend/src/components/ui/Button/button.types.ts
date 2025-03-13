@@ -19,7 +19,7 @@ export interface SubmitButtonType {
   form?: string;
 
   label: string;
-  ref: React.RefObject<null | HTMLButtonElement>;
+  ref?: React.RefObject<null | HTMLButtonElement>;
   variant: ButtonVariants;
 
   icon?: IconName;

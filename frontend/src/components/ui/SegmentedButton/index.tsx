@@ -5,8 +5,7 @@ import { SegmentedButtonType } from "./segmented_button.types";
 type Props = SegmentedButtonType;
 
 export const SegmentedButton = (props: Props) => {
-  const { label, id, position, link, state, clickEvent, ariaDescription } =
-    props;
+  const { label, id, position, link, state, ariaDescription } = props;
   const className = `button segmented-button ${position}`;
 
   return (
@@ -18,7 +17,6 @@ export const SegmentedButton = (props: Props) => {
       className={({ isActive }) =>
         isActive ? `${className} selected` : className
       }
-      onClick={clickEvent}
     >
       {label}
     </NavLink>

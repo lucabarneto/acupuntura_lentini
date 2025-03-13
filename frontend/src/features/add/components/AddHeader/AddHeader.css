@@ -1,10 +1,10 @@
 .add-header {
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
+  grid-template-columns: 3.5rem 1fr auto;
   column-gap: 0.5rem;
   align-items: center;
 
-  height: 4rem;
+  height: 5rem;
   width: 100%;
   padding: 0 1.25rem;
 }

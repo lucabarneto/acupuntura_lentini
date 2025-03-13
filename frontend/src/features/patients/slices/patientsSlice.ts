@@ -1,12 +1,11 @@
 import { RootState } from "../../../app/store";
-import { IPatient } from "../types/IPatient";
+import { IPatient, IPatientForm } from "../types/IPatient";
 import { patientsAPI } from "../services/patientsAPI";
 import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import { AdaptableForm } from "../../../types/form.types";
 
 const patientsAdapter = createEntityAdapter({
   selectId: (patient: IPatient) => patient._id,
@@ -51,9 +50,9 @@ export const getAllPatients = createAsyncThunk<
 
 export const addPatient = createAsyncThunk(
   "patients/addPatient",
-  async (adaptableForm: AdaptableForm) => {
+  async (body: IPatientForm) => {
     try {
-      const newPatient = await patientsAPI.addPatient(adaptableForm);
+      const newPatient = await patientsAPI.addPatient(body);
       return newPatient as IPatient;
     } catch (err) {
       console.log(err);

@@ -1,7 +1,5 @@
 import axios from "axios";
-import { IPatient } from "../types/IPatient";
-import { PatientDTO } from "./patientDTO";
-import { AdaptableForm } from "../../../types/form.types";
+import { IPatient, IPatientForm } from "../types/IPatient";
 
 const URL = "http://localhost:8080/api/patients";
 
@@ -20,9 +18,9 @@ class PatientsAPI {
     }
   }
 
-  async addPatient(formdata: AdaptableForm): Promise<IPatient | undefined> {
+  async addPatient(body: IPatientForm): Promise<IPatient | undefined> {
     try {
-      const body = PatientDTO.adapt(formdata);
+      // const body = PatientDTO.adapt(formdata);
 
       const res = await axios.post(this.url, body, {
         headers: {

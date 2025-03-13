@@ -2,10 +2,35 @@
   grid-row: span 3;
 }
 
+.image-container {
+  width: 230px;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.image-container:hover img {
+  scale: 1.1;
+}
+
 .file-field img {
   width: 230px;
   height: 230px;
+
+  object-fit: cover;
+  object-position: top;
+
+  border-radius: 0.5rem;
+  overflow-clip-margin: unset;
+  overflow: hidden;
+
   cursor: pointer;
+  transition: scale 0.15s ease-out;
+}
+
+.file-field img:hover {
+  /* transform: scale(1.2); */
 }
 
 .file-field input {
@@ -15,7 +40,7 @@
 
   color: transparent;
 
-  position: relative;
+  position: absolute;
 
   cursor: pointer;
 }
@@ -24,7 +49,19 @@
   visibility: hidden;
 }
 
-.file-field input::before {
+.file-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 2.5rem;
+
+  color: var(--clr-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* .file-field input::before {
   content: "Seleccionar imagen";
   display: inline-flex;
   justify-content: center;
@@ -41,4 +78,4 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-}
+} */

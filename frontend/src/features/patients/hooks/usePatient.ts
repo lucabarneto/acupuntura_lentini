@@ -3,8 +3,8 @@
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../slices/patientsSlice";
-import { AdaptableForm } from "../../../types/form.types";
 import { useEffect } from "react";
+import { IPatientForm } from "../types/IPatient";
 
 export const usePatient = (id: string = "") => {
   const dispatch = useAppDispatch();
@@ -17,8 +17,8 @@ export const usePatient = (id: string = "") => {
     dispatch(slice.getAllPatients());
   }, [dispatch]);
 
-  const addPatient = (body: AdaptableForm, callback: (arg?: any) => void) =>
-    dispatch(slice.addPatient(body)).then(callback);
+  const addPatient = (body: IPatientForm, callback: (arg?: any) => void) =>
+    dispatch(slice.addPatient(body)).unwrap().then(callback);
 
   const deletePatient = (id: string, callback: (arg?: any) => void) =>
     dispatch(slice.deletePatient(id)).then(callback);
