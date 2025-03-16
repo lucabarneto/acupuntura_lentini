@@ -10,6 +10,7 @@ import { NoDetails } from "./pages/NoDetails";
 import { PatientDetails } from "./pages/PatientDetails";
 import { Add } from "./pages/Add";
 import { AddPatient } from "./pages/AddPatient";
+import { AddBaziTable } from "./pages/AddBaziTable";
 
 function App() {
   return (
@@ -56,6 +57,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   detailsPane={<AddPatient />}
+                />
+              }
+            />
+            <Route
+              path="bazitable"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  detailsPane={<AddBaziTable />}
                 />
               }
             />

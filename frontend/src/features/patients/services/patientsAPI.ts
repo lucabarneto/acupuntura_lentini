@@ -21,6 +21,7 @@ class PatientsAPI {
   async addPatient(body: IPatientForm): Promise<IPatient | undefined> {
     try {
       // const body = PatientDTO.adapt(formdata);
+      console.log(body);
 
       const res = await axios.post(this.url, body, {
         headers: {

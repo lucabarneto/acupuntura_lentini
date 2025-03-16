@@ -1,0 +1,33 @@
+.patient-details-preview {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--clr-surface-container-low);
+  border-radius: 0.5rem;
+}
+
+.patient-details-preview img {
+  height: 128px;
+  width: 128px;
+
+  object-fit: cover;
+  object-position: top;
+
+  border-radius: 0.5rem;
+  overflow-clip-margin: unset;
+  overflow: hidden;
+}
+
+.patient-details-preview div {
+  padding: 0.5rem;
+}
+
+.patient-details-preview div * {
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+
+.patient-details-preview div p:nth-child(1) {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}

@@ -13,7 +13,7 @@
   object-fit: cover;
   object-position: top;
 
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .personal-data-content {

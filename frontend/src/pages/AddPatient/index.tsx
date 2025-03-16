@@ -33,8 +33,6 @@ export const AddPatient = () => {
   const location = useLocation();
   const originalPathname = location.state?.from;
 
-  console.log(originalPathname);
-
   useEffect(() => {
     if (form.isSubmittable)
       addPatient(form.fields, (patient) => {

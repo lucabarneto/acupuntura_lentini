@@ -1,34 +1,34 @@
 import "./PersonalData.css";
 import { Button } from "../../../../components/ui/Button";
+import { IPatientForm } from "../../types/IPatient";
 
 type Props = {
-  firstName: string;
-  lastName: string;
-  age: string;
-  maritalStatus: "casado/a" | "soltero/a";
-  tel: string;
-  mail: string;
-  profilePicture?: string;
+  data: Omit<IPatientForm, "birth">;
 };
-export const PersonalData = ({
-  firstName,
-  lastName,
-  age,
-  maritalStatus,
-  tel,
-  mail,
-  profilePicture,
-}: Props) => {
+
+export const PersonalData = (props: Props) => {
+  const {
+    first_name,
+    last_name,
+    tel,
+    mail,
+    marital_status,
+    profile_picture,
+    age,
+  } = props.data;
   return (
     <article className="personal-data">
-      <img src={profilePicture} alt="Foto de perfil de la persona usuaria" />
+      <img
+        src={profile_picture as string}
+        alt="Foto de perfil de la persona usuaria"
+      />
       <div className="personal-data-content">
         <h1>
-          {firstName} {lastName}
+          {first_name} {last_name}
         </h1>
         <ul>
           <li>Edad: {age} años</li>
-          <li>Estado civil: {maritalStatus}</li>
+          <li>Estado civil: {marital_status}</li>
           <li>Correo: {mail}</li>
           <li>Teléfono: {tel}</li>
         </ul>

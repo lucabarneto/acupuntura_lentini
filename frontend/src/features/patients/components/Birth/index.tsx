@@ -1,16 +1,12 @@
 import "./Birth.css";
-import { BaziTableType } from "../../types/IPatient";
-import { NoTable } from "./NoTable";
-import { BaziTable } from "./BaziTable";
 
 type Props = {
   date?: string;
   time?: string;
   location?: string;
-  bazi_table?: BaziTableType;
 };
 
-export const Birth = ({ date, time, location, bazi_table }: Props) => {
+export const Birth = ({ date, time, location }: Props) => {
   return (
     <article className="birth">
       <h2>Nacimiento</h2>
@@ -25,11 +21,6 @@ export const Birth = ({ date, time, location, bazi_table }: Props) => {
           <b>Localidad:</b> {location}
         </span>
       </div>
-      {bazi_table ? (
-        <BaziTable bazi_table={bazi_table} type="readonly" />
-      ) : (
-        <NoTable />
-      )}
     </article>
   );
 };

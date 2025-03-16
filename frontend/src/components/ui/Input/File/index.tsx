@@ -2,16 +2,17 @@ import { useFiles } from "../../../../hooks/useFiles";
 import "./File.css";
 
 type Props = {
+  id: string;
   form?: string;
   changeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
 };
 
-export const FileInput = ({ form, changeEvent }: Props) => {
+export const FileInput = ({ id, form, changeEvent }: Props) => {
   const { thumbnail, handleFiles } = useFiles();
 
   return (
     <div className="file-field">
-      <label htmlFor="profile_picture">
+      <label htmlFor={id}>
         <div className="image-container">
           <img
             className="profile-picture"
@@ -25,8 +26,8 @@ export const FileInput = ({ form, changeEvent }: Props) => {
       <input
         form={form}
         type="file"
-        id="profile_picture"
-        name="profile_picture"
+        id={id}
+        name={id}
         onChange={(e) => {
           changeEvent(e);
           if (e.target.files) handleFiles(e.target.files);

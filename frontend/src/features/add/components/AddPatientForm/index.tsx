@@ -87,7 +87,10 @@ export const AddPatientForm = ({ formData }: Props) => {
               required
               title="Selecciona el estado civil del paciente aquí"
             />
-            <FileInput changeEvent={formMethods.handleChange} />
+            <FileInput
+              id="profile_picture"
+              changeEvent={formMethods.handleChange}
+            />
           </div>
         </div>
         <div className="add-patient-birth-data">
@@ -101,7 +104,7 @@ export const AddPatientForm = ({ formData }: Props) => {
               error={form.errors.date}
               group="birth"
               blurEvent={formMethods.handleBlur}
-              changeEvent={formMethods.handleChange}
+              changeEvent={(e) => formMethods.handleChange(e, 1)}
             />
             <TextInput
               type="text"
@@ -111,7 +114,7 @@ export const AddPatientForm = ({ formData }: Props) => {
               error={form.errors.time}
               group="birth"
               blurEvent={formMethods.handleBlur}
-              changeEvent={formMethods.handleChange}
+              changeEvent={(e) => formMethods.handleChange(e, 1)}
             />
             <TextInput
               type="text"
@@ -121,7 +124,7 @@ export const AddPatientForm = ({ formData }: Props) => {
               error={form.errors.location}
               group="birth"
               blurEvent={formMethods.handleBlur}
-              changeEvent={formMethods.handleChange}
+              changeEvent={(e) => formMethods.handleChange(e, 1)}
             />
           </div>
         </div>

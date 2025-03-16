@@ -6,6 +6,8 @@ import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
 import { usePatient } from "../../features/patients/hooks/usePatient";
+import { BaziTable } from "../../features/patients/components/Birth/BaziTable";
+import { NoTable } from "../../features/patients/components/Birth/NoTable";
 
 export const PatientDetails = () => {
   const patientId = useParams().id!;
@@ -18,21 +20,27 @@ export const PatientDetails = () => {
       <section className="patient-details-pane">
         <TopAppBar title="Paciente" deleteEvent={() => openModal()} />
         <PersonalData
-          firstName={patient.first_name}
-          lastName={patient.last_name}
-          age={patient.age}
-          tel={patient.tel}
-          mail={patient.mail}
-          maritalStatus={patient.marital_status}
-          profilePicture={patient.profile_picture as string}
+          data={{
+            first_name: patient.first_name,
+            last_name: patient.last_name,
+            age: patient.age,
+            tel: patient.tel,
+            mail: patient.mail,
+            marital_status: patient.marital_status,
+            profile_picture: patient.profile_picture,
+          }}
         />
         {patient.birth && (
           <Birth
             date={patient.birth.date}
             time={patient.birth.time}
             location={patient.birth.location}
-            bazi_table={patient.birth.bazi_table}
           />
+        )}
+        {patient.bazi_table ? (
+          <BaziTable bazi_table={patient.bazi_table} type="readonly" />
+        ) : (
+          <NoTable patientId={patientId} />
         )}
         <Modal
           ref={modal}

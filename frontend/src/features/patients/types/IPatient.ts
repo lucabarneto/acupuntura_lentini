@@ -9,6 +9,7 @@ export interface IPatient {
   tel: string;
   profile_picture: string;
   birth?: Birth;
+  bazi_table?: BaziTableType;
   presumptive_analysis?: PresumptiveAnalysis;
   next_appointment?: number;
   chief_complaints?: ChiefComplaintRef[];
@@ -67,8 +68,47 @@ export type Birth = {
 export interface BaziTableType {
   heavenly_stems: Record<TableProps, Stems>;
   earthly_branches: Record<TableProps, Branches>;
-  hidden_stems: Record<TableProps, [Stems, Stems, Stems]>;
+  hidden_stems: {
+    first_row: Record<TableProps, Stems>;
+    second_row: Record<TableProps, Stems>;
+    third_row: Record<TableProps, Stems>;
+  };
 }
+
+export type BaziTableForm = {
+  heavenly_stems: {
+    hour: string;
+    day: string;
+    month: string;
+    year: string;
+  };
+  earthly_branches: {
+    hour: string;
+    day: string;
+    month: string;
+    year: string;
+  };
+  hidden_stems: {
+    first_row: {
+      hour: string;
+      day: string;
+      month: string;
+      year: string;
+    };
+    second_row: {
+      hour: string;
+      day: string;
+      month: string;
+      year: string;
+    };
+    third_row: {
+      hour: string;
+      day: string;
+      month: string;
+      year: string;
+    };
+  };
+};
 
 type TableProps = "hour" | "day" | "month" | "year";
 
