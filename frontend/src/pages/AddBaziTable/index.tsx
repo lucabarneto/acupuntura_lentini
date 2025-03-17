@@ -49,16 +49,20 @@ const initialForm: BaziTableForm = {
 export const AddBaziTable = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(totalStages, initialForm);
-
+  const { form, formMethods } = formData;
   const location = useLocation();
   const originalPathname = location.state?.from;
   const patientId = location.state?.patientId;
-
-  const { patient } = usePatient(patientId);
+  const { patient, updatePatient } = usePatient(patientId);
 
   useEffect(() => {
-    if (formData.form.isSubmittable) console.log(formData.form.fields);
-  }, [formData.form.isSubmittable]);
+    if (form.isSubmittable) {
+      const updatedPatient = { ...patient, bazi_table: form.fields };
+      updatePatient(updatedPatient, (res) => {
+        console.log(res);
+      });
+    }
+  }, [form.isSubmittable]);
 
   return (
     <section className="add-patient-pane add-bazi-table-pane">
@@ -68,8 +72,13 @@ export const AddBaziTable = () => {
         formId="add-patient-bazi-table-form"
       />
       <div>
-        <PatientDetailsPreview patient={patient} />
+        {patient && <PatientDetailsPreview patient={patient} />}
+
         <h2>Tabla BaZi</h2>
+        <form
+          id="add-patient-bazi-table-form"
+          onSubmit={formMethods.handleSubmit}
+        ></form>
         <BaziTable type="form" formData={formData} />
       </div>
 

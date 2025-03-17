@@ -28,10 +28,9 @@ const BaziTableSchema = new mongoose.Schema(
       year: String,
     },
     hidden_stems: {
-      hour: Array,
-      day: Array,
-      month: Array,
-      year: Array,
+      first_row: { hour: String, day: String, month: String, year: String },
+      second_row: { hour: String, day: String, month: String, year: String },
+      third_row: { hour: String, day: String, month: String, year: String },
     },
   },
   { _id: false }
@@ -50,7 +49,6 @@ const BirthSchema = new mongoose.Schema(
     location: {
       type: String,
     },
-    bazi_table: BaziTableSchema,
   },
   { _id: false }
 );
@@ -143,6 +141,7 @@ const PatientSchema = new mongoose.Schema<IPatient, PatientModel>({
     min: MIN_DATE,
   },
   birth: BirthSchema,
+  bazi_table: BaziTableSchema,
   presumptive_analysis: PresumptiveAnalysisSchema,
   chief_complaints: [ChiefComplaintsRefSchema],
   appointments: [AppointmentRefSchema],

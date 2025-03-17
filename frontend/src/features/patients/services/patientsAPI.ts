@@ -20,14 +20,23 @@ class PatientsAPI {
 
   async addPatient(body: IPatientForm): Promise<IPatient | undefined> {
     try {
-      // const body = PatientDTO.adapt(formdata);
-      console.log(body);
-
       const res = await axios.post(this.url, body, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      return res.data.payload as IPatient;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async updatePatient(body: IPatient) {
+    try {
+      const res = await axios.put(`${this.url}/${body._id}`, body);
+
+      if (res.data.status === "error") throw res.data;
 
       return res.data.payload as IPatient;
     } catch (err) {

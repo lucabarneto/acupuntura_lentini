@@ -26,6 +26,7 @@ export const BaziTableInputRow = (props: Props) => {
                 <td key={index}>
                   <input
                     type="text"
+                    form="add-patient-bazi-table-form"
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
@@ -44,6 +45,7 @@ export const BaziTableInputRow = (props: Props) => {
                 <td key={index}>
                   <input
                     type="text"
+                    form="add-patient-bazi-table-form"
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
@@ -62,6 +64,7 @@ export const BaziTableInputRow = (props: Props) => {
                 <td key={index}>
                   <input
                     type="text"
+                    form="add-patient-bazi-table-form"
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
@@ -87,6 +90,7 @@ export const BaziTableInputRow = (props: Props) => {
               <td key={index}>
                 <input
                   type="text"
+                  form="add-patient-bazi-table-form"
                   list={datalistId}
                   name={field[0]}
                   placeholder="Escribe aquí"

@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../slices/patientsSlice";
 import { useEffect } from "react";
-import { IPatientForm } from "../types/IPatient";
+import { IPatient, IPatientForm } from "../types/IPatient";
+
+type DispatchCallback = (arg: any) => void;
 
 export const usePatient = (id: string = "") => {
   const dispatch = useAppDispatch();
@@ -17,14 +19,24 @@ export const usePatient = (id: string = "") => {
     dispatch(slice.getAllPatients());
   }, [dispatch]);
 
-  const addPatient = (body: IPatientForm, callback: (arg?: any) => void) =>
+  const addPatient = (body: IPatientForm, callback?: DispatchCallback) =>
     dispatch(slice.addPatient(body)).unwrap().then(callback);
 
-  const deletePatient = (id: string, callback: (arg?: any) => void) =>
+  const updatePatient = (body: IPatient, callback?: DispatchCallback) =>
+    dispatch(slice.updatePatient(body)).unwrap().then(callback);
+
+  const deletePatient = (id: string, callback?: DispatchCallback) =>
     dispatch(slice.deletePatient(id)).then(callback);
 
   const sortPatients = (order: "asc" | "desc") =>
     dispatch(slice.sortByName(order)); // Should add argument "term" and dispatch reducers conditionally when splice eventually contains multiple sorting reducers
 
-  return { allPatients, patient, addPatient, deletePatient, sortPatients };
+  return {
+    allPatients,
+    patient,
+    addPatient,
+    updatePatient,
+    deletePatient,
+    sortPatients,
+  };
 };

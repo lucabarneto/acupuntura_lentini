@@ -1,44 +1,64 @@
-type Props = {
-  nestedRows?: true;
-  heading: string;
-  tabularData: {
-    hour: string | [string, string, string];
-    day: string | [string, string, string];
-    month: string | [string, string, string];
-    year: string | [string, string, string];
-  };
-};
+type TableProps = "hour" | "day" | "month" | "year";
 
-export const BaziTableRow = ({ heading, tabularData, nestedRows }: Props) => {
-  return nestedRows ? (
+interface HiddenStems {
+  heading: "hidden_stems";
+  tabularData: {
+    first_row: Record<TableProps, string>;
+    second_row: Record<TableProps, string>;
+    third_row: Record<TableProps, string>;
+  };
+}
+
+interface HeavenlyStems {
+  heading: "heavenly_stems";
+  tabularData: Record<TableProps, string>;
+}
+
+interface EarthlyBranches {
+  heading: "earthly_branches";
+  tabularData: Record<TableProps, string>;
+}
+
+type Props = HeavenlyStems | EarthlyBranches | HiddenStems;
+
+export const BaziTableRow = ({ heading, tabularData }: Props) => {
+  return (
     <>
-      <tr>
-        <th rowSpan={3}>{heading}</th>
-        <td>{tabularData.hour[0]}</td>
-        <td>{tabularData.day[0]}</td>
-        <td>{tabularData.month[0]}</td>
-        <td>{tabularData.year[0]}</td>
-      </tr>
-      <tr>
-        <td>{tabularData.hour[1]}</td>
-        <td>{tabularData.day[1]}</td>
-        <td>{tabularData.month[1]}</td>
-        <td>{tabularData.year[1]}</td>
-      </tr>
-      <tr>
-        <td>{tabularData.hour[2]}</td>
-        <td>{tabularData.day[2]}</td>
-        <td>{tabularData.month[2]}</td>
-        <td>{tabularData.year[2]}</td>
-      </tr>
+      {heading === "hidden_stems" ? (
+        <>
+          <tr>
+            <th rowSpan={3}>Troncos Ocultos</th>
+            <td>{tabularData.first_row.hour}</td>
+            <td>{tabularData.first_row.day}</td>
+            <td>{tabularData.first_row.month}</td>
+            <td>{tabularData.first_row.year}</td>
+          </tr>
+          <tr>
+            <td>{tabularData.second_row.hour}</td>
+            <td>{tabularData.second_row.day}</td>
+            <td>{tabularData.second_row.month}</td>
+            <td>{tabularData.second_row.year}</td>
+          </tr>
+          <tr>
+            <td>{tabularData.third_row.hour}</td>
+            <td>{tabularData.third_row.day}</td>
+            <td>{tabularData.third_row.month}</td>
+            <td>{tabularData.third_row.year}</td>
+          </tr>
+        </>
+      ) : (
+        <tr>
+          <th>
+            {heading === "heavenly_stems"
+              ? "Troncos Celestiales"
+              : "Ramas Terrestres"}
+          </th>
+          <td>{tabularData.hour}</td>
+          <td>{tabularData.day}</td>
+          <td>{tabularData.month}</td>
+          <td>{tabularData.year}</td>
+        </tr>
+      )}
     </>
-  ) : (
-    <tr>
-      <th>{heading}</th>
-      <td>{tabularData.hour}</td>
-      <td>{tabularData.day}</td>
-      <td>{tabularData.month}</td>
-      <td>{tabularData.year}</td>
-    </tr>
   );
 };

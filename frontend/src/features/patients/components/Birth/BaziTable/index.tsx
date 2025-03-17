@@ -33,17 +33,16 @@ export const BaziTable = (props: Props) => {
           {props.type === "readonly" ? (
             <>
               <BaziTableRow
-                heading="Troncos celestiales"
+                heading="heavenly_stems"
                 tabularData={props.bazi_table.heavenly_stems}
               />
               <BaziTableRow
-                heading="Ramas terrestres"
+                heading="earthly_branches"
                 tabularData={props.bazi_table.earthly_branches}
               />
               <BaziTableRow
-                heading="Troncos ocultos"
+                heading="hidden_stems"
                 tabularData={props.bazi_table.hidden_stems}
-                nestedRows
               />
             </>
           ) : (
@@ -68,30 +67,30 @@ export const BaziTable = (props: Props) => {
         </tbody>
       </table>
       <datalist id="stems">
-        <option value="madera yin"></option>
-        <option value="madera yang"></option>
-        <option value="fuego yin"></option>
-        <option value="fuego yang"></option>
-        <option value="metal yin"></option>
-        <option value="metal yang"></option>
-        <option value="agua yin"></option>
-        <option value="agua yang"></option>
-        <option value="tierra yin"></option>
-        <option value="tierra yang"></option>
+        <option value="Madera Yang"></option>
+        <option value="Madera Yin"></option>
+        <option value="Fuego Yin"></option>
+        <option value="Fuego Yang"></option>
+        <option value="Metal Yin"></option>
+        <option value="Metal Yang"></option>
+        <option value="Agua Yin"></option>
+        <option value="Agua Yang"></option>
+        <option value="Tierra Yin"></option>
+        <option value="Tierra Yang"></option>
       </datalist>
       <datalist id="branches">
-        <option value="rata zi"></option>
-        <option value="buey chou"></option>
-        <option value="tigre yin"></option>
-        <option value="conejo mau"></option>
-        <option value="dragon chen"></option>
-        <option value="serpiente si"></option>
-        <option value="caballo wu"></option>
-        <option value="cabra wei"></option>
-        <option value="mono shen"></option>
-        <option value="gallo you"></option>
-        <option value="perro xu"></option>
-        <option value="cerdo hai"></option>
+        <option value="Rata Zi"></option>
+        <option value="Buey Chou"></option>
+        <option value="Tigre Yin"></option>
+        <option value="Conejo Mau"></option>
+        <option value="Dragon Chen"></option>
+        <option value="Serpiente Si"></option>
+        <option value="Caballo Wu"></option>
+        <option value="Cabra Wei"></option>
+        <option value="Mono Shen"></option>
+        <option value="Gallo You"></option>
+        <option value="Perro Xu"></option>
+        <option value="Cerdo Hai"></option>
       </datalist>
     </>
   );

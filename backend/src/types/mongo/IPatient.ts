@@ -4,50 +4,52 @@ import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.ts";
 const TableProps = z.enum(["hour", "day", "month", "year"]);
 
 const Stems = z.enum([
-  "madera yin",
-  "madera yang",
-  "fuego yin",
-  "fuego yang",
-  "tierra yin",
-  "tierra yang",
-  "metal yin",
-  "metal yang",
-  "agua yin",
-  "agua yang",
+  "Madera Yin",
+  "Madera Yang",
+  "Fuego Yin",
+  "Fuego Yang",
+  "Tierra Yin",
+  "Tierra Yang",
+  "Metal Yin",
+  "Metal Yang",
+  "Agua Yin",
+  "Agua Yang",
   "",
 ]);
 
 const Branches = z.enum([
-  "rata zi",
-  "buey chou",
-  "tigre yin",
-  "conejo mau",
-  "dragon chen",
-  "serpiente si",
-  "caballo wu",
-  "cabra wei",
-  "mono shen",
-  "gallo you",
-  "perro xu",
-  "cerdo hai",
+  "Rata Zi",
+  "Buey Chou",
+  "Tigre Yin",
+  "Conejo Mau",
+  "Dragon Chen",
+  "Serpiente Si",
+  "Caballo Wu",
+  "Cabra Wei",
+  "Mono Shen",
+  "Gallo You",
+  "Perro Xu",
+  "Cerdo Hai",
   "",
 ]);
 
-const BaziTable = z
-  .object({
-    heavenly_stems: z.record(TableProps, Stems),
-    earthly_branches: z.record(TableProps, Branches),
-    hidden_stems: z.record(TableProps, z.tuple([Stems, Stems, Stems])),
-  })
-  .optional();
+const BaziTable = z.object({
+  heavenly_stems: z.record(TableProps, Stems).optional(),
+  earthly_branches: z.record(TableProps, Branches).optional(),
+  hidden_stems: z
+    .object({
+      first_row: z.record(TableProps, Stems).optional(),
+      second_row: z.record(TableProps, Stems).optional(),
+      third_row: z.record(TableProps, Stems).optional(),
+    })
+    .optional(),
+});
 
 const Birth = z
   .object({
     date: z.string().date(),
     time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
     location: z.string(),
-
-    bazi_table: BaziTable.optional(),
   })
   .optional();
 
@@ -75,6 +77,7 @@ export const IPatient = z.object({
   tel: z.string(),
   profile_picture: z.string().optional(),
   birth: Birth,
+  bazi_table: BaziTable.optional(),
   presumptive_analysis: PresumptiveAnalysis,
   next_appointment: z.number().min(MIN_DATE).optional(),
   chief_complaints: z

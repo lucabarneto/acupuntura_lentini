@@ -77,35 +77,35 @@ export interface BaziTableType {
 
 export type BaziTableForm = {
   heavenly_stems: {
-    hour: string;
-    day: string;
-    month: string;
-    year: string;
+    hour: Stems;
+    day: Stems;
+    month: Stems;
+    year: Stems;
   };
   earthly_branches: {
-    hour: string;
-    day: string;
-    month: string;
-    year: string;
+    hour: Branches;
+    day: Branches;
+    month: Branches;
+    year: Branches;
   };
   hidden_stems: {
     first_row: {
-      hour: string;
-      day: string;
-      month: string;
-      year: string;
+      hour: Stems;
+      day: Stems;
+      month: Stems;
+      year: Stems;
     };
     second_row: {
-      hour: string;
-      day: string;
-      month: string;
-      year: string;
+      hour: Stems;
+      day: Stems;
+      month: Stems;
+      year: Stems;
     };
     third_row: {
-      hour: string;
-      day: string;
-      month: string;
-      year: string;
+      hour: Stems;
+      day: Stems;
+      month: Stems;
+      year: Stems;
     };
   };
 };
@@ -113,31 +113,31 @@ export type BaziTableForm = {
 type TableProps = "hour" | "day" | "month" | "year";
 
 type Stems =
-  | "madera yin"
-  | "madera yang"
-  | "fuego yin"
-  | "fuego yang"
-  | "tierra yin"
-  | "tierra yang"
-  | "metal yin"
-  | "metal yang"
-  | "agua yin"
-  | "agua yang"
+  | "Madera Yin"
+  | "Madera Yang"
+  | "Fuego Yin"
+  | "Fuego Yang"
+  | "Tierra Yin"
+  | "Tierra Yang"
+  | "Metal Yin"
+  | "Metal Yang"
+  | "Agua Yin"
+  | "Agua Yang"
   | "";
 
 type Branches =
-  | "rata zi"
-  | "buey chou"
-  | "tigre yin"
-  | "conejo mau"
-  | "dragon chen"
-  | "serpiente si"
-  | "caballo wu"
-  | "cabra wei"
-  | "mono shen"
-  | "gallo you"
-  | "perro xu"
-  | "cerdo hai"
+  | "Rata Zi"
+  | "Buey Chou"
+  | "Tigre Yin"
+  | "Conejo Mau"
+  | "Dragon Chen"
+  | "Serpiente Si"
+  | "Caballo Wu"
+  | "Cabra Wei"
+  | "Mono Shen"
+  | "Gallo You"
+  | "Perro Xu"
+  | "Cerdo Hai"
   | "";
 
 export interface IPatientTemplate {

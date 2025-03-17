@@ -38,8 +38,6 @@ export const useForm = <T extends { [key: string]: unknown }>(
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmittable, setIsSubmittable] = useState<boolean>(false);
 
-  console.log(fields);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     depth: 0 | 1 | 2 = 0

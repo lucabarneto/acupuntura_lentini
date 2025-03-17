@@ -15,6 +15,8 @@ export const PatientDetails = () => {
   const { modal, openModal, closeModal } = useModal("modal");
   const navigate = useNavigate();
 
+  console.log(patient);
+
   return (
     patient && (
       <section className="patient-details-pane">

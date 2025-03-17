@@ -60,6 +60,18 @@ export const addPatient = createAsyncThunk(
   }
 );
 
+export const updatePatient = createAsyncThunk(
+  "patients/updatePatient",
+  async (patient: IPatient) => {
+    try {
+      const result = await patientsAPI.updatePatient(patient);
+      return result as IPatient;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
+
 export const deletePatient = createAsyncThunk(
   "patients/deletePatient",
   async (patientId: string) => {
@@ -113,6 +125,18 @@ const patientsSlice = createSlice({
       state.activeRequestId = null;
       state.previousCrudAction = "post";
       patientsAdapter.addOne(state, action.payload!);
+    });
+
+    builder.addCase(updatePatient.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(updatePatient.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "put";
+      patientsAdapter.setOne(state, action.payload!);
     });
 
     builder.addCase(deletePatient.pending, (state, action) => {
