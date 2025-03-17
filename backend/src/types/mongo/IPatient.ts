@@ -1,46 +1,48 @@
 import { z } from "zod";
 import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.ts";
 
-const TableProps = z.enum(["hour", "day", "month", "year"]);
+const FourPillars = z.enum(["hour", "day", "month", "year"]);
 
 const Stems = z.enum([
-  "Madera Yin",
-  "Madera Yang",
-  "Fuego Yin",
-  "Fuego Yang",
-  "Tierra Yin",
-  "Tierra Yang",
-  "Metal Yin",
-  "Metal Yang",
-  "Agua Yin",
-  "Agua Yang",
+  "Madera Yin (Mao)",
+  "Madera Yang (Yin)",
+  "Fuego Yin (Si)",
+  "Fuego Yang (Wu)",
+  "Tierra Yin (Chou)",
+  "Tierra Yin (Wei)",
+  "Tierra Yang (Chen)",
+  "Tierra Yang (Xu)",
+  "Metal Yin (You)",
+  "Metal Yang (Shen)",
+  "Agua Yin (Hai)",
+  "Agua Yang (Zi)",
   "",
 ]);
 
 const Branches = z.enum([
-  "Rata Zi",
-  "Buey Chou",
-  "Tigre Yin",
-  "Conejo Mau",
-  "Dragon Chen",
-  "Serpiente Si",
-  "Caballo Wu",
-  "Cabra Wei",
-  "Mono Shen",
-  "Gallo You",
-  "Perro Xu",
-  "Cerdo Hai",
+  "Rata (Zi)",
+  "Buey (Chou)",
+  "Tigre (Yin)",
+  "Conejo (Mao)",
+  "Dragon (Chen)",
+  "Serpiente (Si)",
+  "Caballo (Wu)",
+  "Cabra (Wei)",
+  "Mono (Shen)",
+  "Gallo (You)",
+  "Perro (Xu)",
+  "Cerdo (Hai)",
   "",
 ]);
 
 const BaziTable = z.object({
-  heavenly_stems: z.record(TableProps, Stems).optional(),
-  earthly_branches: z.record(TableProps, Branches).optional(),
+  heavenly_stems: z.record(FourPillars, Stems).optional(),
+  earthly_branches: z.record(FourPillars, Branches).optional(),
   hidden_stems: z
     .object({
-      first_row: z.record(TableProps, Stems).optional(),
-      second_row: z.record(TableProps, Stems).optional(),
-      third_row: z.record(TableProps, Stems).optional(),
+      principal_qi: z.record(FourPillars, Stems).optional(),
+      central_qi: z.record(FourPillars, Stems).optional(),
+      residual_qi: z.record(FourPillars, Stems).optional(),
     })
     .optional(),
 });

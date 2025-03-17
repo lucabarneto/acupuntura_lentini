@@ -1,5 +1,5 @@
 import "./PatientDetailsPreview.css";
-import { IPatient } from "../../types/IPatient";
+import { IPatient } from "../../types/patient.types";
 
 type Props = {
   patient: IPatient;

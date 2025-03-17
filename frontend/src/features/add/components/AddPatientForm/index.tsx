@@ -2,7 +2,7 @@ import "./AddPatientForm.css";
 import { FileInput } from "../../../../components/ui/Input/File";
 import { TextInput } from "../../../../components/ui/Input/Text";
 import { UseForm } from "../../../../hooks/useForm";
-import { IPatientForm } from "../../../patients/types/IPatient";
+import { IPatientForm } from "../../../patients/types/patient.types";
 
 type Props = {
   formData: UseForm<IPatientForm>;

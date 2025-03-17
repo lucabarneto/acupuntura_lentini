@@ -1,6 +1,6 @@
 import "./PersonalData.css";
 import { Button } from "../../../../components/ui/Button";
-import { IPatientForm } from "../../types/IPatient";
+import { IPatientForm } from "../../types/patient.types";
 
 type Props = {
   data: Omit<IPatientForm, "birth">;

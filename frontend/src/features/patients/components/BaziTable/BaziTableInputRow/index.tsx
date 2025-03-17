@@ -1,19 +1,23 @@
 import { UseForm } from "../../../../../hooks/useForm";
-import { BaziTableForm } from "../../../types/IPatient";
+import {
+  BaziTableType,
+  BaziTableHeadings,
+} from "../../../types/bazi_table.types";
 
 type Props = {
-  heading: "heavenly_stems" | "earthly_branches" | "hidden_stems";
-  formData: UseForm<BaziTableForm>;
+  heading: BaziTableHeadings;
+  formData: UseForm<BaziTableType>;
+  formId: string;
   datalistId: string;
 };
 
 export const BaziTableInputRow = (props: Props) => {
-  const { heading, formData, datalistId } = props;
+  const { heading, formData, formId, datalistId } = props;
   const { form, formMethods } = formData;
 
-  const firstRow = form.fields.hidden_stems.first_row;
-  const secondRow = form.fields.hidden_stems.second_row;
-  const thirdRow = form.fields.hidden_stems.third_row;
+  const principalQi = form.fields.hidden_stems.principal_qi;
+  const centralQi = form.fields.hidden_stems.central_qi;
+  const residualQi = form.fields.hidden_stems.residual_qi;
 
   return (
     <>
@@ -21,17 +25,17 @@ export const BaziTableInputRow = (props: Props) => {
         <>
           <tr>
             <th rowSpan={3}>Troncos ocultos</th>
-            {Object.entries(firstRow).map((field, index) => {
+            {Object.entries(principalQi).map((field, index) => {
               return (
                 <td key={index}>
                   <input
                     type="text"
-                    form="add-patient-bazi-table-form"
+                    form={formId}
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
                     data-group={heading}
-                    data-subgroup="first_row"
+                    data-subgroup="principal_qi"
                     value={field[1]}
                     onChange={(e) => formMethods.handleChange(e, 2)}
                   />
@@ -40,17 +44,17 @@ export const BaziTableInputRow = (props: Props) => {
             })}
           </tr>
           <tr>
-            {Object.entries(secondRow).map((field, index) => {
+            {Object.entries(centralQi).map((field, index) => {
               return (
                 <td key={index}>
                   <input
                     type="text"
-                    form="add-patient-bazi-table-form"
+                    form={formId}
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
                     data-group={heading}
-                    data-subgroup="second_row"
+                    data-subgroup="central_qi"
                     value={field[1]}
                     onChange={(e) => formMethods.handleChange(e, 2)}
                   />
@@ -59,17 +63,17 @@ export const BaziTableInputRow = (props: Props) => {
             })}
           </tr>
           <tr>
-            {Object.entries(thirdRow).map((field, index) => {
+            {Object.entries(residualQi).map((field, index) => {
               return (
                 <td key={index}>
                   <input
                     type="text"
-                    form="add-patient-bazi-table-form"
+                    form={formId}
                     list={datalistId}
                     name={field[0]}
                     placeholder="Escribe aquí"
                     data-group={heading}
-                    data-subgroup="third_row"
+                    data-subgroup="residual_qi"
                     value={field[1]}
                     onChange={(e) => formMethods.handleChange(e, 2)}
                   />
@@ -90,7 +94,7 @@ export const BaziTableInputRow = (props: Props) => {
               <td key={index}>
                 <input
                   type="text"
-                  form="add-patient-bazi-table-form"
+                  form={formId}
                   list={datalistId}
                   name={field[0]}
                   placeholder="Escribe aquí"

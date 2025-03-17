@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../slices/patientsSlice";
 import { useEffect } from "react";
-import { IPatient, IPatientForm } from "../types/IPatient";
+import { IPatient, IPatientForm } from "../types/patient.types";
 
 type DispatchCallback = (arg: any) => void;
 

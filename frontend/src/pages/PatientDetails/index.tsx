@@ -6,8 +6,9 @@ import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
 import { usePatient } from "../../features/patients/hooks/usePatient";
-import { BaziTable } from "../../features/patients/components/Birth/BaziTable";
-import { NoTable } from "../../features/patients/components/Birth/NoTable";
+import { BaziTable } from "../../features/patients/components/BaziTable";
+import { NoTable } from "../../features/patients/components/BaziTable/NoTable";
+import { BaziTableDataRow } from "../../features/patients/components/BaziTable/BaziTableDataRow";
 
 export const PatientDetails = () => {
   const patientId = useParams().id!;
@@ -40,7 +41,20 @@ export const PatientDetails = () => {
           />
         )}
         {patient.bazi_table ? (
-          <BaziTable bazi_table={patient.bazi_table} type="readonly" />
+          <BaziTable>
+            <BaziTableDataRow
+              heading="heavenly_stems"
+              tabularData={patient.bazi_table.heavenly_stems}
+            />
+            <BaziTableDataRow
+              heading="earthly_branches"
+              tabularData={patient.bazi_table.earthly_branches}
+            />
+            <BaziTableDataRow
+              heading="hidden_stems"
+              tabularData={patient.bazi_table.hidden_stems}
+            />
+          </BaziTable>
         ) : (
           <NoTable patientId={patientId} />
         )}

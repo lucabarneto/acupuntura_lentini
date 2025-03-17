@@ -1,17 +1,17 @@
 import "./AddBaziTable.css";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
-import { BaziTableForm } from "../../features/patients/types/IPatient";
-import { BaziTable } from "../../features/patients/components/Birth/BaziTable";
 import { useEffect } from "react";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 import { PatientDetailsPreview } from "../../features/patients/components/PatientDetailsPreview";
+import { AddBaziTableForm } from "../../features/add/components/AddBaziTableForm";
+import { BaziTableType } from "../../features/patients/types/bazi_table.types";
 
 const totalStages = 1;
 
-const initialForm: BaziTableForm = {
+const initialForm: BaziTableType = {
   heavenly_stems: {
     hour: "",
     day: "",
@@ -25,19 +25,19 @@ const initialForm: BaziTableForm = {
     year: "",
   },
   hidden_stems: {
-    first_row: {
+    principal_qi: {
       hour: "",
       day: "",
       month: "",
       year: "",
     },
-    second_row: {
+    central_qi: {
       hour: "",
       day: "",
       month: "",
       year: "",
     },
-    third_row: {
+    residual_qi: {
       hour: "",
       day: "",
       month: "",
@@ -49,8 +49,9 @@ const initialForm: BaziTableForm = {
 export const AddBaziTable = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(totalStages, initialForm);
-  const { form, formMethods } = formData;
+  const { form } = formData;
   const location = useLocation();
+  const navigate = useNavigate();
   const originalPathname = location.state?.from;
   const patientId = location.state?.patientId;
   const { patient, updatePatient } = usePatient(patientId);
@@ -58,8 +59,9 @@ export const AddBaziTable = () => {
   useEffect(() => {
     if (form.isSubmittable) {
       const updatedPatient = { ...patient, bazi_table: form.fields };
-      updatePatient(updatedPatient, (res) => {
-        console.log(res);
+
+      updatePatient(updatedPatient, () => {
+        navigate("/patients/" + patientId);
       });
     }
   }, [form.isSubmittable]);
@@ -73,13 +75,7 @@ export const AddBaziTable = () => {
       />
       <div>
         {patient && <PatientDetailsPreview patient={patient} />}
-
-        <h2>Tabla BaZi</h2>
-        <form
-          id="add-patient-bazi-table-form"
-          onSubmit={formMethods.handleSubmit}
-        ></form>
-        <BaziTable type="form" formData={formData} />
+        <AddBaziTableForm formData={formData} />
       </div>
 
       <Modal

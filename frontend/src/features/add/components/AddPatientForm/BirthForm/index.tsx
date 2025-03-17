@@ -2,7 +2,7 @@ import { Button } from "../../../../../components/ui/Button";
 import { TextInput } from "../../../../../components/ui/Input/Text";
 // import { DateInput } from "../../../../../components/ui/Input/Date";
 import { UseForm } from "../../../../../hooks/useForm";
-import { BaziTable } from "../../../../patients/components/Birth/BaziTable";
+import { BaziTable } from "../../../../patients/components/BaziTable";
 
 type Props = {
   formData: UseForm;

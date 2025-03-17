@@ -28,9 +28,9 @@ const BaziTableSchema = new mongoose.Schema(
       year: String,
     },
     hidden_stems: {
-      first_row: { hour: String, day: String, month: String, year: String },
-      second_row: { hour: String, day: String, month: String, year: String },
-      third_row: { hour: String, day: String, month: String, year: String },
+      principal_qi: { hour: String, day: String, month: String, year: String },
+      central_qi: { hour: String, day: String, month: String, year: String },
+      residual_qi: { hour: String, day: String, month: String, year: String },
     },
   },
   { _id: false }

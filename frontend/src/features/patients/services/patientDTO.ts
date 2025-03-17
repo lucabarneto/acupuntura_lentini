@@ -3,7 +3,7 @@ import {
   AdaptableForm,
   TextAdaptableField,
 } from "../../../types/form.types";
-import { IPatientNoId, IPatientTemplate } from "../types/IPatient";
+import { IPatientNoId, IPatientTemplate } from "../types/patient.types";
 
 const KEY_POSITION = 0;
 const FIELD_POSITION = 1;

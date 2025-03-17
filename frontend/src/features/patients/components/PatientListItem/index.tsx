@@ -1,4 +1,4 @@
-import { IPatient } from "../../types/IPatient";
+import { IPatient } from "../../types/patient.types";
 import { ListItem } from "../../../../components/ui/ListItem";
 import { LinkState } from "../../../../types/link.types";
 
