@@ -1,4 +1,5 @@
 import { BaziTableType } from "./bazi_table.types";
+import { PresumptiveAnalysisType } from "./presumptive_analysis.types";
 
 export interface IPatient {
   _id: string;
@@ -9,14 +10,20 @@ export interface IPatient {
   marital_status: "casado" | "soltero" | "casada" | "soltera";
   tel: string;
   profile_picture: string;
-  birth?: Birth;
+  birth?: BirthType;
   bazi_table?: BaziTableType;
-  presumptive_analysis?: PresumptiveAnalysis;
+  presumptive_analysis?: PresumptiveAnalysisType;
   next_appointment?: number;
   chief_complaints?: ChiefComplaintRef[];
   appointments?: AppointmentsRef[];
   reports?: ReportsRef[];
 }
+
+export type BirthType = {
+  date: string;
+  time: string;
+  location: string;
+};
 
 export type IPatientNoId = Omit<IPatient, "_id">;
 
@@ -47,21 +54,3 @@ interface AppointmentsRef {
 interface ReportsRef {
   report: string;
 }
-
-export type PresumptiveAnalysis = {
-  meridian_time: string;
-  feeding: string;
-  yin: string;
-  yang: string;
-  qi: string;
-  xue: string;
-  jin_ye: string;
-  mental_vitality_jing_shen: string;
-  ancestral_jing: string;
-};
-
-export type Birth = {
-  date: string;
-  time: string;
-  location: string;
-};

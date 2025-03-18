@@ -1,0 +1,7 @@
+.add-presumptive-analysis-pane > *:not(header) {
+  padding: 0 2rem;
+}
+
+.add-presumptive-analysis-pane form {
+  margin-top: 2rem;
+}

@@ -5,8 +5,8 @@ import { useProgressBar } from "../../../hooks/useProgressBar";
 import { useForm } from "../../../hooks/useForm";
 
 export const useAdd = <T extends { [key: string]: unknown }>(
-  totalStages: number,
-  initialForm: T
+  initialForm: T,
+  totalStages: number = 1
 ) => {
   const navigate = useNavigate();
   const leaveAddFlowModal = useModal("modal");

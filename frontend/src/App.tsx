@@ -11,6 +11,7 @@ import { PatientDetails } from "./pages/PatientDetails";
 import { Add } from "./pages/Add";
 import { AddPatient } from "./pages/AddPatient";
 import { AddBaziTable } from "./pages/AddBaziTable";
+import { AddPresumptiveAnalysis } from "./pages/AddPresumptiveAnalysis";
 
 function App() {
   return (
@@ -66,6 +67,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   detailsPane={<AddBaziTable />}
+                />
+              }
+            />
+            <Route
+              path="presumptiveanalysis"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  detailsPane={<AddPresumptiveAnalysis />}
                 />
               }
             />

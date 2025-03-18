@@ -23,12 +23,10 @@ const initialForm: IPatientForm = {
   },
 };
 
-const totalStages = 1;
-
 export const AddPatient = () => {
   const { addPatient } = usePatient();
   const { formData, leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } =
-    useAdd(totalStages, initialForm);
+    useAdd(initialForm);
   const { form } = formData;
   const location = useLocation();
   const originalPathname = location.state?.from;

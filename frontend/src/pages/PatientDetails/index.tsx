@@ -6,17 +6,13 @@ import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
 import { usePatient } from "../../features/patients/hooks/usePatient";
-import { BaziTable } from "../../features/patients/components/BaziTable";
-import { NoTable } from "../../features/patients/components/BaziTable/NoTable";
-import { BaziTableDataRow } from "../../features/patients/components/BaziTable/BaziTableDataRow";
+import { PresumptiveAnalysis } from "../../features/patients/components/PresumptiveAnalysis";
 
 export const PatientDetails = () => {
   const patientId = useParams().id!;
   const { patient, deletePatient } = usePatient(patientId);
   const { modal, openModal, closeModal } = useModal("modal");
   const navigate = useNavigate();
-
-  console.log(patient);
 
   return (
     patient && (
@@ -33,31 +29,15 @@ export const PatientDetails = () => {
             profile_picture: patient.profile_picture,
           }}
         />
-        {patient.birth && (
-          <Birth
-            date={patient.birth.date}
-            time={patient.birth.time}
-            location={patient.birth.location}
-          />
-        )}
-        {patient.bazi_table ? (
-          <BaziTable>
-            <BaziTableDataRow
-              heading="heavenly_stems"
-              tabularData={patient.bazi_table.heavenly_stems}
-            />
-            <BaziTableDataRow
-              heading="earthly_branches"
-              tabularData={patient.bazi_table.earthly_branches}
-            />
-            <BaziTableDataRow
-              heading="hidden_stems"
-              tabularData={patient.bazi_table.hidden_stems}
-            />
-          </BaziTable>
-        ) : (
-          <NoTable patientId={patientId} />
-        )}
+        <Birth
+          birth={patient.birth}
+          bazi_table={patient.bazi_table}
+          patientId={patientId}
+        />
+        <PresumptiveAnalysis
+          presumptiveAnalysis={patient.presumptive_analysis}
+          patientId={patientId}
+        />
         <Modal
           ref={modal}
           title="Eliminar paciente"

@@ -1,9 +1,9 @@
+import { BaziTableVariants } from "../../types/bazi_table.types";
 import "./BaziTable.css";
+import { BaziTableDataRow } from "./BaziTableDataRow";
+import { BaziTableInputRow } from "./BaziTableInputRow";
 
-type Props = {
-  children: React.ReactNode;
-};
-
+type Props = BaziTableVariants;
 export const BaziTable = (props: Props) => {
   return (
     <>
@@ -17,7 +17,45 @@ export const BaziTable = (props: Props) => {
             <th>Año</th>
           </tr>
         </thead>
-        <tbody>{props.children}</tbody>
+        <tbody>
+          {props.variant === "tabular_data" ? (
+            <>
+              <BaziTableDataRow
+                heading="heavenly_stems"
+                tabularData={props.tabularData.heavenly_stems}
+              />
+              <BaziTableDataRow
+                heading="earthly_branches"
+                tabularData={props.tabularData.earthly_branches}
+              />
+              <BaziTableDataRow
+                heading="hidden_stems"
+                tabularData={props.tabularData.hidden_stems}
+              />
+            </>
+          ) : (
+            <>
+              <BaziTableInputRow
+                heading="heavenly_stems"
+                datalistId="stems"
+                formData={props.formData}
+                formId={props.formId}
+              />
+              <BaziTableInputRow
+                heading="earthly_branches"
+                datalistId="branches"
+                formData={props.formData}
+                formId={props.formId}
+              />
+              <BaziTableInputRow
+                heading="hidden_stems"
+                datalistId="stems"
+                formData={props.formData}
+                formId={props.formId}
+              />
+            </>
+          )}
+        </tbody>
       </table>
     </>
   );

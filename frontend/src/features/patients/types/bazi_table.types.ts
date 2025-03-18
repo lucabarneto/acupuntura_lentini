@@ -1,3 +1,5 @@
+import { UseForm } from "../../../hooks/useForm";
+
 export type BaziTableType = {
   heavenly_stems: Record<FourPillars, Stems>;
   earthly_branches: Record<FourPillars, Branches>;
@@ -6,6 +8,21 @@ export type BaziTableType = {
     central_qi: Record<FourPillars, Stems>;
     residual_qi: Record<FourPillars, Stems>;
   };
+};
+
+export type BaziTableVariants =
+  | BaziTableFormVariant
+  | BaziTableTabularDataVariant;
+
+export type BaziTableFormVariant = {
+  variant: "form";
+  formId: string;
+  formData: UseForm<BaziTableType>;
+};
+
+export type BaziTableTabularDataVariant = {
+  variant: "tabular_data";
+  tabularData: BaziTableType;
 };
 
 export type BaziTableTabularData =

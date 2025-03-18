@@ -1,50 +1,27 @@
-import "./AddBaziTable.css";
+import "./AddPresumptiveAnalysis.css";
 import { useLocation, useNavigate } from "react-router";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
-import { useEffect } from "react";
-import { usePatient } from "../../features/patients/hooks/usePatient";
 import { PatientDetailsPreview } from "../../features/patients/components/PatientDetailsPreview";
-import { AddBaziTableForm } from "../../features/add/components/AddBaziTableForm";
-import { BaziTableType } from "../../features/patients/types/bazi_table.types";
+import { usePatient } from "../../features/patients/hooks/usePatient";
+import { useEffect } from "react";
+import { PresumptiveAnalysisType } from "../../features/patients/types/presumptive_analysis.types";
+import { AddPresumptiveAnalysisForm } from "../../features/add/components/AddPresumptiveAnalysisForm";
 
-const initialForm: BaziTableType = {
-  heavenly_stems: {
-    hour: "",
-    day: "",
-    month: "",
-    year: "",
-  },
-  earthly_branches: {
-    hour: "",
-    day: "",
-    month: "",
-    year: "",
-  },
-  hidden_stems: {
-    principal_qi: {
-      hour: "",
-      day: "",
-      month: "",
-      year: "",
-    },
-    central_qi: {
-      hour: "",
-      day: "",
-      month: "",
-      year: "",
-    },
-    residual_qi: {
-      hour: "",
-      day: "",
-      month: "",
-      year: "",
-    },
-  },
+const initialForm: PresumptiveAnalysisType = {
+  meridian_time: "",
+  feeding: "",
+  yin: "",
+  yang: "",
+  qi: "",
+  xue: "",
+  jin_ye: "",
+  ancestral_jing: "",
+  mental_vitality_jing_shen: "",
 };
 
-export const AddBaziTable = () => {
+export const AddPresumptiveAnalysis = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(initialForm);
   const { form } = formData;
@@ -54,11 +31,11 @@ export const AddBaziTable = () => {
   const patientId = location.state?.patientId;
   const { patient, updatePatient } = usePatient(patientId);
 
-  const formId = "add-bazi-table-form";
+  const formId = "add-presumptive-analysis-form";
 
   useEffect(() => {
     if (form.isSubmittable) {
-      const updatedPatient = { ...patient, bazi_table: form.fields };
+      const updatedPatient = { ...patient, presumptive_analysis: form.fields };
 
       updatePatient(updatedPatient, () => {
         navigate("/patients/" + patientId);
@@ -67,20 +44,20 @@ export const AddBaziTable = () => {
   }, [form.isSubmittable]);
 
   return (
-    <section className="add-patient-pane add-bazi-table-pane">
+    <section className="add-patient-pane add-presumptive-analysis-pane">
       <AddHeader
-        title="Añadir Tabla Bazi"
+        title="Añadir Análisis Presuntivo"
         closeEvent={(e) => confirmLeaveAddFlow(e!, `/patients/${patientId}`)}
         formId={formId}
       />
       <div>
         {patient && <PatientDetailsPreview patient={patient} />}
-        <AddBaziTableForm formData={formData} formId={formId} />
+        <AddPresumptiveAnalysisForm formId={formId} formData={formData} />
       </div>
 
       <Modal
         ref={leaveAddFlowModal.modal}
-        title="Salir de añadir tabla bazi"
+        title="Salir de añadir análisis presuntivo"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}

@@ -1,41 +1,21 @@
 import { UseForm } from "../../../../hooks/useForm";
 import { BaziTable } from "../../../patients/components/BaziTable";
-import { BaziTableInputRow } from "../../../patients/components/BaziTable/BaziTableInputRow";
 import { BaziTableType } from "../../../patients/types/bazi_table.types";
 
 type Props = {
   formData: UseForm<BaziTableType>;
+  formId: string;
 };
 
 export const AddBaziTableForm = (props: Props) => {
-  const { formData } = props;
+  const { formData, formId } = props;
   const { handleSubmit } = formData.formMethods;
-  const formId = "add-patient-bazi-table-form";
 
   return (
     <>
       <h2>Tabla BaZi</h2>
       <form id={formId} onSubmit={handleSubmit}></form>
-      <BaziTable>
-        <BaziTableInputRow
-          heading="heavenly_stems"
-          datalistId="stems"
-          formData={formData}
-          formId={formId}
-        />
-        <BaziTableInputRow
-          heading="earthly_branches"
-          datalistId="branches"
-          formData={formData}
-          formId={formId}
-        />
-        <BaziTableInputRow
-          heading="hidden_stems"
-          datalistId="stems"
-          formData={formData}
-          formId={formId}
-        />
-      </BaziTable>
+      <BaziTable variant="form" formId={formId} formData={formData} />
 
       <datalist id="stems">
         <option value="Agua Yang (Zi)"></option>
