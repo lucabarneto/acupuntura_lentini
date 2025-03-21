@@ -1,11 +1,10 @@
 import "./Add.css";
 import { Icon } from "../../components/ui/Icon";
 import { SegmentedButton } from "../../components/ui/SegmentedButton";
-import { useLocation } from "react-router";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const Add = () => {
-  const location = useLocation();
-  const originalPathname = location.state?.from;
+  const { navigationData } = useAppNavigate();
 
   return (
     <section className="add-pane">
@@ -18,7 +17,7 @@ export const Add = () => {
       <div className="add-options">
         <SegmentedButton
           id="patient"
-          state={{ from: originalPathname }}
+          state={{ ...navigationData, detailsPane: "addpatient" }}
           label="Paciente"
           position="left"
           link="/add/patient"
@@ -26,7 +25,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="chief_complaint"
-          state={{ from: originalPathname }}
+          state={navigationData}
           label="Motivo de consulta"
           position="middle"
           link="/add/chief_complaint"
@@ -34,7 +33,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="consultation"
-          state={{ from: originalPathname }}
+          state={navigationData}
           label="Sesión"
           position="middle"
           link="/add/consultation"
@@ -42,7 +41,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="appointment"
-          state={{ from: originalPathname }}
+          state={navigationData}
           label="Turno"
           position="middle"
           link="/add/appointment"
@@ -50,7 +49,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="template"
-          state={{ from: originalPathname }}
+          state={navigationData}
           label="Plantilla"
           position="right"
           link="/add/template"

@@ -1,10 +1,10 @@
-import { LinkState } from "../../../types/link.types";
+import { AppNavigateState } from "../../../hooks/useAppNavigate";
 
 export interface SegmentedButtonType {
   id: string;
   label: string;
   position: "left" | "middle" | "right";
   link: string;
-  state?: LinkState;
+  state?: AppNavigateState;
   ariaDescription: string;
 }

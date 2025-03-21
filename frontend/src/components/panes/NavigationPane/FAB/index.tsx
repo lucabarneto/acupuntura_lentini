@@ -1,12 +1,15 @@
 import "./FAB.css";
 import { Icon } from "../../../ui/Icon";
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
+import { AppNavigateState } from "../../../../hooks/useAppNavigate";
 
-export const FAB = () => {
-  const { pathname } = useLocation();
+type Props = {
+  state: AppNavigateState;
+};
 
+export const FAB = (props: Props) => {
   return (
-    <NavLink to="/add" state={{ from: pathname }}>
+    <NavLink to="/add" state={props.state}>
       <button className="fab">
         <Icon icon="add" />
       </button>

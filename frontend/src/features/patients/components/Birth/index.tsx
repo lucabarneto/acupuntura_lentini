@@ -1,4 +1,3 @@
-import { useLocation, useNavigate } from "react-router";
 import { Card } from "../../../../components/ui/Card";
 import { BaziTableType } from "../../types/bazi_table.types";
 import { BirthType } from "../../types/patient.types";
@@ -8,15 +7,11 @@ import "./Birth.css";
 type Props = {
   birth?: BirthType;
   bazi_table?: BaziTableType;
-  patientId: string;
+  addEvent(): void;
 };
 
 export const Birth = (props: Props) => {
-  const { birth, bazi_table, patientId } = props;
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const originalPathname = location.state?.from;
+  const { birth, bazi_table, addEvent } = props;
 
   return (
     <article className="birth">
@@ -41,11 +36,7 @@ export const Birth = (props: Props) => {
           text="Agrega los datos para armar la tabla apretando el botón que se encuentra abajo."
           buttonLabel="Agregar Tabla"
           buttonIcon="add"
-          clickEvent={() => {
-            navigate("/add/bazitable", {
-              state: { from: originalPathname, patientId: patientId },
-            });
-          }}
+          clickEvent={addEvent}
         />
       )}
     </article>

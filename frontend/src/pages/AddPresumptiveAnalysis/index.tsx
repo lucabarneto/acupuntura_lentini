@@ -1,5 +1,4 @@
 import "./AddPresumptiveAnalysis.css";
-import { useLocation, useNavigate } from "react-router";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
@@ -8,6 +7,7 @@ import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useEffect } from "react";
 import { PresumptiveAnalysisType } from "../../features/patients/types/presumptive_analysis.types";
 import { AddPresumptiveAnalysisForm } from "../../features/add/components/AddPresumptiveAnalysisForm";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 const initialForm: PresumptiveAnalysisType = {
   meridian_time: "",
@@ -25,20 +25,23 @@ export const AddPresumptiveAnalysis = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(initialForm);
   const { form } = formData;
-  const location = useLocation();
-  const navigate = useNavigate();
-  const originalPathname = location.state?.from;
-  const patientId = location.state?.patientId;
-  const { patient, updatePatient } = usePatient(patientId);
+  const { navigationData, appNavigate } = useAppNavigate();
+  const patientId = navigationData.patientId;
+  const { patient, updatePatient, createPatientURLName } =
+    usePatient(patientId);
 
   const formId = "add-presumptive-analysis-form";
+  const patientURLName = createPatientURLName(patient);
 
   useEffect(() => {
     if (form.isSubmittable) {
       const updatedPatient = { ...patient, presumptive_analysis: form.fields };
 
       updatePatient(updatedPatient, () => {
-        navigate("/patients/" + patientId);
+        appNavigate(`/patients/${patientURLName}`, {
+          ...navigationData,
+          detailsPane: "patient",
+        });
       });
     }
   }, [form.isSubmittable]);
@@ -47,7 +50,9 @@ export const AddPresumptiveAnalysis = () => {
     <section className="add-patient-pane add-presumptive-analysis-pane">
       <AddHeader
         title="Añadir Análisis Presuntivo"
-        closeEvent={(e) => confirmLeaveAddFlow(e!, `/patients/${patientId}`)}
+        closeEvent={(e) =>
+          confirmLeaveAddFlow(e!, `/patients/${patientURLName}`)
+        }
         formId={formId}
       />
       <div>
@@ -63,7 +68,8 @@ export const AddPresumptiveAnalysis = () => {
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
           leaveAddFlow(leaveAddFlowModal.associatedValue!, {
-            from: originalPathname,
+            ...navigationData,
+            detailsPane: "patient",
           })
         }
       />

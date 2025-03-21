@@ -31,9 +31,13 @@ export const usePatient = (id: string = "") => {
   const sortPatients = (order: "asc" | "desc") =>
     dispatch(slice.sortByName(order)); // Should add argument "term" and dispatch reducers conditionally when splice eventually contains multiple sorting reducers
 
+  const createPatientURLName = (patient: IPatient) =>
+    `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
+
   return {
     allPatients,
     patient,
+    createPatientURLName,
     addPatient,
     updatePatient,
     deletePatient,

@@ -2,11 +2,14 @@ import "./AddPatient.css";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { AddPatientForm } from "../../features/add/components/AddPatientForm";
-import { IPatientForm } from "../../features/patients/types/patient.types";
+import {
+  IPatient,
+  IPatientForm,
+} from "../../features/patients/types/patient.types";
 import { useAdd } from "../../features/add/hooks/useAdd";
-import { useLocation } from "react-router";
 import { useEffect } from "react";
 import { usePatient } from "../../features/patients/hooks/usePatient";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 const initialForm: IPatientForm = {
   first_name: "",
@@ -28,13 +31,18 @@ export const AddPatient = () => {
   const { formData, leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } =
     useAdd(initialForm);
   const { form } = formData;
-  const location = useLocation();
-  const originalPathname = location.state?.from;
+  const { mainNavigationData } = useAppNavigate();
+
+  const patientURLName = (patient: IPatient) =>
+    `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
 
   useEffect(() => {
     if (form.isSubmittable)
       addPatient(form.fields, (patient) => {
-        leaveAddFlow(`/patients/${patient._id}`);
+        leaveAddFlow(`/patients/${patientURLName(patient)}`, {
+          ...mainNavigationData,
+          patientId: patient._id,
+        });
       });
   }, [form.isSubmittable]);
 
@@ -59,9 +67,7 @@ export const AddPatient = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.associatedValue!, {
-            from: originalPathname,
-          })
+          leaveAddFlow(leaveAddFlowModal.associatedValue!, mainNavigationData)
         }
       />
     </section>

@@ -1,17 +1,19 @@
 import { IPatient } from "../../types/patient.types";
 import { ListItem } from "../../../../components/ui/ListItem";
-import { LinkState } from "../../../../types/link.types";
+import { AppNavigateState } from "../../../../hooks/useAppNavigate";
 
 type Props = {
   patient: IPatient;
-  state?: LinkState;
+  state: AppNavigateState;
 };
 
 export const PatientListItem = ({ patient, state }: Props) => {
+  const patientURLName = `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
+
   return (
     <ListItem
       key={patient._id}
-      link={`/patients/${patient._id}`}
+      link={`/patients/${patientURLName}`}
       state={state}
       variant="image"
       image={

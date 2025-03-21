@@ -22,7 +22,10 @@ function App() {
           <Route
             path="/"
             element={
-              <Panes defaultMainPane={<Home />} detailsPane={<NoDetails />} />
+              <Panes
+                defaultMainPane={<Home />}
+                defaultDetailsPane={<NoDetails />}
+              />
             }
           />
           <Route path="/patients">
@@ -31,16 +34,16 @@ function App() {
               element={
                 <Panes
                   defaultMainPane={<Patients />}
-                  detailsPane={<NoDetails />}
+                  defaultDetailsPane={<NoDetails />}
                 />
               }
             />
             <Route
-              path=":id"
+              path=":patient_name"
               element={
                 <Panes
                   defaultMainPane={<Patients />}
-                  detailsPane={<PatientDetails />}
+                  defaultDetailsPane={<PatientDetails />}
                 />
               }
             />
@@ -49,7 +52,10 @@ function App() {
             <Route
               index
               element={
-                <Panes defaultMainPane={<Home />} detailsPane={<Add />} />
+                <Panes
+                  defaultMainPane={<Home />}
+                  defaultDetailsPane={<Add />}
+                />
               }
             />
             <Route
@@ -57,7 +63,7 @@ function App() {
               element={
                 <Panes
                   defaultMainPane={<Home />}
-                  detailsPane={<AddPatient />}
+                  defaultDetailsPane={<AddPatient />}
                 />
               }
             />
@@ -66,7 +72,7 @@ function App() {
               element={
                 <Panes
                   defaultMainPane={<Home />}
-                  detailsPane={<AddBaziTable />}
+                  defaultDetailsPane={<AddBaziTable />}
                 />
               }
             />
@@ -75,7 +81,7 @@ function App() {
               element={
                 <Panes
                   defaultMainPane={<Home />}
-                  detailsPane={<AddPresumptiveAnalysis />}
+                  defaultDetailsPane={<AddPresumptiveAnalysis />}
                 />
               }
             />

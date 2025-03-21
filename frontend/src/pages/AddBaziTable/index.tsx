@@ -1,5 +1,4 @@
 import "./AddBaziTable.css";
-import { useLocation, useNavigate } from "react-router";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
@@ -8,6 +7,7 @@ import { usePatient } from "../../features/patients/hooks/usePatient";
 import { PatientDetailsPreview } from "../../features/patients/components/PatientDetailsPreview";
 import { AddBaziTableForm } from "../../features/add/components/AddBaziTableForm";
 import { BaziTableType } from "../../features/patients/types/bazi_table.types";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 const initialForm: BaziTableType = {
   heavenly_stems: {
@@ -48,20 +48,23 @@ export const AddBaziTable = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(initialForm);
   const { form } = formData;
-  const location = useLocation();
-  const navigate = useNavigate();
-  const originalPathname = location.state?.from;
-  const patientId = location.state?.patientId;
-  const { patient, updatePatient } = usePatient(patientId);
+  const { navigationData, appNavigate } = useAppNavigate();
+  const patientId = navigationData.patientId;
+  const { patient, createPatientURLName, updatePatient } =
+    usePatient(patientId);
 
   const formId = "add-bazi-table-form";
+  const patientURLName = createPatientURLName(patient);
 
   useEffect(() => {
     if (form.isSubmittable) {
       const updatedPatient = { ...patient, bazi_table: form.fields };
 
       updatePatient(updatedPatient, () => {
-        navigate("/patients/" + patientId);
+        appNavigate(`/patients/${patientURLName}`, {
+          ...navigationData,
+          detailsPane: "patient",
+        });
       });
     }
   }, [form.isSubmittable]);
@@ -70,7 +73,9 @@ export const AddBaziTable = () => {
     <section className="add-patient-pane add-bazi-table-pane">
       <AddHeader
         title="Añadir Tabla Bazi"
-        closeEvent={(e) => confirmLeaveAddFlow(e!, `/patients/${patientId}`)}
+        closeEvent={(e) =>
+          confirmLeaveAddFlow(e!, `/patients/${patientURLName}`)
+        }
         formId={formId}
       />
       <div>
@@ -86,7 +91,8 @@ export const AddBaziTable = () => {
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
           leaveAddFlow(leaveAddFlowModal.associatedValue!, {
-            from: originalPathname,
+            ...navigationData,
+            detailsPane: "patient",
           })
         }
       />

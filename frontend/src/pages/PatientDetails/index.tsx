@@ -1,5 +1,4 @@
 import "./PatientDetails.css";
-import { useNavigate, useParams } from "react-router";
 import { PersonalData } from "../../features/patients/components/PersonalData";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
@@ -7,12 +6,13 @@ import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 import { PresumptiveAnalysis } from "../../features/patients/components/PresumptiveAnalysis";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const PatientDetails = () => {
-  const patientId = useParams().id!;
+  const { mainNavigationData, navigationData, appNavigate } = useAppNavigate();
+  const patientId = navigationData.patientId;
   const { patient, deletePatient } = usePatient(patientId);
   const { modal, openModal, closeModal } = useModal("modal");
-  const navigate = useNavigate();
 
   return (
     patient && (
@@ -32,11 +32,21 @@ export const PatientDetails = () => {
         <Birth
           birth={patient.birth}
           bazi_table={patient.bazi_table}
-          patientId={patientId}
+          addEvent={() =>
+            appNavigate("/add/bazitable", {
+              ...navigationData,
+              detailsPane: "addbazitable",
+            })
+          }
         />
         <PresumptiveAnalysis
           presumptiveAnalysis={patient.presumptive_analysis}
-          patientId={patientId}
+          addEvent={() =>
+            appNavigate("/add/presumptiveanalysis", {
+              ...navigationData,
+              detailsPane: "addpresumptiveanalysis",
+            })
+          }
         />
         <Modal
           ref={modal}
@@ -45,7 +55,9 @@ export const PatientDetails = () => {
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            deletePatient(patientId, () => navigate("/patients"))
+            deletePatient(patientId, () =>
+              appNavigate("/patients", mainNavigationData)
+            )
           }
         />
       </section>

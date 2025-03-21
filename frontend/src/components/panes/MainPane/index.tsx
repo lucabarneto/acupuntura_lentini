@@ -1,23 +1,21 @@
-import { Home } from "../../../pages/Home";
+import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { Patients } from "../../../pages/Patients";
 import "./MainPane.css";
-import { useLocation } from "react-router";
 
 type Props = {
   defaultPane: React.ReactNode;
 };
 
-export const MainPane = ({ defaultPane }: Props) => {
-  const location = useLocation();
-  const originalPath = location.state?.from;
-
-  // console.log(location.pathname, location.state);
+export const MainPane = (props: Props) => {
+  const { navigationData } = useAppNavigate();
+  const previousPane = navigationData?.mainPane;
 
   const selectMainPaneContent = () => {
-    if (!originalPath) return defaultPane;
-    if (originalPath.includes("/patients")) return <Patients />;
+    if (previousPane?.includes("/patients")) {
+      return <Patients />;
+    }
 
-    return <Home />;
+    return props.defaultPane;
   };
 
   return (

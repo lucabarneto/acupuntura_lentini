@@ -1,4 +1,4 @@
-.add-presumptive-analysis-pane > *:not(header) {
+.add-presumptive-analysis-pane > *:not(header, dialog) {
   padding: 0 2rem;
 }
 

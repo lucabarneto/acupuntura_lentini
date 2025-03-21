@@ -1,4 +1,4 @@
-.segmented-button {
+.button.segmented-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@
   position: relative;
 }
 
-.segmented-button::after {
+.button.segmented-button::after {
   content: "";
   display: inline-block;
 

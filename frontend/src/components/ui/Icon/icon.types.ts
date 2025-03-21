@@ -10,6 +10,7 @@ export type IconName =
   | "close"
   | "error"
   | "groups"
+  | "home"
   | "lab_profile"
   | "menu"
   | "search"

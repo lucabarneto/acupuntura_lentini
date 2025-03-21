@@ -1,19 +1,14 @@
-import { useLocation, useNavigate } from "react-router";
 import { Card } from "../../../../components/ui/Card";
 import { PresumptiveAnalysisType } from "../../types/presumptive_analysis.types";
 import "./PresumptiveAnalysis.css";
 
 type Props = {
   presumptiveAnalysis?: PresumptiveAnalysisType;
-  patientId: string;
+  addEvent: () => void
 };
 
 export const PresumptiveAnalysis = (props: Props) => {
-  const { presumptiveAnalysis, patientId } = props;
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const originalPathname = location.state?.from;
+  const { presumptiveAnalysis, addEvent } = props;
 
   return (
     <article className="presumptive-analysis">
@@ -55,11 +50,7 @@ export const PresumptiveAnalysis = (props: Props) => {
           text="Agrega el análisis presuntivo de la persona paciente apretando el botón que se encuentra abajo."
           buttonLabel="Agregar Análisis"
           buttonIcon="add"
-          clickEvent={() => {
-            navigate("/add/presumptiveanalysis", {
-              state: { from: originalPathname, patientId: patientId },
-            });
-          }}
+          clickEvent={addEvent}
         />
       )}
     </article>

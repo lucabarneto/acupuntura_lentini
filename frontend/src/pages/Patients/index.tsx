@@ -6,8 +6,10 @@ import { Menu } from "../../components/ui/Menu";
 import { RadioInput } from "../../components/ui/Input/Radio";
 import { PatientListItem } from "../../features/patients/components/PatientListItem";
 import { SearchViewPatient } from "../../features/patients/components/Search/SearchPatient";
+import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const Patients = () => {
+  const { mainNavigationData } = useAppNavigate();
   const { allPatients, sortPatients } = usePatient();
   const { modal, toggleModal } = useModal("non-modal");
 
@@ -16,7 +18,15 @@ export const Patients = () => {
       <SearchViewPatient
         entities={allPatients}
         mappedResults={(patient) => (
-          <PatientListItem key={patient._id} patient={patient} />
+          <PatientListItem
+            key={patient._id}
+            patient={patient}
+            state={{
+              ...mainNavigationData,
+              detailsPane: "patient",
+              patientId: patient._id,
+            }}
+          />
         )}
       />
       <div className="query-buttons">
@@ -36,7 +46,15 @@ export const Patients = () => {
       <h1>Lista de pacientes</h1>
       <ul>
         {allPatients.map((patient) => (
-          <PatientListItem key={patient._id} patient={patient} />
+          <PatientListItem
+            key={patient._id}
+            patient={patient}
+            state={{
+              ...mainNavigationData,
+              detailsPane: "patient",
+              patientId: patient._id,
+            }}
+          />
         ))}
       </ul>
       <Menu id="sort-query-menu-patients" ref={modal}>

@@ -3,13 +3,13 @@ import { MainPane } from "./MainPane";
 
 type Props = {
   defaultMainPane: React.ReactNode;
-  detailsPane: React.ReactNode;
+  defaultDetailsPane: React.ReactNode;
 };
-export const Panes = ({ defaultMainPane, detailsPane }: Props) => {
+export const Panes = (props: Props) => {
   return (
     <>
-      <MainPane defaultPane={defaultMainPane} />
-      <DetailsPane pane={detailsPane} />
+      <MainPane defaultPane={props.defaultMainPane} />
+      <DetailsPane defaultPane={props.defaultDetailsPane} />
     </>
   );
 };
