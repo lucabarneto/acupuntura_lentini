@@ -7,6 +7,7 @@ import { useModal } from "../../hooks/useModal";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 import { PresumptiveAnalysis } from "../../features/patients/components/PresumptiveAnalysis";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
+import { PatientChiefComplaints } from "../../features/chief_complaints/components/PatientChiefComplaints";
 
 export const PatientDetails = () => {
   const { mainNavigationData, navigationData, appNavigate } = useAppNavigate();
@@ -28,6 +29,10 @@ export const PatientDetails = () => {
             marital_status: patient.marital_status,
             profile_picture: patient.profile_picture,
           }}
+        />
+        <PatientChiefComplaints
+          chiefComplaints={patient.chief_complaints}
+          addEvent={() => {}}
         />
         <Birth
           birth={patient.birth}

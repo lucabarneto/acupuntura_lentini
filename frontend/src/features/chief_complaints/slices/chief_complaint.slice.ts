@@ -1,6 +1,6 @@
 import { RootState } from "../../../app/store";
 import { IChiefComplaint } from "../types/chief_complaint.types";
-import { chiefComplaintsAPI } from "../services/chiefComplaintsApi";
+import { chiefComplaintsAPI } from "../services/chiefComplaintsAPI";
 import {
   createSlice,
   createAsyncThunk,

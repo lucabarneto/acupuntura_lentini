@@ -1,3 +1,4 @@
+import { IChiefComplaint } from "../../chief_complaints/types/chief_complaint.types";
 import { BaziTableType } from "./bazi_table.types";
 import { PresumptiveAnalysisType } from "./presumptive_analysis.types";
 
@@ -14,7 +15,7 @@ export interface IPatient {
   bazi_table?: BaziTableType;
   presumptive_analysis?: PresumptiveAnalysisType;
   next_appointment?: number;
-  chief_complaints?: ChiefComplaintRef[];
+  chief_complaints: ChiefComplaintRef[];
   appointments?: AppointmentsRef[];
   reports?: ReportsRef[];
 }
@@ -42,8 +43,8 @@ export type IPatientForm = {
   };
 };
 
-interface ChiefComplaintRef {
-  chief_complaint: string;
+export interface ChiefComplaintRef {
+  chief_complaint: IChiefComplaint;
 }
 
 interface AppointmentsRef {

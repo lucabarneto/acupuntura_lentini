@@ -12,7 +12,6 @@ export const PatientListItem = ({ patient, state }: Props) => {
 
   return (
     <ListItem
-      key={patient._id}
       link={`/patients/${patientURLName}`}
       state={state}
       variant="image"
