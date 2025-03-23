@@ -16,7 +16,7 @@ export const Birth = (props: Props) => {
   return (
     <article className="birth">
       <h2>Nacimiento</h2>
-      <div className="birth-data">
+      <div className="birth-data content-block">
         <span>
           <b>Fecha de nacimiento:</b> {birth?.date || "Desconocido"}
         </span>

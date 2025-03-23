@@ -24,6 +24,7 @@ export const TextArea = (props: Props) => {
         className="field-input field-textarea"
         name={id}
         id={id}
+        placeholder="Escribe aquí"
         title={title}
         form={form}
         required={required ? true : false}

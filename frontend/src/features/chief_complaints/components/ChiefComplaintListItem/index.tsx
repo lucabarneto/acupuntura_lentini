@@ -1,4 +1,3 @@
-import "./ChiefComplaintListItem.css";
 import { ListItem } from "../../../../components/ui/ListItem";
 import { IChiefComplaint } from "../../types/chief_complaint.types";
 import { AppNavigateState } from "../../../../hooks/useAppNavigate";

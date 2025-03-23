@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 export type AppNavigateState = {
@@ -13,10 +13,10 @@ export const useAppNavigate = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(location.state);
-    console.log("previous pathname: " + location.pathname);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log(location.state);
+  //   console.log("previous pathname: " + location.pathname);
+  // }, [location]);
 
   const pathname = location.pathname;
   const navigationData = location.state;

@@ -18,7 +18,7 @@ export const AddPatientForm = ({ formData }: Props) => {
         id="add-patient-form"
         onSubmit={formMethods.handleSubmit}
       >
-        <div className="add-patient-personal-data">
+        <article className="add-patient-personal-data">
           <h2>Datos personales</h2>
           <div className="add-patient-personal-data-inputs">
             <TextInput
@@ -92,8 +92,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               changeEvent={formMethods.handleChange}
             />
           </div>
-        </div>
-        <div className="add-patient-birth-data">
+        </article>
+        <article className="add-patient-birth-data">
           <h2>Nacimiento</h2>
           <div className="add-patient-birth-data-inputs">
             <TextInput
@@ -127,7 +127,7 @@ export const AddPatientForm = ({ formData }: Props) => {
               changeEvent={(e) => formMethods.handleChange(e, 1)}
             />
           </div>
-        </div>
+        </article>
       </form>
     </>
   );

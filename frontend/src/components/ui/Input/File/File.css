@@ -10,8 +10,12 @@
   margin-bottom: 0.5rem;
 }
 
-.image-container:hover img {
+.file-field:hover img {
   scale: 1.1;
+}
+
+.file-field:hover .file-label {
+  background-color: var(--state-layer-primary-16);
 }
 
 .file-field img {
@@ -27,10 +31,6 @@
 
   cursor: pointer;
   transition: scale 0.15s ease-out;
-}
-
-.file-field img:hover {
-  /* transform: scale(1.2); */
 }
 
 .file-field input {
@@ -58,24 +58,6 @@
 
   color: var(--clr-primary);
   font-weight: 700;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
-
-/* .file-field input::before {
-  content: "Seleccionar imagen";
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 2.5rem;
-  padding: 0 1rem;
-
-  color: var(--clr-primary);
-  font-weight: bold;
-  font-size: 1rem;
-
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-} */

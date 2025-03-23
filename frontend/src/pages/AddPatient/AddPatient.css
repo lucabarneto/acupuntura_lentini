@@ -9,7 +9,6 @@
 .required-fields-tip {
   text-align: left;
   margin-top: 1.5rem;
-  padding: 0 2rem;
   color: var(--clr-on-surface-variant);
   font-size: 0.875rem;
 }

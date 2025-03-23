@@ -1,7 +1,3 @@
-.add-patient-form {
-  padding: 0 2rem;
-}
-
 .add-patient-form h2 {
   text-align: left;
   margin-bottom: 1.5rem;
@@ -9,10 +5,11 @@
 
 .add-patient-personal-data-inputs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr auto;
   grid-template-rows: repeat(3, auto);
   gap: 1rem;
-  justify-items: start;
+
+  width: 100%;
 }
 
 .add-patient-personal-data-inputs .file-field {

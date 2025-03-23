@@ -43,7 +43,7 @@ export const Patients = () => {
           clickEvent={toggleModal}
         />
       </div>
-      <h1>Lista de pacientes</h1>
+      <h1 className="compact">Lista de pacientes</h1>
       <ul>
         {allPatients.map((patient) => (
           <PatientListItem

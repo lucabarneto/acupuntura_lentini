@@ -1,4 +1,3 @@
-import "./PatientDetails.css";
 import { PersonalData } from "../../features/patients/components/PersonalData";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
@@ -17,7 +16,7 @@ export const PatientDetails = () => {
 
   return (
     patient && (
-      <section className="patient-details-pane">
+      <section className="patient-details-pane details-section">
         <TopAppBar title="Paciente" deleteEvent={() => openModal()} />
         <PersonalData
           data={{

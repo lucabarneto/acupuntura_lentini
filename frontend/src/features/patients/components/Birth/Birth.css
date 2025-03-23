@@ -2,16 +2,6 @@
   padding: 1.5rem 2rem;
 }
 
-.birth h2,
-.birth h3 {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-.birth h3 {
-  font-size: 25px;
-}
-
 .birth-data {
   display: flex;
   justify-content: space-between;

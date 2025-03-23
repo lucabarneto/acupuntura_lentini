@@ -27,10 +27,10 @@ export const PersonalData = (props: Props) => {
           {first_name} {last_name}
         </h1>
         <ul>
-          <li>Edad: {age} años</li>
-          <li>Estado civil: {marital_status}</li>
-          <li>Correo: {mail}</li>
-          <li>Teléfono: {tel}</li>
+          <li className="text-item">Edad: {age} años</li>
+          <li className="text-item">Estado civil: {marital_status}</li>
+          <li className="text-item">Correo: {mail}</li>
+          <li className="text-item">Teléfono: {tel}</li>
         </ul>
         <div className="contact-buttons-container">
           <Button

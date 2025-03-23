@@ -1,10 +1,9 @@
 import { Card } from "../../../../components/ui/Card";
 import { PresumptiveAnalysisType } from "../../types/presumptive_analysis.types";
-import "./PresumptiveAnalysis.css";
 
 type Props = {
   presumptiveAnalysis?: PresumptiveAnalysisType;
-  addEvent: () => void
+  addEvent: () => void;
 };
 
 export const PresumptiveAnalysis = (props: Props) => {
@@ -15,32 +14,32 @@ export const PresumptiveAnalysis = (props: Props) => {
       <h2>Análisis presuntivo</h2>
       {presumptiveAnalysis ? (
         <ul>
-          <li>
+          <li className="text-item">
             <b>Tiempo de meridiano:</b> {presumptiveAnalysis.meridian_time}
           </li>
-          <li>
+          <li className="text-item">
             <b>Alimentación:</b> {presumptiveAnalysis.feeding}
           </li>
-          <li>
+          <li className="text-item">
             <b>Yin:</b> {presumptiveAnalysis.yin}
           </li>
-          <li>
+          <li className="text-item">
             <b>Yang:</b> {presumptiveAnalysis.yang}
           </li>
-          <li>
+          <li className="text-item">
             <b>Qi:</b> {presumptiveAnalysis.qi}
           </li>
-          <li>
+          <li className="text-item">
             <b>Xue:</b> {presumptiveAnalysis.xue}
           </li>
-          <li>
+          <li className="text-item">
             <b>Jin Ye:</b> {presumptiveAnalysis.jin_ye}
           </li>
-          <li>
+          <li className="text-item">
             <b>Jing Shen de Vitalidad Mental:</b>{" "}
             {presumptiveAnalysis.mental_vitality_jing_shen}
           </li>
-          <li>
+          <li className="text-item">
             <b>Jing Ancestral:</b> {presumptiveAnalysis.ancestral_jing}
           </li>
         </ul>

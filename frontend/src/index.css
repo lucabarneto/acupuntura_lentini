@@ -123,12 +123,17 @@ h1 {
   font-size: 2.25rem;
 }
 
+h1.compact {
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
 h2 {
   font-size: 1.75rem;
 }
 
 h3 {
-  font-size: 1.675rem;
+  font-size: 1.5625rem;
 }
 
 h4 {

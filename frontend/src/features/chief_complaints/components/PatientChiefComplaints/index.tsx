@@ -15,20 +15,22 @@ export const PatientChiefComplaints = (props: Props) => {
   const { mainNavigationData } = useAppNavigate();
 
   return (
-    <article className="patient-chief-complaints">
+    <article className="reference-list patient-chief-complaints">
       {chiefComplaints.length !== 0 ? (
         <ListDropdown heading="Motivos de consulta">
-          {chiefComplaints.map((chiefComplaint) => (
-            <ChiefComplaintListItem
-              key={chiefComplaint.chief_complaint._id}
-              chiefComplaint={chiefComplaint.chief_complaint}
-              state={{
-                ...mainNavigationData,
-                detailsPane: "chiefcomplaint",
-                chiefComplaintId: chiefComplaint.chief_complaint._id,
-              }}
-            />
-          ))}
+          <ul>
+            {chiefComplaints.map((chiefComplaint) => (
+              <ChiefComplaintListItem
+                key={chiefComplaint.chief_complaint._id}
+                chiefComplaint={chiefComplaint.chief_complaint}
+                state={{
+                  ...mainNavigationData,
+                  detailsPane: "chiefcomplaint",
+                  chiefComplaintId: chiefComplaint.chief_complaint._id,
+                }}
+              />
+            ))}
+          </ul>
         </ListDropdown>
       ) : (
         <ListDropdown heading="Motivos de consulta">
