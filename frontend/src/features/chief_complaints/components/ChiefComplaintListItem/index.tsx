@@ -10,7 +10,7 @@ type Props = {
 export const ChiefComplaintListItem = (props: Props) => {
   const { chiefComplaint, state } = props;
 
-  const chiefComplaintURLTitle = chiefComplaint.title.split(" ").join("_");
+  // const chiefComplaintURLTitle = chiefComplaint.title.split(" ").join("_");
 
   return (
     <ListItem
@@ -18,7 +18,8 @@ export const ChiefComplaintListItem = (props: Props) => {
       overline="Motivo de consulta"
       title={chiefComplaint.title}
       state={state}
-      link={`/chiefcomplaints/${chiefComplaintURLTitle}`}
+      // link={`/chiefcomplaints/${chiefComplaintURLTitle}`}
+      link={`/chiefcomplaints/hola!`}
       divider
     />
   );

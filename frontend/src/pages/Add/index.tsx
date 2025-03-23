@@ -25,10 +25,10 @@ export const Add = () => {
         />
         <SegmentedButton
           id="chief_complaint"
-          state={navigationData}
+          state={{ ...navigationData, detailsPane: "chiefcomplaint" }}
           label="Motivo de consulta"
           position="middle"
-          link="/add/chief_complaint"
+          link="/add/chiefcomplaint"
           ariaDescription="Ir a interfaz añadir motivo de consulta"
         />
         <SegmentedButton

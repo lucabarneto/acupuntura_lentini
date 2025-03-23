@@ -25,7 +25,6 @@ const ChiefComplaintSchema = new mongoose.Schema<IChiefComplaint>({
     auto: true,
   },
   title: String,
-  description: String,
   diagnosis: String,
   initial_sleep_condition: String,
   initial_medicine: String,

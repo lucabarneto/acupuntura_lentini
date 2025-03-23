@@ -11,7 +11,6 @@ export const SelectInput = (props: Props) => {
     options,
     title,
     required,
-    value,
     form,
     error,
     changeEvent,
@@ -27,7 +26,6 @@ export const SelectInput = (props: Props) => {
         form={form}
         title={title}
         required={required ? true : false}
-        value={value}
         onChange={changeEvent}
         onBlur={blurEvent}
         aria-invalid={error ? true : false}

@@ -12,6 +12,7 @@ import { Add } from "./pages/Add";
 import { AddPatient } from "./pages/AddPatient";
 import { AddBaziTable } from "./pages/AddBaziTable";
 import { AddPresumptiveAnalysis } from "./pages/AddPresumptiveAnalysis";
+import { AddChiefComplaint } from "./pages/AddChiefComplaint";
 
 function App() {
   return (
@@ -82,6 +83,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   defaultDetailsPane={<AddPresumptiveAnalysis />}
+                />
+              }
+            />
+            <Route
+              path="chiefcomplaint"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  defaultDetailsPane={<AddChiefComplaint />}
                 />
               }
             />

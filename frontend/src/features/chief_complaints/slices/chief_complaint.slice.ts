@@ -1,5 +1,8 @@
 import { RootState } from "../../../app/store";
-import { IChiefComplaint } from "../types/chief_complaint.types";
+import {
+  IChiefComplaint,
+  IChiefComplaintForm,
+} from "../types/chief_complaint.types";
 import { chiefComplaintsAPI } from "../services/chiefComplaintsAPI";
 import {
   createSlice,
@@ -50,6 +53,20 @@ export const getAllChiefComplaints = createAsyncThunk<
   }
 );
 
+export const addChiefComplaint = createAsyncThunk(
+  "patients/addPatient",
+  async (body: IChiefComplaintForm) => {
+    try {
+      const newChiefComplaint = await chiefComplaintsAPI.addChiefComplaint(
+        body
+      );
+      return newChiefComplaint;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const chiefComplaintsSlice = createSlice({
   name: "chief_complaints",
   initialState,
@@ -66,15 +83,27 @@ const chiefComplaintsSlice = createSlice({
       state.previousCrudAction = "get";
       chiefComplaintsAdapter.setAll(state, action.payload!);
     });
+
+    builder.addCase(addChiefComplaint.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(addChiefComplaint.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "get";
+      chiefComplaintsAdapter.addOne(state, action.payload!);
+    });
   },
 });
 
 export const {
-  selectById: selectPatientById,
-  selectIds: selectPatientsIds,
-  selectEntities: selectPatientEntities,
-  selectAll: selectAllPatients,
-  selectTotal: selectTotalPatients,
+  selectById: selectChiefComplaintById,
+  selectIds: selectChiefComplaintsIds,
+  selectEntities: selectChiefComplaintEntities,
+  selectAll: selectAllChiefComplaints,
+  selectTotal: selectTotalChiefComplaints,
 } = chiefComplaintsAdapter.getSelectors<RootState>(
   (state) => state.chief_complaints
 );

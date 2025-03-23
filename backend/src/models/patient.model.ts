@@ -172,7 +172,7 @@ PatientSchema.pre("deleteOne", async function () {
     );
 });
 
-PatientSchema.pre("findOne", function () {
+PatientSchema.pre("find", function () {
   this.populate([
     "chief_complaints.chief_complaint",
     "appointments.appointment",

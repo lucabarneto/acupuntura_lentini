@@ -6,10 +6,14 @@ import { FormErrors } from "../types/form.types";
 This custom hook can operate in forms which have nested fields of up to 2 levels of depth. If your form contains fields even more deeply nested, consider dividing it into smaller, more manageable chunks.
 */
 
-type Target = EventTarget & HTMLInputElement;
+type Target = EventTarget & FieldHTMLElements;
+
+type FieldHTMLElements =
+  | HTMLInputElement
+  | HTMLSelectElement
+  | HTMLTextAreaElement;
 
 type GroupSet = [string, string];
-
 const GROUP = 0;
 const SUBGROUP = 1;
 
@@ -20,8 +24,11 @@ interface UseFormStates<T extends { [key: string]: unknown }> {
 }
 
 interface UseFormMethods {
-  handleChange(e: React.ChangeEvent<HTMLInputElement>, depth?: 0 | 1 | 2): void;
-  handleBlur(e: React.ChangeEvent<HTMLInputElement>): void;
+  handleChange(
+    e: React.ChangeEvent<FieldHTMLElements>,
+    depth?: 0 | 1 | 2
+  ): void;
+  handleBlur(e: React.ChangeEvent<FieldHTMLElements>): void;
   handleSubmit(e: React.FormEvent): void;
   handleReset(): void;
 }
@@ -29,6 +36,12 @@ interface UseFormMethods {
 export type UseForm<T extends { [key: string]: unknown }> = {
   form: UseFormStates<T>;
   formMethods: UseFormMethods;
+};
+
+const isHTMLInputElement = (
+  input: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+): input is HTMLInputElement => {
+  return (input as HTMLInputElement).files !== undefined;
 };
 
 export const useForm = <T extends { [key: string]: unknown }>(
@@ -39,16 +52,19 @@ export const useForm = <T extends { [key: string]: unknown }>(
   const [isSubmittable, setIsSubmittable] = useState<boolean>(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<FieldHTMLElements>,
     depth: 0 | 1 | 2 = 0
   ): void => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
 
     if (depth === 0) {
       setFields((prevFields) => {
         return {
           ...prevFields,
-          [name]: name === "profile_picture" ? files![0] : value,
+          [name]:
+            isHTMLInputElement(e.target) && name === "profile_picture"
+              ? e.target.files![0]
+              : value,
         };
       });
     } else {
@@ -114,7 +130,7 @@ export const useForm = <T extends { [key: string]: unknown }>(
   };
 
   /* field validation occurs on blur event */
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleBlur = (e: React.ChangeEvent<FieldHTMLElements>): void => {
     handleChange(e);
 
     const validator = new FieldValidator(e.target);

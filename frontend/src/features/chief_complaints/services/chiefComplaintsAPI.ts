@@ -1,5 +1,8 @@
 import axios from "axios";
-import { IChiefComplaint } from "../types/chief_complaint.types";
+import {
+  IChiefComplaint,
+  IChiefComplaintForm,
+} from "../types/chief_complaint.types";
 const URL = "http://localhost:8080/api/chiefcomplaints";
 
 class ChiefComplaintsAPI {
@@ -17,19 +20,19 @@ class ChiefComplaintsAPI {
     }
   }
 
-  // async addPatient(body: IPatientForm): Promise<IPatient | undefined> {
-  //   try {
-  //     const res = await axios.post(this.url, body, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
+  async addChiefComplaint(
+    body: IChiefComplaintForm
+  ): Promise<IChiefComplaint | undefined> {
+    try {
+      console.log(body);
 
-  //     return res.data.payload as IPatient;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+      const res = await axios.post(this.url, body);
+
+      return res.data.payload as IChiefComplaint;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   // async updatePatient(body: IPatient) {
   //   try {

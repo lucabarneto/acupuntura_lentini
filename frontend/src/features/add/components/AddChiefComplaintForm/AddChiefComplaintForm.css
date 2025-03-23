@@ -1,0 +1,15 @@
+.add-chief-complaint-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 1rem;
+}
+
+.add-chief-complaint-form .field:has(textarea) {
+  grid-column: 2 / 3;
+  grid-row: 1 / 5;
+}
+
+.add-chief-complaint-form textarea {
+  height: 100%;
+}

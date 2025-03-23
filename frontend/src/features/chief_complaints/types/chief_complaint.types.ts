@@ -1,8 +1,7 @@
 export type IChiefComplaint = {
   _id: string;
   title: string;
-  description: string;
-  daignosis: string;
+  diagnosis: string;
   initial_sleep_condition: string;
   initial_medicine: string;
   state: "finished" | "in_progress" | "abandoned";
@@ -10,3 +9,5 @@ export type IChiefComplaint = {
 };
 
 export type IChiefComplaintNoId = Omit<IChiefComplaint, "_id">;
+
+export type IChiefComplaintForm = Omit<IChiefComplaintNoId, "state">;

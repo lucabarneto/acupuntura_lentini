@@ -1,12 +1,17 @@
+type FieldHTMLElements =
+  | HTMLInputElement
+  | HTMLSelectElement
+  | HTMLTextAreaElement;
+
 interface IFieldValidator {
-  field: HTMLInputElement;
+  field: FieldHTMLElements;
   error: string;
   init: () => void;
 }
 
 interface FieldValidatorMethods {
   validateRequired: (
-    field: HTMLInputElement,
+    field: FieldHTMLElements,
     customError?: CustomFieldErrors["required"]
   ) => void;
   validateRegex: (
@@ -20,13 +25,19 @@ interface CustomFieldErrors {
   regex?: string;
 }
 
+const isHTMLInputElement = (
+  input: FieldHTMLElements
+): input is HTMLInputElement => {
+  return (input as HTMLInputElement).files !== undefined;
+};
+
 export class FieldValidator implements IFieldValidator, FieldValidatorMethods {
-  field: HTMLInputElement;
+  field: FieldHTMLElements;
   customErrors: CustomFieldErrors | undefined;
   error: string;
 
   constructor(
-    field: HTMLInputElement,
+    field: FieldHTMLElements,
     errors: CustomFieldErrors | undefined = undefined
   ) {
     this.field = field;
@@ -38,12 +49,16 @@ export class FieldValidator implements IFieldValidator, FieldValidatorMethods {
   init = (): void => {
     if (this.field.required)
       this.validateRequired(this.field, this.customErrors?.required);
-    if (this.field.pattern && this.error === "")
+    if (
+      isHTMLInputElement(this.field) &&
+      this.field.pattern &&
+      this.error === ""
+    )
       this.validateRegex(this.field, this.customErrors?.regex);
   };
 
   validateRequired = (
-    field: HTMLInputElement,
+    field: FieldHTMLElements,
     customError?: CustomFieldErrors["required"]
   ): void => {
     if (field.value === "") this.error = customError || "Campo requerido";

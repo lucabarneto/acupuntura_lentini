@@ -1,19 +1,24 @@
-export interface InputType<HTMLInput> {
+export interface InputType<HTMLInput>
+  extends FormInputTypes<HTMLInput>,
+    UIInputTypes {}
+
+interface UIInputTypes {
   id: string;
   label: string;
   required?: true;
   title?: string;
   placeholder?: string;
+}
 
+interface FormInputTypes<HTMLInput> {
   form?: string;
-  value: string;
+  value?: string;
   error?: string;
   group?: string;
 
   changeEvent?(e: React.ChangeEvent<HTMLInput>): void;
   blurEvent?(e: React.ChangeEvent<HTMLInput>): void;
 }
-
 export interface TextInputType extends InputType<HTMLInputElement> {
   type: TextInputTypes;
   regex?: string;
@@ -25,7 +30,7 @@ export interface SelectInputType extends InputType<HTMLSelectElement> {
   options: SelectOptions[];
 }
 
-interface SelectOptions {
+export interface SelectOptions {
   value: string;
   label: string;
 }

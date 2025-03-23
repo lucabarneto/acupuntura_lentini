@@ -5,6 +5,7 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../slices/patientsSlice";
 import { useEffect } from "react";
 import { IPatient, IPatientForm } from "../types/patient.types";
+import { SelectOptions } from "../../../components/ui/Input/input.types";
 
 type DispatchCallback = (arg: any) => void;
 
@@ -18,6 +19,13 @@ export const usePatient = (id: string = "") => {
   useEffect(() => {
     dispatch(slice.getAllPatients());
   }, [dispatch]);
+
+  const patientSelectOptions: SelectOptions[] = allPatients.map((patient) => {
+    return {
+      label: `${patient.first_name} ${patient.last_name}`,
+      value: patient._id,
+    };
+  });
 
   const addPatient = (body: IPatientForm, callback?: DispatchCallback) =>
     dispatch(slice.addPatient(body)).unwrap().then(callback);
@@ -37,6 +45,7 @@ export const usePatient = (id: string = "") => {
   return {
     allPatients,
     patient,
+    patientSelectOptions,
     createPatientURLName,
     addPatient,
     updatePatient,
