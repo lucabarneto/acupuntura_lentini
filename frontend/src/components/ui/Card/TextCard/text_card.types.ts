@@ -1,6 +1,6 @@
-import { IconName } from "../Icon/icon.types";
+import { IconName } from "../../Icon/icon.types";
 
-export type CardType = {
+export type TextCardType = {
   title: string;
   text: string;
 

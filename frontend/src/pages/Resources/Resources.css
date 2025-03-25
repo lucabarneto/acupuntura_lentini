@@ -1,0 +1,10 @@
+.resources-pane {
+  background-color: var(--clr-surface-container-low);
+}
+
+.resources {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 2rem 1rem;
+  gap: 1rem;
+}

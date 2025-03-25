@@ -1,4 +1,4 @@
-import { Card } from "../../../../components/ui/Card";
+import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { PresumptiveAnalysisType } from "../../types/presumptive_analysis.types";
 
 type Props = {
@@ -44,7 +44,7 @@ export const PresumptiveAnalysis = (props: Props) => {
           </li>
         </ul>
       ) : (
-        <Card
+        <TextCard
           title="Sin análisis presuntivo"
           text="Agrega el análisis presuntivo de la persona paciente apretando el botón que se encuentra abajo."
           buttonLabel="Agregar Análisis"

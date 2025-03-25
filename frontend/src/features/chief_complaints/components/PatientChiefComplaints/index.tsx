@@ -1,4 +1,4 @@
-import { Card } from "../../../../components/ui/Card";
+import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { ListDropdown } from "../../../../components/ui/ListDropdown";
 import { useAppNavigate } from "../../../../hooks/useAppNavigate";
 import { ChiefComplaintRef } from "../../../patients/types/patient.types";
@@ -34,7 +34,7 @@ export const PatientChiefComplaints = (props: Props) => {
         </ListDropdown>
       ) : (
         <ListDropdown heading="Motivos de consulta">
-          <Card
+          <TextCard
             title="Sin motivos de consulta"
             text="El paciente no tiene ningún motivo de consulta actual. Agregar uno
         haciendo click en el botón de abajo, o apretando el botón '+'' ubicado en

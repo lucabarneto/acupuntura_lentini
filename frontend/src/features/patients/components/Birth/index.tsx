@@ -1,4 +1,4 @@
-import { Card } from "../../../../components/ui/Card";
+import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { BaziTableType } from "../../types/bazi_table.types";
 import { BirthType } from "../../types/patient.types";
 import { BaziTable } from "../BaziTable";
@@ -31,7 +31,7 @@ export const Birth = (props: Props) => {
       {bazi_table ? (
         <BaziTable variant="tabular_data" tabularData={bazi_table} />
       ) : (
-        <Card
+        <TextCard
           title="Sin tabla bazi"
           text="Agrega los datos para armar la tabla apretando el botón que se encuentra abajo."
           buttonLabel="Agregar Tabla"
