@@ -98,7 +98,7 @@ const chiefComplaintsSlice = createSlice({
   },
 });
 
-export const { selectById, selectIds, selectEntities, selectAll, selectTotal } =
+export const { selectById, selectAll } =
   chiefComplaintsAdapter.getSelectors<RootState>(
     (state) => state.chief_complaints
   );

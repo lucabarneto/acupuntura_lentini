@@ -14,7 +14,7 @@ resourceRouter.param("id", resourceController.handleId);
 
 resourceRouter.get(
   "/",
-  authenticate("jwt", { session: false }),
+  // authenticate("jwt", { session: false }),
   resourceController.getAllResources
 );
 

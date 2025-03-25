@@ -11,9 +11,9 @@ type DispatchCallback = (arg: any) => void;
 
 export const usePatient = (id: string = "") => {
   const dispatch = useAppDispatch();
-  const allPatients = useSelector(slice.selectAllPatients);
+  const allPatients = useSelector(slice.selectAll);
   const patient = useSelector((state: RootState) =>
-    slice.selectPatientById(state, id)
+    slice.selectById(state, id)
   );
 
   useEffect(() => {

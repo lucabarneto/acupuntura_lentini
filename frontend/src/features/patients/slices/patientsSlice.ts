@@ -153,13 +153,8 @@ const patientsSlice = createSlice({
   },
 });
 
-export const {
-  selectById: selectPatientById,
-  selectIds: selectPatientsIds,
-  selectEntities: selectPatientEntities,
-  selectAll: selectAllPatients,
-  selectTotal: selectTotalPatients,
-} = patientsAdapter.getSelectors<RootState>((state) => state.patients);
+export const { selectById, selectAll } =
+  patientsAdapter.getSelectors<RootState>((state) => state.patients);
 
 export const { sortByName } = patientsSlice.actions;
 export const patientsReducer = patientsSlice.reducer;
