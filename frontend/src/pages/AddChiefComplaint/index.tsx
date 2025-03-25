@@ -61,7 +61,7 @@ export const AddChiefComplaint = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.associatedValue!, mainNavigationData)
+          leaveAddFlow(leaveAddFlowModal.state!, mainNavigationData)
         }
       />
     </section>

@@ -1,0 +1,14 @@
+.menu {
+  width: 360px;
+  border: none;
+  padding: 0;
+
+  background-color: var(--clr-surface-container);
+  border-radius: 0.25rem;
+  box-shadow: var(--elevation-5);
+
+  position: absolute;
+  top: 40px;
+  left: 68px;
+  z-index: 999;
+}

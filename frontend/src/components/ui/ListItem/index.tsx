@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import {
-  ListitemType,
+  DefaultListitemType,
   ImageListItemType,
   IconListItemType,
 } from "./list_item.types";
@@ -8,16 +8,26 @@ import { Divider } from "../Divider";
 import { Icon } from "../Icon";
 import "./ListItem.css";
 
-type Props = ListitemType | IconListItemType | ImageListItemType;
+type Props = DefaultListitemType | IconListItemType | ImageListItemType;
 
 export const ListItem = (props: Props) => {
-  const { link, state, title, variant, overline, text, divider } = props;
+  const {
+    link,
+    state,
+    title,
+    variant,
+    overline,
+    text,
+    divider,
+    dataAttributes,
+  } = props;
 
   return (
     <li>
       <NavLink
         to={link}
         state={state}
+        {...dataAttributes}
         className={({ isActive }) =>
           isActive ? "list-item selected" : "list-item"
         }

@@ -14,6 +14,7 @@ import { AddBaziTable } from "./pages/AddBaziTable";
 import { AddPresumptiveAnalysis } from "./pages/AddPresumptiveAnalysis";
 import { AddChiefComplaint } from "./pages/AddChiefComplaint";
 import { ChiefComplaintDetails } from "./pages/ChiefComplaintDetails";
+import { Resources } from "./pages/Resources";
 
 function App() {
   return (
@@ -56,6 +57,15 @@ function App() {
               <Panes
                 defaultMainPane={<Patients />}
                 defaultDetailsPane={<ChiefComplaintDetails />}
+              />
+            }
+          />
+          <Route
+            path="/resources"
+            element={
+              <Panes
+                defaultMainPane={<Resources />}
+                defaultDetailsPane={<NoDetails />}
               />
             }
           />

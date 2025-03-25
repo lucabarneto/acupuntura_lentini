@@ -67,7 +67,7 @@ export const AddPatient = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.associatedValue!, mainNavigationData)
+          leaveAddFlow(leaveAddFlowModal.state!, mainNavigationData)
         }
       />
     </section>

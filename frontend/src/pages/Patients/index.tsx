@@ -2,7 +2,7 @@ import "./Patients.css";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useModal } from "../../hooks/useModal";
 import { Button } from "../../components/ui/Button";
-import { Menu } from "../../components/ui/Menu";
+import { SelectionModal } from "../../components/ui/SelectionModal";
 import { RadioInput } from "../../components/ui/Input/Radio";
 import { PatientListItem } from "../../features/patients/components/PatientListItem";
 import { SearchViewPatient } from "../../features/patients/components/Search/SearchPatient";
@@ -57,7 +57,7 @@ export const Patients = () => {
           />
         ))}
       </ul>
-      <Menu id="sort-query-menu-patients" ref={modal}>
+      <SelectionModal id="sort-query-menu-patients" ref={modal}>
         <form>
           <RadioInput
             id="sort-name-asc"
@@ -93,7 +93,7 @@ export const Patients = () => {
             value="appointment-desc"
           /> */}
         </form>
-      </Menu>
+      </SelectionModal>
     </section>
   );
 };

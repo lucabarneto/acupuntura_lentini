@@ -67,7 +67,7 @@ export const AddPresumptiveAnalysis = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.associatedValue!, {
+          leaveAddFlow(leaveAddFlowModal.state!, {
             ...navigationData,
             detailsPane: "patient",
           })

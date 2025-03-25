@@ -32,3 +32,7 @@
   font-weight: 400;
   justify-self: left;
 }
+
+.top-app-bar.presentation {
+  background-color: var(--clr-surface-container);
+}

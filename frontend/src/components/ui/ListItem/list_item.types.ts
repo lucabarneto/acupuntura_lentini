@@ -1,35 +1,27 @@
 import { IconName } from "../Icon/icon.types";
 import { AppNavigateState } from "../../../hooks/useAppNavigate";
 
-export interface ImageListItemType {
+interface ListItemType {
+  link: string;
+  state: AppNavigateState;
+  title: string;
+  overline?: string;
+  text?: string;
+  divider?: true;
+  dataAttributes?: object;
+}
+
+export interface ImageListItemType extends ListItemType {
   variant: "image";
   image: string;
   alt: string;
-  link: string;
-  state: AppNavigateState;
-  title: string;
-  overline?: string;
-  text?: string;
-  divider?: true;
 }
 
-export interface IconListItemType {
+export interface IconListItemType extends ListItemType {
   variant: "icon";
   icon: IconName;
-  link: string;
-  state: AppNavigateState;
-  title: string;
-  overline?: string;
-  text?: string;
-  divider?: true;
 }
 
-export interface ListitemType {
+export interface DefaultListitemType extends ListItemType {
   variant: "default";
-  link: string;
-  state: AppNavigateState;
-  title: string;
-  overline?: string;
-  text?: string;
-  divider?: true;
 }

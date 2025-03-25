@@ -16,10 +16,11 @@ export const ChiefComplaintDetails = () => {
     chiefComplaint && (
       <section className="details-section">
         <TopAppBar
+          type="interactive"
           title="Motivo de consulta"
-          goBackIcon
+          navigation_back
           deleteEvent={() => {}}
-          goBackEvent={() =>
+          navigateBackEvent={() =>
             appNavigate(`/patients/${createPatientURLName(patient)}`, {
               ...mainNavigationData,
               detailsPane: "patient",
