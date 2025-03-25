@@ -9,11 +9,11 @@ import { SelectOptions } from "../../../components/ui/Input/input.types";
 
 type DispatchCallback = (arg: any) => void;
 
-export const useChiefComplaints = (id: string = "") => {
+export const useChiefComplaint = (id: string = "") => {
   const dispatch = useAppDispatch();
-  const allChiefComplaints = useSelector(slice.selectAllChiefComplaints);
+  const allChiefComplaints = useSelector(slice.selectAll);
   const chiefComplaint = useSelector((state: RootState) =>
-    slice.selectChiefComplaintById(state, id)
+    slice.selectById(state, id)
   );
 
   useEffect(() => {

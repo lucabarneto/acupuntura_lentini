@@ -19,6 +19,7 @@
   text-align: left;
 
   position: relative;
+  cursor: pointer;
 }
 
 .list-heading::marker {
@@ -47,4 +48,8 @@
 
 .list-dropdown[open] .list-heading::after {
   rotate: 360deg;
+}
+
+.list-heading:hover {
+  border-bottom: 2px solid var(--clr-outline);
 }

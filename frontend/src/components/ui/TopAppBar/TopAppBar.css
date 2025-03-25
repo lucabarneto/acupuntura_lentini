@@ -2,7 +2,8 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
   height: 4rem;
   width: 100%;
@@ -15,6 +16,16 @@
   top: 0;
   left: 0;
   z-index: 999;
+}
+
+.go-back-icon {
+  display: none;
+}
+
+.top-app-bar:has(.go-back-icon) {
+  grid-template-columns: auto 1fr auto;
+
+  padding: 0 1rem 0 1rem;
 }
 
 .top-app-bar h3 {

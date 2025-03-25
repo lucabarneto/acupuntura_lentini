@@ -1,6 +1,7 @@
 export interface TopAppBarType {
   title: string;
-  navigationIcon?: true;
+  goBackIcon?: true;
 
   deleteEvent(e?: React.MouseEvent): void;
+  goBackEvent?(e?: React.MouseEvent): void;
 }

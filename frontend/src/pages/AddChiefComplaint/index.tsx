@@ -3,7 +3,7 @@ import { Modal } from "../../components/ui/Modal";
 import { AddChiefComplaintForm } from "../../features/add/components/AddChiefComplaintForm";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
-import { useChiefComplaints } from "../../features/chief_complaints/hooks/useChiefComplaint";
+import { useChiefComplaint } from "../../features/chief_complaints/hooks/useChiefComplaint";
 import { IChiefComplaintForm } from "../../features/chief_complaints/types/chief_complaint.types";
 import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
@@ -23,7 +23,7 @@ export const AddChiefComplaint = () => {
     useAdd(initialForm);
   const { form } = formData;
   const { patientSelectOptions } = usePatient();
-  const { addChiefComplaint } = useChiefComplaints();
+  const { addChiefComplaint } = useChiefComplaint();
 
   const formId = "add-chief-complaint-form";
 

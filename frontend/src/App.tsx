@@ -13,6 +13,7 @@ import { AddPatient } from "./pages/AddPatient";
 import { AddBaziTable } from "./pages/AddBaziTable";
 import { AddPresumptiveAnalysis } from "./pages/AddPresumptiveAnalysis";
 import { AddChiefComplaint } from "./pages/AddChiefComplaint";
+import { ChiefComplaintDetails } from "./pages/ChiefComplaintDetails";
 
 function App() {
   return (
@@ -49,6 +50,15 @@ function App() {
               }
             />
           </Route>
+          <Route
+            path="/chiefcomplaints/:chief_complaint_title"
+            element={
+              <Panes
+                defaultMainPane={<Patients />}
+                defaultDetailsPane={<ChiefComplaintDetails />}
+              />
+            }
+          />
           <Route path="/add">
             <Route
               index

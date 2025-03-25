@@ -16,7 +16,7 @@ export const PatientDetails = () => {
 
   return (
     patient && (
-      <section className="patient-details-pane details-section">
+      <section className="details-section">
         <TopAppBar title="Paciente" deleteEvent={() => openModal()} />
         <PersonalData
           data={{

@@ -1,0 +1,9 @@
+.chief-complaint-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.chief-complaint-data p {
+  margin-bottom: 0.5rem;
+}

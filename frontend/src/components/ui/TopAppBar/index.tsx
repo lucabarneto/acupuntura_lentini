@@ -5,16 +5,19 @@ import "./TopAppBar.css";
 type Props = TopAppBarType;
 
 export const TopAppBar = (props: Props) => {
-  const { title, navigationIcon, deleteEvent } = props;
+  const { title, goBackIcon, deleteEvent, goBackEvent } = props;
 
   return (
     <header className="top-app-bar">
-      {navigationIcon && (
-        <IconButton
-          icon="arrow_back"
-          clickEvent={() => {}}
-          ariaLabel="Volver"
-        />
+      {goBackIcon && (
+        <>
+          <span className="go-back-icon"></span>
+          <IconButton
+            icon="arrow_back"
+            clickEvent={goBackEvent}
+            ariaLabel="Volver"
+          />
+        </>
       )}
       <h3>{title}</h3>
       <div>

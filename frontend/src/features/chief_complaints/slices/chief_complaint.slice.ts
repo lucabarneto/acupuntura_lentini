@@ -29,11 +29,11 @@ export const getAllChiefComplaints = createAsyncThunk<
   undefined,
   { state: RootState }
 >(
-  "patients/getAllPatients",
+  "chief_complaints/getAllChiefComplaints",
   async () => {
     try {
-      const patients = await chiefComplaintsAPI.getAllChiefComplaints();
-      return patients as IChiefComplaint[];
+      const chiefComplaints = await chiefComplaintsAPI.getAllChiefComplaints();
+      return chiefComplaints as IChiefComplaint[];
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +54,7 @@ export const getAllChiefComplaints = createAsyncThunk<
 );
 
 export const addChiefComplaint = createAsyncThunk(
-  "patients/addPatient",
+  "chief_complaints/addChiefComplaint",
   async (body: IChiefComplaintForm) => {
     try {
       const newChiefComplaint = await chiefComplaintsAPI.addChiefComplaint(
@@ -98,14 +98,9 @@ const chiefComplaintsSlice = createSlice({
   },
 });
 
-export const {
-  selectById: selectChiefComplaintById,
-  selectIds: selectChiefComplaintsIds,
-  selectEntities: selectChiefComplaintEntities,
-  selectAll: selectAllChiefComplaints,
-  selectTotal: selectTotalChiefComplaints,
-} = chiefComplaintsAdapter.getSelectors<RootState>(
-  (state) => state.chief_complaints
-);
+export const { selectById, selectIds, selectEntities, selectAll, selectTotal } =
+  chiefComplaintsAdapter.getSelectors<RootState>(
+    (state) => state.chief_complaints
+  );
 
 export const chiefComplaintsReducer = chiefComplaintsSlice.reducer;
