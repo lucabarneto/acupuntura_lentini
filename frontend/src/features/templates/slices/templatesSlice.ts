@@ -1,17 +1,17 @@
 import { RootState } from "../../../app/store";
-import { IResource } from "../types/resource.types";
-import { resourcesAPI } from "../services/resourcesAPI";
 import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
+import { ITemplate } from "../types/template.types";
+import { templatesAPI } from "../services/templatesAPI";
 
-const resourcesAdapter = createEntityAdapter({
-  selectId: (resource: IResource) => resource._id,
+const templatesAdapter = createEntityAdapter({
+  selectId: (template: ITemplate) => template._id,
 });
 
-const initialState = resourcesAdapter.getInitialState<{
+const initialState = templatesAdapter.getInitialState<{
   loading: "idle" | "pending";
   activeRequestId: string | null;
   previousCrudAction: null | "get" | "post" | "put" | "delete";
@@ -21,25 +21,25 @@ const initialState = resourcesAdapter.getInitialState<{
   previousCrudAction: null,
 });
 
-export const getAllResources = createAsyncThunk<
-  IResource[] | undefined,
+export const getAllTemplates = createAsyncThunk<
+  ITemplate[] | undefined,
   undefined,
   { state: RootState }
 >(
-  "resources/getAllResources",
+  "templates/getAllTemplates",
   async () => {
     try {
-      const resources = await resourcesAPI.getAllEntities();
-      return resources as IResource[];
+      const templates = await templatesAPI.getAllEntities();
+      return templates as ITemplate[];
     } catch (err) {
       console.log(err);
     }
   },
   {
     condition: (arg: undefined, { getState }) => {
-      const { resources } = getState();
+      const { templates } = getState();
 
-      if (resources.ids.length !== 0 && resources.previousCrudAction !== null) {
+      if (templates.ids.length !== 0 && templates.previousCrudAction !== null) {
         console.log("Fetch to server was cancelled for chief_complaint entity");
         return false;
       }
@@ -47,26 +47,26 @@ export const getAllResources = createAsyncThunk<
   }
 );
 
-const resourcesSlice = createSlice({
+const templatesSlice = createSlice({
   name: "chief_complaints",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllResources.pending, (state, action) => {
+    builder.addCase(getAllTemplates.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(getAllResources.fulfilled, (state, action) => {
+    builder.addCase(getAllTemplates.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
-      resourcesAdapter.setAll(state, action.payload!);
+      templatesAdapter.setAll(state, action.payload!);
     });
   },
 });
 
 export const { selectById, selectAll } =
-  resourcesAdapter.getSelectors<RootState>((state) => state.resources);
+  templatesAdapter.getSelectors<RootState>((state) => state.templates);
 
-export const resourcesReducer = resourcesSlice.reducer;
+export const templatesReducer = templatesSlice.reducer;

@@ -32,7 +32,7 @@ export const getAllChiefComplaints = createAsyncThunk<
   "chief_complaints/getAllChiefComplaints",
   async () => {
     try {
-      const chiefComplaints = await chiefComplaintsAPI.getAllChiefComplaints();
+      const chiefComplaints = await chiefComplaintsAPI.getAllEntities();
       return chiefComplaints as IChiefComplaint[];
     } catch (err) {
       console.log(err);
@@ -57,9 +57,7 @@ export const addChiefComplaint = createAsyncThunk(
   "chief_complaints/addChiefComplaint",
   async (body: IChiefComplaintForm) => {
     try {
-      const newChiefComplaint = await chiefComplaintsAPI.addChiefComplaint(
-        body
-      );
+      const newChiefComplaint = await chiefComplaintsAPI.addEntity(body);
       return newChiefComplaint;
     } catch (err) {
       console.log(err);

@@ -7,3 +7,5 @@ export type IResource = {
 };
 
 export type IResourceNoId = Omit<IResource, "_id">;
+
+export type IResourceForm = Omit<IResource, "_id">;
