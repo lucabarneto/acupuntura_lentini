@@ -1,19 +1,19 @@
-export type TopAppBarType = PresentationTopAppBar | InteractiveTopAppBar;
+export type TopAppBarType = MainPaneTopAppBar | DetailsPaneTopAppBar;
 
-interface PresentationTopAppBar {
-  type: "presentation";
+type MainPaneTopAppBar = {
+  pane: "main";
   title: string;
   navigation_back?: true;
 
   navigateBackEvent?(e?: React.MouseEvent): void;
-}
+};
 
-interface InteractiveTopAppBar {
-  type: "interactive";
+type DetailsPaneTopAppBar = {
+  pane: "details";
   title: string;
   navigation_back?: true;
 
   navigateBackEvent?(e?: React.MouseEvent): void;
 
-  deleteEvent(e?: React.MouseEvent): void;
-}
+  deleteEvent?(e?: React.MouseEvent): void;
+};

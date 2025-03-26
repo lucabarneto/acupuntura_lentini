@@ -16,7 +16,7 @@ export const ChiefComplaintDetails = () => {
     chiefComplaint && (
       <section className="details-section">
         <TopAppBar
-          type="interactive"
+          pane="details"
           title="Motivo de consulta"
           navigation_back
           deleteEvent={() => {}}

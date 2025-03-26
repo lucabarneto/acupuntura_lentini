@@ -5,10 +5,10 @@ import "./TopAppBar.css";
 type Props = TopAppBarType;
 
 export const TopAppBar = (props: Props) => {
-  const { type, title, navigation_back, navigateBackEvent } = props;
+  const { pane, title, navigation_back, navigateBackEvent } = props;
 
   const className =
-    type === "presentation" ? "top-app-bar presentation" : "top-app-bar";
+    pane === "main" ? "top-app-bar on-main-pane" : "top-app-bar";
 
   return (
     <header className={className}>
@@ -22,8 +22,8 @@ export const TopAppBar = (props: Props) => {
           />
         </>
       )}
-      <h3>{title}</h3>
-      {type === "interactive" && (
+      <h3 className={pane === "main" ? "compact" : undefined}>{title}</h3>
+      {pane === "details" && props.deleteEvent && (
         <div>
           <IconButton icon="edit" clickEvent={() => {}} ariaLabel="Editar" />
           <IconButton

@@ -15,7 +15,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 800;
 }
 
 .go-back-icon {
@@ -33,6 +33,6 @@
   justify-self: left;
 }
 
-.top-app-bar.presentation {
+.top-app-bar.on-main-pane {
   background-color: var(--clr-surface-container);
 }

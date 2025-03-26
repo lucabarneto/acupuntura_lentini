@@ -6,7 +6,7 @@
   box-shadow: var(--elevation-2);
 }
 
-.image-card .image-container {
+.image-card-image-container {
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;

@@ -1,0 +1,21 @@
+.resource-details header {
+  background-color: var(--clr-surface-container-lowest);
+}
+
+.resource-data {
+  display: flex;
+  gap: 1rem;
+
+  width: 100%;
+  padding: 1rem 2rem 2.5rem;
+}
+
+.resource-data img {
+  width: 350px;
+  height: 350px;
+
+  object-fit: cover;
+  object-position: top;
+
+  border-radius: 0.5rem;
+}

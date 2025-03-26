@@ -15,6 +15,7 @@ import { AddPresumptiveAnalysis } from "./pages/AddPresumptiveAnalysis";
 import { AddChiefComplaint } from "./pages/AddChiefComplaint";
 import { ChiefComplaintDetails } from "./pages/ChiefComplaintDetails";
 import { Resources } from "./pages/Resources";
+import { ResourceDetails } from "./pages/ResourceDetails";
 
 function App() {
   return (
@@ -60,15 +61,26 @@ function App() {
               />
             }
           />
-          <Route
-            path="/resources"
-            element={
-              <Panes
-                defaultMainPane={<Resources />}
-                defaultDetailsPane={<NoDetails />}
-              />
-            }
-          />
+          <Route path="/resources">
+            <Route
+              index
+              element={
+                <Panes
+                  defaultMainPane={<Resources />}
+                  defaultDetailsPane={<NoDetails />}
+                />
+              }
+            />
+            <Route
+              path=":resource_title"
+              element={
+                <Panes
+                  defaultMainPane={<Resources />}
+                  defaultDetailsPane={<ResourceDetails />}
+                />
+              }
+            />
+          </Route>
           <Route path="/add">
             <Route
               index

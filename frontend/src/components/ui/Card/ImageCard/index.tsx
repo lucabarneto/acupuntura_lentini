@@ -7,7 +7,7 @@ export const ImageCard = (props: Props) => {
 
   return (
     <article className="image-card" onClick={clickEvent}>
-      <div className="image-container">
+      <div className="image-card-image-container">
         <img src={image} alt={alt} />
       </div>
 
