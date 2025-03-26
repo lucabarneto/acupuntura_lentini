@@ -16,6 +16,7 @@ import { AddChiefComplaint } from "./pages/AddChiefComplaint";
 import { ChiefComplaintDetails } from "./pages/ChiefComplaintDetails";
 import { Resources } from "./pages/Resources";
 import { ResourceDetails } from "./pages/ResourceDetails";
+import { Templates } from "./pages/Templates";
 
 function App() {
   return (
@@ -80,6 +81,26 @@ function App() {
                 />
               }
             />
+          </Route>
+          <Route path="/templates">
+            <Route
+              index
+              element={
+                <Panes
+                  defaultMainPane={<Templates />}
+                  defaultDetailsPane={<NoDetails />}
+                />
+              }
+            />
+            {/* <Route
+              path=":template_title"
+              element={
+                <Panes
+                  defaultMainPane={<Templates />}
+                  defaultDetailsPane={<ResourceDetails />}
+                />
+              }
+            /> */}
           </Route>
           <Route path="/add">
             <Route

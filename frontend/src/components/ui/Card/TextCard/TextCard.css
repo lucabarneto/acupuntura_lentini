@@ -10,8 +10,9 @@
   text-align: center;
 }
 
-.text-card .icon {
-  font-size: 1.125rem;
+.text-card > .icon {
+  font-size: 2.5rem;
+  color: var(--clr-on-surface-variant);
 }
 
 .text-card p {

@@ -25,4 +25,5 @@ export type IconName =
   | "edit"
   | "select_window"
   | "extension"
+  | "info"
   | "chat";
