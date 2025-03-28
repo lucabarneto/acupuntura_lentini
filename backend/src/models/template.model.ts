@@ -16,13 +16,20 @@ const ResourceRefSchema = new mongoose.Schema(
 );
 
 const TemplateSchema = new mongoose.Schema<ITemplate, TemplateModel>({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
   title: {
     type: String,
     required: true,
   },
   description: String,
   resources: [ResourceRefSchema],
+});
+
+TemplateSchema.pre("find", function () {
+  this.populate("resources.resource");
 });
 
 export const TemplateModel = mongoose.model<ITemplate, TemplateModel>(

@@ -17,6 +17,8 @@ import { ChiefComplaintDetails } from "./pages/ChiefComplaintDetails";
 import { Resources } from "./pages/Resources";
 import { ResourceDetails } from "./pages/ResourceDetails";
 import { Templates } from "./pages/Templates";
+import { AddTemplate } from "./pages/AddTemplate";
+import { TemplateDetails } from "./pages/TemplateDetails";
 
 function App() {
   return (
@@ -92,15 +94,15 @@ function App() {
                 />
               }
             />
-            {/* <Route
+            <Route
               path=":template_title"
               element={
                 <Panes
                   defaultMainPane={<Templates />}
-                  defaultDetailsPane={<ResourceDetails />}
+                  defaultDetailsPane={<TemplateDetails />}
                 />
               }
-            /> */}
+            />
           </Route>
           <Route path="/add">
             <Route
@@ -145,6 +147,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   defaultDetailsPane={<AddChiefComplaint />}
+                />
+              }
+            />
+            <Route
+              path="template"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  defaultDetailsPane={<AddTemplate />}
                 />
               }
             />

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export abstract class API <T extends object, F extends object> {
+export abstract class API<T extends object, F extends object> {
   private url: string;
 
   constructor(url: string) {
@@ -19,19 +19,25 @@ export abstract class API <T extends object, F extends object> {
     }
   }
 
-  async addEntity(body: F): Promise<T | undefined> {
+  async addEntity(body: F, hasFiles: boolean = false): Promise<T | undefined> {
     try {
-      const res = await axios.post(this.url, body, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        }
-      })
+      let res;
+
+      if (hasFiles) {
+        res = await axios.post(this.url, body, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        res = await axios.post(this.url, body);
+      }
 
       if (res.data.status === "error") throw res.data;
 
-      return res.data.payload as T
+      return res.data.payload as T;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
@@ -41,9 +47,9 @@ export abstract class API <T extends object, F extends object> {
 
       if (res.data.status === "error") throw res.data;
 
-      return res.data.payload as T
+      return res.data.payload as T;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
@@ -53,7 +59,7 @@ export abstract class API <T extends object, F extends object> {
 
       if (res.data.status === "error") throw res.data;
 
-      return res.data.payload as object
+      return res.data.payload as object;
     } catch (err) {
       console.error(err);
     }

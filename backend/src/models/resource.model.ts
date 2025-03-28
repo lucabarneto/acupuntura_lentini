@@ -14,16 +14,13 @@ const ResourseSchema = new mongoose.Schema<IResource, ResourceModel>({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-    required: true,
-  },
+  description: String,
   image: {
     type: String,
     required: true,
     default: "",
   },
-  input_values: [String],
+  possible_values: [String],
 });
 
 export const ResourceModel = mongoose.model<IResource, ResourceModel>(

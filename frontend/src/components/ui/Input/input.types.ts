@@ -28,6 +28,7 @@ type TextInputTypes = "text" | "tel" | "email" | "date";
 
 export interface SelectInputType extends InputType<HTMLSelectElement> {
   options: SelectOptions[];
+  multiple?: true;
 }
 
 export interface SelectOptions {

@@ -58,15 +58,19 @@ export const useForm = <T extends { [key: string]: unknown }>(
     const { name, value } = e.target;
 
     if (depth === 0) {
-      setFields((prevFields) => {
-        return {
-          ...prevFields,
-          [name]:
-            isHTMLInputElement(e.target) && name === "profile_picture"
-              ? e.target.files![0]
-              : value,
-        };
-      });
+      if (name === "resources") {
+        handleCheckbox();
+      } else {
+        setFields((prevFields) => {
+          return {
+            ...prevFields,
+            [name]:
+              isHTMLInputElement(e.target) && name === "profile_picture"
+                ? e.target.files![0]
+                : value,
+          };
+        });
+      }
     } else {
       manageNestedFields(e.target, depth);
     }
@@ -143,6 +147,14 @@ export const useForm = <T extends { [key: string]: unknown }>(
     }
   };
 
+  const handleCheckbox = () => {
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(
+      "input[name='resources']:checked"
+    );
+    const selectedValues = Array.from(checkboxes).map((field) => field.value);
+    setFields({ ...fields, resources: selectedValues });
+  };
+
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
@@ -157,6 +169,11 @@ export const useForm = <T extends { [key: string]: unknown }>(
 
   return {
     form: { fields, errors, isSubmittable },
-    formMethods: { handleChange, handleBlur, handleSubmit, handleReset },
+    formMethods: {
+      handleChange,
+      handleBlur,
+      handleSubmit,
+      handleReset,
+    },
   };
 };

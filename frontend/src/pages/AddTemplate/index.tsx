@@ -1,62 +1,59 @@
 import { useEffect } from "react";
-import { Modal } from "../../components/ui/Modal";
-import { AddChiefComplaintForm } from "../../features/add/components/AddChiefComplaintForm";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { useAdd } from "../../features/add/hooks/useAdd";
-import { useChiefComplaint } from "../../features/chief_complaints/hooks/useChiefComplaint";
-import { IChiefComplaintForm } from "../../features/chief_complaints/types/chief_complaint.types";
-import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
-import "./AddChiefComplaint.css";
+import { Modal } from "../../components/ui/Modal";
+import { ITemplateForm } from "../../features/templates/types/template.types";
+import { useResource } from "../../features/resources/hooks/useResource";
+import { AddTemplateForm } from "../../features/add/components/AddTemplateForm";
+import { useTemplate } from "../../features/templates/hooks/useTemplate";
 
-const initialForm: IChiefComplaintForm = {
+const initialForm: ITemplateForm = {
   title: "",
-  diagnosis: "",
-  initial_medicine: "",
-  initial_sleep_condition: "",
-  patient: "",
+  description: "",
+  resources: [],
 };
 
-export const AddChiefComplaint = () => {
+export const AddTemplate = () => {
   const { mainNavigationData } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
     useAdd(initialForm);
   const { form } = formData;
-  const { patientSelectOptions } = usePatient();
-  const { addChiefComplaint } = useChiefComplaint();
+  const { allResources } = useResource();
+  const { addTemplate } = useTemplate();
 
-  const formId = "add-chief-complaint-form";
+  const formId = "add-template-form";
 
   useEffect(() => {
     if (form.isSubmittable) {
       console.log(form.fields);
-      addChiefComplaint(form.fields, (res) => {
+      addTemplate(form.fields, (res) => {
         console.log(res);
       });
     }
   }, [form.isSubmittable]);
 
   return (
-    <section className="add-chief-complaint-pane">
+    <section>
       <AddHeader
-        title="Añadir motivo de consulta"
-        closeEvent={confirmLeaveAddFlow}
+        title="Agregar plantilla"
         formId={formId}
+        closeEvent={confirmLeaveAddFlow}
       />
       <div className="add-content-container">
-        <AddChiefComplaintForm
-          formData={formData}
+        <AddTemplateForm
           formId={formId}
-          patientOptions={patientSelectOptions}
+          formData={formData}
+          resources={allResources}
         />
         <p className="required-fields-tip">
           Completa todos los <strong>campos requeridos</strong> (<b>*</b>) para
-          poder agregar a la persona paciente al sistema
+          poder agregar la plantilla al sistema
         </p>
       </div>
       <Modal
         ref={leaveAddFlowModal.modal}
-        title="Salir de añadir motivo de consulta"
+        title="Salir de añadir plantilla"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}

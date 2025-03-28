@@ -15,6 +15,7 @@ export type IconName =
   | "menu"
   | "search"
   | "desktop_windows"
+  | "back_hand"
   | "filter_alt"
   | "sort"
   | "radio_button_unchecked"

@@ -1,5 +1,5 @@
-import { ImageCard } from "../../components/ui/Card/ImageCard";
 import { TopAppBar } from "../../components/ui/TopAppBar";
+import { ResourceCard } from "../../features/resources/components/ResourceCard";
 import { useResource } from "../../features/resources/hooks/useResource";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import "./Resources.css";
@@ -13,11 +13,8 @@ export const Resources = () => {
       <TopAppBar pane="main" title="Recursos" />
       <div className="resources">
         {allResources.map((resource) => (
-          <ImageCard
-            key={resource._id}
-            image={resource.image}
-            title={resource.title}
-            alt="Recurso"
+          <ResourceCard
+            resource={resource}
             clickEvent={() =>
               appNavigate(`/resources/${resource.title.toLowerCase()}`, {
                 ...mainNavigationData,

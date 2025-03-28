@@ -30,7 +30,7 @@ export const getAllPatients = createAsyncThunk<
   "patients/getAllPatients",
   async () => {
     try {
-      const patients = await patientsAPI.getAllPatients();
+      const patients = await patientsAPI.getAllEntities();
       return patients as IPatient[];
     } catch (err) {
       console.log(err);
@@ -52,7 +52,7 @@ export const addPatient = createAsyncThunk(
   "patients/addPatient",
   async (body: IPatientForm) => {
     try {
-      const newPatient = await patientsAPI.addPatient(body);
+      const newPatient = await patientsAPI.addEntity(body, true);
       return newPatient as IPatient;
     } catch (err) {
       console.log(err);
@@ -64,7 +64,7 @@ export const updatePatient = createAsyncThunk(
   "patients/updatePatient",
   async (patient: IPatient) => {
     try {
-      const result = await patientsAPI.updatePatient(patient);
+      const result = await patientsAPI.updateEntity(patient._id, patient);
       return result as IPatient;
     } catch (err) {
       console.error(err);
@@ -76,7 +76,7 @@ export const deletePatient = createAsyncThunk(
   "patients/deletePatient",
   async (patientId: string) => {
     try {
-      const result = await patientsAPI.deletePatient(patientId);
+      const result = await patientsAPI.deleteEntity(patientId);
       return result;
     } catch (err) {
       console.error(err);

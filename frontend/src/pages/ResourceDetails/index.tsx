@@ -21,7 +21,7 @@ export const ResourceDetails = () => {
       <article>
         <h2>Valores aceptados</h2>
         <p>
-          <b>{resource.input_values.join(" - ")}</b>
+          <b>{resource.resource_values.join(" - ")}</b>
         </p>
       </article>
     </section>

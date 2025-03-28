@@ -11,21 +11,27 @@ export const SelectInput = (props: Props) => {
     options,
     title,
     required,
+    multiple,
     form,
     error,
     changeEvent,
     blurEvent,
   } = props;
 
+  const className = multiple
+    ? "field-input field-select multiple"
+    : "field-input field-select";
+
   return (
     <Field id={id} label={label} error={error}>
       <select
-        className="field-input field-select"
+        className={className}
         name={id}
         id={id}
         form={form}
         title={title}
         required={required ? true : false}
+        multiple={multiple ? true : false}
         onChange={changeEvent}
         onBlur={blurEvent}
         aria-invalid={error ? true : false}

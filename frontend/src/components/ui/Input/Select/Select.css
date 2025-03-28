@@ -13,3 +13,7 @@
 .field-select:hover ~ .field-label {
   color: var(--clr-on-surface);
 }
+
+.field-select.multiple {
+  height: min-content;
+}
