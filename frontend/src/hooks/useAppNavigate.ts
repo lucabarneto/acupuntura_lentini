@@ -1,37 +1,65 @@
 // import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { DetailsPanes, MainPanes } from "../types/navigation.types";
+import { AnyStringObject } from "../types/general.types";
 
 export type AppNavigateState = {
-  mainPane: string;
-  detailsPane?: string;
+  mainPane: MainPanes;
+  detailsPane: undefined | DetailsPanes;
 
-  /* extra navigation data */
+  /* extra navigation data, such as entity ids */
   [extra: string]: unknown;
 };
 
+type NavigationData = {
+  mainPane: MainPanes;
+  detailsPane: undefined | DetailsPanes;
+};
+
 export const useAppNavigate = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const navigationState = location.state;
 
   // useEffect(() => {
   //   console.log(location.state);
-  //   console.log("previous pathname: " + location.pathname);
   // }, [location]);
 
-  const pathname = location.pathname;
-  const navigationData = location.state;
-
-  const extractMainNavigationData = (): AppNavigateState => {
-    const mainNavigationData: Partial<AppNavigateState> = {};
-
-    for (const key in navigationData) {
-      if (key === "mainPane") mainNavigationData[key] = navigationData[key];
-    }
-
-    return mainNavigationData as AppNavigateState;
+  const navigationData: NavigationData = {
+    mainPane: navigationState?.mainPane,
+    detailsPane: navigationState?.detailsPane,
   };
 
-  const mainNavigationData = extractMainNavigationData();
+  const extractExtraData = (): AnyStringObject => {
+    const extraData: AnyStringObject = {};
+
+    for (const key in navigationState) {
+      if (key !== "mainPane" && key !== "detailsPane")
+        extraData[key] = navigationState[key];
+    }
+
+    return extraData;
+  };
+
+  const extraData = extractExtraData();
+
+  const setNavigationState = (
+    mainPane: MainPanes | "keep",
+    detailsPane?: DetailsPanes | "keep",
+    extra: AnyStringObject = {}
+  ): AppNavigateState => {
+    const newMainPane =
+      mainPane === "keep" ? navigationData.mainPane : mainPane;
+    const newDetailsPane =
+      detailsPane === "keep" ? navigationData.detailsPane : detailsPane;
+
+    const newNavigationState = {
+      mainPane: newMainPane,
+      detailsPane: newDetailsPane,
+      ...extra,
+    };
+    return newNavigationState;
+  };
 
   const appNavigate = (url: string, state: AppNavigateState): void => {
     navigate(url, { state });
@@ -39,9 +67,9 @@ export const useAppNavigate = () => {
 
   return {
     location,
-    pathname,
     navigationData,
-    mainNavigationData,
+    extraData,
     appNavigate,
+    setNavigationState,
   };
 };

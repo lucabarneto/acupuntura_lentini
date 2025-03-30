@@ -6,10 +6,12 @@ import { usePatient } from "../../features/patients/hooks/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const ChiefComplaintDetails = () => {
-  const { mainNavigationData, navigationData, appNavigate } = useAppNavigate();
-  const { patientId, chiefComplaintId } = navigationData;
-  const { patient, createPatientURLName } = usePatient(patientId);
+  const { extraData, appNavigate, setNavigationState } = useAppNavigate();
+  const { patientId, chiefComplaintId } = extraData;
+  const { patient, createURLName } = usePatient(patientId);
   const { chiefComplaint } = useChiefComplaint(chiefComplaintId);
+
+  const patientUrlName = createURLName(patient);
 
   return (
     patient &&
@@ -21,11 +23,10 @@ export const ChiefComplaintDetails = () => {
           navigation_back
           deleteEvent={() => {}}
           navigateBackEvent={() =>
-            appNavigate(`/patients/${createPatientURLName(patient)}`, {
-              ...mainNavigationData,
-              detailsPane: "patient",
-              patientId,
-            })
+            appNavigate(
+              `/patients/${patientUrlName}`,
+              setNavigationState("keep", "patient", { patientId })
+            )
           }
         />
         <article>

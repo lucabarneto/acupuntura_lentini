@@ -9,7 +9,7 @@ import { SearchViewPatient } from "../../features/patients/components/Search/Sea
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const Patients = () => {
-  const { mainNavigationData } = useAppNavigate();
+  const { setNavigationState } = useAppNavigate();
   const { allPatients, sortPatients } = usePatient();
   const { modal, toggleModal } = useModal("non-modal");
 
@@ -21,11 +21,9 @@ export const Patients = () => {
           <PatientListItem
             key={patient._id}
             patient={patient}
-            state={{
-              ...mainNavigationData,
-              detailsPane: "patient",
+            state={setNavigationState("keep", "patient", {
               patientId: patient._id,
-            }}
+            })}
           />
         )}
       />
@@ -49,11 +47,9 @@ export const Patients = () => {
           <PatientListItem
             key={patient._id}
             patient={patient}
-            state={{
-              ...mainNavigationData,
-              detailsPane: "patient",
+            state={setNavigationState("keep", "patient", {
               patientId: patient._id,
-            }}
+            })}
           />
         ))}
       </ul>

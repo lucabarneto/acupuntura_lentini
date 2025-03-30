@@ -7,8 +7,8 @@ import { TemplateListItem } from "../../features/templates/components/TemplateLi
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const Templates = () => {
-  const { allTemplates } = useTemplate();
-  const { mainNavigationData } = useAppNavigate();
+  const { allTemplates, createURLName } = useTemplate();
+  const { setNavigationState } = useAppNavigate();
 
   return (
     <section className="templates-pane">
@@ -26,8 +26,10 @@ export const Templates = () => {
               <TemplateListItem
                 key={template._id}
                 template={template}
-                link={`/templates/${template.title}`}
-                state={{ ...mainNavigationData, templateId: template._id }}
+                link={`/templates/${createURLName(template)}`}
+                state={setNavigationState("keep", "template", {
+                  templateId: template._id,
+                })}
               />
             ))}
           </ul>

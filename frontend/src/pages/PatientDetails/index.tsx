@@ -9,8 +9,8 @@ import { useAppNavigate } from "../../hooks/useAppNavigate";
 import { PatientChiefComplaints } from "../../features/chief_complaints/components/PatientChiefComplaints";
 
 export const PatientDetails = () => {
-  const { mainNavigationData, navigationData, appNavigate } = useAppNavigate();
-  const patientId = navigationData.patientId;
+  const { extraData, appNavigate, setNavigationState } = useAppNavigate();
+  const patientId = extraData.patientId;
   const { patient, deletePatient } = usePatient(patientId);
   const { modal, openModal, closeModal } = useModal("modal");
 
@@ -35,25 +35,32 @@ export const PatientDetails = () => {
         />
         <PatientChiefComplaints
           chiefComplaints={patient.chief_complaints}
-          addEvent={() => {}}
+          addEvent={() =>
+            appNavigate(
+              "/add/chiefcomplaint",
+              setNavigationState("keep", "addchiefcomplaint", { patientId })
+            )
+          }
         />
         <Birth
           birth={patient.birth}
           bazi_table={patient.bazi_table}
           addEvent={() =>
-            appNavigate("/add/bazitable", {
-              ...navigationData,
-              detailsPane: "addbazitable",
-            })
+            appNavigate(
+              "/add/bazitable",
+              setNavigationState("keep", "addbazitable", { patientId })
+            )
           }
         />
         <PresumptiveAnalysis
           presumptiveAnalysis={patient.presumptive_analysis}
           addEvent={() =>
-            appNavigate("/add/presumptiveanalysis", {
-              ...navigationData,
-              detailsPane: "addpresumptiveanalysis",
-            })
+            appNavigate(
+              "/add/presumptiveanalysis",
+              setNavigationState("keep", "addpresumptiveanalysis", {
+                patientId,
+              })
+            )
           }
         />
         <Modal
@@ -64,7 +71,7 @@ export const PatientDetails = () => {
           cancelEvent={closeModal}
           confirmEvent={() =>
             deletePatient(patientId, () =>
-              appNavigate("/patients", mainNavigationData)
+              appNavigate("/patients", setNavigationState("keep"))
             )
           }
         />

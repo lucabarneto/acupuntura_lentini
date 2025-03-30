@@ -1,5 +1,6 @@
 import { useAppNavigate } from "../../../hooks/useAppNavigate";
-import { Patients } from "../../../pages/Patients";
+import { MainPanes } from "../../../types/navigation.types";
+import { MainPaneSelector } from "../../../utils/paneSelectors";
 import "./MainPane.css";
 
 type Props = {
@@ -8,19 +9,15 @@ type Props = {
 
 export const MainPane = (props: Props) => {
   const { navigationData } = useAppNavigate();
-  const previousPane = navigationData?.mainPane;
+  const mainPane = navigationData?.mainPane;
 
-  const selectMainPaneContent = () => {
-    if (previousPane?.includes("/patients")) {
-      return <Patients />;
-    }
-
-    return props.defaultPane;
-  };
+  const selectMainPane = (pane: MainPanes): React.ReactNode =>
+    pane ? MainPaneSelector.choosePane(pane) : props.defaultPane;
+  const pane = selectMainPane(mainPane);
 
   return (
     <div id="main-pane" className="main-pane">
-      {selectMainPaneContent()}
+      {pane}
     </div>
   );
 };

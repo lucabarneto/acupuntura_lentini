@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../app/store";
 import { RootState } from "../../../app/store";
 import { useEffect } from "react";
 import { SelectOptions } from "../../../components/ui/Input/input.types.ts";
+import { IResource } from "../types/resource.types.ts";
 
 export const useResource = (id: string = "") => {
   const dispatch = useAppDispatch();
@@ -25,9 +26,13 @@ export const useResource = (id: string = "") => {
     }
   );
 
+  const createURLName = (resource: IResource) =>
+    `${resource.title.split(" ").join("_")}`;
+
   return {
     allResources,
     resource,
     ResourceSelectOptions,
+    createURLName,
   };
 };

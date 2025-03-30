@@ -11,25 +11,26 @@ type Props = {
 };
 export const PatientChiefComplaints = (props: Props) => {
   const { chiefComplaints, addEvent } = props;
-  const { navigationData } = useAppNavigate();
+  const { setNavigationState } = useAppNavigate();
 
   return (
     <article className="reference-list patient-chief-complaints">
       {chiefComplaints.length !== 0 ? (
         <ListDropdown heading="Motivos de consulta">
           <ul>
-            {chiefComplaints.map((refEntity) => (
-              <ChiefComplaintListItem
-                key={refEntity.chief_complaint._id}
-                chiefComplaint={refEntity.chief_complaint}
-                state={{
-                  ...navigationData,
-                  detailsPane: "chiefcomplaint",
-                  chiefComplaintId: refEntity.chief_complaint._id,
-                  patientId: refEntity.chief_complaint.patient,
-                }}
-              />
-            ))}
+            {chiefComplaints.map((refEntity) => {
+              const { chief_complaint } = refEntity;
+              return (
+                <ChiefComplaintListItem
+                  key={chief_complaint._id}
+                  chiefComplaint={chief_complaint}
+                  state={setNavigationState("keep", "chiefcomplaint", {
+                    patientId: chief_complaint.patient,
+                    chiefComplaintId: chief_complaint._id,
+                  })}
+                />
+              );
+            })}
           </ul>
         </ListDropdown>
       ) : (

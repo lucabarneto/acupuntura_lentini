@@ -48,23 +48,22 @@ export const AddBaziTable = () => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
     useAdd(initialForm);
   const { form } = formData;
-  const { navigationData, appNavigate } = useAppNavigate();
-  const patientId = navigationData.patientId;
-  const { patient, createPatientURLName, updatePatient } =
-    usePatient(patientId);
+  const { extraData, appNavigate, setNavigationState } = useAppNavigate();
+  const patientId = extraData.patientId;
+  const { patient, createURLName, updatePatient } = usePatient(patientId);
 
   const formId = "add-bazi-table-form";
-  const patientURLName = createPatientURLName(patient);
+  const patientURLName = createURLName(patient);
 
   useEffect(() => {
     if (form.isSubmittable) {
       const updatedPatient = { ...patient, bazi_table: form.fields };
 
       updatePatient(updatedPatient, () => {
-        appNavigate(`/patients/${patientURLName}`, {
-          ...navigationData,
-          detailsPane: "patient",
-        });
+        appNavigate(
+          `/patients/${patientURLName}`,
+          setNavigationState("keep", "patient", { patientId })
+        );
       });
     }
   }, [form.isSubmittable]);
@@ -90,10 +89,10 @@ export const AddBaziTable = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.state!, {
-            ...navigationData,
-            detailsPane: "patient",
-          })
+          leaveAddFlow(
+            leaveAddFlowModal.state!,
+            setNavigationState("keep", "patient", { patientId })
+          )
         }
       />
     </section>

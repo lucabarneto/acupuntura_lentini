@@ -4,8 +4,8 @@ import { useTemplate } from "../../features/templates/hooks/useTemplate";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const TemplateDetails = () => {
-  const { navigationData } = useAppNavigate();
-  const templateId = navigationData.templateId;
+  const { extraData } = useAppNavigate();
+  const templateId = extraData.templateId;
   const { template } = useTemplate(templateId);
 
   return (

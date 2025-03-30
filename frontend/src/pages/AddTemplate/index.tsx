@@ -15,20 +15,22 @@ const initialForm: ITemplateForm = {
 };
 
 export const AddTemplate = () => {
-  const { mainNavigationData } = useAppNavigate();
+  const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
     useAdd(initialForm);
   const { form } = formData;
   const { allResources } = useResource();
-  const { addTemplate } = useTemplate();
+  const { addTemplate, createURLName } = useTemplate();
 
   const formId = "add-template-form";
 
   useEffect(() => {
     if (form.isSubmittable) {
-      console.log(form.fields);
-      addTemplate(form.fields, (res) => {
-        console.log(res);
+      addTemplate(form.fields, (template) => {
+        leaveAddFlow(
+          `/templates/${createURLName(template)}`,
+          setNavigationState("keep", "patient", { templateId: template._id })
+        );
       });
     }
   }, [form.isSubmittable]);
@@ -58,7 +60,10 @@ export const AddTemplate = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.state!, mainNavigationData)
+          leaveAddFlow(
+            leaveAddFlowModal.state!,
+            setNavigationState("keep", "add")
+          )
         }
       />
     </section>

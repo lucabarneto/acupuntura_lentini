@@ -5,8 +5,8 @@ import { useAppNavigate } from "../../hooks/useAppNavigate";
 import "./Resources.css";
 
 export const Resources = () => {
-  const { appNavigate, mainNavigationData } = useAppNavigate();
-  const { allResources } = useResource();
+  const { appNavigate, setNavigationState } = useAppNavigate();
+  const { allResources, createURLName } = useResource();
 
   return (
     <section className="resources-pane">
@@ -16,11 +16,12 @@ export const Resources = () => {
           <ResourceCard
             resource={resource}
             clickEvent={() =>
-              appNavigate(`/resources/${resource.title.toLowerCase()}`, {
-                ...mainNavigationData,
-                detailsPane: "resource",
-                resourceId: resource._id,
-              })
+              appNavigate(
+                `/resources/${createURLName(resource)}`,
+                setNavigationState("keep", "resource", {
+                  resourceId: resource._id,
+                })
+              )
             }
           />
         ))}

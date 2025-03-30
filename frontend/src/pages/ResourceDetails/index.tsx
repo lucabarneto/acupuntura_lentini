@@ -4,8 +4,8 @@ import { useResource } from "../../features/resources/hooks/useResource";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const ResourceDetails = () => {
-  const { navigationData } = useAppNavigate();
-  const resourceId = navigationData.resourceId;
+  const { extraData } = useAppNavigate();
+  const resourceId = extraData.resourceId;
   const { resource } = useResource(resourceId);
 
   return (

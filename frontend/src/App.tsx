@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { Panes } from "./components/panes/Panes";
+import { Panes } from "./components/panes";
 import { NavigationPane } from "./components/panes/NavigationPane";
 import { Home } from "./pages/Home";
 import { Patients } from "./pages/Patients";

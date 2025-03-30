@@ -4,7 +4,7 @@ import { SegmentedButton } from "../../components/ui/SegmentedButton";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const Add = () => {
-  const { navigationData } = useAppNavigate();
+  const { setNavigationState } = useAppNavigate();
 
   return (
     <section className="add-pane">
@@ -17,7 +17,7 @@ export const Add = () => {
       <div className="add-options">
         <SegmentedButton
           id="patient"
-          state={{ ...navigationData, detailsPane: "addpatient" }}
+          state={setNavigationState("keep", "addpatient")}
           label="Paciente"
           position="left"
           link="/add/patient"
@@ -25,7 +25,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="chief_complaint"
-          state={{ ...navigationData, detailsPane: "addchiefcomplaint" }}
+          state={setNavigationState("keep", "addchiefcomplaint")}
           label="Motivo de consulta"
           position="middle"
           link="/add/chiefcomplaint"
@@ -33,7 +33,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="consultation"
-          state={navigationData}
+          state={setNavigationState("keep", "addconsultation")}
           label="Sesión"
           position="middle"
           link="/add/consultation"
@@ -41,7 +41,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="appointment"
-          state={navigationData}
+          state={setNavigationState("keep", "addappointment")}
           label="Turno"
           position="middle"
           link="/add/appointment"
@@ -49,7 +49,7 @@ export const Add = () => {
         />
         <SegmentedButton
           id="template"
-          state={{ ...navigationData, detailsPane: "addtemplate" }}
+          state={setNavigationState("keep", "addtemplate")}
           label="Plantilla"
           position="right"
           link="/add/template"

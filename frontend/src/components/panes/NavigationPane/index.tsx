@@ -8,7 +8,7 @@ import { Menu } from "./Menu";
 import { ListItem } from "../../ui/ListItem";
 
 export const NavigationPane = () => {
-  const { navigationData, mainNavigationData } = useAppNavigate();
+  const { extraData, setNavigationState } = useAppNavigate();
   const { modal, modalControlButton, openModal, closeModal } =
     useModal("non-modal");
 
@@ -21,32 +21,36 @@ export const NavigationPane = () => {
           ref={modalControlButton!}
           clickEvent={() => openModal()}
         />
-        <FAB state={{ ...mainNavigationData, detailsPane: "add" }} />
+        <FAB state={setNavigationState("keep", "add")} />
       </div>
       <nav className="navigation-item-container">
         <NavigationItem
+          id="home"
           icon="home"
           label="inicio"
           href="/"
-          state={{ ...navigationData, mainPane: "/" }}
+          state={setNavigationState("home", "keep", extraData)}
         />
         <NavigationItem
+          id="patients"
           icon="groups"
           label="pacientes"
           href="/patients"
-          state={{ ...navigationData, mainPane: "patients" }}
+          state={setNavigationState("patients", "keep", extraData)}
         />
         <NavigationItem
+          id="appointments"
           icon="calendar_month"
           label="turnos"
           href="/appointments"
-          state={{ ...navigationData, mainPane: "/appointments" }}
+          state={setNavigationState("appointments", "keep", extraData)}
         />
         <NavigationItem
+          id="reports"
           icon="lab_profile"
           label="reportes"
           href="/reports"
-          state={{ ...navigationData, mainPane: "/reports" }}
+          state={setNavigationState("reports", "keep", extraData)}
         />
       </nav>
       <Menu ref={modal} clickEvent={() => closeModal()}>
@@ -55,7 +59,7 @@ export const NavigationPane = () => {
           icon="extension"
           title="Recursos"
           link="/resources"
-          state={{ ...navigationData, mainPane: "resources" }}
+          state={setNavigationState("resources", "keep", extraData)}
           dataAttributes={{ role: "menuitem" }}
         />
         <ListItem
@@ -63,7 +67,7 @@ export const NavigationPane = () => {
           icon="select_window"
           title="Plantillas"
           link="/templates"
-          state={{ ...navigationData, mainPane: "templates" }}
+          state={setNavigationState("templates", "keep", extraData)}
           dataAttributes={{ role: "menuitem" }}
         />
       </Menu>

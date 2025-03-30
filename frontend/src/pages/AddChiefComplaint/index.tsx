@@ -18,20 +18,25 @@ const initialForm: IChiefComplaintForm = {
 };
 
 export const AddChiefComplaint = () => {
-  const { mainNavigationData } = useAppNavigate();
+  const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
     useAdd(initialForm);
   const { form } = formData;
   const { patientSelectOptions } = usePatient();
-  const { addChiefComplaint } = useChiefComplaint();
+  const { addChiefComplaint, createURLName } = useChiefComplaint();
 
   const formId = "add-chief-complaint-form";
 
   useEffect(() => {
     if (form.isSubmittable) {
-      console.log(form.fields);
-      addChiefComplaint(form.fields, (res) => {
-        console.log(res);
+      addChiefComplaint(form.fields, (chiefComplaint) => {
+        leaveAddFlow(
+          `/chiefcomplaints/${createURLName(chiefComplaint)}`,
+          setNavigationState("keep", "chiefcomplaint", {
+            chiefComplaintId: chiefComplaint._id,
+            patientId: form.fields.patient,
+          })
+        );
       });
     }
   }, [form.isSubmittable]);
@@ -61,7 +66,10 @@ export const AddChiefComplaint = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.state!, mainNavigationData)
+          leaveAddFlow(
+            leaveAddFlowModal.state!,
+            setNavigationState("keep", "add")
+          )
         }
       />
     </section>

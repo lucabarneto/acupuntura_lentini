@@ -23,8 +23,8 @@ export const useAdd = <T extends { [key: string]: unknown }>(
   const confirmLeaveAddFlow = (e: React.MouseEvent, link?: string) => {
     e.preventDefault();
     const target = e.target as Element;
-    const valueToAssociate = link || `/add/${target.id}`;
-    leaveAddFlowModal.openModal(valueToAssociate);
+    const extra = link || `/add/${target.id}`;
+    leaveAddFlowModal.openModal(extra);
   };
 
   return {

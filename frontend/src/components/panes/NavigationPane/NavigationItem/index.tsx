@@ -8,6 +8,7 @@ import {
 } from "../../../../hooks/useAppNavigate";
 
 type Props = {
+  id: string;
   href: string;
   state: AppNavigateState;
   label: string;
@@ -15,17 +16,17 @@ type Props = {
 };
 
 export const NavigationItem = (props: Props) => {
-  const { label, state, icon, href } = props;
+  const { id, label, state, icon, href } = props;
 
-  const { mainNavigationData } = useAppNavigate();
+  const { navigationData } = useAppNavigate();
 
   const className = () =>
-    href === mainNavigationData.mainPane
+    id === navigationData.mainPane
       ? "navigation-item selected"
       : "navigation-item";
 
   return (
-    <div>
+    <div id={id}>
       <NavLink className={className} to={href} state={state}>
         <div className="icon-container">
           <Icon icon={icon} />

@@ -2,10 +2,7 @@ import "./AddPatient.css";
 import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { AddPatientForm } from "../../features/add/components/AddPatientForm";
-import {
-  IPatient,
-  IPatientForm,
-} from "../../features/patients/types/patient.types";
+import { IPatientForm } from "../../features/patients/types/patient.types";
 import { useAdd } from "../../features/add/hooks/useAdd";
 import { useEffect } from "react";
 import { usePatient } from "../../features/patients/hooks/usePatient";
@@ -27,22 +24,19 @@ const initialForm: IPatientForm = {
 };
 
 export const AddPatient = () => {
-  const { addPatient } = usePatient();
+  const { addPatient, createURLName } = usePatient();
   const { formData, leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } =
     useAdd(initialForm);
   const { form } = formData;
-  const { mainNavigationData } = useAppNavigate();
-
-  const patientURLName = (patient: IPatient) =>
-    `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
+  const { setNavigationState } = useAppNavigate();
 
   useEffect(() => {
     if (form.isSubmittable)
       addPatient(form.fields, (patient) => {
-        leaveAddFlow(`/patients/${patientURLName(patient)}`, {
-          ...mainNavigationData,
-          patientId: patient._id,
-        });
+        leaveAddFlow(
+          `/patients/${createURLName(patient)}`,
+          setNavigationState("keep", "patient", { patientId: patient._id })
+        );
       });
   }, [form.isSubmittable]);
 
@@ -67,7 +61,10 @@ export const AddPatient = () => {
         buttonConfirmLabel="Salir"
         cancelEvent={leaveAddFlowModal.closeModal}
         confirmEvent={() =>
-          leaveAddFlow(leaveAddFlowModal.state!, mainNavigationData)
+          leaveAddFlow(
+            leaveAddFlowModal.state!,
+            setNavigationState("keep", "add")
+          )
         }
       />
     </section>
