@@ -1,6 +1,6 @@
 import "./ResourceDetails.css";
 import { TopAppBar } from "../../components/ui/TopAppBar";
-import { useResource } from "../../features/resources/hooks/useResource";
+import { useResource } from "../../features/resources/useResource";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const ResourceDetails = () => {

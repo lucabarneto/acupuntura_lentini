@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as slice from "../slices/templatesSlice";
+import * as slice from "./templatesSlice.ts";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../app/store";
-import { RootState } from "../../../app/store";
+import { useAppDispatch } from "../../app/store.ts";
+import { RootState } from "../../app/store.ts";
 import { useEffect } from "react";
-import { SelectOptions } from "../../../components/ui/Input/input.types.ts";
-import { ITemplate, ITemplateForm } from "../types/template.types.ts";
+import { SelectOptions } from "../../components/ui/Input/input.types.ts";
+import { ITemplate, ITemplateForm } from "./types/template.types.ts";
 
 type DispatchCallback = (arg: any) => void;
 

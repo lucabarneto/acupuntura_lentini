@@ -6,7 +6,9 @@ export type ITemplate = {
   description: string;
   resources: ResourceRef[];
 };
+
 export type ITemplateNoId = Omit<ITemplate, "_id">;
+
 type ResourceRef = {
   resource: IResource;
 };
@@ -15,4 +17,10 @@ export type ITemplateForm = {
   title: string;
   description: string;
   resources: string[];
+};
+
+export type ITemplateDTO = {
+  title: string;
+  description: string;
+  resources: { resource: string }[];
 };

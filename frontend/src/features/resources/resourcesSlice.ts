@@ -1,6 +1,6 @@
-import { RootState } from "../../../app/store";
-import { IResource } from "../types/resource.types";
-import { resourcesAPI } from "../services/resourcesAPI";
+import { RootState } from "../../app/store";
+import { IResource } from "./types/resource.types";
+import { resourcesAPI } from "./resourcesAPI";
 import {
   createSlice,
   createAsyncThunk,

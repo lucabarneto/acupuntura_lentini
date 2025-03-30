@@ -1,8 +1,8 @@
 import "./ChiefComplaintDetails.css";
 import { Button } from "../../components/ui/Button";
 import { TopAppBar } from "../../components/ui/TopAppBar";
-import { useChiefComplaint } from "../../features/chief_complaints/hooks/useChiefComplaint";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { useChiefComplaint } from "../../features/chief_complaints/useChiefComplaint";
+import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const ChiefComplaintDetails = () => {

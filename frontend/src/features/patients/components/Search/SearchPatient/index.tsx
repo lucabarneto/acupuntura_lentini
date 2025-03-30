@@ -1,6 +1,6 @@
 import { SearchViewType } from "../../../../search/types/search.types";
 import { IPatient } from "../../../types/patient.types";
-import { useSearch } from "../../../../search/hooks/useSearch";
+import { useSearch } from "../../../../search/useSearch";
 import { SearchForm } from "../../../../search/components/SearchForm";
 import { SearchBar } from "../../../../search/components/SearchBar";
 import { SearchNoQuery } from "../SearchNoQuery";

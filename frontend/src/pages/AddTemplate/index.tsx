@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { AddHeader } from "../../features/add/components/AddHeader";
-import { useAdd } from "../../features/add/hooks/useAdd";
+import { useAdd } from "../../features/add/useAdd";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import { Modal } from "../../components/ui/Modal";
 import { ITemplateForm } from "../../features/templates/types/template.types";
-import { useResource } from "../../features/resources/hooks/useResource";
+import { useResource } from "../../features/resources/useResource";
 import { AddTemplateForm } from "../../features/add/components/AddTemplateForm";
-import { useTemplate } from "../../features/templates/hooks/useTemplate";
+import { useTemplate } from "../../features/templates/useTemplate";
 
 const initialForm: ITemplateForm = {
   title: "",

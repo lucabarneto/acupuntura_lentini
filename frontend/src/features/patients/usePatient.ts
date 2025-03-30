@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../../app/store";
-import * as slice from "../slices/patientsSlice";
+import { RootState, useAppDispatch } from "../../app/store";
+import * as slice from "./patientsSlice";
 import { useEffect } from "react";
-import { IPatient, IPatientForm } from "../types/patient.types";
-import { SelectOptions } from "../../../components/ui/Input/input.types";
+import { IPatient, IPatientForm } from "./types/patient.types";
+import { SelectOptions } from "../../components/ui/Input/input.types";
 
 type DispatchCallback = (arg: any) => void;
 

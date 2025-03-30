@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { patientsReducer } from "../features/patients/slices/patientsSlice";
-import { chiefComplaintsReducer } from "../features/chief_complaints/slices/chief_complaint.slice";
+import { patientsReducer } from "../features/patients/patientsSlice";
+import { chiefComplaintsReducer } from "../features/chief_complaints/chiefComplaintsSlice";
 import { useDispatch } from "react-redux";
-import { resourcesReducer } from "../features/resources/slices/resourcesSlice";
-import { templatesReducer } from "../features/templates/slices/templatesSlice";
+import { resourcesReducer } from "../features/resources/resourcesSlice";
+import { templatesReducer } from "../features/templates/templatesSlice";
 
 export const store = configureStore({
   reducer: {

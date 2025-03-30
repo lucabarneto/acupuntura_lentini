@@ -1,7 +1,7 @@
-import { ITemplateNoId, ITemplateForm } from "../types/template.types";
+import { ITemplateDTO, ITemplateForm } from "./types/template.types";
 
 export class TemplateDTO {
-  static adapt(template: ITemplateForm): ITemplateNoId {
+  static adapt(template: ITemplateForm): ITemplateDTO {
     const resources = template.resources.map((resource) => {
       return { resource };
     });

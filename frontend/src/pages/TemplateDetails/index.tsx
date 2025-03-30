@@ -1,6 +1,6 @@
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { ResourceCard } from "../../features/resources/components/ResourceCard";
-import { useTemplate } from "../../features/templates/hooks/useTemplate";
+import { useTemplate } from "../../features/templates/useTemplate";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const TemplateDetails = () => {

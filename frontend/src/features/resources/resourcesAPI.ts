@@ -1,5 +1,5 @@
-import { IResource, IResourceForm } from "../types/resource.types";
-import { API } from "../../../app/api";
+import { IResource, IResourceForm } from "./types/resource.types";
+import { API } from "../../app/api";
 
 const URL = "http://localhost:8080/api/resources";
 

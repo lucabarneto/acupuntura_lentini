@@ -1,6 +1,6 @@
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { ResourceCard } from "../../features/resources/components/ResourceCard";
-import { useResource } from "../../features/resources/hooks/useResource";
+import { useResource } from "../../features/resources/useResource";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import "./Resources.css";
 

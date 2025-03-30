@@ -1,5 +1,5 @@
-import { IPatient, IPatientForm } from "../types/patient.types";
-import { API } from "../../../app/api";
+import { IPatient, IPatientForm } from "./types/patient.types";
+import { API } from "../../app/api";
 
 const URL = "http://localhost:8080/api/patients";
 

@@ -1,5 +1,5 @@
 import "./Patients.css";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { useModal } from "../../hooks/useModal";
 import { Button } from "../../components/ui/Button";
 import { SelectionModal } from "../../components/ui/SelectionModal";

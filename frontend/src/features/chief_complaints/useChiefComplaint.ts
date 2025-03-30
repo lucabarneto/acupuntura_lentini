@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../../app/store";
-import * as slice from "../slices/chief_complaint.slice";
+import { RootState, useAppDispatch } from "../../app/store";
+import * as slice from "./chiefComplaintsSlice";
 import { useEffect } from "react";
 import {
   IChiefComplaintForm,
   IChiefComplaint,
-} from "../types/chief_complaint.types";
-import { SelectOptions } from "../../../components/ui/Input/input.types";
+} from "./types/chief_complaint.types";
+import { SelectOptions } from "../../components/ui/Input/input.types";
 
 type DispatchCallback = (arg: any) => void;
 

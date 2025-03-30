@@ -3,9 +3,9 @@ import { AddHeader } from "../../features/add/components/AddHeader";
 import { Modal } from "../../components/ui/Modal";
 import { AddPatientForm } from "../../features/add/components/AddPatientForm";
 import { IPatientForm } from "../../features/patients/types/patient.types";
-import { useAdd } from "../../features/add/hooks/useAdd";
+import { useAdd } from "../../features/add/useAdd";
 import { useEffect } from "react";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 
 const initialForm: IPatientForm = {

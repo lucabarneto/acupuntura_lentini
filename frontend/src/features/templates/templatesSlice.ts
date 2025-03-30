@@ -1,11 +1,11 @@
-import { RootState } from "../../../app/store";
+import { RootState } from "../../app/store";
 import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import { ITemplate, ITemplateForm } from "../types/template.types";
-import { templatesAPI } from "../services/templatesAPI";
+import { ITemplate, ITemplateForm } from "./types/template.types";
+import { templatesAPI } from "./templatesAPI";
 import { TemplateDTO } from "./templateDTO";
 
 const templatesAdapter = createEntityAdapter({
@@ -53,8 +53,6 @@ export const addTemplate = createAsyncThunk(
   async (body: ITemplateForm) => {
     try {
       const template = TemplateDTO.adapt(body);
-      console.log("template");
-      console.log(template);
       const newChiefComplaint = await templatesAPI.addEntity(template);
       return newChiefComplaint;
     } catch (err) {

@@ -1,9 +1,9 @@
 import "./AddBaziTable.css";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
-import { useAdd } from "../../features/add/hooks/useAdd";
+import { useAdd } from "../../features/add/useAdd";
 import { useEffect } from "react";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { PatientDetailsPreview } from "../../features/patients/components/PatientDetailsPreview";
 import { AddBaziTableForm } from "../../features/add/components/AddBaziTableForm";
 import { BaziTableType } from "../../features/patients/types/bazi_table.types";

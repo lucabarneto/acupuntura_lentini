@@ -1,7 +1,7 @@
 import "./Templates.css";
 import { TextCard } from "../../components/ui/Card/TextCard";
 import { TopAppBar } from "../../components/ui/TopAppBar";
-import { useTemplate } from "../../features/templates/hooks/useTemplate";
+import { useTemplate } from "../../features/templates/useTemplate";
 import { NoTemplates } from "../../features/templates/components/NoTemplates";
 import { TemplateListItem } from "../../features/templates/components/TemplateListItem";
 import { useAppNavigate } from "../../hooks/useAppNavigate";

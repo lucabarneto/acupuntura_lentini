@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import * as slice from "../slices/resourcesSlice.ts";
-import { useAppDispatch } from "../../../app/store";
-import { RootState } from "../../../app/store";
+import * as slice from "./resourcesSlice.ts";
+import { useAppDispatch } from "../../app/store.ts";
+import { RootState } from "../../app/store.ts";
 import { useEffect } from "react";
-import { SelectOptions } from "../../../components/ui/Input/input.types.ts";
-import { IResource } from "../types/resource.types.ts";
+import { SelectOptions } from "../../components/ui/Input/input.types.ts";
+import { IResource } from "./types/resource.types.ts";
 
 export const useResource = (id: string = "") => {
   const dispatch = useAppDispatch();

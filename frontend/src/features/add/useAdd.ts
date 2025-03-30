@@ -1,10 +1,7 @@
-import { useModal } from "../../../hooks/useModal";
-import { useProgressBar } from "../../../hooks/useProgressBar";
-import { useForm } from "../../../hooks/useForm";
-import {
-  AppNavigateState,
-  useAppNavigate,
-} from "../../../hooks/useAppNavigate";
+import { useModal } from "../../hooks/useModal";
+import { useProgressBar } from "../../hooks/useProgressBar";
+import { useForm } from "../../hooks/useForm";
+import { AppNavigateState, useAppNavigate } from "../../hooks/useAppNavigate";
 
 export const useAdd = <T extends { [key: string]: unknown }>(
   initialForm: T,

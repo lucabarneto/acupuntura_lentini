@@ -1,9 +1,9 @@
 import "./AddPresumptiveAnalysis.css";
 import { Modal } from "../../components/ui/Modal";
 import { AddHeader } from "../../features/add/components/AddHeader";
-import { useAdd } from "../../features/add/hooks/useAdd";
+import { useAdd } from "../../features/add/useAdd";
 import { PatientDetailsPreview } from "../../features/patients/components/PatientDetailsPreview";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { useEffect } from "react";
 import { PresumptiveAnalysisType } from "../../features/patients/types/presumptive_analysis.types";
 import { AddPresumptiveAnalysisForm } from "../../features/add/components/AddPresumptiveAnalysisForm";
@@ -27,8 +27,7 @@ export const AddPresumptiveAnalysis = () => {
   const { form } = formData;
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
-  const { patient, updatePatient, createURLName } =
-    usePatient(patientId);
+  const { patient, updatePatient, createURLName } = usePatient(patientId);
 
   const formId = "add-presumptive-analysis-form";
   const patientURLName = createURLName(patient);

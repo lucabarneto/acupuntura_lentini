@@ -3,7 +3,7 @@ import { TopAppBar } from "../../components/ui/TopAppBar";
 import { Birth } from "../../features/patients/components/Birth";
 import { Modal } from "../../components/ui/Modal";
 import { useModal } from "../../hooks/useModal";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { PresumptiveAnalysis } from "../../features/patients/components/PresumptiveAnalysis";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import { PatientChiefComplaints } from "../../features/chief_complaints/components/PatientChiefComplaints";
@@ -38,7 +38,7 @@ export const PatientDetails = () => {
           addEvent={() =>
             appNavigate(
               "/add/chiefcomplaint",
-              setNavigationState("keep", "addchiefcomplaint", { patientId })
+              setNavigationState("keep", "addchiefcomplaint")
             )
           }
         />

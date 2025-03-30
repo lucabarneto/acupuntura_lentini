@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Modal } from "../../components/ui/Modal";
 import { AddChiefComplaintForm } from "../../features/add/components/AddChiefComplaintForm";
 import { AddHeader } from "../../features/add/components/AddHeader";
-import { useAdd } from "../../features/add/hooks/useAdd";
-import { useChiefComplaint } from "../../features/chief_complaints/hooks/useChiefComplaint";
+import { useAdd } from "../../features/add/useAdd";
+import { useChiefComplaint } from "../../features/chief_complaints/useChiefComplaint";
 import { IChiefComplaintForm } from "../../features/chief_complaints/types/chief_complaint.types";
-import { usePatient } from "../../features/patients/hooks/usePatient";
+import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import "./AddChiefComplaint.css";
 
