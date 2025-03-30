@@ -1,4 +1,4 @@
-import { IResource } from "../../resources/types/resource.types";
+import { ResourceRef } from "../../resources/types/resource.types";
 
 export type ITemplate = {
   _id: string;
@@ -8,10 +8,6 @@ export type ITemplate = {
 };
 
 export type ITemplateNoId = Omit<ITemplate, "_id">;
-
-type ResourceRef = {
-  resource: IResource;
-};
 
 export type ITemplateForm = {
   title: string;

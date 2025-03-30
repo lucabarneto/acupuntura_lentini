@@ -4,6 +4,7 @@ import { chiefComplaintsReducer } from "../features/chief_complaints/chiefCompla
 import { useDispatch } from "react-redux";
 import { resourcesReducer } from "../features/resources/resourcesSlice";
 import { templatesReducer } from "../features/templates/templatesSlice";
+import { consultationsReducer } from "../features/consultations/consultationsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     chief_complaints: chiefComplaintsReducer,
     resources: resourcesReducer,
     templates: templatesReducer,
+    consultations: consultationsReducer
   },
 });
 

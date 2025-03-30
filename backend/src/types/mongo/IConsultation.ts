@@ -7,7 +7,7 @@ export const IConsultation = z.object({
   date: z.string().date(),
   treatment: z.string(),
   evolution: z.string(),
-  patient_tongue: z.string().default(""),
+  patient_tongue_image: z.string().default(""),
   chief_complaint: z.string().transform((val, ctx) => {
     if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({

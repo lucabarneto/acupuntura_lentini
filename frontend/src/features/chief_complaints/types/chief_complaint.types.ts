@@ -11,3 +11,7 @@ export type IChiefComplaint = {
 export type IChiefComplaintNoId = Omit<IChiefComplaint, "_id">;
 
 export type IChiefComplaintForm = Omit<IChiefComplaintNoId, "state">;
+
+export interface ChiefComplaintRef {
+  chief_complaint: IChiefComplaint;
+}

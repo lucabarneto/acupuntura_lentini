@@ -1,7 +1,7 @@
 import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { ListDropdown } from "../../../../components/ui/ListDropdown";
 import { useAppNavigate } from "../../../../hooks/useAppNavigate";
-import { ChiefComplaintRef } from "../../../patients/types/patient.types";
+import { ChiefComplaintRef } from "../../types/chief_complaint.types";
 import { ChiefComplaintListItem } from "../ChiefComplaintListItem";
 import "./PatientChiefComplaints.css";
 

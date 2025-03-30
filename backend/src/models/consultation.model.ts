@@ -40,7 +40,7 @@ const ConsultationSchema = new mongoose.Schema<
     type: String,
     required: true,
   },
-  patient_tongue: { type: String, default: "" },
+  patient_tongue_image: { type: String, default: "" },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,
     ref: "chief_complaints",
