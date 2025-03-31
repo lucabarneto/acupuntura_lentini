@@ -3,4 +3,5 @@ export interface FieldType {
   label: string;
   error: string | undefined;
   children: React.ReactNode;
+  disabled?: true;
 }

@@ -10,7 +10,7 @@ import { IConsultationForm } from "./types/consultation.types.ts";
 
 type DispatchCallback = (arg: any) => void;
 
-export const useTemplate = (id: string = "") => {
+export const useConsultation = (id: string = "") => {
   const dispatch = useAppDispatch();
   const allConsulations = useSelector(slice.selectAll);
   const consultation = useSelector((state: RootState) =>
@@ -21,7 +21,7 @@ export const useTemplate = (id: string = "") => {
     dispatch(slice.getAllConsultations());
   }, [dispatch]);
 
-  const TemplateSelectOptions: SelectOptions[] = allConsulations.map(
+  const consultationSelectOptions: SelectOptions[] = allConsulations.map(
     (consultations) => {
       return {
         label: `Sesión del ${consultation.date}`,
@@ -30,13 +30,15 @@ export const useTemplate = (id: string = "") => {
     }
   );
 
-  const addTemplate = (body: IConsultationForm, callback?: DispatchCallback) =>
-    dispatch(slice.addConsultation(body)).unwrap().then(callback);
+  const addConsultation = (
+    body: IConsultationForm,
+    callback?: DispatchCallback
+  ) => dispatch(slice.addConsultation(body)).unwrap().then(callback);
 
   return {
     allConsulations,
     consultation,
-    TemplateSelectOptions,
-    addTemplate,
+    consultationSelectOptions,
+    addConsultation,
   };
 };

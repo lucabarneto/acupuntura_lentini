@@ -4,6 +4,7 @@ import { TopAppBar } from "../../components/ui/TopAppBar";
 import { useChiefComplaint } from "../../features/chief_complaints/useChiefComplaint";
 import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
+import { ChiefComplaintConsultations } from "../../features/consultations/components/ChiefComplaintConsultations";
 
 export const ChiefComplaintDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
@@ -44,6 +45,15 @@ export const ChiefComplaintDetails = () => {
             </p>
           </div>
         </article>
+        <ChiefComplaintConsultations
+          consultations={chiefComplaint.consultations}
+          addEvent={() =>
+            appNavigate(
+              "/add/consultation",
+              setNavigationState("keep", "addconsultation")
+            )
+          }
+        />
         {/* <Modal
           ref={modal}
           title="Eliminar motivo de consulta"

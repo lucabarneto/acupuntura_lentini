@@ -8,6 +8,7 @@ interface UIInputTypes {
   required?: true;
   title?: string;
   placeholder?: string;
+  disabled?: true;
 }
 
 interface FormInputTypes<HTMLInput> {

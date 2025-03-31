@@ -11,6 +11,7 @@ export const DateInput = (props: Props) => {
     title,
     form,
     value,
+    disabled,
     group,
     error,
     changeEvent,
@@ -18,7 +19,7 @@ export const DateInput = (props: Props) => {
   } = props;
 
   return (
-    <Field id={id} label={label} error={error}>
+    <Field id={id} label={label} error={error} disabled={disabled}>
       <input
         className="field-input field-date"
         type="date"

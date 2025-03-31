@@ -23,14 +23,24 @@ export const useChiefComplaint = (id: string = "") => {
     dispatch(slice.getAllChiefComplaints());
   }, [dispatch]);
 
-  const chiefComplaintSelectOptions: SelectOptions[] = allChiefComplaints.map(
-    (chiefComplaint) => {
-      return {
-        label: chiefComplaint.title,
-        value: chiefComplaint._id,
-      };
+  const getChiefComplaintSelectOptions = (
+    patient?: string
+  ): SelectOptions[] => {
+    let selectOptions;
+
+    if (patient) {
+      const filteredOptions = allChiefComplaints.filter(chiefComplaint => chiefComplaint.patient === patient)
+      selectOptions = filteredOptions.map(mapSelectOptions);
+    } else {
+      selectOptions = allChiefComplaints.map(mapSelectOptions);
     }
-  );
+
+    return selectOptions;
+  };
+
+  const mapSelectOptions = (chiefComplaint: IChiefComplaint) => {
+    return { label: chiefComplaint.title, value: chiefComplaint._id };
+  };
 
   const addChiefComplaint = (
     body: IChiefComplaintForm,
@@ -43,8 +53,8 @@ export const useChiefComplaint = (id: string = "") => {
   return {
     allChiefComplaints,
     chiefComplaint,
-    chiefComplaintSelectOptions,
     addChiefComplaint,
+    getChiefComplaintSelectOptions,
     createURLName,
   };
 };

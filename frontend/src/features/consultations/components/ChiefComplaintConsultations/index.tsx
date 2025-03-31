@@ -1,31 +1,32 @@
 import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { ListDropdown } from "../../../../components/ui/ListDropdown";
 import { useAppNavigate } from "../../../../hooks/useAppNavigate";
-import { ChiefComplaintRef } from "../../types/chief_complaint.types";
-import { ChiefComplaintListItem } from "../ChiefComplaintListItem";
+import { ConsultationRef } from "../../types/consultation.types";
+import { ConsultationListItem } from "../ConsultationListItem";
 
 type Props = {
-  chiefComplaints: ChiefComplaintRef[];
+  consultations: ConsultationRef[];
   addEvent: () => void;
 };
-export const PatientChiefComplaints = (props: Props) => {
-  const { chiefComplaints, addEvent } = props;
+
+export const ChiefComplaintConsultations = (props: Props) => {
+  const { consultations, addEvent } = props;
   const { setNavigationState } = useAppNavigate();
 
   return (
     <article className="reference-list patient-chief-complaints">
-      {chiefComplaints.length !== 0 ? (
+      {consultations.length !== 0 ? (
         <ListDropdown heading="Motivos de consulta">
           <ul>
-            {chiefComplaints.map((refEntity) => {
-              const { chief_complaint } = refEntity;
+            {consultations.map((refEntity) => {
+              const { consultation } = refEntity;
               return (
-                <ChiefComplaintListItem
-                  key={chief_complaint._id}
-                  chiefComplaint={chief_complaint}
+                <ConsultationListItem
+                  key={consultation._id}
+                  consultation={consultation}
                   state={setNavigationState("keep", "chiefcomplaint", {
-                    patientId: chief_complaint.patient,
-                    chiefComplaintId: chief_complaint._id,
+                    chiefComplaintId: consultation.chief_complaint,
+                    consultationId: consultation._id,
                   })}
                 />
               );
@@ -35,11 +36,11 @@ export const PatientChiefComplaints = (props: Props) => {
       ) : (
         <ListDropdown heading="Motivos de consulta">
           <TextCard
-            title="Sin motivos de consulta"
-            text="El paciente no tiene ningún motivo de consulta actual. Agregar uno
+            title="Sin sesiones"
+            text="El paciente no tiene ninguna sesión asociada a este motivo de consulta. Agregar una
         haciendo click en el botón de abajo, o apretando el botón '+'' ubicado en
         la parte superior izquierda de la pantalla"
-            buttonLabel="Añadir motivo de consulta"
+            buttonLabel="Añadir Sesión"
             buttonIcon="add"
             clickEvent={addEvent}
           />

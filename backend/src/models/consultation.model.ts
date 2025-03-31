@@ -46,6 +46,11 @@ const ConsultationSchema = new mongoose.Schema<
     ref: "chief_complaints",
     required: true,
   },
+  patient: {
+    type: mongoose.Schema.ObjectId,
+    ref: "patients",
+    required: true,
+  },
   resources: [ResourceRefSchema],
 });
 

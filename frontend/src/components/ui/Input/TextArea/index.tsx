@@ -12,6 +12,7 @@ export const TextArea = (props: Props) => {
     label,
     form,
     required,
+    disabled,
     error,
     value,
     changeEvent,
@@ -19,7 +20,7 @@ export const TextArea = (props: Props) => {
   } = props;
 
   return (
-    <Field id={id} label={label} error={error}>
+    <Field id={id} label={label} error={error} disabled={disabled}>
       <textarea
         className="field-input field-textarea"
         name={id}

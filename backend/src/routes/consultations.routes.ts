@@ -13,36 +13,40 @@ export const consultationRouter = Router();
 
 consultationRouter.param("id", consultationController.handleId);
 
-consultationRouter.get("/", consultationController.getAllConsultations);
+consultationRouter.get(
+  "/",
+  // authenticate("jwt", { session: false }),
+  consultationController.getAllConsultations
+);
 
 consultationRouter.get(
   "/:id",
-  authenticate("jwt", { session: false }),
+  // authenticate("jwt", { session: false }),
   validateRequest({ params: RequestParams }),
   consultationController.getConsultationById
 );
 
 consultationRouter.post(
   "/",
-  authenticate("jwt", { session: false }),
-  multer().single("patient_tongue"),
-  uploadImage("patient_tongue"),
+  // authenticate("jwt", { session: false }),
+  multer().single("patient_tongue_image"),
+  uploadImage("patient_tongue_image"),
   validateRequest({ body: IConsultation }),
   consultationController.createConsultation
 );
 
 consultationRouter.put(
   "/:id",
-  authenticate("jwt", { session: false }),
-  multer().single("patient_tongue"),
-  uploadImage("patient_tongue"),
+  // authenticate("jwt", { session: false }),
+  multer().single("patient_tongue_image"),
+  uploadImage("patient_tongue_image"),
   validateRequest({ params: RequestParams, body: IConsultation }),
   consultationController.updateConsultation
 );
 
 consultationRouter.delete(
   "/:id",
-  authenticate("jwt", { session: false }),
+  // authenticate("jwt", { session: false }),
   validateRequest({ params: RequestParams }),
   consultationController.deleteConsultation
 );

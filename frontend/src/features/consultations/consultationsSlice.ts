@@ -6,7 +6,6 @@ import {
 } from "@reduxjs/toolkit";
 import { IConsultation, IConsultationForm } from "./types/consultation.types";
 import { consultationsAPI } from "./consultationsAPI";
-import { ConsultationDTO } from "./consultationsDTO";
 
 const consultationsAdapter = createEntityAdapter({
   selectId: (consultation: IConsultation) => consultation._id,
@@ -55,9 +54,8 @@ export const addConsultation = createAsyncThunk(
   "consultations/addConsultation",
   async (body: IConsultationForm) => {
     try {
-      const template = ConsultationDTO.adapt(body);
-      const newChiefComplaint = await consultationsAPI.addEntity(template);
-      return newChiefComplaint;
+      const newConsultation = await consultationsAPI.addEntity(body, true);
+      return newConsultation;
     } catch (err) {
       console.log(err);
     }

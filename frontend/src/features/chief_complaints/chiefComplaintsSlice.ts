@@ -69,6 +69,12 @@ const chiefComplaintsSlice = createSlice({
   name: "chief_complaints",
   initialState,
   reducers: {},
+  selectors: {
+    selectByPatient: (state, patient) =>
+      Object.values(state.entities).filter(
+        (entity) => entity.patient === patient
+      ),
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllChiefComplaints.pending, (state, action) => {
       state.loading = "pending";
@@ -100,5 +106,7 @@ export const { selectById, selectAll } =
   chiefComplaintsAdapter.getSelectors<RootState>(
     (state) => state.chief_complaints
   );
+
+export const { selectByPatient } = chiefComplaintsSlice.selectors;
 
 export const chiefComplaintsReducer = chiefComplaintsSlice.reducer;

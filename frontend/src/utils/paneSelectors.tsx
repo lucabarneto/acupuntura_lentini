@@ -1,6 +1,7 @@
 import { Add } from "../pages/Add";
 import { AddBaziTable } from "../pages/AddBaziTable";
 import { AddChiefComplaint } from "../pages/AddChiefComplaint";
+import { AddConsultation } from "../pages/AddConsultation";
 import { AddPatient } from "../pages/AddPatient";
 import { AddPresumptiveAnalysis } from "../pages/AddPresumptiveAnalysis";
 import { AddTemplate } from "../pages/AddTemplate";
@@ -84,7 +85,7 @@ export class DetailsPaneSelector {
         return <AddChiefComplaint />;
       }
       case "addconsultation": {
-        return;
+        return <AddConsultation/>;
       }
       case "addappointment": {
         return;

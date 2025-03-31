@@ -12,6 +12,7 @@ export const SelectInput = (props: Props) => {
     title,
     required,
     multiple,
+    disabled,
     form,
     error,
     changeEvent,
@@ -23,7 +24,7 @@ export const SelectInput = (props: Props) => {
     : "field-input field-select";
 
   return (
-    <Field id={id} label={label} error={error}>
+    <Field id={id} label={label} error={error} disabled={disabled}>
       <select
         className={className}
         name={id}
@@ -37,12 +38,16 @@ export const SelectInput = (props: Props) => {
         aria-invalid={error ? true : false}
         aria-errormessage={error ? `${id}-error` : undefined}
       >
-        <option value="">Elige una opción</option>
-        {options.map((option, index) => (
-          <option key={`option_${index}`} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+        {!disabled && (
+          <>
+            <option value="">Elige una opción</option>
+            {options.map((option, index) => (
+              <option key={`option_${index}`} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </>
+        )}
       </select>
     </Field>
   );

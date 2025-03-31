@@ -53,8 +53,8 @@ export const addTemplate = createAsyncThunk(
   async (body: ITemplateForm) => {
     try {
       const template = TemplateDTO.adapt(body);
-      const newChiefComplaint = await templatesAPI.addEntity(template);
-      return newChiefComplaint;
+      const newTemplate = await templatesAPI.addEntity(template);
+      return newTemplate;
     } catch (err) {
       console.log(err);
     }

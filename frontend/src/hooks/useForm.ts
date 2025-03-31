@@ -65,7 +65,8 @@ export const useForm = <T extends { [key: string]: unknown }>(
           return {
             ...prevFields,
             [name]:
-              isHTMLInputElement(e.target) && name === "profile_picture"
+              isHTMLInputElement(e.target) &&
+              (name === "profile_picture" || name === "patient_tongue_image")
                 ? e.target.files![0]
                 : value,
           };

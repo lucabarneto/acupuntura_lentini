@@ -19,6 +19,7 @@ import { ResourceDetails } from "./pages/ResourceDetails";
 import { Templates } from "./pages/Templates";
 import { AddTemplate } from "./pages/AddTemplate";
 import { TemplateDetails } from "./pages/TemplateDetails";
+import { AddConsultation } from "./pages/AddConsultation";
 
 function App() {
   return (
@@ -156,6 +157,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   defaultDetailsPane={<AddTemplate />}
+                />
+              }
+            />
+            <Route
+              path="consultation"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  defaultDetailsPane={<AddConsultation />}
                 />
               }
             />

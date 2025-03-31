@@ -5,14 +5,26 @@ import { MONGO_ID_REGEX } from "../../constants.ts";
 export const IConsultation = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),
   date: z.string().date(),
-  treatment: z.string(),
-  evolution: z.string(),
-  patient_tongue_image: z.string().default(""),
+  treatment: z.string().optional(),
+  evolution: z.string().optional(),
+  patient_tongue_image: z.string().optional(),
   chief_complaint: z.string().transform((val, ctx) => {
     if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Invalid Chief complaint Id",
+      });
+
+      return z.NEVER;
+    }
+
+    return new Types.ObjectId(val);
+  }),
+  patient: z.string().transform((val, ctx) => {
+    if (!MONGO_ID_REGEX.test(val)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Invalid Patient Id",
       });
 
       return z.NEVER;

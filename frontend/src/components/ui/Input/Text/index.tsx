@@ -16,6 +16,7 @@ export const TextInput = (props: Props) => {
     value,
     error,
     required,
+    disabled,
     form,
     group,
     changeEvent,
@@ -27,7 +28,7 @@ export const TextInput = (props: Props) => {
   if (error) className += " invalid";
 
   return (
-    <Field id={id} label={label} error={error}>
+    <Field id={id} label={label} error={error} disabled={disabled}>
       <input
         className={className}
         type={type}

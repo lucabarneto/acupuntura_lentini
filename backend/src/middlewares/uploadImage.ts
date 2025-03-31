@@ -3,7 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger.ts";
 
-type AssetFolders = "profile_picture" | "patient_tongue";
+type AssetFolders = "profile_picture" | "patient_tongue_image";
 
 export const uploadImage = (asset_folder: AssetFolders) => {
   return async (req: Request, res: Response, next: NextFunction) => {

@@ -22,3 +22,13 @@
   text-align: left;
   margin-top: 0.25rem;
 }
+
+.field.disabled > *:not(label, p) {
+  border: thin solid var(--clr-disabled);
+  pointer-events: none;
+}
+
+.field.disabled > label {
+  top: 0;
+  color: var(--clr-disabled);
+}

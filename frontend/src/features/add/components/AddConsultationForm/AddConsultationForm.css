@@ -1,0 +1,27 @@
+.add-consultation-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+
+  gap: 2rem 1rem;
+}
+
+.add-consultation-form .file-field {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  justify-self: center;
+}
+
+.add-consultation-form textarea {
+  height: 100%;
+}
+
+.add-consultation-form .field:has(textarea) {
+  grid-column: 2/4;
+  grid-row: 2/3;
+  align-self: stretch;
+}
+
+.add-consultation-form .field:has(textarea):last-child {
+  grid-row: 3/4;
+}
