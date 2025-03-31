@@ -9,6 +9,8 @@ type Props = {
 export const ConsultationListItem = (props: Props) => {
   const { state, consultation } = props;
 
+  console.log(consultation);
+
   return (
     <ListItem
       variant="default"

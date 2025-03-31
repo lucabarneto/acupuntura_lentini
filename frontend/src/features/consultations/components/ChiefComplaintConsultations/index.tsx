@@ -16,17 +16,18 @@ export const ChiefComplaintConsultations = (props: Props) => {
   return (
     <article className="reference-list patient-chief-complaints">
       {consultations.length !== 0 ? (
-        <ListDropdown heading="Motivos de consulta">
+        <ListDropdown heading="Sesiones">
           <ul>
-            {consultations.map((refEntity) => {
+            {consultations.map((refEntity, index) => {
               const { consultation } = refEntity;
               return (
                 <ConsultationListItem
-                  key={consultation._id}
+                  key={index}
                   consultation={consultation}
-                  state={setNavigationState("keep", "chiefcomplaint", {
-                    chiefComplaintId: consultation.chief_complaint,
+                  state={setNavigationState("keep", "consultation", {
                     consultationId: consultation._id,
+                    chiefComplaintId: consultation.chief_complaint,
+                    patientId: consultation.patient
                   })}
                 />
               );
@@ -34,7 +35,7 @@ export const ChiefComplaintConsultations = (props: Props) => {
           </ul>
         </ListDropdown>
       ) : (
-        <ListDropdown heading="Motivos de consulta">
+        <ListDropdown heading="Sesiones">
           <TextCard
             title="Sin sesiones"
             text="El paciente no tiene ninguna sesión asociada a este motivo de consulta. Agregar una

@@ -6,6 +6,7 @@ import { AddPatient } from "../pages/AddPatient";
 import { AddPresumptiveAnalysis } from "../pages/AddPresumptiveAnalysis";
 import { AddTemplate } from "../pages/AddTemplate";
 import { ChiefComplaintDetails } from "../pages/ChiefComplaintDetails";
+import { ConsultationDetails } from "../pages/ConsultationDetails";
 import { Home } from "../pages/Home";
 import { PatientDetails } from "../pages/PatientDetails";
 import { Patients } from "../pages/Patients";
@@ -67,7 +68,7 @@ export class DetailsPaneSelector {
         return <ChiefComplaintDetails />;
       }
       case "consultation": {
-        return;
+        return <ConsultationDetails/>
       }
       case "add": {
         return <Add />;

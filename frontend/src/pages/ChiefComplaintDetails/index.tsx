@@ -12,7 +12,7 @@ export const ChiefComplaintDetails = () => {
   const { patient, createURLName } = usePatient(patientId);
   const { chiefComplaint } = useChiefComplaint(chiefComplaintId);
 
-  const patientUrlName = createURLName(patient);
+  const patientUrlName = patient && createURLName(patient);
 
   return (
     patient &&

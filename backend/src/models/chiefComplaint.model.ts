@@ -79,7 +79,7 @@ ChiefComplaintSchema.pre("deleteOne", async function () {
   }
 });
 
-ChiefComplaintSchema.pre("findOne", function () {
+ChiefComplaintSchema.pre("find", function () {
   this.populate(["consultations.consultation"]);
 });
 

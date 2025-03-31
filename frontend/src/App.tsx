@@ -20,6 +20,7 @@ import { Templates } from "./pages/Templates";
 import { AddTemplate } from "./pages/AddTemplate";
 import { TemplateDetails } from "./pages/TemplateDetails";
 import { AddConsultation } from "./pages/AddConsultation";
+import { ConsultationDetails } from "./pages/ConsultationDetails";
 
 function App() {
   return (
@@ -62,6 +63,15 @@ function App() {
               <Panes
                 defaultMainPane={<Patients />}
                 defaultDetailsPane={<ChiefComplaintDetails />}
+              />
+            }
+          />
+          <Route
+            path="/consultations/:id"
+            element={
+              <Panes
+                defaultMainPane={<Patients />}
+                defaultDetailsPane={<ConsultationDetails />}
               />
             }
           />

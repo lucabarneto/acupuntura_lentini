@@ -32,14 +32,8 @@ const ConsultationSchema = new mongoose.Schema<
     match: DATE_REGEX,
     required: true,
   },
-  treatment: {
-    type: String,
-    required: true,
-  },
-  evolution: {
-    type: String,
-    required: true,
-  },
+  treatment: String,
+  evolution: String,
   patient_tongue_image: { type: String, default: "" },
   chief_complaint: {
     type: mongoose.Schema.ObjectId,

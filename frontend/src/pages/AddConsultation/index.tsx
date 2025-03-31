@@ -34,7 +34,8 @@ export const AddConsultation = () => {
           `/consultations/${consultation._id}`,
           setNavigationState("keep", "consultation", {
             consultationId: consultation._id,
-            chiefComplaintId: form.fields.chief_complaint,
+            chiefComplaintId: consultation.chief_complaint,
+            patientId: consultation.patient,
           })
         );
       });
