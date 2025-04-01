@@ -9,11 +9,13 @@ export const Resources = () => {
   const { allResources, createURLName } = useResource();
 
   return (
-    <section className="resources-pane">
+    <section className="resources-pane main-section">
       <TopAppBar pane="main" title="Recursos" />
+      <h1 className="compact">Lista de recursos</h1>
       <div className="resources">
         {allResources.map((resource) => (
           <ResourceCard
+            key={resource._id}
             resource={resource}
             clickEvent={() =>
               appNavigate(

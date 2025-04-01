@@ -10,3 +10,11 @@
   scrollbar-width: none;
   text-align: left;
 }
+
+.main-section h1 {
+  padding: 1.5rem 1rem;
+}
+
+.main-section .list {
+  background-color: var(--clr-surface-container);
+}

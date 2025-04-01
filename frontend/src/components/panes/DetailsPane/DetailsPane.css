@@ -12,18 +12,18 @@
   scrollbar-width: none;
 }
 
-.details-section article {
+.details-section > article {
   padding: 1.5rem 2rem;
   text-align: left;
 }
 
-.details-section article h2,
-.details-section article h3 {
+.details-section > article > h2,
+.details-section > article > h3 {
   margin-bottom: 1.5rem;
   text-align: left;
 }
 
-.details-section article li.text-item {
+.details-section > article li.text-item {
   margin-bottom: 0.5rem;
 }
 

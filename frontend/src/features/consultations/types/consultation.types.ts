@@ -1,3 +1,5 @@
+import { IChiefComplaint } from "../../chief_complaints/types/chief_complaint.types";
+import { IPatient } from "../../patients/types/patient.types";
 import { ResourceRef } from "../../resources/types/resource.types";
 
 export type IConsultation = {
@@ -6,8 +8,8 @@ export type IConsultation = {
   treatment: string;
   evolution: string;
   patient_tongue_image: string;
-  chief_complaint: string;
-  patient: string;
+  chief_complaint: IChiefComplaint;
+  patient: IPatient;
   resources: ResourceRef[];
 };
 

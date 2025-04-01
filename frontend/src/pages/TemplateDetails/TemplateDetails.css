@@ -1,0 +1,9 @@
+.template-details h1 {
+  margin-bottom: 1rem;
+}
+
+.template-details .template-resources {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}

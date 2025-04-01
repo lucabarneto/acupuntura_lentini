@@ -21,14 +21,17 @@ export const useConsultation = (id: string = "") => {
     dispatch(slice.getAllConsultations());
   }, [dispatch]);
 
-  const consultationSelectOptions: SelectOptions[] = allConsulations.map(
-    (consultations) => {
+  const readableDate =
+    consultation && consultation.date.split("-").reverse().join("/");
+
+  const consultationSelectOptions: SelectOptions[] | undefined =
+    consultation &&
+    allConsulations.map((consultations) => {
       return {
-        label: `Sesión del ${consultation.date}`,
+        label: `Sesión del ${readableDate}`,
         value: consultations._id,
       };
-    }
-  );
+    });
 
   const addConsultation = (
     body: IConsultationForm,
@@ -39,6 +42,7 @@ export const useConsultation = (id: string = "") => {
     allConsulations,
     consultation,
     consultationSelectOptions,
+    readableDate,
     addConsultation,
   };
 };

@@ -27,6 +27,7 @@ type AddDetailsPanes =
   | "addpresumptiveanalysis"
   | "addchiefcomplaint"
   | "addconsultation"
+  | "addconsultationtechnique"
   | "addappointment"
   | "addreport"
   | "addtemplate"

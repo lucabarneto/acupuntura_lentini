@@ -20,7 +20,7 @@ const ResourseSchema = new mongoose.Schema<IResource, ResourceModel>({
     required: true,
     default: "",
   },
-  possible_values: [String],
+  resource_values: [String],
 });
 
 export const ResourceModel = mongoose.model<IResource, ResourceModel>(

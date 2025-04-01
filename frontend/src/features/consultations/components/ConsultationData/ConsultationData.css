@@ -1,0 +1,26 @@
+.consultation-data h1 {
+  margin-bottom: 2rem;
+}
+
+.consultation-data-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.consultation-data-content img {
+  width: 350px;
+  height: 350px;
+
+  object-fit: cover;
+  object-position: top;
+
+  border-radius: 0.5rem;
+}
+
+.consultation-data-content hgroup {
+  margin-bottom: 1.5rem;
+}
+
+.consultation-data-content h3 {
+  margin-bottom: 0.5rem;
+}

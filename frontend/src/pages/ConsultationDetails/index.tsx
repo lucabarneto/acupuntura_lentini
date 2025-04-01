@@ -1,18 +1,22 @@
-import "./ConsultationDetails.css";
 import { TopAppBar } from "../../components/ui/TopAppBar";
 import { useChiefComplaint } from "../../features/chief_complaints/useChiefComplaint";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import { useConsultation } from "../../features/consultations/useConsultation";
+import { ConsultationData } from "../../features/consultations/components/ConsultationData";
+import { usePatient } from "../../features/patients/usePatient";
+import { ConsultationTechniques } from "../../features/consultations/components/ConsultationTechniques";
 
 export const ConsultationDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const { patientId, chiefComplaintId, consultationId } = extraData;
+  const { patient } = usePatient(patientId);
   const { chiefComplaint, createURLName } = useChiefComplaint(chiefComplaintId);
-  const { consultation } = useConsultation(consultationId);
+  const { consultation, readableDate } = useConsultation(consultationId);
 
   const chiefComplaintURLName = chiefComplaint && createURLName(chiefComplaint);
 
   return (
+    patient &&
     chiefComplaint &&
     consultation && (
       <section className="details-section">
@@ -31,9 +35,20 @@ export const ConsultationDetails = () => {
             )
           }
         />
-        <article>
-          <h1>Sesión del {consultation.date}</h1>
-        </article>
+        <ConsultationData
+          consultation={consultation}
+          readableDate={readableDate}
+        />
+        <ConsultationTechniques
+          addEvent={() =>
+            appNavigate(
+              `/add/consultationtechniques`,
+              setNavigationState("keep", "addconsultationtechnique", {
+                consultationId,
+              })
+            )
+          }
+        />
         {/* <Modal
           ref={modal}
           title="Eliminar motivo de consulta"

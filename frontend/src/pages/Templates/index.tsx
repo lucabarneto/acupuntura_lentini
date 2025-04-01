@@ -11,7 +11,7 @@ export const Templates = () => {
   const { setNavigationState } = useAppNavigate();
 
   return (
-    <section className="templates-pane">
+    <section className="templates-pane main-section">
       <TopAppBar pane="main" title="Plantillas" />
       <TextCard
         title="¿Qué es una plantilla?"
@@ -21,7 +21,7 @@ export const Templates = () => {
       {allTemplates.length !== 0 ? (
         <>
           <h1 className="compact">Lista de plantillas</h1>
-          <ul>
+          <ul className="list">
             {allTemplates.map((template) => (
               <TemplateListItem
                 key={template._id}

@@ -6,7 +6,7 @@ export const IResource = z.object({
   title: z.string(),
   description: z.string().optional(),
   image: z.string().default(""),
-  possible_values: z.string().array().default([]),
+  resource_values: z.string().array().default([]),
 });
 
 export type IResource = z.infer<typeof IResource>;
