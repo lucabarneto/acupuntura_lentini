@@ -29,10 +29,16 @@ export const useResource = (id: string = "") => {
   const createURLName = (resource: IResource) =>
     `${resource.title.split(" ").join("_")}`;
 
+  const getResourceById = (id: string) =>
+    dispatch(slice.getResourceById(id))
+      .unwrap()
+      .then((res) => res);
+
   return {
     allResources,
     resource,
     ResourceSelectOptions,
     createURLName,
+    getResourceById,
   };
 };

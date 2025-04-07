@@ -1,21 +1,9 @@
 import { useModal } from "../../hooks/useModal";
-import { useProgressBar } from "../../hooks/useProgressBar";
-import { useForm } from "../../hooks/useForm";
 import { AppNavigateState, useAppNavigate } from "../../hooks/useAppNavigate";
 
-export const useAdd = <T extends { [key: string]: unknown }>(
-  initialForm: T,
-  totalStages: number = 1
-) => {
+export const useAdd = () => {
   const { appNavigate } = useAppNavigate();
   const leaveAddFlowModal = useModal("modal");
-  const progress = useProgressBar(totalStages);
-  const formData = useForm(initialForm);
-
-  const leaveAddFlow = (link: string, state: AppNavigateState) => {
-    formData.formMethods.handleReset();
-    return appNavigate(link, state);
-  };
 
   const confirmLeaveAddFlow = (e: React.MouseEvent, link?: string) => {
     e.preventDefault();
@@ -24,10 +12,12 @@ export const useAdd = <T extends { [key: string]: unknown }>(
     leaveAddFlowModal.openModal(extra);
   };
 
+  const leaveAddFlow = (link: string, state: AppNavigateState) => {
+    return appNavigate(link, state);
+  };
+
   return {
-    progress,
     leaveAddFlowModal,
-    formData,
     leaveAddFlow,
     confirmLeaveAddFlow,
   };

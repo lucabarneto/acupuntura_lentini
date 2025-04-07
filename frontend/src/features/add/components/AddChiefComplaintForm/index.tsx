@@ -3,18 +3,16 @@ import { SelectOptions } from "../../../../components/ui/Input/input.types";
 import { SelectInput } from "../../../../components/ui/Input/Select";
 import { TextInput } from "../../../../components/ui/Input/Text";
 import { TextArea } from "../../../../components/ui/Input/TextArea";
-import { UseForm } from "../../../../hooks/useForm";
 import { IChiefComplaintForm } from "../../../chief_complaints/types/chief_complaint.types";
+import { FormProps } from "../../../../types/general.types";
 
-type Props = {
-  formData: UseForm<IChiefComplaintForm>;
-  formId: string;
+type Props = FormProps<IChiefComplaintForm>  & {
   patientOptions: SelectOptions[];
 };
 
 export const AddChiefComplaintForm = (props: Props) => {
-  const { formData, formId, patientOptions } = props;
-  const { form, formMethods } = formData;
+  const { form, formId, patientOptions } = props;
+  const { formData, formMethods } = form;
 
   return (
     <>
@@ -24,7 +22,7 @@ export const AddChiefComplaintForm = (props: Props) => {
           id="patient"
           label="Paciente"
           options={patientOptions}
-          error={form.errors.patient}
+          error={formData.errors.patient}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required
@@ -33,8 +31,8 @@ export const AddChiefComplaintForm = (props: Props) => {
           id="title"
           label="Título"
           type="text"
-          value={form.fields.title}
-          error={form.errors.title}
+          value={formData.fields.title}
+          error={formData.errors.title}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required
@@ -43,8 +41,8 @@ export const AddChiefComplaintForm = (props: Props) => {
           id="initial_medicine"
           label="Remedios"
           type="text"
-          value={form.fields.initial_medicine}
-          error={form.errors.initial_medicine}
+          value={formData.fields.initial_medicine}
+          error={formData.errors.initial_medicine}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required
@@ -53,8 +51,8 @@ export const AddChiefComplaintForm = (props: Props) => {
           id="initial_sleep_condition"
           label="Sueño"
           type="text"
-          value={form.fields.initial_sleep_condition}
-          error={form.errors.initial_sleep_condition}
+          value={formData.fields.initial_sleep_condition}
+          error={formData.errors.initial_sleep_condition}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required
@@ -62,8 +60,8 @@ export const AddChiefComplaintForm = (props: Props) => {
         <TextArea
           id="diagnosis"
           label="Diagnóstico"
-          value={form.fields.diagnosis}
-          error={form.errors.diagnosis}
+          value={formData.fields.diagnosis}
+          error={formData.errors.diagnosis}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required

@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { IConsultation, IConsultationForm } from "./types/consultation.types";
 import { consultationsAPI } from "./consultationsAPI";
+import { AnyStringArrayObject } from "../../types/general.types";
 
 const consultationsAdapter = createEntityAdapter({
   selectId: (consultation: IConsultation) => consultation._id,
@@ -43,7 +44,6 @@ export const getAllConsultations = createAsyncThunk<
         consultations.ids.length !== 0 &&
         consultations.previousCrudAction !== null
       ) {
-        console.log("Fetch to server was cancelled for template entity");
         return false;
       }
     },
@@ -58,6 +58,39 @@ export const addConsultation = createAsyncThunk(
       return newConsultation;
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+export const addConsultationTechniques = createAsyncThunk(
+  "consultations/addConsultationsTechniques",
+  async (data: {
+    consultation: IConsultation;
+    techniques: AnyStringArrayObject;
+  }) => {
+    try {
+      const result = await consultationsAPI.addConsultationTechniques(
+        data.consultation,
+        data.techniques
+      );
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const updateConsultation = createAsyncThunk(
+  "consultations/updateConsultation",
+  async (consultation: IConsultation) => {
+    try {
+      const result = await consultationsAPI.updateEntity(
+        consultation._id,
+        consultation
+      );
+      return result as IConsultation;
+    } catch (err) {
+      console.error(err);
     }
   }
 );
@@ -87,8 +120,32 @@ const consultationsSlice = createSlice({
     builder.addCase(addConsultation.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
-      state.previousCrudAction = "get";
+      state.previousCrudAction = "post";
       consultationsAdapter.addOne(state, action.payload!);
+    });
+
+    builder.addCase(addConsultationTechniques.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(addConsultationTechniques.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "put";
+      consultationsAdapter.setOne(state, action.payload!);
+    });
+
+    builder.addCase(updateConsultation.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(updateConsultation.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "put";
+      consultationsAdapter.setOne(state, action.payload!);
     });
   },
 });

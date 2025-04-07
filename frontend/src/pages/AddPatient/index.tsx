@@ -7,6 +7,7 @@ import { useAdd } from "../../features/add/useAdd";
 import { useEffect } from "react";
 import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: IPatientForm = {
   first_name: "",
@@ -25,30 +26,31 @@ const initialForm: IPatientForm = {
 
 export const AddPatient = () => {
   const { addPatient, createURLName } = usePatient();
-  const { formData, leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } = useAdd();
+  const form = useForm(initialForm);
   const { setNavigationState } = useAppNavigate();
 
+  const formId = "add-patient-form";
+
   useEffect(() => {
-    if (form.isSubmittable)
-      addPatient(form.fields, (patient) => {
+    if (form.formData.isSubmittable)
+      addPatient(form.formData.fields, (patient) => {
         leaveAddFlow(
           `/patients/${createURLName(patient)}`,
           setNavigationState("keep", "patient", { patientId: patient._id })
         );
       });
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section className="add-patient-pane">
       <AddHeader
         title="Añadir paciente"
         closeEvent={confirmLeaveAddFlow}
-        formId="add-patient-form"
+        formId={formId}
       />
       <div className="add-content-container">
-        <AddPatientForm formData={formData} />
+        <AddPatientForm form={form} formId={formId} />
         <p className="required-fields-tip">
           Completa todos los <strong>campos requeridos</strong> (<b>*</b>) para
           poder agregar a la persona paciente al sistema

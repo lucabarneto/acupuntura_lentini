@@ -40,10 +40,21 @@ export const getAllResources = createAsyncThunk<
       const { resources } = getState();
 
       if (resources.ids.length !== 0 && resources.previousCrudAction !== null) {
-        console.log("Fetch to server was cancelled for chief_complaint entity");
         return false;
       }
     },
+  }
+);
+
+export const getResourceById = createAsyncThunk(
+  "resources/getResourceById",
+  async (id: string) => {
+    try {
+      const result = await resourcesAPI.getEntityById(id);
+      return result as IResource;
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
@@ -62,6 +73,17 @@ const resourcesSlice = createSlice({
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       resourcesAdapter.setAll(state, action.payload!);
+    });
+
+    builder.addCase(getResourceById.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(getResourceById.fulfilled, (state) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "get";
     });
   },
 });

@@ -37,7 +37,7 @@ export const IConsultation = z.object({
       resource: z.string().regex(MONGO_ID_REGEX, {
         message: "Invalid Consultation ID",
       }),
-      selected_value: z.string(),
+      selected_values: z.string().array(),
     })
     .array()
     .default([]),

@@ -1,21 +1,19 @@
 import "./AddPatientForm.css";
 import { FileInput } from "../../../../components/ui/Input/File";
 import { TextInput } from "../../../../components/ui/Input/Text";
-import { UseForm } from "../../../../hooks/useForm";
 import { IPatientForm } from "../../../patients/types/patient.types";
+import { FormProps } from "../../../../types/general.types";
+type Props = FormProps<IPatientForm>;
 
-type Props = {
-  formData: UseForm<IPatientForm>;
-};
-
-export const AddPatientForm = ({ formData }: Props) => {
-  const { form, formMethods } = formData;
+export const AddPatientForm = (props: Props) => {
+  const { form, formId } = props;
+  const { formData, formMethods } = form;
 
   return (
     <>
       <form
         className="add-patient-form"
-        id="add-patient-form"
+        id={formId}
         onSubmit={formMethods.handleSubmit}
       >
         <article className="add-patient-personal-data">
@@ -25,8 +23,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Nombre*"
               id="first_name"
               type="text"
-              value={form.fields.first_name}
-              error={form.errors.first_name}
+              value={formData.fields.first_name}
+              error={formData.errors.first_name}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -36,8 +34,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Apellido*"
               id="last_name"
               type="text"
-              value={form.fields.last_name}
-              error={form.errors.last_name}
+              value={formData.fields.last_name}
+              error={formData.errors.last_name}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -47,8 +45,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Correo*"
               id="mail"
               type="email"
-              value={form.fields.mail}
-              error={form.errors.mail}
+              value={formData.fields.mail}
+              error={formData.errors.mail}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -58,8 +56,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Edad*"
               id="age"
               type="text"
-              value={form.fields.age}
-              error={form.errors.age}
+              value={formData.fields.age}
+              error={formData.errors.age}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -69,8 +67,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Teléfono*"
               id="tel"
               type="tel"
-              value={form.fields.tel}
-              error={form.errors.tel}
+              value={formData.fields.tel}
+              error={formData.errors.tel}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -80,8 +78,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               label="Estado civil*"
               id="marital_status"
               type="text"
-              value={form.fields.marital_status}
-              error={form.errors.marital_status}
+              value={formData.fields.marital_status}
+              error={formData.errors.marital_status}
               changeEvent={formMethods.handleChange}
               blurEvent={formMethods.handleBlur}
               required
@@ -100,8 +98,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               type="date"
               id="date"
               label="Fecha"
-              value={form.fields.birth.date}
-              error={form.errors.date}
+              value={formData.fields.birth.date}
+              error={formData.errors.date}
               group="birth"
               blurEvent={formMethods.handleBlur}
               changeEvent={(e) => formMethods.handleChange(e, 1)}
@@ -110,8 +108,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               type="text"
               id="time"
               label="Hora"
-              value={form.fields.birth.time}
-              error={form.errors.time}
+              value={formData.fields.birth.time}
+              error={formData.errors.time}
               group="birth"
               blurEvent={formMethods.handleBlur}
               changeEvent={(e) => formMethods.handleChange(e, 1)}
@@ -120,8 +118,8 @@ export const AddPatientForm = ({ formData }: Props) => {
               type="text"
               id="location"
               label="Localidad"
-              value={form.fields.birth.location}
-              error={form.errors.location}
+              value={formData.fields.birth.location}
+              error={formData.errors.location}
               group="birth"
               blurEvent={formMethods.handleBlur}
               changeEvent={(e) => formMethods.handleChange(e, 1)}

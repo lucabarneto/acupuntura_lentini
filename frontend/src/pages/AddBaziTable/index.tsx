@@ -8,6 +8,7 @@ import { PatientDetailsPreview } from "../../features/patients/components/Patien
 import { AddBaziTableForm } from "../../features/add/components/AddBaziTableForm";
 import { BaziTableType } from "../../features/patients/types/bazi_table.types";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: BaziTableType = {
   heavenly_stems: {
@@ -45,9 +46,8 @@ const initialForm: BaziTableType = {
 };
 
 export const AddBaziTable = () => {
-  const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAdd();
+  const form = useForm(initialForm);
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
   const { patient, createURLName, updatePatient } = usePatient(patientId);
@@ -56,8 +56,8 @@ export const AddBaziTable = () => {
   const patientURLName = createURLName(patient);
 
   useEffect(() => {
-    if (form.isSubmittable) {
-      const updatedPatient = { ...patient, bazi_table: form.fields };
+    if (form.formData.isSubmittable) {
+      const updatedPatient = { ...patient, bazi_table: form.formData.fields };
 
       updatePatient(updatedPatient, () => {
         appNavigate(
@@ -66,7 +66,7 @@ export const AddBaziTable = () => {
         );
       });
     }
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section className="add-patient-pane add-bazi-table-pane">
@@ -79,7 +79,7 @@ export const AddBaziTable = () => {
       />
       <div>
         {patient && <PatientDetailsPreview patient={patient} />}
-        <AddBaziTableForm formData={formData} formId={formId} />
+        <AddBaziTableForm form={form} formId={formId} />
       </div>
 
       <Modal

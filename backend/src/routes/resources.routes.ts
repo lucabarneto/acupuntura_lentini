@@ -20,7 +20,7 @@ resourceRouter.get(
 
 resourceRouter.get(
   "/:id",
-  authenticate("jwt", { session: false }),
+  // authenticate("jwt", { session: false }),
   validateRequest({ params: RequestParams }),
   resourceController.getResourceById
 );

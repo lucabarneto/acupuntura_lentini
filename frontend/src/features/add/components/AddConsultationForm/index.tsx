@@ -1,22 +1,20 @@
 import { SelectOptions } from "../../../../components/ui/Input/input.types";
 import { SelectInput } from "../../../../components/ui/Input/Select";
-import { UseForm } from "../../../../hooks/useForm";
 import { IConsultationForm } from "../../../consultations/types/consultation.types";
 import "./AddConsultationForm.css";
 import { useChiefComplaint } from "../../../chief_complaints/useChiefComplaint";
 import { TextInput } from "../../../../components/ui/Input/Text";
 import { TextArea } from "../../../../components/ui/Input/TextArea";
 import { FileInput } from "../../../../components/ui/Input/File";
+import { FormProps } from "../../../../types/general.types";
 
-type Props = {
-  formId: string;
-  formData: UseForm<IConsultationForm>;
+type Props = FormProps<IConsultationForm> & {
   patientSelectOptions: SelectOptions[];
 };
 
 export const AddConsultationForm = (props: Props) => {
-  const { formId, formData, patientSelectOptions } = props;
-  const { form, formMethods } = formData;
+  const { formId, form, patientSelectOptions } = props;
+  const { formData, formMethods } = form;
 
   const { getChiefComplaintSelectOptions } = useChiefComplaint();
 
@@ -26,7 +24,7 @@ export const AddConsultationForm = (props: Props) => {
         label="Paciente"
         id="patient"
         options={patientSelectOptions}
-        error={form.errors.patient}
+        error={formData.errors.patient}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}
         required
@@ -34,20 +32,20 @@ export const AddConsultationForm = (props: Props) => {
       <SelectInput
         label="Motivo de consulta"
         id="chief_complaint"
-        options={getChiefComplaintSelectOptions(form.fields.patient)}
-        error={form.errors.patient}
+        options={getChiefComplaintSelectOptions(formData.fields.patient)}
+        error={formData.errors.patient}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}
         required
-        disabled={form.fields.patient.length === 0 ? true : undefined}
+        disabled={formData.fields.patient.length === 0 ? true : undefined}
       />
 
       <TextInput
         label="Fecha"
         id="date"
         type="date"
-        value={form.fields.date}
-        error={form.errors.date}
+        value={formData.fields.date}
+        error={formData.errors.date}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}
         required
@@ -60,16 +58,16 @@ export const AddConsultationForm = (props: Props) => {
       <TextArea
         label="Tratamiento"
         id="treatment"
-        value={form.fields.treatment}
-        error={form.errors.treatment}
+        value={formData.fields.treatment}
+        error={formData.errors.treatment}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}
       />
       <TextArea
         label="Evolución del paciente"
         id="evolution"
-        value={form.fields.evolution}
-        error={form.errors.evolution}
+        value={formData.fields.evolution}
+        error={formData.errors.evolution}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}
       />

@@ -7,6 +7,7 @@ import { ITemplateForm } from "../../features/templates/types/template.types";
 import { useResource } from "../../features/resources/useResource";
 import { AddTemplateForm } from "../../features/add/components/AddTemplateForm";
 import { useTemplate } from "../../features/templates/useTemplate";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: ITemplateForm = {
   title: "",
@@ -16,24 +17,23 @@ const initialForm: ITemplateForm = {
 
 export const AddTemplate = () => {
   const { setNavigationState } = useAppNavigate();
-  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAdd();
+  const form = useForm(initialForm);
   const { allResources } = useResource();
   const { addTemplate, createURLName } = useTemplate();
 
   const formId = "add-template-form";
 
   useEffect(() => {
-    if (form.isSubmittable) {
-      addTemplate(form.fields, (template) => {
+    if (form.formData.isSubmittable) {
+      addTemplate(form.formData.fields, (template) => {
         leaveAddFlow(
           `/templates/${createURLName(template)}`,
           setNavigationState("keep", "patient", { templateId: template._id })
         );
       });
     }
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section>
@@ -43,11 +43,7 @@ export const AddTemplate = () => {
         closeEvent={confirmLeaveAddFlow}
       />
       <div className="add-content-container">
-        <AddTemplateForm
-          formId={formId}
-          formData={formData}
-          resources={allResources}
-        />
+        <AddTemplateForm formId={formId} form={form} resources={allResources} />
         <p className="required-fields-tip">
           Completa todos los <strong>campos requeridos</strong> (<b>*</b>) para
           poder agregar la plantilla al sistema

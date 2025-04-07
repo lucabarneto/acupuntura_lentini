@@ -3,7 +3,7 @@ import { ITemplate } from "../types/mongo/ITemplate.ts";
 import { TemplateController } from "../controllers/templates.controller.ts";
 import { validateRequest } from "../middlewares/validateRequest.ts";
 import { RequestParams } from "../types/express/RequestParams.ts";
-import { authenticate } from "../middlewares/authenticate.ts";
+// import { authenticate } from "../middlewares/authenticate.ts";
 
 const templateController = new TemplateController();
 
@@ -19,7 +19,7 @@ templateRouter.get(
 
 templateRouter.get(
   "/:id",
-  authenticate("jwt", { session: false }),
+  // authenticate("jwt", { session: false }),
   validateRequest({ params: RequestParams }),
   templateController.getTemplateById
 );

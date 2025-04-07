@@ -41,7 +41,6 @@ export const getAllPatients = createAsyncThunk<
       const { patients } = getState();
 
       if (patients.ids.length !== 0 && patients.previousCrudAction !== null) {
-        console.log("Fetch to server was cancelled for patient entity");
         return false;
       }
     },

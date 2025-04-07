@@ -42,7 +42,11 @@ export const SelectInput = (props: Props) => {
           <>
             <option value="">Elige una opción</option>
             {options.map((option, index) => (
-              <option key={`option_${index}`} value={option.value}>
+              <option
+                key={`option_${index}`}
+                value={option.value}
+                data-extra={option.extra}
+              >
                 {option.label}
               </option>
             ))}

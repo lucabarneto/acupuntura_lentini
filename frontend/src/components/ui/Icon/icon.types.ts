@@ -20,6 +20,8 @@ export type IconName =
   | "sort"
   | "radio_button_unchecked"
   | "radio_button_checked"
+  | "check_box_outline_blank"
+  | "check_box"
   | "mail"
   | "check"
   | "delete"

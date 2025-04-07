@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { PresumptiveAnalysisType } from "../../features/patients/types/presumptive_analysis.types";
 import { AddPresumptiveAnalysisForm } from "../../features/add/components/AddPresumptiveAnalysisForm";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: PresumptiveAnalysisType = {
   meridian_time: "",
@@ -22,9 +23,8 @@ const initialForm: PresumptiveAnalysisType = {
 };
 
 export const AddPresumptiveAnalysis = () => {
-  const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow, formData } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAdd();
+  const form = useForm(initialForm);
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
   const { patient, updatePatient, createURLName } = usePatient(patientId);
@@ -33,8 +33,11 @@ export const AddPresumptiveAnalysis = () => {
   const patientURLName = createURLName(patient);
 
   useEffect(() => {
-    if (form.isSubmittable) {
-      const updatedPatient = { ...patient, presumptive_analysis: form.fields };
+    if (form.formData.isSubmittable) {
+      const updatedPatient = {
+        ...patient,
+        presumptive_analysis: form.formData.fields,
+      };
 
       updatePatient(updatedPatient, () => {
         appNavigate(
@@ -43,7 +46,7 @@ export const AddPresumptiveAnalysis = () => {
         );
       });
     }
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section className="add-patient-pane add-presumptive-analysis-pane">
@@ -56,7 +59,7 @@ export const AddPresumptiveAnalysis = () => {
       />
       <div>
         {patient && <PatientDetailsPreview patient={patient} />}
-        <AddPresumptiveAnalysisForm formId={formId} formData={formData} />
+        <AddPresumptiveAnalysisForm formId={formId} form={form} />
       </div>
 
       <Modal

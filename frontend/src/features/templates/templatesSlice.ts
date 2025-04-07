@@ -41,10 +41,21 @@ export const getAllTemplates = createAsyncThunk<
       const { templates } = getState();
 
       if (templates.ids.length !== 0 && templates.previousCrudAction !== null) {
-        console.log("Fetch to server was cancelled for template entity");
         return false;
       }
     },
+  }
+);
+
+export const getTemplateById = createAsyncThunk(
+  "templates/getTemplateById",
+  async (id: string) => {
+    try {
+      const result = await templatesAPI.getEntityById(id);
+      return result as ITemplate;
+    } catch (err) {
+      console.log(err);
+    }
   }
 );
 
@@ -76,6 +87,17 @@ const templatesSlice = createSlice({
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       templatesAdapter.setAll(state, action.payload!);
+    });
+
+    builder.addCase(getTemplateById.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(getTemplateById.fulfilled, (state) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "get";
     });
 
     builder.addCase(addTemplate.pending, (state, action) => {

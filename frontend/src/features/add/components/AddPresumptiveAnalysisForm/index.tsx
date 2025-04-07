@@ -1,16 +1,13 @@
 import "./AddPresumptiveAnalysisForm.css";
 import { TextInput } from "../../../../components/ui/Input/Text";
-import { UseForm } from "../../../../hooks/useForm";
 import { PresumptiveAnalysisType } from "../../../patients/types/presumptive_analysis.types";
+import { FormProps } from "../../../../types/general.types";
 
-type Props = {
-  formData: UseForm<PresumptiveAnalysisType>;
-  formId: string;
-};
+type Props = FormProps<PresumptiveAnalysisType>;
 
 export const AddPresumptiveAnalysisForm = (props: Props) => {
-  const { formData, formId } = props;
-  const { form, formMethods } = formData;
+  const { form, formId } = props;
+  const { formData, formMethods } = form;
 
   return (
     <>
@@ -23,8 +20,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           id="meridian_time"
           label="Horario de Meridiano"
           type="text"
-          value={form.fields.meridian_time}
-          error={form.errors.meridian_time}
+          value={formData.fields.meridian_time}
+          error={formData.errors.meridian_time}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -34,8 +31,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Alimentación"
           type="text"
           form="add-patient-form"
-          value={form.fields.feeding}
-          error={form.errors.feeding}
+          value={formData.fields.feeding}
+          error={formData.errors.feeding}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -45,8 +42,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Yin"
           type="text"
           form="add-patient-form"
-          value={form.fields.yin}
-          error={form.errors.yin}
+          value={formData.fields.yin}
+          error={formData.errors.yin}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -56,8 +53,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Yang"
           type="text"
           form="add-patient-form"
-          value={form.fields.yang}
-          error={form.errors.yang}
+          value={formData.fields.yang}
+          error={formData.errors.yang}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -67,8 +64,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Qi"
           type="text"
           form="add-patient-form"
-          value={form.fields.qi}
-          error={form.errors.qi}
+          value={formData.fields.qi}
+          error={formData.errors.qi}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -78,8 +75,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Xue"
           type="text"
           form="add-patient-form"
-          value={form.fields.xue}
-          error={form.errors.xue}
+          value={formData.fields.xue}
+          error={formData.errors.xue}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -89,8 +86,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Jin Ye"
           type="text"
           form="add-patient-form"
-          value={form.fields.jin_ye}
-          error={form.errors.jin_ye}
+          value={formData.fields.jin_ye}
+          error={formData.errors.jin_ye}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -100,8 +97,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Jing Shen Vit. Mental"
           type="text"
           form="add-patient-form"
-          value={form.fields.mental_vitality_jing_shen}
-          error={form.errors.mental_vitality_jing_shen}
+          value={formData.fields.mental_vitality_jing_shen}
+          error={formData.errors.mental_vitality_jing_shen}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}
@@ -111,8 +108,8 @@ export const AddPresumptiveAnalysisForm = (props: Props) => {
           label="Jing Ancestral"
           type="text"
           form="add-patient-form"
-          value={form.fields.ancestral_jing}
-          error={form.errors.ancestral_jing}
+          value={formData.fields.ancestral_jing}
+          error={formData.errors.ancestral_jing}
           group="presumptive_analysis"
           blurEvent={formMethods.handleBlur}
           changeEvent={formMethods.handleChange}

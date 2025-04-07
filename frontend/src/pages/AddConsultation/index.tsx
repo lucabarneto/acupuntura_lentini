@@ -7,6 +7,7 @@ import { useAppNavigate } from "../../hooks/useAppNavigate";
 import { IConsultationForm } from "../../features/consultations/types/consultation.types";
 import { useConsultation } from "../../features/consultations/useConsultation";
 import { AddConsultationForm } from "../../features/add/components/AddConsultationForm";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: IConsultationForm = {
   date: "",
@@ -19,17 +20,17 @@ const initialForm: IConsultationForm = {
 
 export const AddConsultation = () => {
   const { setNavigationState } = useAppNavigate();
-  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } =
+    useAdd();
+  const form = useForm(initialForm);
   const { patientSelectOptions } = usePatient();
   const { addConsultation } = useConsultation();
 
   const formId = "add-consultation-form";
 
   useEffect(() => {
-    if (form.isSubmittable) {
-      addConsultation(form.fields, (consultation) => {
+    if (form.formData.isSubmittable) {
+      addConsultation(form.formData.fields, (consultation) => {
         leaveAddFlow(
           `/consultations/${consultation._id}`,
           setNavigationState("keep", "consultation", {
@@ -40,7 +41,7 @@ export const AddConsultation = () => {
         );
       });
     }
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section className="add-consultation-pane">
@@ -52,7 +53,7 @@ export const AddConsultation = () => {
       <div className="add-content-container">
         <AddConsultationForm
           formId={formId}
-          formData={formData}
+          form={form}
           patientSelectOptions={patientSelectOptions}
         />
         <p className="required-fields-tip">

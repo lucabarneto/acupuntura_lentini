@@ -1,0 +1,15 @@
+.input-checkbox input {
+  appearance: none;
+  position: absolute;
+  opacity: 0;
+}
+
+.input-checkbox label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input-checkbox span {
+  font-size: 1.125rem;
+}

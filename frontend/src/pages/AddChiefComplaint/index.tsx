@@ -8,6 +8,7 @@ import { IChiefComplaintForm } from "../../features/chief_complaints/types/chief
 import { usePatient } from "../../features/patients/usePatient";
 import { useAppNavigate } from "../../hooks/useAppNavigate";
 import "./AddChiefComplaint.css";
+import { useForm } from "../../hooks/useForm";
 
 const initialForm: IChiefComplaintForm = {
   title: "",
@@ -19,27 +20,26 @@ const initialForm: IChiefComplaintForm = {
 
 export const AddChiefComplaint = () => {
   const { setNavigationState } = useAppNavigate();
-  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal, formData } =
-    useAdd(initialForm);
-  const { form } = formData;
+  const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAdd();
+  const form = useForm(initialForm);
   const { patientSelectOptions } = usePatient();
   const { addChiefComplaint, createURLName } = useChiefComplaint();
 
   const formId = "add-chief-complaint-form";
 
   useEffect(() => {
-    if (form.isSubmittable) {
-      addChiefComplaint(form.fields, (chiefComplaint) => {
+    if (form.formData.isSubmittable) {
+      addChiefComplaint(form.formData.fields, (chiefComplaint) => {
         leaveAddFlow(
           `/chiefcomplaints/${createURLName(chiefComplaint)}`,
           setNavigationState("keep", "chiefcomplaint", {
             chiefComplaintId: chiefComplaint._id,
-            patientId: form.fields.patient,
+            patientId: form.formData.fields.patient,
           })
         );
       });
     }
-  }, [form.isSubmittable]);
+  }, [form.formData.isSubmittable]);
 
   return (
     <section className="add-chief-complaint-pane">
@@ -50,7 +50,7 @@ export const AddChiefComplaint = () => {
       />
       <div className="add-content-container">
         <AddChiefComplaintForm
-          formData={formData}
+          form={form}
           formId={formId}
           patientOptions={patientSelectOptions}
         />

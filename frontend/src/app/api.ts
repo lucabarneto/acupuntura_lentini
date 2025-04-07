@@ -19,6 +19,18 @@ export abstract class API<T extends object, F extends object> {
     }
   }
 
+  async getEntityById(id: string): Promise<T | undefined> {
+    try {
+      const res = await axios.get(`${this.url}/${id}`);
+
+      if (res.data.status === "error") throw res.data;
+
+      return res.data.payload as T;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async addEntity(body: F, hasFiles: boolean = false): Promise<T | undefined> {
     try {
       let res;

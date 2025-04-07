@@ -1,27 +1,25 @@
 import "./ResourceCarrousel.css";
-import { UseForm } from "../../../../hooks/useForm";
-import { ITemplateForm } from "../../../templates/types/template.types";
 import { IResource } from "../../types/resource.types";
 import { ResourceCheckboxCard } from "../ResourceCheckboxCard";
 
 type Props = {
   resources: IResource[];
   formId: string;
-  formData: UseForm<ITemplateForm>;
+  changeEvent(e: React.ChangeEvent<HTMLInputElement>): void;
 };
 export const ResourceCarrousel = (props: Props) => {
-  const { resources, formId, formData } = props;
+  const { resources, formId, changeEvent } = props;
 
   return (
     <>
-      <h3>Seleccionar recursos *</h3>
+      <h3>Seleccionar recursos</h3>
       <div className="resource-carrousel">
         {resources.map((resource) => (
           <ResourceCheckboxCard
             key={resource._id}
             resource={resource}
             formId={formId}
-            changeEvent={formData.formMethods.handleChange}
+            changeEvent={changeEvent}
           />
         ))}
       </div>

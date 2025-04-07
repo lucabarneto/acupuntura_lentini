@@ -2,6 +2,7 @@ import { Add } from "../pages/Add";
 import { AddBaziTable } from "../pages/AddBaziTable";
 import { AddChiefComplaint } from "../pages/AddChiefComplaint";
 import { AddConsultation } from "../pages/AddConsultation";
+import { AddConsultationTechniques } from "../pages/AddConsultationTechinques";
 import { AddPatient } from "../pages/AddPatient";
 import { AddPresumptiveAnalysis } from "../pages/AddPresumptiveAnalysis";
 import { AddTemplate } from "../pages/AddTemplate";
@@ -87,6 +88,9 @@ export class DetailsPaneSelector {
       }
       case "addconsultation": {
         return <AddConsultation/>;
+      }
+      case "addconsultationtechnique": {
+        return <AddConsultationTechniques/>;
       }
       case "addappointment": {
         return;

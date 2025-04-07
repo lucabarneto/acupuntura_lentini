@@ -1,20 +1,18 @@
 import "./AddTemplateForm.css";
 import { TextInput } from "../../../../components/ui/Input/Text";
 import { TextArea } from "../../../../components/ui/Input/TextArea";
-import { UseForm } from "../../../../hooks/useForm";
 import { ResourceCarrousel } from "../../../resources/components/ResourceCarrousel";
 import { IResource } from "../../../resources/types/resource.types";
 import { ITemplateForm } from "../../../templates/types/template.types";
+import { FormProps } from "../../../../types/general.types";
 
-type Props = {
-  formId: string;
-  formData: UseForm<ITemplateForm>;
+type Props = FormProps<ITemplateForm> & {
   resources: IResource[];
 };
 
 export const AddTemplateForm = (props: Props) => {
-  const { formId, formData, resources } = props;
-  const { form, formMethods } = formData;
+  const { formId, form, resources } = props;
+  const { formData, formMethods } = form;
 
   return (
     <>
@@ -23,8 +21,8 @@ export const AddTemplateForm = (props: Props) => {
           id="title"
           label="Título *"
           type="text"
-          value={form.fields.title}
-          error={form.errors.title}
+          value={formData.fields.title}
+          error={formData.errors.title}
           changeEvent={(e) => formMethods.handleChange(e)}
           blurEvent={formMethods.handleBlur}
           required
@@ -32,14 +30,14 @@ export const AddTemplateForm = (props: Props) => {
         <TextArea
           id="description"
           label="Descripción"
-          value={form.fields.description}
-          error={form.errors.description}
+          value={formData.fields.description}
+          error={formData.errors.description}
           changeEvent={(e) => formMethods.handleChange(e)}
         />
         <ResourceCarrousel
           formId={formId}
-          formData={formData}
           resources={resources}
+          changeEvent={(e) => formMethods.handleChange(e)}
         />
       </form>
     </>

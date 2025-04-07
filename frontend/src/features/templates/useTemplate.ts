@@ -21,14 +21,20 @@ export const useTemplate = (id: string = "") => {
     dispatch(slice.getAllTemplates());
   }, [dispatch]);
 
-  const TemplateSelectOptions: SelectOptions[] = allTemplates.map(
+  const templateSelectOptions: SelectOptions[] = allTemplates.map(
     (template) => {
       return {
         label: template.title,
         value: template._id,
+        extra: template.resources,
       };
     }
   );
+
+  const getTemplateById = (id: string): Promise<ITemplate | undefined> =>
+    dispatch(slice.getTemplateById(id))
+      .unwrap()
+      .then((res) => res);
 
   const addTemplate = (body: ITemplateForm, callback?: DispatchCallback) =>
     dispatch(slice.addTemplate(body)).unwrap().then(callback);
@@ -39,8 +45,9 @@ export const useTemplate = (id: string = "") => {
   return {
     allTemplates,
     template,
-    TemplateSelectOptions,
+    templateSelectOptions,
     addTemplate,
+    getTemplateById,
     createURLName,
   };
 };

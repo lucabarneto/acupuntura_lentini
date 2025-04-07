@@ -1,21 +1,18 @@
-import { UseForm } from "../../../../hooks/useForm";
+import { FormProps } from "../../../../types/general.types";
 import { BaziTable } from "../../../patients/components/BaziTable";
 import { BaziTableType } from "../../../patients/types/bazi_table.types";
 
-type Props = {
-  formData: UseForm<BaziTableType>;
-  formId: string;
-};
+type Props = FormProps<BaziTableType>;
 
 export const AddBaziTableForm = (props: Props) => {
-  const { formData, formId } = props;
-  const { handleSubmit } = formData.formMethods;
+  const { form, formId } = props;
+  const { handleSubmit } = form.formMethods;
 
   return (
     <>
       <h2>Tabla BaZi</h2>
       <form id={formId} onSubmit={handleSubmit}></form>
-      <BaziTable variant="form" formId={formId} formData={formData} />
+      <BaziTable variant="form" formId={formId} formData={form} />
 
       <datalist id="stems">
         <option value="Agua Yang (Zi)"></option>

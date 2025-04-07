@@ -10,7 +10,16 @@ export type IConsultation = {
   patient_tongue_image: string;
   chief_complaint: IChiefComplaint;
   patient: IPatient;
-  resources: ResourceRef[];
+  resources: IConsultationTechniques[];
+};
+
+export type IConsultationTechniques = ResourceRef & {
+  selected_values: string[];
+};
+
+export type IConsultationTechniquesDTO = {
+  resource: string;
+  selected_values: string[];
 };
 
 export type IConsultationNoId = Omit<IConsultation, "_id">;
@@ -31,7 +40,7 @@ export type IConsultationDTO = {
   patient_tongue_image: string | File;
   chief_complaint: string;
   patient: string;
-  resources: { resource: string }[];
+  resources: IConsultationTechniquesDTO;
 };
 
 export type ConsultationRef = {

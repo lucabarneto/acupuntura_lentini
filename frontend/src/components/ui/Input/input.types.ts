@@ -35,12 +35,18 @@ export interface SelectInputType extends InputType<HTMLSelectElement> {
 export interface SelectOptions {
   value: string;
   label: string;
+  extra?: unknown;
 }
 
 export interface RadioInputType extends InputType<HTMLInputElement> {
   name: string;
   checked?: true;
   clickEvent?(e?: React.MouseEvent): void;
+}
+
+export interface CheckboxInputType extends InputType<HTMLInputElement> {
+  name: string;
+  checked?: true;
 }
 
 export type TextAreaType = InputType<HTMLTextAreaElement>;

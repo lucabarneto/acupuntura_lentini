@@ -46,7 +46,6 @@ export const getAllChiefComplaints = createAsyncThunk<
         chief_complaints.ids.length !== 0 &&
         chief_complaints.previousCrudAction !== null
       ) {
-        console.log("Fetch to server was cancelled for chief_complaint entity");
         return false;
       }
     },

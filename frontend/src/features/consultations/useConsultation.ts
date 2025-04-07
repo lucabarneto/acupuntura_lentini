@@ -6,7 +6,11 @@ import { useAppDispatch } from "../../app/store.ts";
 import { RootState } from "../../app/store.ts";
 import { useEffect } from "react";
 import { SelectOptions } from "../../components/ui/Input/input.types.ts";
-import { IConsultationForm } from "./types/consultation.types.ts";
+import {
+  IConsultation,
+  IConsultationForm,
+} from "./types/consultation.types.ts";
+import { AnyStringArrayObject } from "../../types/general.types.ts";
 
 type DispatchCallback = (arg: any) => void;
 
@@ -38,11 +42,23 @@ export const useConsultation = (id: string = "") => {
     callback?: DispatchCallback
   ) => dispatch(slice.addConsultation(body)).unwrap().then(callback);
 
+  const addConsultationsTechniques = (
+    data: { consultation: IConsultation; techniques: AnyStringArrayObject },
+    callback?: DispatchCallback
+  ) => dispatch(slice.addConsultationTechniques(data)).unwrap().then(callback);
+
+  const updateConsultation = (
+    body: IConsultation,
+    callback?: DispatchCallback
+  ) => dispatch(slice.updateConsultation(body)).unwrap().then(callback);
+
   return {
     allConsulations,
     consultation,
     consultationSelectOptions,
     readableDate,
     addConsultation,
+    addConsultationsTechniques,
+    updateConsultation,
   };
 };

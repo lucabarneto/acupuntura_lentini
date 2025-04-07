@@ -32,6 +32,10 @@ TemplateSchema.pre("find", function () {
   this.populate("resources.resource");
 });
 
+TemplateSchema.pre("findOne", function () {
+  this.populate("resources.resource");
+});
+
 export const TemplateModel = mongoose.model<ITemplate, TemplateModel>(
   TEMPLATE_COLLECTION,
   TemplateSchema

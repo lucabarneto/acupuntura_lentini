@@ -1,132 +1,111 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { useEffect, useState } from "react";
 import { FieldValidator } from "../utils/fieldValidator";
-import { FormErrors } from "../types/form.types";
+import { AnyObject, AnyStringObject } from "../types/general.types";
 
 /*
 This custom hook can operate in forms which have nested fields of up to 2 levels of depth. If your form contains fields even more deeply nested, consider dividing it into smaller, more manageable chunks.
 */
 
-type Target = EventTarget & FieldHTMLElements;
+type FieldElements = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
-type FieldHTMLElements =
-  | HTMLInputElement
-  | HTMLSelectElement
-  | HTMLTextAreaElement;
-
-type GroupSet = [string, string];
-const GROUP = 0;
-const SUBGROUP = 1;
-
-interface UseFormStates<T extends { [key: string]: unknown }> {
+type FormData<T extends AnyObject> = {
   fields: T;
-  errors: FormErrors;
+  errors: AnyStringObject;
   isSubmittable: boolean;
-}
+};
 
-interface UseFormMethods {
-  handleChange(
-    e: React.ChangeEvent<FieldHTMLElements>,
-    depth?: 0 | 1 | 2
-  ): void;
-  handleBlur(e: React.ChangeEvent<FieldHTMLElements>): void;
+type FormMethods = {
+  handleChange(e: React.ChangeEvent<FieldElements>, depth?: 0 | 1 | 2): void;
+  handleBlur(e: React.ChangeEvent<FieldElements>): void;
   handleSubmit(e: React.FormEvent): void;
   handleReset(): void;
+};
+
+export type UseForm<T extends AnyObject> = {
+  formData: FormData<T>;
+  formMethods: FormMethods;
+};
+
+function assert(condition: any, msg?: string): asserts condition {
+  if (!condition) {
+    throw new Error(msg);
+  }
 }
 
-export type UseForm<T extends { [key: string]: unknown }> = {
-  form: UseFormStates<T>;
-  formMethods: UseFormMethods;
-};
+export const useForm = <T extends AnyObject>(initialFields: T): UseForm<T> => {
+  const [form, setForm] = useState({
+    fields: initialFields,
+    errors: {},
+    isSubmittable: false,
+  });
 
-const isHTMLInputElement = (
-  input: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-): input is HTMLInputElement => {
-  return (input as HTMLInputElement).files !== undefined;
-};
-
-export const useForm = <T extends { [key: string]: unknown }>(
-  initialFields: T
-): UseForm<T> => {
-  const [fields, setFields] = useState<T>(initialFields);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmittable, setIsSubmittable] = useState<boolean>(false);
+  useEffect(() => {
+    console.log("Fields: ", form.fields);
+  }, [form]);
 
   const handleChange = (
-    e: React.ChangeEvent<FieldHTMLElements>,
+    e: React.ChangeEvent<FieldElements>,
     depth: 0 | 1 | 2 = 0
-  ): void => {
-    const { name, value } = e.target;
+  ) => {
+    const checkedValues = getCheckedValues(e.target);
+    const group = e.target.dataset.group;
+    const subgroup = e.target.dataset.subgroup;
+    const groupErrorMessage =
+      "Nested fields must have their cosrresponding data-group (and data-subgroup) attributes";
 
-    if (depth === 0) {
-      if (name === "resources") {
-        handleCheckbox();
-      } else {
-        setFields((prevFields) => {
-          return {
-            ...prevFields,
-            [name]:
-              isHTMLInputElement(e.target) &&
-              (name === "profile_picture" || name === "patient_tongue_image")
-                ? e.target.files![0]
-                : value,
-          };
-        });
+    switch (depth) {
+      case 0:
+        setDepthZeroFields(e, checkedValues);
+        break;
+      case 1:
+        assert(group, groupErrorMessage);
+        setDepthOneFields(e, checkedValues);
+        break;
+      case 2:
+        assert(group, groupErrorMessage);
+        assert(subgroup, groupErrorMessage);
+        setDepthTwoFields(e, checkedValues);
+        break;
+      default: {
+        const _exhaustiveCheck: never = depth;
+        return _exhaustiveCheck;
       }
-    } else {
-      manageNestedFields(e.target, depth);
     }
   };
 
-  const manageNestedFields = (target: Target, depth: 1 | 2 = 1): void => {
-    const group = target.dataset.group;
-    const subgroup = target.dataset.subgroup;
+  const setDepthZeroFields = (
+    e: React.ChangeEvent<FieldElements>,
+    checkedValues: null | string[]
+  ) =>
+    setForm((prev) => {
+      return {
+        ...prev,
+        fields: {
+          ...prev.fields,
+          [e.target.name]: selectFieldValue(e, checkedValues),
+        },
+      };
+    });
 
-    const error =
-      "All nested fields must have a corresponding data-group (and data-subgroup if depth = 2) attribute";
-    if (group === undefined) throw new Error(error);
-    if (depth === 2 && subgroup === undefined) throw new Error(error);
-
-    if (depth === 1) {
-      setNestedFieldsDepthOne(target, group);
-    } else {
-      setNestedFieldsDepthTwo(target, [group, subgroup!]);
-    }
-  };
-
-  const setNestedFieldsDepthOne = (target: Target, group: string): void => {
-    const nestedFields = fields[group] as T;
+  const setDepthOneFields = (
+    e: React.ChangeEvent<FieldElements>,
+    checkedValues: null | string[]
+  ) => {
+    const group = e.target.dataset.group as string;
+    const nestedFields = form.fields[group] as T;
 
     for (const key in nestedFields) {
-      if (key === target.name)
-        setFields((prevFields) => {
+      if (key === e.target.name)
+        setForm((prev) => {
           return {
-            ...prevFields,
-            [group]: {
-              ...nestedFields,
-              [key]: target.value,
-            },
-          };
-        });
-    }
-  };
-
-  const setNestedFieldsDepthTwo = (
-    target: Target,
-    groupSet: GroupSet
-  ): void => {
-    const nestedFields = fields[groupSet[GROUP]] as T;
-    const deeplyNestedFields = nestedFields[groupSet[SUBGROUP]] as T;
-
-    for (const key in deeplyNestedFields) {
-      if (key === target.name)
-        setFields((prevFields) => {
-          return {
-            ...prevFields,
-            [groupSet[GROUP]]: {
-              ...nestedFields,
-              [groupSet[SUBGROUP]]: {
-                ...deeplyNestedFields,
-                [key]: target.value,
+            ...prev,
+            fields: {
+              ...prev.fields,
+              [group]: {
+                ...nestedFields,
+                [key]: selectFieldValue(e, checkedValues),
               },
             },
           };
@@ -134,42 +113,112 @@ export const useForm = <T extends { [key: string]: unknown }>(
     }
   };
 
-  /* field validation occurs on blur event */
-  const handleBlur = (e: React.ChangeEvent<FieldHTMLElements>): void => {
-    handleChange(e);
+  const setDepthTwoFields = (
+    e: React.ChangeEvent<FieldElements>,
+    checkedValues: null | string[]
+  ) => {
+    const group = e.target.dataset.group as string;
+    const subgroup = e.target.dataset.subgroup as string;
+    const nestedFields = form.fields[group] as T;
+    const deeplyNestedFields = nestedFields[subgroup] as T;
 
-    const validator = new FieldValidator(e.target);
-
-    if (validator.error === "") {
-      delete errors[e.target.name];
-      setErrors({ ...errors });
-    } else {
-      setErrors({ ...errors, [e.target.name]: validator.error });
+    for (const key in deeplyNestedFields) {
+      if (key === e.target.name)
+        setForm((prev) => {
+          return {
+            ...prev,
+            fields: {
+              ...prev.fields,
+              [group]: {
+                ...nestedFields,
+                [subgroup]: {
+                  ...deeplyNestedFields,
+                  [key]: selectFieldValue(e, checkedValues),
+                },
+              },
+            },
+          };
+        });
     }
   };
 
-  const handleCheckbox = () => {
-    const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      "input[name='resources']:checked"
+  const selectFieldValue = (
+    e: React.ChangeEvent<FieldElements>,
+    checkedValues: null | string[]
+  ) =>
+    checkedValues !== null
+      ? checkedValues
+      : isFileInput(e.target)
+      ? (e.target as HTMLInputElement).files![0]
+      : e.target.value;
+
+  const getCheckedValues = (target: FieldElements): string[] | null => {
+    if (!isInput(target) || !isCheckInput(target)) return null;
+
+    const checkedInputs = document.querySelectorAll<HTMLInputElement>(
+      `input[name="${target.name}"]:checked`
     );
-    const selectedValues = Array.from(checkboxes).map((field) => field.value);
-    setFields({ ...fields, resources: selectedValues });
+    const selectedValues = Array.from(checkedInputs).map(
+      (field) => field.value
+    );
+    return selectedValues;
+  };
+
+  const isCheckInput = (field: FieldElements): boolean =>
+    (isInput(field) && field.type === "radio") || field.type === "checkbox";
+
+  const isFileInput = (field: FieldElements): boolean =>
+    isInput(field) && field.type === "file";
+
+  const isInput = (
+    input: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  ): input is HTMLInputElement => {
+    return (input as HTMLInputElement).type !== undefined;
+  };
+
+  /* field validation occurs on blur event */
+  const handleBlur = (e: React.ChangeEvent<FieldElements>): void => {
+    handleChange(e);
+
+    const validator = new FieldValidator(e.target);
+    setForm((prev) => {
+      return {
+        ...prev,
+        errors: {
+          ...prev.errors,
+          [e.target.name]: validator.error,
+        },
+      };
+    });
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    if (Object.values(errors).length === 0) {
-      setIsSubmittable(true);
+    if (Object.values(form.errors).length === 0) {
+      setForm((prev) => {
+        return {
+          ...prev,
+          isSubmittable: true,
+        };
+      });
     } else {
-      setIsSubmittable(false);
+      setForm((prev) => {
+        return {
+          ...prev,
+          isSubmittable: false,
+        };
+      });
     }
   };
 
-  const handleReset = (): void => setFields(initialFields);
+  const handleReset = (): void =>
+    setForm((prev) => {
+      return { ...prev, fields: initialFields };
+    });
 
   return {
-    form: { fields, errors, isSubmittable },
+    formData: form,
     formMethods: {
       handleChange,
       handleBlur,

@@ -1,0 +1,32 @@
+.add-consultation-techniques-form header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+.technique-values {
+  display: flex;
+  gap: 1rem;
+}
+
+.technique-values img {
+  height: 350px;
+  width: 350px;
+}
+
+.technique-values hgroup {
+  margin-bottom: 1.5rem;
+}
+
+.technique-values h2 {
+  margin-bottom: 0.5rem;
+}
+
+.technique-values p {
+  text-align: left;
+}
+
+.technique-values-inputs > * {
+  margin-bottom: 0.5rem;
+}
