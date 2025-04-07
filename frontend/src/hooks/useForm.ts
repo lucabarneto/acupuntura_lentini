@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldValidator } from "../utils/fieldValidator";
 import { AnyObject, AnyStringObject } from "../types/general.types";
 
@@ -40,10 +40,6 @@ export const useForm = <T extends AnyObject>(initialFields: T): UseForm<T> => {
     errors: {},
     isSubmittable: false,
   });
-
-  useEffect(() => {
-    console.log("Fields: ", form.fields);
-  }, [form]);
 
   const handleChange = (
     e: React.ChangeEvent<FieldElements>,

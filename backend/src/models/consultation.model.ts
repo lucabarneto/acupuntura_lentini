@@ -11,8 +11,8 @@ const CONSULTATION_COLLECTION = "consultations";
 const ResourceRefSchema = new mongoose.Schema(
   {
     resource: { type: mongoose.Types.ObjectId, ref: "resources" },
-    selected_value: {
-      type: String,
+    selected_values: {
+      type: Array,
       required: true,
     },
   },
@@ -49,6 +49,10 @@ const ConsultationSchema = new mongoose.Schema<
 });
 
 /* :: Schema middlewares :: */
+
+ConsultationSchema.pre("find", function () {
+  this.populate("resources.resource");
+});
 
 ConsultationSchema.pre("deleteOne", async function () {
   const consultation = (await this.model.findOne(

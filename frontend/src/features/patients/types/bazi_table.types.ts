@@ -17,7 +17,7 @@ export type BaziTableVariants =
 export type BaziTableFormVariant = {
   variant: "form";
   formId: string;
-  formData: UseForm<BaziTableType>;
+  form: UseForm<BaziTableType>;
 };
 
 export type BaziTableTabularDataVariant = {

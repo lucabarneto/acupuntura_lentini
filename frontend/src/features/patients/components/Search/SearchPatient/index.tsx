@@ -1,6 +1,6 @@
 import { SearchViewType } from "../../../../search/types/search.types";
 import { IPatient } from "../../../types/patient.types";
-import { useSearch } from "../../../../search/useSearch";
+import { useSearch } from "../../../../search/hooks/useSearch";
 import { SearchForm } from "../../../../search/components/SearchForm";
 import { SearchBar } from "../../../../search/components/SearchBar";
 import { SearchNoQuery } from "../SearchNoQuery";
@@ -16,34 +16,26 @@ export const SearchViewPatient = (props: Props) => {
       .trim()
       .toUpperCase();
 
-    return fullName.startsWith(query.toUpperCase());
+    return fullName.startsWith(searchData.query.toUpperCase());
   };
 
-  const {
-    searchActive,
-    filteredResults,
-    query,
-    closeSearch,
-    openSearch,
-    clearSearch,
-    filterResults,
-  } = useSearch(entities, filter);
+  const { searchData, searchMethods } = useSearch(entities, filter);
 
-  return searchActive ? (
+  return searchData.searchActive ? (
     <div className="search-view">
       <SearchForm
-        query={query}
-        closeSearchEvent={closeSearch}
-        clearSearchEvent={clearSearch}
-        changeEvent={filterResults}
+        query={searchData.query}
+        closeSearchEvent={searchMethods.closeSearch}
+        clearSearchEvent={searchMethods.clearSearch}
+        changeEvent={searchMethods.filterResults}
       />
       <div className="search-results">
-        {query === "" ? (
+        {searchData.query === "" ? (
           <SearchNoQuery />
-        ) : filteredResults.length !== 0 ? (
+        ) : searchData.filteredResults.length !== 0 ? (
           <div className="search-result-list">
             <h2>Resultados de búsqueda</h2>
-            <ul>{filteredResults.map(mappedResults)}</ul>
+            <ul>{searchData.filteredResults.map(mappedResults)}</ul>
           </div>
         ) : (
           <SearchNoResults />
@@ -51,6 +43,6 @@ export const SearchViewPatient = (props: Props) => {
       </div>
     </div>
   ) : (
-    <SearchBar clickEvent={openSearch} />
+    <SearchBar clickEvent={searchMethods.openSearch} />
   );
 };

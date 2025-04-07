@@ -1,4 +1,3 @@
-// import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { DetailsPanes, MainPanes } from "../types/navigation.types";
 import { AnyStringObject } from "../types/general.types";
@@ -7,7 +6,7 @@ export type AppNavigateState = {
   mainPane: MainPanes;
   detailsPane: undefined | DetailsPanes;
 
-  /* extra navigation data, such as entity ids */
+  /* extra navigation data, mainly entity ids */
   [extra: string]: unknown;
 };
 
@@ -20,10 +19,6 @@ export const useAppNavigate = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const navigationState = location.state;
-
-  // useEffect(() => {
-  //   console.log(location.state);
-  // }, [location]);
 
   const navigationData: NavigationData = {
     mainPane: navigationState?.mainPane,

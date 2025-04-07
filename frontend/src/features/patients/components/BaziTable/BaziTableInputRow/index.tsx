@@ -6,18 +6,18 @@ import {
 
 type Props = {
   heading: BaziTableHeadings;
-  formData: UseForm<BaziTableType>;
+  form: UseForm<BaziTableType>;
   formId: string;
   datalistId: string;
 };
 
 export const BaziTableInputRow = (props: Props) => {
-  const { heading, formData, formId, datalistId } = props;
-  const { form, formMethods } = formData;
+  const { heading, form, formId, datalistId } = props;
+  const { formData, formMethods } = form;
 
-  const principalQi = form.fields.hidden_stems.principal_qi;
-  const centralQi = form.fields.hidden_stems.central_qi;
-  const residualQi = form.fields.hidden_stems.residual_qi;
+  const principalQi = formData.fields.hidden_stems.principal_qi;
+  const centralQi = formData.fields.hidden_stems.central_qi;
+  const residualQi = formData.fields.hidden_stems.residual_qi;
 
   return (
     <>
@@ -89,7 +89,7 @@ export const BaziTableInputRow = (props: Props) => {
               ? "Troncos celestiales"
               : "Ramas terrestres"}
           </th>
-          {Object.entries(form.fields[heading]).map((field, index) => {
+          {Object.entries(formData.fields[heading]).map((field, index) => {
             return (
               <td key={index}>
                 <input

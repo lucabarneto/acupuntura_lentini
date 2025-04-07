@@ -3,7 +3,7 @@ import { Button } from "../../../../components/ui/Button";
 import { RadioInput } from "../../../../components/ui/Input/Radio";
 import { SelectInput } from "../../../../components/ui/Input/Select";
 import { ResourceCarrousel } from "../../../resources/components/ResourceCarrousel";
-import { UseConsultationTechniques } from "../../useConsultationTechniques";
+import { UseConsultationTechniques } from "../../hooks/useConsultationTechniques";
 import { IResource } from "../../../resources/types/resource.types";
 import { SelectOptions } from "../../../../components/ui/Input/input.types";
 

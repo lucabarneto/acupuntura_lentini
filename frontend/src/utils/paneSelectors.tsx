@@ -1,20 +1,20 @@
-import { Add } from "../pages/Add";
-import { AddBaziTable } from "../pages/AddBaziTable";
-import { AddChiefComplaint } from "../pages/AddChiefComplaint";
-import { AddConsultation } from "../pages/AddConsultation";
-import { AddConsultationTechniques } from "../pages/AddConsultationTechinques";
-import { AddPatient } from "../pages/AddPatient";
-import { AddPresumptiveAnalysis } from "../pages/AddPresumptiveAnalysis";
-import { AddTemplate } from "../pages/AddTemplate";
-import { ChiefComplaintDetails } from "../pages/ChiefComplaintDetails";
-import { ConsultationDetails } from "../pages/ConsultationDetails";
-import { Home } from "../pages/Home";
-import { PatientDetails } from "../pages/PatientDetails";
-import { Patients } from "../pages/Patients";
-import { ResourceDetails } from "../pages/ResourceDetails";
-import { Resources } from "../pages/Resources";
-import { TemplateDetails } from "../pages/TemplateDetails";
-import { Templates } from "../pages/Templates";
+import { Add } from "../pages/details_pane/Add";
+import { AddBaziTable } from "../pages/details_pane/AddBaziTable";
+import { AddChiefComplaint } from "../pages/details_pane/AddChiefComplaint";
+import { AddConsultation } from "../pages/details_pane/AddConsultation";
+import { AddConsultationTechniques } from "../pages/details_pane/AddConsultationTechinques";
+import { AddPatient } from "../pages/details_pane/AddPatient";
+import { AddPresumptiveAnalysis } from "../pages/details_pane/AddPresumptiveAnalysis";
+import { AddTemplate } from "../pages/details_pane/AddTemplate";
+import { ChiefComplaintDetails } from "../pages/details_pane/ChiefComplaintDetails";
+import { ConsultationDetails } from "../pages/details_pane/ConsultationDetails";
+import { Home } from "../pages/main_pane/Home";
+import { PatientDetails } from "../pages/details_pane/PatientDetails";
+import { Patients } from "../pages/main_pane/Patients";
+import { ResourceDetails } from "../pages/details_pane/ResourceDetails";
+import { Resources } from "../pages/main_pane/Resources";
+import { TemplateDetails } from "../pages/details_pane/TemplateDetails";
+import { Templates } from "../pages/main_pane/Templates";
 import { DetailsPanes, MainPanes } from "../types/navigation.types";
 
 export class MainPaneSelector {
@@ -69,7 +69,7 @@ export class DetailsPaneSelector {
         return <ChiefComplaintDetails />;
       }
       case "consultation": {
-        return <ConsultationDetails/>
+        return <ConsultationDetails />;
       }
       case "add": {
         return <Add />;
@@ -87,10 +87,10 @@ export class DetailsPaneSelector {
         return <AddChiefComplaint />;
       }
       case "addconsultation": {
-        return <AddConsultation/>;
+        return <AddConsultation />;
       }
       case "addconsultationtechnique": {
-        return <AddConsultationTechniques/>;
+        return <AddConsultationTechniques />;
       }
       case "addappointment": {
         return;

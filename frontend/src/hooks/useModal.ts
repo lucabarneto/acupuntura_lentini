@@ -43,8 +43,6 @@ export const useModal = (type: "modal" | "non-modal"): UseModal => {
   const openModal = (state?: string): void => {
     const currentModal = modal.current as HTMLDialogElement;
 
-    console.log("OPENING MODAL");
-
     if (display === "visible") return;
 
     if (type === "modal") {
@@ -60,8 +58,6 @@ export const useModal = (type: "modal" | "non-modal"): UseModal => {
 
   const closeModal = (): void => {
     const currentModal = modal.current as HTMLDialogElement;
-
-    console.log("CLOSING MODAL");
 
     if (display === "hidden") return;
 

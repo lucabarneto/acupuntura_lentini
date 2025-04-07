@@ -1,6 +1,6 @@
 import { IChiefComplaint } from "../../chief_complaints/types/chief_complaint.types";
 import { IPatient } from "../../patients/types/patient.types";
-import { ResourceRef } from "../../resources/types/resource.types";
+import { IConsultationTechniques } from "./consultation_techniques.types";
 
 export type IConsultation = {
   _id: string;
@@ -13,17 +13,6 @@ export type IConsultation = {
   resources: IConsultationTechniques[];
 };
 
-export type IConsultationTechniques = ResourceRef & {
-  selected_values: string[];
-};
-
-export type IConsultationTechniquesDTO = {
-  resource: string;
-  selected_values: string[];
-};
-
-export type IConsultationNoId = Omit<IConsultation, "_id">;
-
 export type IConsultationForm = {
   date: string;
   treatment: string;
@@ -31,16 +20,6 @@ export type IConsultationForm = {
   patient_tongue_image: string | File;
   chief_complaint: string;
   patient: string;
-};
-
-export type IConsultationDTO = {
-  date: string;
-  treatment: string;
-  evolution: string;
-  patient_tongue_image: string | File;
-  chief_complaint: string;
-  patient: string;
-  resources: IConsultationTechniquesDTO;
 };
 
 export type ConsultationRef = {

@@ -26,8 +26,8 @@ export const ChiefComplaintConsultations = (props: Props) => {
                   consultation={consultation}
                   state={setNavigationState("keep", "consultation", {
                     consultationId: consultation._id,
-                    chiefComplaintId: consultation.chief_complaint,
-                    patientId: consultation.patient
+                    chiefComplaintId: consultation.chief_complaint._id,
+                    patientId: consultation.patient._id,
                   })}
                 />
               );

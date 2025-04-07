@@ -38,19 +38,19 @@ export const BaziTable = (props: Props) => {
               <BaziTableInputRow
                 heading="heavenly_stems"
                 datalistId="stems"
-                formData={props.formData}
+                form={props.form}
                 formId={props.formId}
               />
               <BaziTableInputRow
                 heading="earthly_branches"
                 datalistId="branches"
-                formData={props.formData}
+                form={props.form}
                 formId={props.formId}
               />
               <BaziTableInputRow
                 heading="hidden_stems"
                 datalistId="stems"
-                formData={props.formData}
+                form={props.form}
                 formId={props.formId}
               />
             </>
