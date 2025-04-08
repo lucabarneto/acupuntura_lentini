@@ -1,3 +1,4 @@
+import "./ConsultationTechniques.css";
 import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { IConsultation } from "../../types/consultation.types";
 
@@ -22,15 +23,20 @@ export const ConsultationTechniques = (props: Props) => {
         />
       ) : (
         <div className="consultation-techniques">
-          {consultation.resources.map((resource, index) => (
-            <div key={index}>
-              <h4>{resource.resource.title}</h4>
-              <img src={resource.resource.image} alt="" />
-              <p>
-                Valores seleccionados: {resource.selected_values.join(", ")}
-              </p>
-            </div>
-          ))}
+          {consultation.resources.map((refEntity, index) => {
+            return (
+              <article className="used-technique" key={index}>
+                <img src={refEntity.resource.image} alt="" />
+                <div>
+                  <h4>{refEntity.resource.title}</h4>
+                  <p>
+                    Valores seleccionados:{" "}
+                    <b>{refEntity.selected_values.join(", ")}</b>
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
     </article>
