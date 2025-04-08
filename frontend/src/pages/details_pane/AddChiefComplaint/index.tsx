@@ -4,6 +4,7 @@ import { AddHeader } from "../../../components/ui/AddHeader";
 import { IChiefComplaintForm } from "../../../features/chief_complaints/types/chief_complaint.types";
 import "./AddChiefComplaint.css";
 import { useAddChiefComplaint } from "../../../features/chief_complaints/hooks/useAddChiefComplaint";
+import { SelectOptions } from "../../../components/ui/Input/input.types";
 
 const initialForm: IChiefComplaintForm = {
   title: "",
@@ -14,20 +15,20 @@ const initialForm: IChiefComplaintForm = {
 };
 
 export const AddChiefComplaint = () => {
-  const { navigation, addForm } = useAddChiefComplaint(initialForm);
+  const { addNavigation, addForm } = useAddChiefComplaint(initialForm);
 
   return (
     <section className="add-chief-complaint-pane">
       <AddHeader
         title="Añadir motivo de consulta"
-        closeEvent={navigation.confirmLeaveAddFlow}
+        closeEvent={addNavigation.openLeaveModal}
         formId={addForm.formId}
       />
       <div className="add-content-container">
         <AddChiefComplaintForm
           form={addForm.form}
           formId={addForm.formId}
-          patientOptions={addForm.patientSelectOptions}
+          patientOptions={addForm.patientSelectOptions as SelectOptions[]}
         />
         <p className="required-fields-tip">
           Completa todos los <strong>campos requeridos</strong> (<b>*</b>) para
@@ -35,17 +36,12 @@ export const AddChiefComplaint = () => {
         </p>
       </div>
       <Modal
-        ref={navigation.leaveAddFlowModal.modal}
+        ref={addNavigation.leaveModal}
         title="Salir de añadir motivo de consulta"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        cancelEvent={navigation.leaveAddFlowModal.closeModal}
-        confirmEvent={() =>
-          navigation.leaveAddFlow(
-            navigation.leaveAddFlowModal.state!,
-            navigation.setNavigationState("keep", "add")
-          )
-        }
+        cancelEvent={addNavigation.closeLeaveModal}
+        confirmEvent={() => addNavigation.leaveFlow()}
       />
     </section>
   );

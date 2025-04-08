@@ -4,27 +4,34 @@ import { SelectTechniques } from "../../../features/consultations/components/Sel
 import { AddConsultationTechniquesForm } from "../../../features/consultations/components/AddConsultationTechniquesForm";
 import { AnyObject } from "../../../types/general.types";
 import { useAddConsultationTechniques } from "../../../features/consultations/hooks/useAddConsultationTechniques";
+import { UseConsultationTechniques } from "../../../features/consultations/hooks/useConsultationTechniques";
+import { IResource } from "../../../features/resources/types/resource.types";
+import { SelectOptions } from "../../../components/ui/Input/input.types";
 
 const initialForm: AnyObject = {};
 
 export const AddConsultationTechniques = () => {
-  const { navigation, addForm, consultationTechniques, entity } =
+  const { addNavigation, addForm, entityData } =
     useAddConsultationTechniques(initialForm);
+  const consultationTechniques =
+    addForm.consultationTechniques as UseConsultationTechniques;
   const { techniqueData } = consultationTechniques;
 
   return (
     <section className="add-consultation-pane">
       <AddHeader
         title="Añadir sesión"
-        closeEvent={navigation.confirmLeaveAddFlow}
+        closeEvent={addNavigation.openLeaveModal}
         formId={addForm.formId}
       />
       <div className="add-content-container">
         {techniqueData.techniques.length === 0 ? (
           <SelectTechniques
             consultationTechniques={consultationTechniques}
-            resources={entity.resources}
-            templateSelectOptions={entity.templateSelectOptions}
+            resources={addForm.resources as IResource[]}
+            templateSelectOptions={
+              addForm.templateSelectOptions as SelectOptions[]
+            }
           />
         ) : (
           <AddConsultationTechniquesForm
@@ -35,16 +42,13 @@ export const AddConsultationTechniques = () => {
         )}
       </div>
       <Modal
-        ref={navigation.leaveAddFlowModal.modal}
+        ref={addNavigation.leaveModal}
         title="Salir de añadir técnicas de sesión"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        cancelEvent={navigation.leaveAddFlowModal.closeModal}
+        cancelEvent={addNavigation.closeLeaveModal}
         confirmEvent={() =>
-          navigation.leaveAddFlow(
-            navigation.leaveAddFlowModal.state!,
-            navigation.setNavigationState("keep", "add")
-          )
+          addNavigation.leaveFlow({ consultationId: entityData.entityId })
         }
       />
     </section>

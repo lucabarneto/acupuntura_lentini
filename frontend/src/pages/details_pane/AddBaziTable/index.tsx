@@ -42,38 +42,35 @@ const initialForm: BaziTableType = {
 };
 
 export const AddBaziTable = () => {
-  const { navigation, addForm, entity } = useAddBaziTable(initialForm);
+  const { addNavigation, addForm, entityData } = useAddBaziTable(initialForm);
 
   return (
     <section className="add-patient-pane add-bazi-table-pane">
       <AddHeader
         title="Añadir Tabla Bazi"
         closeEvent={(e) =>
-          navigation.confirmLeaveAddFlow(
+          addNavigation.openLeaveModal(
             e!,
-            `/patients/${entity.patientURLName}`
+            `/patients/${entityData?.entityURLName}`
           )
         }
         formId={addForm.formId}
       />
       <div>
-        {entity.patient && <PatientDetailsPreview patient={entity.patient} />}
+        {entityData?.entity && (
+          <PatientDetailsPreview patient={entityData.entity} />
+        )}
         <AddBaziTableForm form={addForm.form} formId={addForm.formId} />
       </div>
 
       <Modal
-        ref={navigation.leaveAddFlowModal.modal}
+        ref={addNavigation.leaveModal}
         title="Salir de añadir tabla bazi"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        cancelEvent={navigation.leaveAddFlowModal.closeModal}
+        cancelEvent={addNavigation.closeLeaveModal}
         confirmEvent={() =>
-          navigation.leaveAddFlow(
-            navigation.leaveAddFlowModal.state!,
-            navigation.setNavigationState("keep", "patient", {
-              patientId: entity.patientId,
-            })
-          )
+          addNavigation.leaveFlow({ patientId: entityData.entityId })
         }
       />
     </section>

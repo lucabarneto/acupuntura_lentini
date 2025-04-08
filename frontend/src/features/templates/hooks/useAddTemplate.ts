@@ -5,8 +5,12 @@ import { useForm } from "../../../hooks/useForm";
 import { useResource } from "../../resources/hooks/useResource";
 import { ITemplateForm } from "../types/template.types";
 import { useTemplate } from "./useTemplate";
+import { AddHookReturnType } from "../../../types/add.feature.types";
+import { AnyStringObject } from "../../../types/general.types";
 
-export const useAddTemplate = (initialForm: ITemplateForm) => {
+export const useAddTemplate = (
+  initialForm: ITemplateForm
+): AddHookReturnType<ITemplateForm> => {
   const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
   const { entityData } = useResource();
@@ -26,12 +30,18 @@ export const useAddTemplate = (initialForm: ITemplateForm) => {
     }
   }, [formData.isSubmittable]);
 
+  const leaveFlow = (extra?: AnyStringObject) =>
+    leaveAddFlow(
+      leaveAddFlowModal.state!,
+      setNavigationState("keep", "add", extra)
+    );
+
   return {
-    navigation: {
-      setNavigationState,
-      leaveAddFlow,
-      confirmLeaveAddFlow,
-      leaveAddFlowModal,
+    addNavigation: {
+      leaveModal: leaveAddFlowModal.modal,
+      closeLeaveModal: leaveAddFlowModal.closeModal,
+      openLeaveModal: confirmLeaveAddFlow,
+      leaveFlow,
     },
     addForm: {
       form,

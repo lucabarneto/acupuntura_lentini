@@ -19,6 +19,7 @@ export const useChiefComplaint = (id: string = "") => {
   const chiefComplaint = useSelector((state: RootState) =>
     slice.selectById(state, id)
   );
+  const chiefComplaintURLName = `${chiefComplaint.title.split(" ").join("_")}`;
 
   useEffect(() => {
     dispatch(thunk.getAllChiefComplaints());
@@ -72,6 +73,6 @@ export const useChiefComplaint = (id: string = "") => {
       deleteChiefComplaint,
     },
     utilityMethods: { getChiefComplaintSelectOptions, createURLName },
-    entityData: { allChiefComplaints, chiefComplaint },
+    entityData: { allChiefComplaints, chiefComplaint, chiefComplaintURLName },
   };
 };

@@ -13,15 +13,14 @@ export const ChiefComplaintDetails = () => {
   const { patientId, chiefComplaintId } = extraData;
   const { modal, openModal, closeModal } = useModal("modal");
   const patientHook = usePatient(patientId);
+  const { patient, patientURLName } = patientHook.entityData;
   const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
-
-  const patientUrlName =
-    patientHook.entityData.patient &&
-    patientHook.utilityMethods.createURLName(patientHook.entityData.patient);
+  const { chiefComplaint } = chiefComplaintHook.entityData;
+  const { deleteChiefComplaint } = chiefComplaintHook.crudMethods;
 
   return (
-    patientHook.entityData.patient &&
-    chiefComplaintHook.entityData.chiefComplaint && (
+    patient &&
+    chiefComplaint && (
       <section className="details-section">
         <TopAppBar
           pane="details"
@@ -30,35 +29,28 @@ export const ChiefComplaintDetails = () => {
           deleteEvent={() => openModal()}
           navigateBackEvent={() =>
             appNavigate(
-              `/patients/${patientUrlName}`,
+              `/patients/${patientURLName}`,
               setNavigationState("keep", "patient", { patientId })
             )
           }
         />
         <article>
           <div className="chief-complaint-title">
-            <h1>{chiefComplaintHook.entityData.chiefComplaint.title}</h1>
+            <h1>{chiefComplaint.title}</h1>
             <Button type="button" label="Finalizar consulta" variant="filled" />
           </div>
           <div className="chief-complaint-data">
-            <p>{chiefComplaintHook.entityData.chiefComplaint.diagnosis}</p>
+            <p>{chiefComplaint.diagnosis}</p>
             <p>
-              <b>Remedios:</b>{" "}
-              {chiefComplaintHook.entityData.chiefComplaint.initial_medicine}
+              <b>Remedios:</b> {chiefComplaint.initial_medicine}
             </p>
             <p>
-              <b>Sueño:</b>{" "}
-              {
-                chiefComplaintHook.entityData.chiefComplaint
-                  .initial_sleep_condition
-              }
+              <b>Sueño:</b> {chiefComplaint.initial_sleep_condition}
             </p>
           </div>
         </article>
         <ChiefComplaintConsultations
-          consultations={
-            chiefComplaintHook.entityData.chiefComplaint.consultations
-          }
+          consultations={chiefComplaint.consultations}
           addEvent={() =>
             appNavigate(
               "/add/consultation",
@@ -73,9 +65,8 @@ export const ChiefComplaintDetails = () => {
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            chiefComplaintHook.crudMethods.deleteChiefComplaint(
-              chiefComplaintId,
-              () => appNavigate("/patients", setNavigationState("keep"))
+            deleteChiefComplaint(chiefComplaintId, () =>
+              appNavigate("/patients", setNavigationState("keep"))
             )
           }
         />

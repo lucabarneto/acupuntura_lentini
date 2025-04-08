@@ -5,8 +5,12 @@ import { useForm } from "../../../hooks/useForm";
 import { usePatient } from "../../patients/hooks/usePatient";
 import { IConsultationForm } from "../types/consultation.types";
 import { useConsultation } from "./useConsultation";
+import { AnyStringObject } from "../../../types/general.types";
+import { AddHookReturnType } from "../../../types/add.feature.types";
 
-export const useAddConsultation = (initialForm: IConsultationForm) => {
+export const useAddConsultation = (
+  initialForm: IConsultationForm
+): AddHookReturnType<IConsultationForm> => {
   const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
   const { entityData } = usePatient();
@@ -30,12 +34,18 @@ export const useAddConsultation = (initialForm: IConsultationForm) => {
     }
   }, [formData.isSubmittable]);
 
+  const leaveFlow = (extra?: AnyStringObject) =>
+    leaveAddFlow(
+      leaveAddFlowModal.state!,
+      setNavigationState("keep", "add", extra)
+    );
+
   return {
-    navigation: {
-      setNavigationState,
-      leaveAddFlow,
-      confirmLeaveAddFlow,
-      leaveAddFlowModal,
+    addNavigation: {
+      leaveModal: leaveAddFlowModal.modal,
+      openLeaveModal: confirmLeaveAddFlow,
+      closeLeaveModal: leaveAddFlowModal.closeModal,
+      leaveFlow,
     },
     addForm: {
       form,

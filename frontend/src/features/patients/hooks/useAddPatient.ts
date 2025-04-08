@@ -4,8 +4,12 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { useForm } from "../../../hooks/useForm";
 import { IPatientForm } from "../types/patient.types";
 import { usePatient } from "./usePatient";
+import { AddHookReturnType } from "../../../types/add.feature.types";
+import { AnyStringObject } from "../../../types/general.types";
 
-export const useAddPatient = (initialForm: IPatientForm) => {
+export const useAddPatient = (
+  initialForm: IPatientForm
+): AddHookReturnType<IPatientForm> => {
   const { leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } = useAddFlow();
   const { crudMethods, utilityMethods } = usePatient();
   const { setNavigationState } = useAppNavigate();
@@ -22,12 +26,18 @@ export const useAddPatient = (initialForm: IPatientForm) => {
       });
   }, [form.formData.isSubmittable]);
 
+  const leaveFlow = (extra?: AnyStringObject) =>
+    leaveAddFlow(
+      leaveAddFlowModal.state!,
+      setNavigationState("keep", "add", extra)
+    );
+
   return {
-    navigation: {
-      leaveAddFlowModal,
-      leaveAddFlow,
-      confirmLeaveAddFlow,
-      setNavigationState,
+    addNavigation: {
+      leaveModal: leaveAddFlowModal.modal,
+      leaveFlow,
+      openLeaveModal: confirmLeaveAddFlow,
+      closeLeaveModal: leaveAddFlowModal.closeModal,
     },
     addForm: {
       form,

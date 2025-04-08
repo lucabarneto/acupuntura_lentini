@@ -2,7 +2,7 @@ import { ChiefComplaintRef } from "../../chief_complaints/types/chief_complaint.
 import { BaziTableType } from "./bazi_table.types";
 import { PresumptiveAnalysisType } from "./presumptive_analysis.types";
 
-export interface IPatient {
+export type IPatient = {
   _id: string;
   first_name: string;
   last_name: string;
@@ -18,7 +18,7 @@ export interface IPatient {
   chief_complaints: ChiefComplaintRef[];
   appointments?: AppointmentsRef[];
   reports?: ReportsRef[];
-}
+};
 
 export type BirthType = {
   date: string;

@@ -21,13 +21,13 @@ const initialForm: IPatientForm = {
 };
 
 export const AddPatient = () => {
-  const { addForm, navigation } = useAddPatient(initialForm);
+  const { addForm, addNavigation } = useAddPatient(initialForm);
 
   return (
     <section className="add-patient-pane">
       <AddHeader
         title="Añadir paciente"
-        closeEvent={navigation.confirmLeaveAddFlow}
+        closeEvent={addNavigation.openLeaveModal}
         formId={addForm.formId}
       />
       <div className="add-content-container">
@@ -38,17 +38,12 @@ export const AddPatient = () => {
         </p>
       </div>
       <Modal
-        ref={navigation.leaveAddFlowModal.modal}
+        ref={addNavigation.leaveModal}
         title="Salir de añadir paciente"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        cancelEvent={navigation.leaveAddFlowModal.closeModal}
-        confirmEvent={() =>
-          navigation.leaveAddFlow(
-            navigation.leaveAddFlowModal.state!,
-            navigation.setNavigationState("keep", "add")
-          )
-        }
+        cancelEvent={addNavigation.closeLeaveModal}
+        confirmEvent={() => addNavigation.leaveFlow()}
       />
     </section>
   );

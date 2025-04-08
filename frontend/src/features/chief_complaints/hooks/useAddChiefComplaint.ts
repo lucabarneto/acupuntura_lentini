@@ -5,8 +5,12 @@ import { useForm } from "../../../hooks/useForm";
 import { usePatient } from "../../patients/hooks/usePatient";
 import { IChiefComplaintForm } from "../types/chief_complaint.types";
 import { useChiefComplaint } from "./useChiefComplaint";
+import { AddHookReturnType } from "../../../types/add.feature.types";
+import { AnyStringObject } from "../../../types/general.types";
 
-export const useAddChiefComplaint = (initialForm: IChiefComplaintForm) => {
+export const useAddChiefComplaint = (
+  initialForm: IChiefComplaintForm
+): AddHookReturnType<IChiefComplaintForm> => {
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
   const { entityData } = usePatient();
   const { crudMethods, utilityMethods } = useChiefComplaint();
@@ -29,12 +33,18 @@ export const useAddChiefComplaint = (initialForm: IChiefComplaintForm) => {
     }
   }, [formData.isSubmittable]);
 
+  const leaveFlow = (extra?: AnyStringObject) =>
+    leaveAddFlow(
+      leaveAddFlowModal.state!,
+      setNavigationState("keep", "add", extra)
+    );
+
   return {
-    navigation: {
-      setNavigationState,
-      leaveAddFlow,
-      confirmLeaveAddFlow,
-      leaveAddFlowModal,
+    addNavigation: {
+      leaveModal: leaveAddFlowModal.modal,
+      openLeaveModal: confirmLeaveAddFlow,
+      closeLeaveModal: leaveAddFlowModal.closeModal,
+      leaveFlow,
     },
     addForm: {
       form,

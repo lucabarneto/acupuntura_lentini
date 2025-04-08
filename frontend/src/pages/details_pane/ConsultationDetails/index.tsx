@@ -10,18 +10,15 @@ import { useModal } from "../../../hooks/useModal";
 export const ConsultationDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const { patientId, chiefComplaintId, consultationId } = extraData;
-  const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
-  const consultationHook = useConsultation(consultationId);
   const { modal, openModal, closeModal } = useModal("modal");
-
-  const chiefComplaintURLName =
-    chiefComplaintHook.entityData.chiefComplaint &&
-    chiefComplaintHook.utilityMethods.createURLName(
-      chiefComplaintHook.entityData.chiefComplaint
-    );
+  const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
+  const { chiefComplaintURLName } = chiefComplaintHook.entityData;
+  const consultationHook = useConsultation(consultationId);
+  const { consultation, readableDate } = consultationHook.entityData;
+  const { deleteConsultation } = consultationHook.crudMethods;
 
   return (
-    consultationHook.entityData.consultation && (
+    consultation && (
       <section className="details-section">
         <TopAppBar
           pane="details"
@@ -39,11 +36,11 @@ export const ConsultationDetails = () => {
           }
         />
         <ConsultationData
-          consultation={consultationHook.entityData.consultation}
-          readableDate={consultationHook.entityData.readableDate}
+          consultation={consultation}
+          readableDate={readableDate}
         />
         <ConsultationTechniques
-          consultation={consultationHook.entityData.consultation}
+          consultation={consultation}
           addEvent={() =>
             appNavigate(
               `/add/consultationtechniques`,
@@ -60,9 +57,8 @@ export const ConsultationDetails = () => {
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            consultationHook.crudMethods.deleteConsultation(
-              consultationId,
-              () => appNavigate("/patients", setNavigationState("keep"))
+            deleteConsultation(consultationId, () =>
+              appNavigate("/patients", setNavigationState("keep"))
             )
           }
         />

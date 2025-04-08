@@ -19,7 +19,7 @@ const initialForm: PresumptiveAnalysisType = {
 };
 
 export const AddPresumptiveAnalysis = () => {
-  const { navigation, addForm, entity } =
+  const { addNavigation, addForm, entityData } =
     useAddPresumptiveAnalysisa(initialForm);
 
   return (
@@ -27,15 +27,17 @@ export const AddPresumptiveAnalysis = () => {
       <AddHeader
         title="Añadir Análisis Presuntivo"
         closeEvent={(e) =>
-          navigation.confirmLeaveAddFlow(
+          addNavigation.openLeaveModal(
             e!,
-            `/patients/${entity.patientURLName}`
+            `/patients/${entityData.entityURLName}`
           )
         }
         formId={addForm.formId}
       />
       <div>
-        {entity.patient && <PatientDetailsPreview patient={entity.patient} />}
+        {entityData.entity && (
+          <PatientDetailsPreview patient={entityData.entity} />
+        )}
         <AddPresumptiveAnalysisForm
           formId={addForm.formId}
           form={addForm.form}
@@ -43,18 +45,15 @@ export const AddPresumptiveAnalysis = () => {
       </div>
 
       <Modal
-        ref={navigation.leaveAddFlowModal.modal}
+        ref={addNavigation.leaveModal}
         title="Salir de añadir análisis presuntivo"
         text="Se perdera todo el progreso hecho. ¿Estás seguro que quieres salir?"
         buttonConfirmLabel="Salir"
-        cancelEvent={navigation.leaveAddFlowModal.closeModal}
+        cancelEvent={addNavigation.closeLeaveModal}
         confirmEvent={() =>
-          navigation.leaveAddFlow(
-            navigation.leaveAddFlowModal.state!,
-            navigation.setNavigationState("keep", "patient", {
-              patientId: entity.patientId,
-            })
-          )
+          addNavigation.leaveFlow({
+            patientId: entityData.entityId,
+          })
         }
       />
     </section>

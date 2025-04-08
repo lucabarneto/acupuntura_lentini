@@ -4,10 +4,13 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { useForm } from "../../../hooks/useForm";
 import { usePatient } from "./usePatient";
 import { PresumptiveAnalysisType } from "../types/presumptive_analysis.types";
+import { AddHookReturnTypeWithEntityData } from "../../../types/add.feature.types";
+import { IPatient } from "../types/patient.types";
+import { AnyStringObject } from "../../../types/general.types";
 
 export const useAddPresumptiveAnalysisa = (
   initialForm: PresumptiveAnalysisType
-) => {
+): AddHookReturnTypeWithEntityData<PresumptiveAnalysisType, IPatient> => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAddFlow();
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
@@ -33,21 +36,27 @@ export const useAddPresumptiveAnalysisa = (
     }
   }, [formData.isSubmittable]);
 
+  const leaveFlow = (extra?: AnyStringObject) =>
+    leaveAddFlow(
+      leaveAddFlowModal.state!,
+      setNavigationState("keep", "add", extra)
+    );
+
   return {
-    navigation: {
-      setNavigationState,
-      leaveAddFlow,
-      confirmLeaveAddFlow,
-      leaveAddFlowModal,
+    addNavigation: {
+      leaveModal: leaveAddFlowModal.modal,
+      openLeaveModal: confirmLeaveAddFlow,
+      closeLeaveModal: leaveAddFlowModal.closeModal,
+      leaveFlow,
     },
     addForm: {
       form,
       formId,
     },
-    entity: {
-      patientId,
-      patient: entityData.patient,
-      patientURLName,
+    entityData: {
+      entityId: patientId,
+      entity: entityData.patient,
+      entityURLName: patientURLName,
     },
   };
 };
