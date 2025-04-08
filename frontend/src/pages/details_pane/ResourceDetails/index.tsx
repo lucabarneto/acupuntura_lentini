@@ -6,9 +6,8 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 export const ResourceDetails = () => {
   const { extraData } = useAppNavigate();
   const resourceId = extraData.resourceId;
-  const { resource } = useResource(resourceId);
-
-  console.log(resource);
+  const { entityData } = useResource(resourceId);
+  const { resource } = entityData;
 
   return (
     resource && (

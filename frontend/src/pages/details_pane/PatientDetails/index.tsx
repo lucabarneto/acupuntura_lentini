@@ -11,11 +11,11 @@ import { PatientChiefComplaints } from "../../../features/chief_complaints/compo
 export const PatientDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
-  const { patient, deletePatient } = usePatient(patientId);
+  const { entityData, crudMethods } = usePatient(patientId);
   const { modal, openModal, closeModal } = useModal("modal");
 
   return (
-    patient && (
+    entityData.patient && (
       <section className="details-section">
         <TopAppBar
           pane="details"
@@ -24,17 +24,17 @@ export const PatientDetails = () => {
         />
         <PersonalData
           data={{
-            first_name: patient.first_name,
-            last_name: patient.last_name,
-            age: patient.age,
-            tel: patient.tel,
-            mail: patient.mail,
-            marital_status: patient.marital_status,
-            profile_picture: patient.profile_picture,
+            first_name: entityData.patient.first_name,
+            last_name: entityData.patient.last_name,
+            age: entityData.patient.age,
+            tel: entityData.patient.tel,
+            mail: entityData.patient.mail,
+            marital_status: entityData.patient.marital_status,
+            profile_picture: entityData.patient.profile_picture,
           }}
         />
         <PatientChiefComplaints
-          chiefComplaints={patient.chief_complaints}
+          chiefComplaints={entityData.patient.chief_complaints}
           addEvent={() =>
             appNavigate(
               "/add/chiefcomplaint",
@@ -43,8 +43,8 @@ export const PatientDetails = () => {
           }
         />
         <Birth
-          birth={patient.birth}
-          bazi_table={patient.bazi_table}
+          birth={entityData.patient.birth}
+          bazi_table={entityData.patient.bazi_table}
           addEvent={() =>
             appNavigate(
               "/add/bazitable",
@@ -53,7 +53,7 @@ export const PatientDetails = () => {
           }
         />
         <PresumptiveAnalysis
-          presumptiveAnalysis={patient.presumptive_analysis}
+          presumptiveAnalysis={entityData.patient.presumptive_analysis}
           addEvent={() =>
             appNavigate(
               "/add/presumptiveanalysis",
@@ -70,7 +70,7 @@ export const PatientDetails = () => {
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            deletePatient(patientId, () =>
+            crudMethods.deletePatient(patientId, () =>
               appNavigate("/patients", setNavigationState("keep"))
             )
           }

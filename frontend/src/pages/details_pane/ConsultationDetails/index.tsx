@@ -4,23 +4,30 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { useConsultation } from "../../../features/consultations/hooks/useConsultation";
 import { ConsultationData } from "../../../features/consultations/components/ConsultationData";
 import { ConsultationTechniques } from "../../../features/consultations/components/ConsultationTechniques";
+import { Modal } from "../../../components/ui/Modal";
+import { useModal } from "../../../hooks/useModal";
 
 export const ConsultationDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const { patientId, chiefComplaintId, consultationId } = extraData;
-  const { chiefComplaint, createURLName } = useChiefComplaint(chiefComplaintId);
-  const { consultation, readableDate } = useConsultation(consultationId);
+  const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
+  const consultationHook = useConsultation(consultationId);
+  const { modal, openModal, closeModal } = useModal("modal");
 
-  const chiefComplaintURLName = chiefComplaint && createURLName(chiefComplaint);
+  const chiefComplaintURLName =
+    chiefComplaintHook.entityData.chiefComplaint &&
+    chiefComplaintHook.utilityMethods.createURLName(
+      chiefComplaintHook.entityData.chiefComplaint
+    );
 
   return (
-    consultation && (
+    consultationHook.entityData.consultation && (
       <section className="details-section">
         <TopAppBar
           pane="details"
           title="Sesión"
           navigation_back
-          deleteEvent={() => {}}
+          deleteEvent={() => openModal()}
           navigateBackEvent={() =>
             appNavigate(
               `/chiefcomplaints/${chiefComplaintURLName}`,
@@ -32,11 +39,11 @@ export const ConsultationDetails = () => {
           }
         />
         <ConsultationData
-          consultation={consultation}
-          readableDate={readableDate}
+          consultation={consultationHook.entityData.consultation}
+          readableDate={consultationHook.entityData.readableDate}
         />
         <ConsultationTechniques
-          consultation={consultation}
+          consultation={consultationHook.entityData.consultation}
           addEvent={() =>
             appNavigate(
               `/add/consultationtechniques`,
@@ -46,18 +53,19 @@ export const ConsultationDetails = () => {
             )
           }
         />
-        {/* <Modal
+        <Modal
           ref={modal}
-          title="Eliminar motivo de consulta"
+          title="Eliminar sesión"
           text="Una vez eliminado, no podrás recuperar la información del motivo de consulta. ¿Estás seguro que quieres eliminarlo?"
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            deletePatient(patientId, () =>
-              appNavigate("/patients", mainNavigationData)
+            consultationHook.crudMethods.deleteConsultation(
+              consultationId,
+              () => appNavigate("/patients", setNavigationState("keep"))
             )
           }
-        /> */}
+        />
       </section>
     )
   );

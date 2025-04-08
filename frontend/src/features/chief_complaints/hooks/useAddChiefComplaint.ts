@@ -8,8 +8,8 @@ import { useChiefComplaint } from "./useChiefComplaint";
 
 export const useAddChiefComplaint = (initialForm: IChiefComplaintForm) => {
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
-  const { patientSelectOptions } = usePatient();
-  const { addChiefComplaint, createURLName } = useChiefComplaint();
+  const { entityData } = usePatient();
+  const { crudMethods, utilityMethods } = useChiefComplaint();
   const { setNavigationState } = useAppNavigate();
   const form = useForm(initialForm);
   const { formData } = form;
@@ -17,9 +17,9 @@ export const useAddChiefComplaint = (initialForm: IChiefComplaintForm) => {
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      addChiefComplaint(formData.fields, (chiefComplaint) => {
+      crudMethods.addChiefComplaint(formData.fields, (chiefComplaint) => {
         leaveAddFlow(
-          `/chiefcomplaints/${createURLName(chiefComplaint)}`,
+          `/chiefcomplaints/${utilityMethods.createURLName(chiefComplaint)}`,
           setNavigationState("keep", "chiefcomplaint", {
             chiefComplaintId: chiefComplaint._id,
             patientId: formData.fields.patient,
@@ -39,7 +39,7 @@ export const useAddChiefComplaint = (initialForm: IChiefComplaintForm) => {
     addForm: {
       form,
       formId,
-      patientSelectOptions,
+      patientSelectOptions: entityData.patientSelectOptions,
     },
   };
 };

@@ -9,12 +9,10 @@ import { useConsultation } from "./useConsultation";
 import { useConsultationTechniques } from "./useConsultationTechniques";
 
 export const useAddConsultationTechniques = (initialForm: AnyObject) => {
-  const { templateSelectOptions } = useTemplate();
-  const { allResources } = useResource();
+  const templateHook = useTemplate();
+  const resourceHook = useResource();
   const { setNavigationState, extraData } = useAppNavigate();
-  const { consultation, addConsultationsTechniques } = useConsultation(
-    extraData.consultationId
-  );
+  const consultationHook = useConsultation(extraData.consultationId);
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
   const consultationTechniques = useConsultationTechniques();
   const form = useForm(initialForm);
@@ -22,16 +20,17 @@ export const useAddConsultationTechniques = (initialForm: AnyObject) => {
   const formId = "add-consultation-form";
 
   const navigationStateOptions = {
-    consultationId: consultation._id,
-    chiefComplaintId: consultation.chief_complaint._id,
-    patientId: consultation.patient._id,
+    consultationId: consultationHook.entityData.consultation._id,
+    chiefComplaintId:
+      consultationHook.entityData.consultation.chief_complaint._id,
+    patientId: consultationHook.entityData.consultation.patient._id,
   };
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      addConsultationsTechniques(
+      consultationHook.crudMethods.addConsultationsTechniques(
         {
-          consultation,
+          consultation: consultationHook.entityData.consultation,
           techniques: formData.fields as AnyStringArrayObject,
         },
         (consultation) => {
@@ -56,8 +55,8 @@ export const useAddConsultationTechniques = (initialForm: AnyObject) => {
       formId,
     },
     entity: {
-      templateSelectOptions,
-      resources: allResources,
+      templateSelectOptions: templateHook.entityData.templateSelectOptions,
+      resources: resourceHook.entityData.allResources,
     },
     consultationTechniques,
   };

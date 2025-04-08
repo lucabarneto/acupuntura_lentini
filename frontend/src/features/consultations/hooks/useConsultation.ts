@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as slice from "../services/consultationsSlice.ts";
+import * as thunk from "../services/consultationsThunk.ts";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../app/store.ts";
 import { RootState } from "../../../app/store.ts";
@@ -22,7 +23,7 @@ export const useConsultation = (id: string = "") => {
   );
 
   useEffect(() => {
-    dispatch(slice.getAllConsultations());
+    dispatch(thunk.getAllConsultations());
   }, [dispatch]);
 
   const readableDate =
@@ -37,28 +38,40 @@ export const useConsultation = (id: string = "") => {
       };
     });
 
+  const getConsultationById = (id: string) =>
+    dispatch(thunk.getConsultationById(id)).then((res) => res);
+
   const addConsultation = (
     body: IConsultationForm,
     callback?: DispatchCallback
-  ) => dispatch(slice.addConsultation(body)).unwrap().then(callback);
+  ) => dispatch(thunk.addConsultation(body)).unwrap().then(callback);
 
   const addConsultationsTechniques = (
     data: { consultation: IConsultation; techniques: AnyStringArrayObject },
     callback?: DispatchCallback
-  ) => dispatch(slice.addConsultationTechniques(data)).unwrap().then(callback);
+  ) => dispatch(thunk.addConsultationTechniques(data)).unwrap().then(callback);
 
   const updateConsultation = (
     body: IConsultation,
     callback?: DispatchCallback
-  ) => dispatch(slice.updateConsultation(body)).unwrap().then(callback);
+  ) => dispatch(thunk.updateConsultation(body)).unwrap().then(callback);
+
+  const deleteConsultation = (id: string, callback?: DispatchCallback) =>
+    dispatch(thunk.deleteConsultation(id)).then(callback);
 
   return {
-    allConsulations,
-    consultation,
-    consultationSelectOptions,
-    readableDate,
-    addConsultation,
-    addConsultationsTechniques,
-    updateConsultation,
+    crudMethods: {
+      getConsultationById,
+      addConsultation,
+      addConsultationsTechniques,
+      updateConsultation,
+      deleteConsultation,
+    },
+    entityData: {
+      allConsulations,
+      consultation,
+      consultationSelectOptions,
+      readableDate,
+    },
   };
 };

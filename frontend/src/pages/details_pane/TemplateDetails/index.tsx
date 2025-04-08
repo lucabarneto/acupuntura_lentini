@@ -8,8 +8,10 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 export const TemplateDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const templateId = extraData.templateId;
-  const { template } = useTemplate(templateId);
-  const { createURLName } = useResource();
+  const { entityData } = useTemplate(templateId);
+  const { template } = entityData;
+  const { utilityMethods } = useResource();
+  const { createURLName } = utilityMethods;
 
   return (
     <section className="details-section template-details">

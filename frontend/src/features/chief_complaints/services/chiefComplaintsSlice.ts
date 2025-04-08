@@ -1,14 +1,7 @@
 import { RootState } from "../../../app/store";
-import {
-  IChiefComplaint,
-  IChiefComplaintForm,
-} from "../types/chief_complaint.types";
-import { chiefComplaintsAPI } from "./chiefComplaintsAPI";
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from "@reduxjs/toolkit";
+import * as thunk from "./chiefComplaintsThunk";
+import { IChiefComplaint } from "../types/chief_complaint.types";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const chiefComplaintsAdapter = createEntityAdapter({
   selectId: (chief_complaint: IChiefComplaint) => chief_complaint._id,
@@ -24,46 +17,6 @@ const initialState = chiefComplaintsAdapter.getInitialState<{
   previousCrudAction: null,
 });
 
-export const getAllChiefComplaints = createAsyncThunk<
-  IChiefComplaint[] | undefined,
-  undefined,
-  { state: RootState }
->(
-  "chief_complaints/getAllChiefComplaints",
-  async () => {
-    try {
-      const chiefComplaints = await chiefComplaintsAPI.getAllEntities();
-      return chiefComplaints as IChiefComplaint[];
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  {
-    condition: (arg: undefined, { getState }) => {
-      const { chief_complaints } = getState();
-
-      if (
-        chief_complaints.ids.length !== 0 &&
-        chief_complaints.previousCrudAction !== null
-      ) {
-        return false;
-      }
-    },
-  }
-);
-
-export const addChiefComplaint = createAsyncThunk(
-  "chief_complaints/addChiefComplaint",
-  async (body: IChiefComplaintForm) => {
-    try {
-      const newChiefComplaint = await chiefComplaintsAPI.addEntity(body);
-      return newChiefComplaint;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
 const chiefComplaintsSlice = createSlice({
   name: "chief_complaints",
   initialState,
@@ -75,28 +28,63 @@ const chiefComplaintsSlice = createSlice({
       ),
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllChiefComplaints.pending, (state, action) => {
+    builder.addCase(thunk.getAllChiefComplaints.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(getAllChiefComplaints.fulfilled, (state, action) => {
+    builder.addCase(thunk.getAllChiefComplaints.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       chiefComplaintsAdapter.setAll(state, action.payload!);
     });
 
-    builder.addCase(addChiefComplaint.pending, (state, action) => {
+    builder.addCase(thunk.getChiefComplaintById.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(addChiefComplaint.fulfilled, (state, action) => {
+    builder.addCase(thunk.getChiefComplaintById.fulfilled, (state) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
+    });
+
+    builder.addCase(thunk.addChiefComplaint.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.addChiefComplaint.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "post";
       chiefComplaintsAdapter.addOne(state, action.payload!);
+    });
+
+    builder.addCase(thunk.updateChiefComplaint.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.updateChiefComplaint.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "put";
+      chiefComplaintsAdapter.setOne(state, action.payload!);
+    });
+
+    builder.addCase(thunk.deleteChiefComplaint.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.deleteChiefComplaint.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "delete";
+      chiefComplaintsAdapter.removeOne(state, action.meta.arg);
     });
   },
 });

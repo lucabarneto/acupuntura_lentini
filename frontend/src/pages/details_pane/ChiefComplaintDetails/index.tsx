@@ -5,24 +5,29 @@ import { useChiefComplaint } from "../../../features/chief_complaints/hooks/useC
 import { usePatient } from "../../../features/patients/hooks/usePatient";
 import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { ChiefComplaintConsultations } from "../../../features/consultations/components/ChiefComplaintConsultations";
+import { Modal } from "../../../components/ui/Modal";
+import { useModal } from "../../../hooks/useModal";
 
 export const ChiefComplaintDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const { patientId, chiefComplaintId } = extraData;
-  const { patient, createURLName } = usePatient(patientId);
-  const { chiefComplaint } = useChiefComplaint(chiefComplaintId);
+  const { modal, openModal, closeModal } = useModal("modal");
+  const patientHook = usePatient(patientId);
+  const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
 
-  const patientUrlName = patient && createURLName(patient);
+  const patientUrlName =
+    patientHook.entityData.patient &&
+    patientHook.utilityMethods.createURLName(patientHook.entityData.patient);
 
   return (
-    patient &&
-    chiefComplaint && (
+    patientHook.entityData.patient &&
+    chiefComplaintHook.entityData.chiefComplaint && (
       <section className="details-section">
         <TopAppBar
           pane="details"
           title="Motivo de consulta"
           navigation_back
-          deleteEvent={() => {}}
+          deleteEvent={() => openModal()}
           navigateBackEvent={() =>
             appNavigate(
               `/patients/${patientUrlName}`,
@@ -32,21 +37,28 @@ export const ChiefComplaintDetails = () => {
         />
         <article>
           <div className="chief-complaint-title">
-            <h1>{chiefComplaint.title}</h1>
+            <h1>{chiefComplaintHook.entityData.chiefComplaint.title}</h1>
             <Button type="button" label="Finalizar consulta" variant="filled" />
           </div>
           <div className="chief-complaint-data">
-            <p>{chiefComplaint.diagnosis}</p>
+            <p>{chiefComplaintHook.entityData.chiefComplaint.diagnosis}</p>
             <p>
-              <b>Remedios:</b> {chiefComplaint.initial_medicine}
+              <b>Remedios:</b>{" "}
+              {chiefComplaintHook.entityData.chiefComplaint.initial_medicine}
             </p>
             <p>
-              <b>Sueño:</b> {chiefComplaint.initial_sleep_condition}
+              <b>Sueño:</b>{" "}
+              {
+                chiefComplaintHook.entityData.chiefComplaint
+                  .initial_sleep_condition
+              }
             </p>
           </div>
         </article>
         <ChiefComplaintConsultations
-          consultations={chiefComplaint.consultations}
+          consultations={
+            chiefComplaintHook.entityData.chiefComplaint.consultations
+          }
           addEvent={() =>
             appNavigate(
               "/add/consultation",
@@ -54,18 +66,19 @@ export const ChiefComplaintDetails = () => {
             )
           }
         />
-        {/* <Modal
+        <Modal
           ref={modal}
           title="Eliminar motivo de consulta"
           text="Una vez eliminado, no podrás recuperar la información del motivo de consulta. ¿Estás seguro que quieres eliminarlo?"
           buttonConfirmLabel="Eliminar"
           cancelEvent={closeModal}
           confirmEvent={() =>
-            deletePatient(patientId, () =>
-              appNavigate("/patients", mainNavigationData)
+            chiefComplaintHook.crudMethods.deleteChiefComplaint(
+              chiefComplaintId,
+              () => appNavigate("/patients", setNavigationState("keep"))
             )
           }
-        /> */}
+        />
       </section>
     )
   );

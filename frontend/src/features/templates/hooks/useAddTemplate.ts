@@ -9,17 +9,17 @@ import { useTemplate } from "./useTemplate";
 export const useAddTemplate = (initialForm: ITemplateForm) => {
   const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
-  const { allResources } = useResource();
-  const { addTemplate, createURLName } = useTemplate();
+  const { entityData } = useResource();
+  const { crudMethods, utilityMethods } = useTemplate();
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-template-form";
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      addTemplate(formData.fields, (template) => {
+      crudMethods.addTemplate(formData.fields, (template) => {
         leaveAddFlow(
-          `/templates/${createURLName(template)}`,
+          `/templates/${utilityMethods.createURLName(template)}`,
           setNavigationState("keep", "patient", { templateId: template._id })
         );
       });
@@ -36,7 +36,7 @@ export const useAddTemplate = (initialForm: ITemplateForm) => {
     addForm: {
       form,
       formId,
-      resources: allResources,
+      resources: entityData.allResources,
     },
   };
 };

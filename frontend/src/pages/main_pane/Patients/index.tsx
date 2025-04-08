@@ -10,13 +10,13 @@ import { useAppNavigate } from "../../../hooks/useAppNavigate";
 
 export const Patients = () => {
   const { setNavigationState } = useAppNavigate();
-  const { allPatients, sortPatients } = usePatient();
+  const { entityData, utilityMethods } = usePatient();
   const { modal, toggleModal } = useModal("non-modal");
 
   return (
     <section className="patients-pane">
       <SearchViewPatient
-        entities={allPatients}
+        entities={entityData.allPatients}
         mappedResults={(patient) => (
           <PatientListItem
             key={patient._id}
@@ -43,7 +43,7 @@ export const Patients = () => {
       </div>
       <h1 className="compact">Lista de pacientes</h1>
       <ul>
-        {allPatients.map((patient) => (
+        {entityData.allPatients.map((patient) => (
           <PatientListItem
             key={patient._id}
             patient={patient}
@@ -62,7 +62,7 @@ export const Patients = () => {
             value="name-asc"
             checked
             clickEvent={() => {
-              sortPatients("asc");
+              utilityMethods.sortPatients("asc");
               toggleModal();
             }}
           />
@@ -72,7 +72,7 @@ export const Patients = () => {
             name="sort"
             value="name-desc"
             clickEvent={() => {
-              sortPatients("desc");
+              utilityMethods.sortPatients("desc");
               toggleModal();
             }}
           />

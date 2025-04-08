@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useSelector } from "react-redux";
 import * as slice from "../services/resourcesSlice.ts";
+import * as thunk from "../services/resourcesThunk.ts";
 import { useAppDispatch } from "../../../app/store.ts";
 import { RootState } from "../../../app/store.ts";
 import { useEffect } from "react";
 import { SelectOptions } from "../../../components/ui/Input/input.types.ts";
-import { IResource } from "../types/resource.types.ts";
+import { IResource, IResourceForm } from "../types/resource.types.ts";
+
+type DispatchCallback = (arg: any) => void;
 
 export const useResource = (id: string = "") => {
   const dispatch = useAppDispatch();
@@ -14,10 +19,10 @@ export const useResource = (id: string = "") => {
   );
 
   useEffect(() => {
-    dispatch(slice.getAllResources());
+    dispatch(thunk.getAllResources());
   }, [dispatch]);
 
-  const ResourceSelectOptions: SelectOptions[] = allResources.map(
+  const resourceSelectOptions: SelectOptions[] = allResources.map(
     (resource) => {
       return {
         label: resource.title,
@@ -30,15 +35,33 @@ export const useResource = (id: string = "") => {
     `${resource.title.split(" ").join("_")}`;
 
   const getResourceById = (id: string) =>
-    dispatch(slice.getResourceById(id))
+    dispatch(thunk.getResourceById(id))
       .unwrap()
       .then((res) => res);
 
+  const addResource = (body: IResourceForm, callback?: DispatchCallback) =>
+    dispatch(thunk.addResource(body)).unwrap().then(callback);
+
+  const updateResource = (body: IResource, callback?: DispatchCallback) =>
+    dispatch(thunk.updateResource(body)).unwrap().then(callback);
+
+  const deleteResource = (id: string, callback?: DispatchCallback) =>
+    dispatch(thunk.deleteResource(id)).then(callback);
+
   return {
-    allResources,
-    resource,
-    ResourceSelectOptions,
-    createURLName,
-    getResourceById,
+    crudMethods: {
+      getResourceById,
+      addResource,
+      updateResource,
+      deleteResource,
+    },
+    utilityMethods: {
+      createURLName,
+    },
+    entityData: {
+      allResources,
+      resource,
+      resourceSelectOptions,
+    },
   };
 };

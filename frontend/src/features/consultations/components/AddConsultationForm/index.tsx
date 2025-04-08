@@ -15,7 +15,7 @@ type Props = FormProps<IConsultationForm> & {
 export const AddConsultationForm = (props: Props) => {
   const { formId, form, patientSelectOptions } = props;
   const { formData, formMethods } = form;
-  const { getChiefComplaintSelectOptions } = useChiefComplaint();
+  const { utilityMethods } = useChiefComplaint();
 
   return (
     <form id={formId} className={formId} onSubmit={formMethods.handleSubmit}>
@@ -31,7 +31,9 @@ export const AddConsultationForm = (props: Props) => {
       <SelectInput
         label="Motivo de consulta"
         id="chief_complaint"
-        options={getChiefComplaintSelectOptions(formData.fields.patient)}
+        options={utilityMethods.getChiefComplaintSelectOptions(
+          formData.fields.patient
+        )}
         error={formData.errors.patient}
         changeEvent={(e) => formMethods.handleChange(e)}
         blurEvent={formMethods.handleBlur}

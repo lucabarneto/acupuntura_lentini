@@ -9,15 +9,15 @@ import { useConsultation } from "./useConsultation";
 export const useAddConsultation = (initialForm: IConsultationForm) => {
   const { setNavigationState } = useAppNavigate();
   const { confirmLeaveAddFlow, leaveAddFlow, leaveAddFlowModal } = useAddFlow();
-  const { patientSelectOptions } = usePatient();
-  const { addConsultation } = useConsultation();
+  const { entityData } = usePatient();
+  const { crudMethods } = useConsultation();
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-consultation-form";
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      addConsultation(formData.fields, (consultation) => {
+      crudMethods.addConsultation(formData.fields, (consultation) => {
         leaveAddFlow(
           `/consultations/${consultation._id}`,
           setNavigationState("keep", "consultation", {
@@ -40,7 +40,7 @@ export const useAddConsultation = (initialForm: IConsultationForm) => {
     addForm: {
       form,
       formId,
-      patientSelectOptions,
+      patientSelectOptions: entityData.patientSelectOptions,
     },
   };
 };

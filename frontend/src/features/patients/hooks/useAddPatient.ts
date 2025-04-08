@@ -7,16 +7,16 @@ import { usePatient } from "./usePatient";
 
 export const useAddPatient = (initialForm: IPatientForm) => {
   const { leaveAddFlowModal, confirmLeaveAddFlow, leaveAddFlow } = useAddFlow();
-  const { addPatient, createURLName } = usePatient();
+  const { crudMethods, utilityMethods } = usePatient();
   const { setNavigationState } = useAppNavigate();
   const form = useForm(initialForm);
   const formId = "add-patient-form";
 
   useEffect(() => {
     if (form.formData.isSubmittable)
-      addPatient(form.formData.fields, (patient) => {
+      crudMethods.addPatient(form.formData.fields, (patient) => {
         leaveAddFlow(
-          `/patients/${createURLName(patient)}`,
+          `/patients/${utilityMethods.createURLName(patient)}`,
           setNavigationState("keep", "patient", { patientId: patient._id })
         );
       });

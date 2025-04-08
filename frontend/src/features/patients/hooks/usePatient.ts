@@ -3,6 +3,7 @@
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../services/patientsSlice";
+import * as thunk from "../services/patientsThunk";
 import { useEffect } from "react";
 import { IPatient, IPatientForm } from "../types/patient.types";
 import { SelectOptions } from "../../../components/ui/Input/input.types";
@@ -17,7 +18,7 @@ export const usePatient = (id: string = "") => {
   );
 
   useEffect(() => {
-    dispatch(slice.getAllPatients());
+    dispatch(thunk.getAllPatients());
   }, [dispatch]);
 
   const patientSelectOptions: SelectOptions[] = allPatients.map((patient) => {
@@ -27,14 +28,17 @@ export const usePatient = (id: string = "") => {
     };
   });
 
+  const getPatientById = (id: string) =>
+    dispatch(thunk.getPatientById(id)).then((res) => res);
+
   const addPatient = (body: IPatientForm, callback?: DispatchCallback) =>
-    dispatch(slice.addPatient(body)).unwrap().then(callback);
+    dispatch(thunk.addPatient(body)).unwrap().then(callback);
 
   const updatePatient = (body: IPatient, callback?: DispatchCallback) =>
-    dispatch(slice.updatePatient(body)).unwrap().then(callback);
+    dispatch(thunk.updatePatient(body)).unwrap().then(callback);
 
   const deletePatient = (id: string, callback?: DispatchCallback) =>
-    dispatch(slice.deletePatient(id)).then(callback);
+    dispatch(thunk.deletePatient(id)).then(callback);
 
   const sortPatients = (order: "asc" | "desc") =>
     dispatch(slice.sortByName(order)); // Should add argument "term" and dispatch reducers conditionally when splice eventually contains multiple sorting reducers
@@ -43,13 +47,20 @@ export const usePatient = (id: string = "") => {
     `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
 
   return {
-    allPatients,
-    patient,
-    patientSelectOptions,
-    createURLName,
-    addPatient,
-    updatePatient,
-    deletePatient,
-    sortPatients,
+    crudMethods: {
+      getPatientById,
+      addPatient,
+      updatePatient,
+      deletePatient,
+    },
+    utilityMethods: {
+      createURLName,
+      sortPatients,
+    },
+    entityData: {
+      allPatients,
+      patient,
+      patientSelectOptions,
+    },
   };
 };

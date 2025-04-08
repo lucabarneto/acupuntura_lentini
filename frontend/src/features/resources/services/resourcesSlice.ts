@@ -1,11 +1,7 @@
 import { RootState } from "../../../app/store";
 import { IResource } from "../types/resource.types";
-import { resourcesAPI } from "./resourcesAPI";
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from "@reduxjs/toolkit";
+import * as thunk from "./resourcesThunk";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const resourcesAdapter = createEntityAdapter({
   selectId: (resource: IResource) => resource._id,
@@ -21,69 +17,68 @@ const initialState = resourcesAdapter.getInitialState<{
   previousCrudAction: null,
 });
 
-export const getAllResources = createAsyncThunk<
-  IResource[] | undefined,
-  undefined,
-  { state: RootState }
->(
-  "resources/getAllResources",
-  async () => {
-    try {
-      const resources = await resourcesAPI.getAllEntities();
-      return resources as IResource[];
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  {
-    condition: (arg: undefined, { getState }) => {
-      const { resources } = getState();
-
-      if (resources.ids.length !== 0 && resources.previousCrudAction !== null) {
-        return false;
-      }
-    },
-  }
-);
-
-export const getResourceById = createAsyncThunk(
-  "resources/getResourceById",
-  async (id: string) => {
-    try {
-      const result = await resourcesAPI.getEntityById(id);
-      return result as IResource;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
-
 const resourcesSlice = createSlice({
   name: "chief_complaints",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllResources.pending, (state, action) => {
+    builder.addCase(thunk.getAllResources.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(getAllResources.fulfilled, (state, action) => {
+    builder.addCase(thunk.getAllResources.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       resourcesAdapter.setAll(state, action.payload!);
     });
 
-    builder.addCase(getResourceById.pending, (state, action) => {
+    builder.addCase(thunk.getResourceById.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(getResourceById.fulfilled, (state) => {
+    builder.addCase(thunk.getResourceById.fulfilled, (state) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
+    });
+
+    builder.addCase(thunk.addResource.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.addResource.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "post";
+      resourcesAdapter.addOne(state, action.payload!);
+    });
+
+    builder.addCase(thunk.updateResource.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.updateResource.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "put";
+      resourcesAdapter.setOne(state, action.payload!);
+    });
+
+    builder.addCase(thunk.deleteResource.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.deleteResource.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "delete";
+      resourcesAdapter.removeOne(state, action.meta.arg);
     });
   },
 });

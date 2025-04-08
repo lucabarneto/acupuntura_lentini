@@ -1,11 +1,7 @@
 import { RootState } from "../../../app/store";
-import { IPatient, IPatientForm } from "../types/patient.types";
-import { patientsAPI } from "./patientsAPI";
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from "@reduxjs/toolkit";
+import { IPatient } from "../types/patient.types";
+import * as thunk from "./patientsThunk";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const patientsAdapter = createEntityAdapter({
   selectId: (patient: IPatient) => patient._id,
@@ -21,67 +17,6 @@ const initialState = patientsAdapter.getInitialState<{
   activeRequestId: null,
   previousCrudAction: null,
 });
-
-export const getAllPatients = createAsyncThunk<
-  IPatient[] | undefined,
-  undefined,
-  { state: RootState }
->(
-  "patients/getAllPatients",
-  async () => {
-    try {
-      const patients = await patientsAPI.getAllEntities();
-      return patients as IPatient[];
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  {
-    condition: (arg: undefined, { getState }) => {
-      const { patients } = getState();
-
-      if (patients.ids.length !== 0 && patients.previousCrudAction !== null) {
-        return false;
-      }
-    },
-  }
-);
-
-export const addPatient = createAsyncThunk(
-  "patients/addPatient",
-  async (body: IPatientForm) => {
-    try {
-      const newPatient = await patientsAPI.addEntity(body, true);
-      return newPatient as IPatient;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
-export const updatePatient = createAsyncThunk(
-  "patients/updatePatient",
-  async (patient: IPatient) => {
-    try {
-      const result = await patientsAPI.updateEntity(patient._id, patient);
-      return result as IPatient;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-);
-
-export const deletePatient = createAsyncThunk(
-  "patients/deletePatient",
-  async (patientId: string) => {
-    try {
-      const result = await patientsAPI.deleteEntity(patientId);
-      return result;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-);
 
 const patientsSlice = createSlice({
   name: "patients",
@@ -102,48 +37,59 @@ const patientsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllPatients.pending, (state, action) => {
+    builder.addCase(thunk.getAllPatients.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(getAllPatients.fulfilled, (state, action) => {
+    builder.addCase(thunk.getAllPatients.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
       patientsAdapter.setAll(state, action.payload!);
     });
 
-    builder.addCase(addPatient.pending, (state, action) => {
+    builder.addCase(thunk.getPatientById.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(addPatient.fulfilled, (state, action) => {
+    builder.addCase(thunk.getPatientById.fulfilled, (state) => {
+      state.loading = "idle";
+      state.activeRequestId = null;
+      state.previousCrudAction = "get";
+    });
+
+    builder.addCase(thunk.addPatient.pending, (state, action) => {
+      state.loading = "pending";
+      state.activeRequestId = action.meta.requestId;
+    });
+
+    builder.addCase(thunk.addPatient.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "post";
       patientsAdapter.addOne(state, action.payload!);
     });
 
-    builder.addCase(updatePatient.pending, (state, action) => {
+    builder.addCase(thunk.updatePatient.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(updatePatient.fulfilled, (state, action) => {
+    builder.addCase(thunk.updatePatient.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "put";
       patientsAdapter.setOne(state, action.payload!);
     });
 
-    builder.addCase(deletePatient.pending, (state, action) => {
+    builder.addCase(thunk.deletePatient.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(deletePatient.fulfilled, (state, action) => {
+    builder.addCase(thunk.deletePatient.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "delete";
@@ -154,6 +100,5 @@ const patientsSlice = createSlice({
 
 export const { selectById, selectAll } =
   patientsAdapter.getSelectors<RootState>((state) => state.patients);
-
 export const { sortByName } = patientsSlice.actions;
 export const patientsReducer = patientsSlice.reducer;

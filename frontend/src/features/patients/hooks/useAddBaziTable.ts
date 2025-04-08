@@ -9,17 +9,20 @@ export const useAddBaziTable = (initialForm: BaziTableType) => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAddFlow();
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
-  const { patient, createURLName, updatePatient } = usePatient(patientId);
-  const patientURLName = createURLName(patient);
+  const { entityData, crudMethods, utilityMethods } = usePatient(patientId);
+  const patientURLName = utilityMethods.createURLName(entityData.patient);
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-bazi-table-form";
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      const updatedPatient = { ...patient, bazi_table: formData.fields };
+      const updatedPatient = {
+        ...entityData.patient,
+        bazi_table: formData.fields,
+      };
 
-      updatePatient(updatedPatient, () => {
+      crudMethods.updatePatient(updatedPatient, () => {
         appNavigate(
           `/patients/${patientURLName}`,
           setNavigationState("keep", "patient", { patientId })
@@ -41,7 +44,7 @@ export const useAddBaziTable = (initialForm: BaziTableType) => {
     },
     entity: {
       patientId,
-      patient,
+      patient: entityData.patient,
       patientURLName,
     },
   };

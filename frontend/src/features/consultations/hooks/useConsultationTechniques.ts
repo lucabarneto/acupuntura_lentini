@@ -39,8 +39,8 @@ export const useConsultationTechniques = (): UseConsultationTechniques => {
     inputEntity: undefined,
     inputTechniques: undefined,
   });
-  const { getTemplateById } = useTemplate();
-  const { getResourceById } = useResource();
+  const templateHook = useTemplate();
+  const resourceHook = useResource();
 
   useEffect(() => {
     if (techniqueData.currentStage) {
@@ -51,7 +51,7 @@ export const useConsultationTechniques = (): UseConsultationTechniques => {
   const setCurrentTechnique = async () => {
     const { techniques, currentStage } = techniqueData;
 
-    const technique = await getResourceById(
+    const technique = await resourceHook.crudMethods.getResourceById(
       techniques[(currentStage as number) - 1]
     );
     if (!technique) throw new Error("Technique not found");
@@ -95,7 +95,9 @@ export const useConsultationTechniques = (): UseConsultationTechniques => {
   const pickTechniquesFromTemplateInput = async (
     templateInput: string
   ): Promise<string[]> => {
-    const template = await getTemplateById(templateInput);
+    const template = await templateHook.crudMethods.getTemplateById(
+      templateInput
+    );
     return template!.resources.map((technique) => technique.resource._id);
   };
 

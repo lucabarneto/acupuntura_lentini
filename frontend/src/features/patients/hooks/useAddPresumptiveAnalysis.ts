@@ -11,8 +11,8 @@ export const useAddPresumptiveAnalysisa = (
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAddFlow();
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
-  const { patient, createURLName, updatePatient } = usePatient(patientId);
-  const patientURLName = createURLName(patient);
+  const { entityData, utilityMethods, crudMethods } = usePatient(patientId);
+  const patientURLName = utilityMethods.createURLName(entityData.patient);
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-presumptive-analysis-form";
@@ -20,11 +20,11 @@ export const useAddPresumptiveAnalysisa = (
   useEffect(() => {
     if (formData.isSubmittable) {
       const updatedPatient = {
-        ...patient,
+        ...entityData.patient,
         presumptive_analysis: formData.fields,
       };
 
-      updatePatient(updatedPatient, () => {
+      crudMethods.updatePatient(updatedPatient, () => {
         appNavigate(
           `/patients/${patientURLName}`,
           setNavigationState("keep", "patient", { patientId })
@@ -46,7 +46,7 @@ export const useAddPresumptiveAnalysisa = (
     },
     entity: {
       patientId,
-      patient,
+      patient: entityData.patient,
       patientURLName,
     },
   };

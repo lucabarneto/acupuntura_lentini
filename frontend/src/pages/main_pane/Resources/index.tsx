@@ -6,20 +6,20 @@ import "./Resources.css";
 
 export const Resources = () => {
   const { appNavigate, setNavigationState } = useAppNavigate();
-  const { allResources, createURLName } = useResource();
+  const { entityData, utilityMethods } = useResource();
 
   return (
     <section className="resources-pane main-section">
       <TopAppBar pane="main" title="Recursos" />
       <h1 className="compact">Lista de recursos</h1>
       <div className="resources">
-        {allResources.map((resource) => (
+        {entityData.allResources.map((resource) => (
           <ResourceCard
             key={resource._id}
             resource={resource}
             clickEvent={() =>
               appNavigate(
-                `/resources/${createURLName(resource)}`,
+                `/resources/${utilityMethods.createURLName(resource)}`,
                 setNavigationState("keep", "resource", {
                   resourceId: resource._id,
                 })

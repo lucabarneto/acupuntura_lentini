@@ -7,7 +7,7 @@ import { TemplateListItem } from "../../../features/templates/components/Templat
 import { useAppNavigate } from "../../../hooks/useAppNavigate";
 
 export const Templates = () => {
-  const { allTemplates, createURLName } = useTemplate();
+  const { entityData, utilityMethods } = useTemplate();
   const { setNavigationState } = useAppNavigate();
 
   return (
@@ -18,15 +18,15 @@ export const Templates = () => {
         text={`Una plantilla es una colección de recursos agrupados según la técnica de medicina a la que pertenecen. Puedes emplearlas en tus consultas para evitar seleccionar individualmente cada recurso.`}
         icon="info"
       />
-      {allTemplates.length !== 0 ? (
+      {entityData.allTemplates.length !== 0 ? (
         <>
           <h1 className="compact">Lista de plantillas</h1>
           <ul className="list">
-            {allTemplates.map((template) => (
+            {entityData.allTemplates.map((template) => (
               <TemplateListItem
                 key={template._id}
                 template={template}
-                link={`/templates/${createURLName(template)}`}
+                link={`/templates/${utilityMethods.createURLName(template)}`}
                 state={setNavigationState("keep", "template", {
                   templateId: template._id,
                 })}
