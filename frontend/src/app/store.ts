@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { resourcesReducer } from "../features/resources/services/resourcesSlice";
 import { templatesReducer } from "../features/templates/services/templatesSlice";
 import { consultationsReducer } from "../features/consultations/services/consultationsSlice";
+import { reportsReducer } from "../features/reports/services/reportsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     resources: resourcesReducer,
     templates: templatesReducer,
     consultations: consultationsReducer,
+    reports: reportsReducer,
   },
 });
 

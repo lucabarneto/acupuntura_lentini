@@ -18,7 +18,7 @@ const initialState = templatesAdapter.getInitialState<{
 });
 
 const templatesSlice = createSlice({
-  name: "chief_complaints",
+  name: "templates",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

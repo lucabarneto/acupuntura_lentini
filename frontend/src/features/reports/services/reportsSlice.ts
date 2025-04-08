@@ -1,13 +1,13 @@
 import { RootState } from "../../../app/store";
-import { IResource } from "../types/resource.types";
-import * as thunk from "./resourcesThunk";
+import { IReport } from "../types/report.types";
+import * as thunk from "./reportsThunk";
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
-const resourcesAdapter = createEntityAdapter({
-  selectId: (resource: IResource) => resource._id,
+const reportsAdapter = createEntityAdapter({
+  selectId: (report: IReport) => report._id,
 });
 
-const initialState = resourcesAdapter.getInitialState<{
+const initialState = reportsAdapter.getInitialState<{
   loading: "idle" | "pending";
   activeRequestId: string | null;
   previousCrudAction: null | "get" | "post" | "put" | "delete";
@@ -17,73 +17,74 @@ const initialState = resourcesAdapter.getInitialState<{
   previousCrudAction: null,
 });
 
-const resourcesSlice = createSlice({
-  name: "resources",
+const reportsSlice = createSlice({
+  name: "reports",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(thunk.getAllResources.pending, (state, action) => {
+    builder.addCase(thunk.getAllReports.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(thunk.getAllResources.fulfilled, (state, action) => {
+    builder.addCase(thunk.getAllReports.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
-      resourcesAdapter.setAll(state, action.payload!);
+      reportsAdapter.setAll(state, action.payload!);
     });
 
-    builder.addCase(thunk.getResourceById.pending, (state, action) => {
+    builder.addCase(thunk.getReportById.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(thunk.getResourceById.fulfilled, (state) => {
+    builder.addCase(thunk.getReportById.fulfilled, (state) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "get";
     });
 
-    builder.addCase(thunk.addResource.pending, (state, action) => {
+    builder.addCase(thunk.addReport.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(thunk.addResource.fulfilled, (state, action) => {
+    builder.addCase(thunk.addReport.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "post";
-      resourcesAdapter.addOne(state, action.payload!);
+      reportsAdapter.addOne(state, action.payload!);
     });
 
-    builder.addCase(thunk.updateResource.pending, (state, action) => {
+    builder.addCase(thunk.updateReport.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(thunk.updateResource.fulfilled, (state, action) => {
+    builder.addCase(thunk.updateReport.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "put";
-      resourcesAdapter.setOne(state, action.payload!);
+      reportsAdapter.setOne(state, action.payload!);
     });
 
-    builder.addCase(thunk.deleteResource.pending, (state, action) => {
+    builder.addCase(thunk.deleteReport.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;
     });
 
-    builder.addCase(thunk.deleteResource.fulfilled, (state, action) => {
+    builder.addCase(thunk.deleteReport.fulfilled, (state, action) => {
       state.loading = "idle";
       state.activeRequestId = null;
       state.previousCrudAction = "delete";
-      resourcesAdapter.removeOne(state, action.meta.arg);
+      reportsAdapter.removeOne(state, action.meta.arg);
     });
   },
 });
 
-export const { selectById, selectAll } =
-  resourcesAdapter.getSelectors<RootState>((state) => state.resources);
+export const { selectById, selectAll } = reportsAdapter.getSelectors<RootState>(
+  (state) => state.reports
+);
 
-export const resourcesReducer = resourcesSlice.reducer;
+export const reportsReducer = reportsSlice.reducer;
