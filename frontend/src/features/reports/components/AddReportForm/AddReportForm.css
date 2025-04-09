@@ -1,0 +1,22 @@
+.add-report-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.add-report-form .field:has(textarea) {
+  grid-column: 1 / 3;
+}
+
+.add-report-form .field:has(textarea) {
+  grid-column: 1 / 3;
+}
+
+.add-report-form .file-field {
+  justify-self: center;
+}
+
+.add-report-form h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}

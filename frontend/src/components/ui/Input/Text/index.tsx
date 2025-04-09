@@ -14,6 +14,7 @@ export const TextInput = (props: Props) => {
     label,
     regex,
     value,
+    defaultValue,
     error,
     required,
     disabled,
@@ -39,6 +40,7 @@ export const TextInput = (props: Props) => {
         placeholder={placeholder ? placeholder : "Escribe aquí"}
         title={title}
         value={value}
+        defaultValue={defaultValue ? defaultValue : undefined}
         data-group={group}
         onChange={changeEvent}
         onBlur={blurEvent}

@@ -20,14 +20,16 @@ export const PatientChiefComplaints = (props: Props) => {
             {chiefComplaints.map((refEntity) => {
               const { chief_complaint } = refEntity;
               return (
-                <ChiefComplaintListItem
-                  key={chief_complaint._id}
-                  chiefComplaint={chief_complaint}
-                  state={setNavigationState("keep", "chiefcomplaint", {
-                    patientId: chief_complaint.patient,
-                    chiefComplaintId: chief_complaint._id,
-                  })}
-                />
+                chief_complaint.state === "in_progress" && (
+                  <ChiefComplaintListItem
+                    key={chief_complaint._id}
+                    chiefComplaint={chief_complaint}
+                    state={setNavigationState("keep", "chiefcomplaint", {
+                      patientId: chief_complaint.patient,
+                      chiefComplaintId: chief_complaint._id,
+                    })}
+                  />
+                )
               );
             })}
           </ul>

@@ -14,6 +14,7 @@ interface UIInputTypes {
 interface FormInputTypes<HTMLInput> {
   form?: string;
   value?: string;
+  defaultValue?: string;
   error?: string;
   group?: string;
 

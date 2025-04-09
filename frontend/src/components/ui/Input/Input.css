@@ -13,11 +13,14 @@
   color: transparent;
 }
 
-.field-input:hover {
+.field-input:hover,
+.field-input.has-default-value:hover {
   border-color: var(--clr-on-surface);
+  color: var(--clr-on-surface);
 }
 
-.field-input:hover ~ .field-label {
+.field-input:hover ~ .field-label,
+.field-input.has-default-value:hover ~ .field-label {
   color: var(--clr-on-surface);
 }
 
@@ -90,4 +93,13 @@
   text-align: left;
   color: var(--clr-error);
   margin-top: 0.25rem;
+}
+
+.field-input.has-default-value {
+  color: var(--clr-on-surface-variant);
+  border-color: var(--clr-outline);
+}
+
+.field-input.has-default-value ~ .field-label {
+  color: var(--clr-on-surface-variant);
 }

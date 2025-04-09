@@ -19,7 +19,8 @@ export const useChiefComplaint = (id: string = "") => {
   const chiefComplaint = useSelector((state: RootState) =>
     slice.selectById(state, id)
   );
-  const chiefComplaintURLName = `${chiefComplaint.title.split(" ").join("_")}`;
+  const chiefComplaintURLName =
+    chiefComplaint && `${chiefComplaint.title.split(" ").join("_")}`;
 
   useEffect(() => {
     dispatch(thunk.getAllChiefComplaints());
@@ -47,7 +48,7 @@ export const useChiefComplaint = (id: string = "") => {
   };
 
   const getChiefComplaintById = (id: string) =>
-    dispatch(thunk.getChiefComplaintById(id)).then((res) => res);
+    dispatch(thunk.getChiefComplaintById(id)).then((res) => res.payload);
 
   const addChiefComplaint = (
     body: IChiefComplaintForm,

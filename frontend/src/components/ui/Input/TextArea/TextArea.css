@@ -3,11 +3,3 @@
   padding: 1rem;
   resize: none;
 }
-
-.field-textarea:hover {
-  border-color: var(--clr-on-surface);
-}
-
-.field-textarea:hover ~ .field-label {
-  color: var(--clr-on-surface);
-}

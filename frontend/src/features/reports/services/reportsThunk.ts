@@ -44,7 +44,7 @@ export const addReport = createAsyncThunk(
   "reports/addReport",
   async (body: IReportForm) => {
     try {
-      const result = await reportsAPI.addEntity(body, true);
+      const result = await reportsAPI.addEntity(body);
       return result as IReport;
     } catch (err) {
       console.log(err);

@@ -15,10 +15,3 @@
   font-weight: 400;
   top: 1.75rem;
 }
-
-.field-select:hover {
-  border-color: var(--clr-on-surface);
-}
-.field-select:hover ~ .field-label {
-  color: var(--clr-on-surface);
-}

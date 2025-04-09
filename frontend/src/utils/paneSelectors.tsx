@@ -16,6 +16,7 @@ import { Resources } from "../pages/main_pane/Resources";
 import { TemplateDetails } from "../pages/details_pane/TemplateDetails";
 import { Templates } from "../pages/main_pane/Templates";
 import { DetailsPanes, MainPanes } from "../types/navigation.types";
+import { AddReport } from "../pages/details_pane/AddReport";
 
 export class MainPaneSelector {
   static choosePane(pane: MainPanes): React.ReactNode {
@@ -96,7 +97,7 @@ export class DetailsPaneSelector {
         return;
       }
       case "addreport": {
-        return;
+        return <AddReport />;
       }
       case "addtemplate": {
         return <AddTemplate />;

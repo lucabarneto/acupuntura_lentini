@@ -191,7 +191,9 @@ export const useForm = <T extends AnyObject>(initialFields: T): UseForm<T> => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    if (Object.values(form.errors).length === 0) {
+    const hasErrors = Object.values(form.errors).some((error) => error !== "");
+
+    if (!hasErrors) {
       setForm((prev) => {
         return {
           ...prev,
@@ -199,6 +201,7 @@ export const useForm = <T extends AnyObject>(initialFields: T): UseForm<T> => {
         };
       });
     } else {
+      console.log("There have been mistakes apparently");
       setForm((prev) => {
         return {
           ...prev,

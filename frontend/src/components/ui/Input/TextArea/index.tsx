@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Field } from "../../Field";
 import "../Input.css";
 import { TextAreaType } from "../input.types";
@@ -6,34 +7,59 @@ import "./TextArea.css";
 type Props = TextAreaType;
 
 export const TextArea = (props: Props) => {
-  const {
-    id,
-    title,
-    label,
-    form,
-    required,
-    disabled,
-    error,
-    value,
-    changeEvent,
-    blurEvent,
-  } = props;
+  const [isControlled, setIsControlled] = useState(
+    props.defaultValue ? false : true
+  );
 
-  return (
-    <Field id={id} label={label} error={error} disabled={disabled}>
+  let className = "field-input field-textarea";
+  if (!isControlled) className += " has-default-value";
+  if (props.error) className += " invalid";
+
+  return isControlled ? (
+    <Field
+      key={`${props.label}-controlled-input`}
+      id={props.id}
+      label={props.label}
+      error={props.error}
+      disabled={props.disabled}
+    >
       <textarea
-        className="field-input field-textarea"
-        name={id}
-        id={id}
+        className={className}
+        name={props.id}
+        id={props.id}
         placeholder="Escribe aquí"
-        title={title}
-        form={form}
-        required={required ? true : false}
-        value={value}
-        onChange={changeEvent}
-        onBlur={blurEvent}
-        aria-invalid={error ? true : false}
-        aria-errormessage={error ? `${id}-error` : undefined}
+        title={props.title}
+        form={props.form}
+        required={props.required ? true : false}
+        value={props.value}
+        onChange={props.changeEvent}
+        onBlur={props.blurEvent}
+        aria-invalid={props.error ? true : false}
+        aria-errormessage={props.error ? `${props.id}-error` : undefined}
+      ></textarea>
+    </Field>
+  ) : (
+    <Field
+      key={`${props.label}-uncontrolled-input`}
+      id={props.id}
+      label={props.label}
+      error={props.error}
+      disabled={props.disabled}
+    >
+      <textarea
+        className={className}
+        name={props.id}
+        id={props.id}
+        placeholder="Escribe aquí"
+        title={props.title}
+        form={props.form}
+        required={props.required ? true : false}
+        defaultValue={props.defaultValue}
+        onChange={props.changeEvent}
+        onBlur={props.blurEvent}
+        onClick={() => setIsControlled(true)}
+        aria-invalid={props.error ? true : false}
+        aria-errormessage={props.error ? `${props.id}-error` : undefined}
       ></textarea>
     </Field>
   );

@@ -8,8 +8,8 @@ export const IReport = z.object({
   diagnosis: z.string(),
   treatment: z.string(),
   last_recorded_evolution: z.string(),
-  initial_patient_tongue: z.string().default(""),
-  last_recorded_patient_tongue: z.string().default(""),
+  initial_patient_tongue: z.string().optional(),
+  last_recorded_patient_tongue: z.string().optional(),
   patient: z.string().transform((val, ctx) => {
     if (!MONGO_ID_REGEX.test(val)) {
       ctx.addIssue({

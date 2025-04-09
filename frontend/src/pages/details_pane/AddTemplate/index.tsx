@@ -17,7 +17,7 @@ export const AddTemplate = () => {
   return (
     <section>
       <AddHeader
-        title="Agregar plantilla"
+        title="Añadir plantilla"
         formId={addForm.formId}
         closeEvent={addNavigation.openLeaveModal}
       />

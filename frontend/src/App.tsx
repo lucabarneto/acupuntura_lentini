@@ -22,6 +22,7 @@ import { TemplateDetails } from "./pages/details_pane/TemplateDetails";
 import { AddConsultation } from "./pages/details_pane/AddConsultation";
 import { ConsultationDetails } from "./pages/details_pane/ConsultationDetails";
 import { AddConsultationTechniques } from "./pages/details_pane/AddConsultationTechinques";
+import { AddReport } from "./pages/details_pane/AddReport";
 
 function App() {
   return (
@@ -186,6 +187,15 @@ function App() {
                 <Panes
                   defaultMainPane={<Home />}
                   defaultDetailsPane={<AddConsultationTechniques />}
+                />
+              }
+            />
+            <Route
+              path="report"
+              element={
+                <Panes
+                  defaultMainPane={<Home />}
+                  defaultDetailsPane={<AddReport />}
                 />
               }
             />

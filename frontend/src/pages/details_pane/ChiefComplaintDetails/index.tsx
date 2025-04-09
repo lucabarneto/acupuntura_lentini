@@ -11,7 +11,8 @@ import { useModal } from "../../../hooks/useModal";
 export const ChiefComplaintDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const { patientId, chiefComplaintId } = extraData;
-  const { modal, openModal, closeModal } = useModal("modal");
+  const deleteModal = useModal("modal");
+  const addReportModal = useModal("modal");
   const patientHook = usePatient(patientId);
   const { patient, patientURLName } = patientHook.entityData;
   const chiefComplaintHook = useChiefComplaint(chiefComplaintId);
@@ -26,7 +27,7 @@ export const ChiefComplaintDetails = () => {
           pane="details"
           title="Motivo de consulta"
           navigation_back
-          deleteEvent={() => openModal()}
+          deleteEvent={() => deleteModal.openModal()}
           navigateBackEvent={() =>
             appNavigate(
               `/patients/${patientURLName}`,
@@ -37,7 +38,12 @@ export const ChiefComplaintDetails = () => {
         <article>
           <div className="chief-complaint-title">
             <h1>{chiefComplaint.title}</h1>
-            <Button type="button" label="Finalizar consulta" variant="filled" />
+            <Button
+              type="button"
+              label="Crear reporte"
+              variant="filled"
+              clickEvent={() => addReportModal.openModal()}
+            />
           </div>
           <div className="chief-complaint-data">
             <p>{chiefComplaint.diagnosis}</p>
@@ -59,14 +65,27 @@ export const ChiefComplaintDetails = () => {
           }
         />
         <Modal
-          ref={modal}
+          ref={deleteModal.modal}
           title="Eliminar motivo de consulta"
           text="Una vez eliminado, no podrás recuperar la información del motivo de consulta. ¿Estás seguro que quieres eliminarlo?"
           buttonConfirmLabel="Eliminar"
-          cancelEvent={closeModal}
+          cancelEvent={deleteModal.closeModal}
           confirmEvent={() =>
             deleteChiefComplaint(chiefComplaintId, () =>
               appNavigate("/patients", setNavigationState("keep"))
+            )
+          }
+        />
+        <Modal
+          ref={addReportModal.modal}
+          title="Crear Reporte"
+          text="Una vez creado el reporte, no podrás volver a acceder a este motivo de consulta. ¿Estás seguro que quieres crearlo?"
+          buttonConfirmLabel="Crear"
+          cancelEvent={addReportModal.closeModal}
+          confirmEvent={() =>
+            appNavigate(
+              "/add/report",
+              setNavigationState("keep", "addreport", { chiefComplaintId })
             )
           }
         />

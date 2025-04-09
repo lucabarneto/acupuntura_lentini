@@ -14,6 +14,7 @@ export const SelectInput = (props: Props) => {
     multiple,
     disabled,
     form,
+    defaultValue,
     error,
     changeEvent,
     blurEvent,
@@ -37,6 +38,7 @@ export const SelectInput = (props: Props) => {
         onBlur={blurEvent}
         aria-invalid={error ? true : false}
         aria-errormessage={error ? `${id}-error` : undefined}
+        defaultValue={defaultValue ? defaultValue : undefined}
       >
         {!disabled && (
           <>

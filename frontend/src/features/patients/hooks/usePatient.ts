@@ -16,7 +16,9 @@ export const usePatient = (id: string = "") => {
   const patient = useSelector((state: RootState) =>
     slice.selectById(state, id)
   );
-  const patientURLName = `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
+  const patientURLName =
+    patient &&
+    `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
 
   useEffect(() => {
     dispatch(thunk.getAllPatients());
