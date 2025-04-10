@@ -25,19 +25,14 @@ export const useAddReport = (
         ...formData.fields,
         creation_date: Date.now(),
       };
-      console.log(reportToAdd);
-      console.log("Añadiendo reporte...");
-      crudMethods.addReport(
-        reportToAdd,
-        () => console.log("Reporte añadido...?") /*(report) => {
+      crudMethods.addReport(reportToAdd, (report) => {
         leaveAddFlow(
-          `/reports/${utilityMethods.createURLName(report)}`,
+          `/reports/${report._id}`,
           setNavigationState("keep", "report", {
             reportId: report._id,
           })
         );
-      }*/
-      );
+      });
     }
   }, [formData.isSubmittable]);
 

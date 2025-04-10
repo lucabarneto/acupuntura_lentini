@@ -1,0 +1,11 @@
+.reports-pane {
+  padding: 2rem 0;
+}
+.reports-pane h1 {
+  padding: 0 1rem;
+}
+
+.reports-pane ul {
+  background-color: var(--clr-surface-container-low);
+  margin: 1rem 0;
+}

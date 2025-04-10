@@ -1,0 +1,9 @@
+.report-details hr {
+  margin-bottom: 2.5rem;
+}
+.report-details h2:has(~ p) {
+  margin-bottom: 1rem;
+}
+.report-details p {
+  margin-bottom: 2rem;
+}

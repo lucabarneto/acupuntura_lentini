@@ -25,7 +25,7 @@ export const TopAppBar = (props: Props) => {
       <h3 className={pane === "main" ? "compact" : undefined}>{title}</h3>
       {pane === "details" && props.deleteEvent && (
         <div>
-          <IconButton icon="edit" clickEvent={() => {}} ariaLabel="Editar" />
+          {/* <IconButton icon="edit" clickEvent={() => {}} ariaLabel="Editar" /> */}
           <IconButton
             icon="delete"
             clickEvent={props.deleteEvent}

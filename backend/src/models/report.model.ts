@@ -47,6 +47,10 @@ const ReportSchema = new mongoose.Schema<IReport, ReportModel>({
 
 /* :: Schema middlewares :: */
 
+ReportSchema.pre("find", function () {
+  this.populate("chief_complaint");
+});
+
 ReportSchema.pre("deleteOne", async function () {
   const report = (await this.model.findOne(this.getQuery())) as IReport;
 

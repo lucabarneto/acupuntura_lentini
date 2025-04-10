@@ -23,6 +23,8 @@ import { AddConsultation } from "./pages/details_pane/AddConsultation";
 import { ConsultationDetails } from "./pages/details_pane/ConsultationDetails";
 import { AddConsultationTechniques } from "./pages/details_pane/AddConsultationTechinques";
 import { AddReport } from "./pages/details_pane/AddReport";
+import { ReportDetails } from "./pages/details_pane/ReportDetails";
+import { Reports } from "./pages/main_pane/Reports";
 
 function App() {
   return (
@@ -113,6 +115,26 @@ function App() {
                 <Panes
                   defaultMainPane={<Templates />}
                   defaultDetailsPane={<TemplateDetails />}
+                />
+              }
+            />
+          </Route>
+          <Route path="/reports">
+            <Route
+              index
+              element={
+                <Panes
+                  defaultMainPane={<Reports />}
+                  defaultDetailsPane={<NoDetails />}
+                />
+              }
+            />
+            <Route
+              path=":report_title"
+              element={
+                <Panes
+                  defaultMainPane={<Reports />}
+                  defaultDetailsPane={<ReportDetails />}
                 />
               }
             />

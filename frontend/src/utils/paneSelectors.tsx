@@ -17,6 +17,8 @@ import { TemplateDetails } from "../pages/details_pane/TemplateDetails";
 import { Templates } from "../pages/main_pane/Templates";
 import { DetailsPanes, MainPanes } from "../types/navigation.types";
 import { AddReport } from "../pages/details_pane/AddReport";
+import { ReportDetails } from "../pages/details_pane/ReportDetails";
+import { Reports } from "../pages/main_pane/Reports";
 
 export class MainPaneSelector {
   static choosePane(pane: MainPanes): React.ReactNode {
@@ -28,7 +30,7 @@ export class MainPaneSelector {
         return;
       }
       case "reports": {
-        return;
+        return <Reports />;
       }
       case "patients": {
         return <Patients />;
@@ -55,7 +57,7 @@ export class DetailsPaneSelector {
         return;
       }
       case "report": {
-        return;
+        return <ReportDetails />;
       }
       case "patient": {
         return <PatientDetails />;

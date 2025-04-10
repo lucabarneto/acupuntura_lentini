@@ -19,9 +19,6 @@ export const useReport = (id: string = "") => {
     dispatch(thunk.getAllReports());
   }, [dispatch]);
 
-  const createURLName = (report: IReport) =>
-    `Reporte_${report.chief_complaint.title.split(" ").join("_")}`;
-
   const getReportById = (id: string) =>
     dispatch(thunk.getReportById(id))
       .unwrap()
@@ -42,9 +39,6 @@ export const useReport = (id: string = "") => {
       addReport,
       updateReport,
       deleteReport,
-    },
-    utilityMethods: {
-      createURLName,
     },
     entityData: {
       allReports,

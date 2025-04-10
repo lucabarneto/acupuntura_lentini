@@ -39,14 +39,14 @@ export const Add = () => {
           link="/add/consultation"
           ariaDescription="Ir a interfaz añadir sesión"
         />
-        <SegmentedButton
+        {/* <SegmentedButton
           id="appointment"
           state={setNavigationState("keep", "addappointment")}
           label="Turno"
           position="middle"
           link="/add/appointment"
           ariaDescription="Ir a interfaz añadir turno"
-        />
+        /> */}
         <SegmentedButton
           id="template"
           state={setNavigationState("keep", "addtemplate")}

@@ -38,13 +38,13 @@ export const NavigationPane = () => {
           href="/patients"
           state={setNavigationState("patients", "keep", extraData)}
         />
-        <NavigationItem
+        {/* <NavigationItem
           id="appointments"
           icon="calendar_month"
           label="turnos"
           href="/appointments"
           state={setNavigationState("appointments", "keep", extraData)}
-        />
+        /> */}
         <NavigationItem
           id="reports"
           icon="lab_profile"

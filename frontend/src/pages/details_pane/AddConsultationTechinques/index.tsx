@@ -23,6 +23,7 @@ export const AddConsultationTechniques = () => {
         title="Añadir sesión"
         closeEvent={addNavigation.openLeaveModal}
         formId={addForm.formId}
+        noAddButton
       />
       <div className="add-content-container">
         {techniqueData.techniques.length === 0 ? (
