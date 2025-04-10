@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { Panes } from "./components/panes";
 import { NavigationPane } from "./components/panes/NavigationPane";
-import { Home } from "./pages/main_pane/Home";
 import { Patients } from "./pages/main_pane/Patients";
 import { NoDetails } from "./pages/details_pane/NoDetails";
 import { PatientDetails } from "./pages/details_pane/PatientDetails";
@@ -36,7 +35,7 @@ function App() {
             path="/"
             element={
               <Panes
-                defaultMainPane={<Home />}
+                defaultMainPane={<Patients />}
                 defaultDetailsPane={<NoDetails />}
               />
             }
@@ -144,7 +143,7 @@ function App() {
               index
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<Add />}
                 />
               }
@@ -153,7 +152,7 @@ function App() {
               path="patient"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddPatient />}
                 />
               }
@@ -162,7 +161,7 @@ function App() {
               path="bazitable"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddBaziTable />}
                 />
               }
@@ -171,7 +170,7 @@ function App() {
               path="presumptiveanalysis"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddPresumptiveAnalysis />}
                 />
               }
@@ -180,7 +179,7 @@ function App() {
               path="chiefcomplaint"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddChiefComplaint />}
                 />
               }
@@ -189,7 +188,7 @@ function App() {
               path="template"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddTemplate />}
                 />
               }
@@ -198,7 +197,7 @@ function App() {
               path="consultation"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddConsultation />}
                 />
               }
@@ -207,7 +206,7 @@ function App() {
               path="consultationtechniques"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddConsultationTechniques />}
                 />
               }
@@ -216,7 +215,7 @@ function App() {
               path="report"
               element={
                 <Panes
-                  defaultMainPane={<Home />}
+                  defaultMainPane={<Patients />}
                   defaultDetailsPane={<AddReport />}
                 />
               }

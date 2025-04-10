@@ -1,3 +1,7 @@
 export const Home = () => {
-  return <></>;
+  return (
+    <section>
+      <h1 className="compact">Bienvenido, Guillermo</h1>
+    </section>
+  );
 };

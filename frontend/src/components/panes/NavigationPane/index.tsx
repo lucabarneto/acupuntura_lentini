@@ -24,13 +24,13 @@ export const NavigationPane = () => {
         <FAB state={setNavigationState("keep", "add")} />
       </div>
       <nav className="navigation-item-container">
-        <NavigationItem
+        {/* <NavigationItem
           id="home"
           icon="home"
           label="inicio"
           href="/"
           state={setNavigationState("home", "keep", extraData)}
-        />
+        /> */}
         <NavigationItem
           id="patients"
           icon="groups"
