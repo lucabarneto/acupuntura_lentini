@@ -38,7 +38,7 @@ export const PatientChiefComplaints = (props: Props) => {
         <ListDropdown heading="Motivos de consulta">
           <TextCard
             title="Sin motivos de consulta"
-            text="El paciente no tiene ningún motivo de consulta actual. Agregar uno
+            text="El paciente no tiene ningún motivo de consulta actual. Añade uno
         haciendo click en el botón de abajo, o apretando el botón '+'' ubicado en
         la parte superior izquierda de la pantalla"
             buttonLabel="Añadir motivo de consulta"

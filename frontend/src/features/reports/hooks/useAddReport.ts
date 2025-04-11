@@ -39,7 +39,7 @@ export const useAddReport = (
   const leaveFlow = (extra?: AnyStringObject) =>
     leaveAddFlow(
       leaveAddFlowModal.state!,
-      setNavigationState("keep", "chiefcomplaint", extra)
+      setNavigationState("keep", "add", extra)
     );
 
   return {

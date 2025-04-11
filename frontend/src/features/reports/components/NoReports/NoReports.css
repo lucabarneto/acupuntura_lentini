@@ -1,0 +1,9 @@
+.no-reports {
+  padding: 1.5rem 1rem;
+  background-color: var(--clr-surface);
+  text-align: center;
+}
+
+.no-reports h2 {
+  margin-bottom: 1rem;
+}

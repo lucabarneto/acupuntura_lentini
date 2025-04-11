@@ -33,8 +33,8 @@ export const Birth = (props: Props) => {
       ) : (
         <TextCard
           title="Sin tabla bazi"
-          text="Agrega los datos para armar la tabla apretando el botón que se encuentra abajo."
-          buttonLabel="Agregar Tabla"
+          text="Añade los datos para armar la tabla apretando el botón que se encuentra abajo."
+          buttonLabel="Añadir Tabla"
           buttonIcon="add"
           clickEvent={addEvent}
         />

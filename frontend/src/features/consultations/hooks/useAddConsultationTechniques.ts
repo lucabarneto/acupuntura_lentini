@@ -28,12 +28,6 @@ export const useAddConsultationTechniques = (
   const { formData } = form;
   const formId = "add-consultation-form";
 
-  const navigationStateOptions = {
-    consultationId: consultation._id,
-    chiefComplaintId: consultation.chief_complaint._id,
-    patientId: consultation.patient._id,
-  };
-
   useEffect(() => {
     if (formData.isSubmittable) {
       consultationHook.crudMethods.addConsultationsTechniques(
@@ -44,7 +38,7 @@ export const useAddConsultationTechniques = (
         (consultation) => {
           leaveAddFlow(
             `/consultations/${consultation._id}`,
-            setNavigationState("keep", "consultation", navigationStateOptions)
+            setNavigationState("keep", "consultation", extraData)
           );
         }
       );

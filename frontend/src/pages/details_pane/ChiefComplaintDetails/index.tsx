@@ -63,6 +63,7 @@ export const ChiefComplaintDetails = () => {
               setNavigationState("keep", "addconsultation")
             )
           }
+          stateExtraData={{ patientId, chiefComplaintId }}
         />
         <Modal
           ref={deleteModal.modal}

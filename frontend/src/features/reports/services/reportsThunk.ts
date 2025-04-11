@@ -19,9 +19,13 @@ export const getAllReports = createAsyncThunk<
   },
   {
     condition: (arg: undefined, { getState }) => {
-      const { reports } = getState();
+      const { reports, patients } = getState();
 
-      if (reports.ids.length !== 0 && reports.previousCrudAction !== null) {
+      if (
+        reports.ids.length !== 0 &&
+        reports.previousCrudAction !== null &&
+        patients.previousCrudAction !== "delete"
+      ) {
         return false;
       }
     },

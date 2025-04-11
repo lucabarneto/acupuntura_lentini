@@ -15,7 +15,7 @@ export const Templates = () => {
       <TopAppBar pane="main" title="Plantillas" />
       <TextCard
         title="¿Qué es una plantilla?"
-        text={`Una plantilla es una colección de recursos agrupados según la técnica de medicina a la que pertenecen. Puedes emplearlas en tus consultas para evitar seleccionar individualmente cada recurso.`}
+        text={`Una plantilla es una colección de técnicas agrupadas según los casos de uso y preferencias. Puedes emplearlas en tus consultas para evitar seleccionar individualmente cada técnica.`}
         icon="info"
       />
       {entityData.allTemplates.length !== 0 ? (

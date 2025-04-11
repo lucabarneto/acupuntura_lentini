@@ -4,6 +4,10 @@
   margin-bottom: 1.5rem;
 }
 
+.chief-complaint-data {
+  max-width: 70%;
+}
+
 .chief-complaint-data p {
   margin-bottom: 0.5rem;
 }

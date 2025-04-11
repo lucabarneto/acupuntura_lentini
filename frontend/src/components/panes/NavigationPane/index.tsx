@@ -57,7 +57,7 @@ export const NavigationPane = () => {
         <ListItem
           variant="icon"
           icon="extension"
-          title="Recursos"
+          title="Técnicas"
           link="/resources"
           state={setNavigationState("resources", "keep", extraData)}
           dataAttributes={{ role: "menuitem" }}

@@ -23,3 +23,7 @@ export type IReportForm = {
   patient: string;
   chief_complaint: string;
 };
+
+export type ReportsRef = {
+  report: IReport;
+};

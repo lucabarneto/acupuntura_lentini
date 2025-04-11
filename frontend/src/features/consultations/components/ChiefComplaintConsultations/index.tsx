@@ -1,16 +1,18 @@
 import { TextCard } from "../../../../components/ui/Card/TextCard";
 import { ListDropdown } from "../../../../components/ui/ListDropdown";
 import { useAppNavigate } from "../../../../hooks/useAppNavigate";
+import { AnyStringObject } from "../../../../types/general.types";
 import { ConsultationRef } from "../../types/consultation.types";
 import { ConsultationListItem } from "../ConsultationListItem";
 
 type Props = {
   consultations: ConsultationRef[];
   addEvent: () => void;
+  stateExtraData: AnyStringObject;
 };
 
 export const ChiefComplaintConsultations = (props: Props) => {
-  const { consultations, addEvent } = props;
+  const { consultations, addEvent, stateExtraData } = props;
   const { setNavigationState } = useAppNavigate();
 
   return (
@@ -25,9 +27,8 @@ export const ChiefComplaintConsultations = (props: Props) => {
                   key={index}
                   consultation={consultation}
                   state={setNavigationState("keep", "consultation", {
+                    ...stateExtraData,
                     consultationId: consultation._id,
-                    chiefComplaintId: consultation.chief_complaint._id,
-                    patientId: consultation.patient._id,
                   })}
                 />
               );
@@ -38,7 +39,7 @@ export const ChiefComplaintConsultations = (props: Props) => {
         <ListDropdown heading="Sesiones">
           <TextCard
             title="Sin sesiones"
-            text="El paciente no tiene ninguna sesión asociada a este motivo de consulta. Agregar una
+            text="El paciente no tiene ninguna sesión asociada a este motivo de consulta. Añade una
         haciendo click en el botón de abajo, o apretando el botón '+'' ubicado en
         la parte superior izquierda de la pantalla"
             buttonLabel="Añadir Sesión"

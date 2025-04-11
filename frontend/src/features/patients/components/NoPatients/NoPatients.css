@@ -1,0 +1,9 @@
+.no-patients {
+  padding: 1.5rem 1rem;
+  background-color: var(--clr-surface);
+  text-align: center;
+}
+
+.no-patients h2 {
+  margin-bottom: 1rem;
+}

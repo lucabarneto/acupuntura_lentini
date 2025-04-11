@@ -7,6 +7,7 @@ import { usePatient } from "../../../features/patients/hooks/usePatient";
 import { PresumptiveAnalysis } from "../../../features/patients/components/PresumptiveAnalysis";
 import { useAppNavigate } from "../../../hooks/useAppNavigate";
 import { PatientChiefComplaints } from "../../../features/chief_complaints/components/PatientChiefComplaints";
+import { PatientReports } from "../../../features/reports/components/PatientReports";
 
 export const PatientDetails = () => {
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
@@ -44,6 +45,7 @@ export const PatientDetails = () => {
             )
           }
         />
+        <PatientReports reports={patient.reports}/>
         <Birth
           birth={patient.birth}
           bazi_table={patient.bazi_table}

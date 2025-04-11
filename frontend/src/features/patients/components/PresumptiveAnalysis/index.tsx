@@ -46,8 +46,8 @@ export const PresumptiveAnalysis = (props: Props) => {
       ) : (
         <TextCard
           title="Sin análisis presuntivo"
-          text="Agrega el análisis presuntivo de la persona paciente apretando el botón que se encuentra abajo."
-          buttonLabel="Agregar Análisis"
+          text="Añade el análisis presuntivo de la persona paciente apretando el botón que se encuentra abajo."
+          buttonLabel="Añadir Análisis"
           buttonIcon="add"
           clickEvent={addEvent}
         />

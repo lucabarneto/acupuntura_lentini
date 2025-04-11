@@ -18,7 +18,7 @@ export const ConsultationTechniques = (props: Props) => {
           buttonIcon="add"
           buttonLabel="Añadir técnicas"
           title="Sin técnicas empleadas"
-          text="Agrega las técnicas que hayas utilizado en la sesión con el paciente haciendo click en el botón de abajo."
+          text="Añade las técnicas que hayas utilizado en la sesión con el paciente haciendo click en el botón de abajo."
           clickEvent={addEvent}
         />
       ) : (

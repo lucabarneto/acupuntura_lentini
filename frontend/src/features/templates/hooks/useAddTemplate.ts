@@ -24,7 +24,7 @@ export const useAddTemplate = (
       crudMethods.addTemplate(formData.fields, (template) => {
         leaveAddFlow(
           `/templates/${utilityMethods.createURLName(template)}`,
-          setNavigationState("keep", "patient", { templateId: template._id })
+          setNavigationState("keep", "template", { templateId: template._id })
         );
       });
     }

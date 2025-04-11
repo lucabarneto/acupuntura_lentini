@@ -57,6 +57,24 @@ const consultationsSlice = createSlice({
       consultationsAdapter.addOne(state, action.payload!);
     });
 
+    builder.addCase(
+      thunk.addConsultationTechniques.pending,
+      (state, action) => {
+        state.loading = "pending";
+        state.activeRequestId = action.meta.requestId;
+      }
+    );
+
+    builder.addCase(
+      thunk.addConsultationTechniques.fulfilled,
+      (state, action) => {
+        state.loading = "idle";
+        state.activeRequestId = null;
+        state.previousCrudAction = "put";
+        consultationsAdapter.setOne(state, action.payload!);
+      }
+    );
+
     builder.addCase(thunk.updateConsultation.pending, (state, action) => {
       state.loading = "pending";
       state.activeRequestId = action.meta.requestId;

@@ -10,8 +10,8 @@ export const Resources = () => {
 
   return (
     <section className="resources-pane main-section">
-      <TopAppBar pane="main" title="Recursos" />
-      <h1 className="compact">Lista de recursos</h1>
+      <TopAppBar pane="main" title="Técnicas" />
+      <h1 className="compact">Lista de técnicas</h1>
       <div className="resources">
         {entityData.allResources.map((resource) => (
           <ResourceCard

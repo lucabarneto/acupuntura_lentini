@@ -19,9 +19,14 @@ export const getAllPatients = createAsyncThunk<
   },
   {
     condition: (arg: undefined, { getState }) => {
-      const { patients } = getState();
+      const { patients, chief_complaints } = getState();
 
-      if (patients.ids.length !== 0 && patients.previousCrudAction !== null) {
+      if (
+        patients.ids.length !== 0 &&
+        chief_complaints.previousCrudAction !== "post" &&
+        chief_complaints.previousCrudAction !== "delete" &&
+        patients.previousCrudAction !== null
+      ) {
         return false;
       }
     },

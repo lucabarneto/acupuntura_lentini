@@ -22,10 +22,12 @@ export const getAllChiefComplaints = createAsyncThunk<
   },
   {
     condition: (arg: undefined, { getState }) => {
-      const { chief_complaints } = getState();
+      const { chief_complaints, consultations } = getState();
 
       if (
         chief_complaints.ids.length !== 0 &&
+        consultations.previousCrudAction !== "post" &&
+        consultations.previousCrudAction !== "delete" &&
         chief_complaints.previousCrudAction !== null
       ) {
         return false;

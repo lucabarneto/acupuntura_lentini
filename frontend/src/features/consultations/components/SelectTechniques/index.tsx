@@ -38,13 +38,13 @@ export const SelectTechniques = (props: Props) => {
 
       <div className="choose-entity">
         <RadioInput
-          label="Una plantilla"
+          label="Técnicas en una plantilla"
           name="entity-to-use"
           id="entity-used-template"
           clickEvent={() => techniqueMethods.selectInputEntity("template")}
         />
         <RadioInput
-          label="Recursos individuales"
+          label="Técnincas individuales"
           name="entity-to-use"
           id="entity-used-resources"
           clickEvent={() => techniqueMethods.selectInputEntity("resource")}

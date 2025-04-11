@@ -7,6 +7,7 @@ import { RadioInput } from "../../../components/ui/Input/Radio";
 import { PatientListItem } from "../../../features/patients/components/PatientListItem";
 import { SearchViewPatient } from "../../../features/patients/components/Search/SearchPatient";
 import { useAppNavigate } from "../../../hooks/useAppNavigate";
+import { NoPatients } from "../../../features/patients/components/NoPatients";
 
 export const Patients = () => {
   const { setNavigationState } = useAppNavigate();
@@ -43,15 +44,19 @@ export const Patients = () => {
       </div>
       <h1 className="compact">Lista de pacientes</h1>
       <ul>
-        {entityData.allPatients.map((patient) => (
-          <PatientListItem
-            key={patient._id}
-            patient={patient}
-            state={setNavigationState("keep", "patient", {
-              patientId: patient._id,
-            })}
-          />
-        ))}
+        {entityData.allPatients.length !== 0 ? (
+          entityData.allPatients.map((patient) => (
+            <PatientListItem
+              key={patient._id}
+              patient={patient}
+              state={setNavigationState("keep", "patient", {
+                patientId: patient._id,
+              })}
+            />
+          ))
+        ) : (
+          <NoPatients />
+        )}
       </ul>
       <SelectionModal id="sort-query-menu-patients" ref={modal}>
         <form>

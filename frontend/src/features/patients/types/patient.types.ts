@@ -1,4 +1,5 @@
 import { ChiefComplaintRef } from "../../chief_complaints/types/chief_complaint.types";
+import { ReportsRef } from "../../reports/types/report.types";
 import { BaziTableType } from "./bazi_table.types";
 import { PresumptiveAnalysisType } from "./presumptive_analysis.types";
 
@@ -17,7 +18,7 @@ export type IPatient = {
   next_appointment?: number;
   chief_complaints: ChiefComplaintRef[];
   appointments?: AppointmentsRef[];
-  reports?: ReportsRef[];
+  reports: ReportsRef[];
 };
 
 export type BirthType = {
@@ -46,8 +47,4 @@ export type IPatientForm = {
 interface AppointmentsRef {
   appointment: string;
   date: number;
-}
-
-interface ReportsRef {
-  report: string;
 }

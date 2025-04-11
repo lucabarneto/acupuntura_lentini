@@ -29,8 +29,8 @@ export const ConsultationDetails = () => {
             appNavigate(
               `/chiefcomplaints/${chiefComplaintURLName}`,
               setNavigationState("keep", "chiefcomplaint", {
-                patientId,
                 chiefComplaintId,
+                patientId,
               })
             )
           }
@@ -44,9 +44,7 @@ export const ConsultationDetails = () => {
           addEvent={() =>
             appNavigate(
               `/add/consultationtechniques`,
-              setNavigationState("keep", "addconsultationtechnique", {
-                consultationId,
-              })
+              setNavigationState("keep", "addconsultationtechnique", extraData)
             )
           }
         />

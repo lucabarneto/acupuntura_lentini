@@ -12,7 +12,7 @@ export const ResourceDetails = () => {
   return (
     resource && (
       <section className="details-section resource-details">
-        <TopAppBar pane="details" title="Recurso" />
+        <TopAppBar pane="details" title="Técnica" />
         <article className="resource-data">
           <img src={resource.image} alt="Imagen del recurso" />
           <div className="personal-data-content">

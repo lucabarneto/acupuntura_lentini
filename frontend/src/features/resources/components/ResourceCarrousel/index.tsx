@@ -12,7 +12,7 @@ export const ResourceCarrousel = (props: Props) => {
 
   return (
     <>
-      <h3>Seleccionar recursos</h3>
+      <h3>Seleccionar técnicas</h3>
       <div className="resource-carrousel">
         {resources.map((resource) => (
           <ResourceCheckboxCard

@@ -18,18 +18,11 @@ export const PatientListItem = ({ patient, state }: Props) => {
       image={
         patient.profile_picture
           ? (patient.profile_picture as string)
-          : "/src/assets/placeholder.svg"
+          : "/src/assets/user_placeholder.svg"
       }
       alt="Rostro de la persona paciente"
       title={`${patient.first_name} ${patient.last_name}`}
       overline="Paciente"
-      text={
-        patient.next_appointment
-          ? `Próximo turno el ${new Date(
-              patient.next_appointment
-            ).toLocaleDateString()}`
-          : "No posee un turno agendado."
-      }
       divider
     />
   );
