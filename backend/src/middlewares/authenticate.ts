@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
-import { AuthenticationError } from "../services/errors/authentication.error.ts";
+import { AuthenticationError } from "../services/errors/authentication.error";
 
 export const authenticate = (
   strategy: "login" | "jwt",

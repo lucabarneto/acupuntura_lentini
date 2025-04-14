@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AnyZodObject } from "zod";
-import { customZodError } from "../utils/customZodError.ts";
+import { customZodError } from "../utils/customZodError";
 
 interface RequestValidators {
   body?: AnyZodObject;

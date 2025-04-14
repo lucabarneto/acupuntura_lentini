@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { AuthenticationError } from "../services/errors/authentication.error.ts";
+import { AuthenticationError } from "../services/errors/authentication.error";
 
 const saltRounds = 10;
 

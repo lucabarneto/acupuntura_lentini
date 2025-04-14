@@ -1,6 +1,6 @@
-import { IPatient } from "../types/mongo/IPatient.ts";
-import { patientDAO } from "../database/patients.dao.ts";
-import { BaseService } from "./base.service.ts";
+import { IPatient } from "../types/mongo/IPatient";
+import { patientDAO } from "../database/patients.dao";
+import { BaseService } from "./base.service";
 
 class Patient extends BaseService<IPatient> {
   findEqual = (data: IPatient, patients: IPatient[]): boolean =>

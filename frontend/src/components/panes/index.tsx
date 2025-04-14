@@ -1,5 +1,6 @@
 import { DetailsPane } from "./DetailsPane";
 import { MainPane } from "./MainPane";
+import { NavigationPane } from "./NavigationPane";
 
 type Props = {
   defaultMainPane: React.ReactNode;
@@ -8,6 +9,7 @@ type Props = {
 export const Panes = (props: Props) => {
   return (
     <>
+      <NavigationPane />
       <MainPane defaultPane={props.defaultMainPane} />
       <DetailsPane defaultPane={props.defaultDetailsPane} />
     </>

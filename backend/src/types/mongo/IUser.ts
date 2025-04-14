@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX, EMAIL_REGEX } from "../../constants.ts";
+import { MONGO_ID_REGEX, EMAIL_REGEX } from "../../constants";
 
 export const IUser = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),

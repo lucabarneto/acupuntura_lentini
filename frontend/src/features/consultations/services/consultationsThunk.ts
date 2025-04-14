@@ -19,7 +19,11 @@ export const getAllConsultations = createAsyncThunk<
     }
   },
   {
-    condition: (arg: undefined, { getState }) => {
+    condition: (arg, { getState }) => {
+      if (arg) {
+        /* */
+      }
+
       const { consultations } = getState();
 
       if (

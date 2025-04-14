@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { logger } from "../utils/logger.ts";
+import { logger } from "../utils/logger";
 
 export class DatabaseConnection {
   private static instance: DatabaseConnection | undefined;

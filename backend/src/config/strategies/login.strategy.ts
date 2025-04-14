@@ -1,8 +1,8 @@
 import { Strategy as LocalStrategy } from "passport-local";
-import { userService } from "../../services/users.service.ts";
-import { Encryption } from "../../utils/bcrypt.ts";
-import { IUser } from "../../types/mongo/IUser.ts";
-import { logger } from "../../utils/logger.ts";
+import { userService } from "../../services/users.service";
+import { Encryption } from "../../utils/bcrypt";
+import { IUser } from "../../types/mongo/IUser";
+import { logger } from "../../utils/logger";
 
 type DataSafeUser = {
   first_name: string;

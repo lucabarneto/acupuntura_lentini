@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { IUser } from "../types/mongo/IUser.ts";
-import { EMAIL_REGEX } from "../constants.ts";
+import { IUser } from "../types/mongo/IUser";
+import { EMAIL_REGEX } from "../constants";
 
 type UserModel = mongoose.Model<IUser>;
 

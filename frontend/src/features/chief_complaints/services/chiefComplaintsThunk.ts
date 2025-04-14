@@ -21,7 +21,10 @@ export const getAllChiefComplaints = createAsyncThunk<
     }
   },
   {
-    condition: (arg: undefined, { getState }) => {
+    condition: (arg, { getState }) => {
+      if (arg) {
+        /* */
+      }
       const { chief_complaints, consultations } = getState();
 
       if (

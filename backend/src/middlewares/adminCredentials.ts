@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AuthorizationError } from "../services/errors/authorization.error.ts";
+import { AuthorizationError } from "../services/errors/authorization.error";
 
 export const adminCredentials = (
   req: Request,

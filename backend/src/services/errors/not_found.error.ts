@@ -1,4 +1,4 @@
-import { INotFoundError } from "../../types/general/Error.interface.ts";
+import { INotFoundError } from "../../types/general/Error.interface";
 
 export class NotFoundError extends Error implements INotFoundError {
   status: "error";

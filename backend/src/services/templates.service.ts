@@ -1,6 +1,6 @@
-import { ITemplate } from "../types/mongo/ITemplate.ts";
-import { templateDAO } from "../database/templates.dao.ts";
-import { BaseService } from "./base.service.ts";
+import { ITemplate } from "../types/mongo/ITemplate";
+import { templateDAO } from "../database/templates.dao";
+import { BaseService } from "./base.service";
 
 const TEST_FAILED = false;
 const TEST_PASSED = true;

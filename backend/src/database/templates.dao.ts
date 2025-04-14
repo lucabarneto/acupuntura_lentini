@@ -1,6 +1,6 @@
-import { ITemplate } from "../types/mongo/ITemplate.ts";
-import { TemplateModel } from "../models/template.model.ts";
-import { MongoDAO } from "./mongo.dao.ts";
+import { ITemplate } from "../types/mongo/ITemplate";
+import { TemplateModel } from "../models/template.model";
+import { MongoDAO } from "./mongo.dao";
 
 class TemplateDAO extends MongoDAO<ITemplate> {}
 

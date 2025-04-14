@@ -1,6 +1,6 @@
-import { DAO } from "../types/general/Dao.interface.ts";
-import { ID } from "../types/general/ID.interface.ts";
-import { SortQueries } from "../types/general/SortQueries.ts";
+import { DAO } from "../types/general/Dao.interface";
+import { ID } from "../types/general/ID.interface";
+import { SortQueries } from "../types/general/SortQueries";
 
 interface Service<T> {
   getAll: (sort: undefined | SortQueries) => Promise<T[]>;

@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IAppointment } from "../types/mongo/IAppointment.ts";
-import { appointmentService } from "../services/appointments.service.ts";
-import { RequestParams } from "../types/express/RequestParams.ts";
-import { logger } from "../utils/logger.ts";
-import { SuccessResponse } from "../types/express/Response.ts";
+import { IAppointment } from "../types/mongo/IAppointment";
+import { appointmentService } from "../services/appointments.service";
+import { RequestParams } from "../types/express/RequestParams";
+import { logger } from "../utils/logger";
+import { SuccessResponse } from "../types/express/Response";
 
 export class AppointmentController {
   handleId = async (

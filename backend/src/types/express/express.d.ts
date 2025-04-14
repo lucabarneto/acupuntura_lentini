@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IAppointment } from "../mongo/IAppointment.ts";
-import { IChiefComplaint } from "../mongo/IChiefComplaint.ts";
-import { IPatient } from "../mongo/IPatient.ts";
-import { IResource } from "../mongo/IResource.ts";
-import { IConsultation } from "../mongo/IConsultation.ts";
-import { ITemplate } from "../mongo/ITemplate.ts";
-import { IReport } from "../mongo/IReport.ts";
-import { IUser } from "../mongo/IUser.ts";
+import { IAppointment } from "../mongo/IAppointment";
+import { IChiefComplaint } from "../mongo/IChiefComplaint";
+import { IPatient } from "../mongo/IPatient";
+import { IResource } from "../mongo/IResource";
+import { IConsultation } from "../mongo/IConsultation";
+import { ITemplate } from "../mongo/ITemplate";
+import { IReport } from "../mongo/IReport";
+import { IUser } from "../mongo/IUser";
 
 declare global {
   namespace Express {

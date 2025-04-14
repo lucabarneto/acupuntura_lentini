@@ -1,6 +1,6 @@
-import { IAppointment } from "../types/mongo/IAppointment.ts";
-import { appointmentDAO } from "../database/appointments.dao.ts";
-import { BaseService } from "./base.service.ts";
+import { IAppointment } from "../types/mongo/IAppointment";
+import { appointmentDAO } from "../database/appointments.dao";
+import { BaseService } from "./base.service";
 
 class AppointmentService extends BaseService<IAppointment> {
   findEqual = (data: IAppointment, appointments: IAppointment[]): boolean =>

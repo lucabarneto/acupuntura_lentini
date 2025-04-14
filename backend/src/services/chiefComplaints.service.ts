@@ -1,10 +1,8 @@
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
-import { chiefComplaintDAO } from "../database/chiefComplaints.dao.ts";
-import { BaseService } from "./base.service.ts";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint";
+import { chiefComplaintDAO } from "../database/chiefComplaints.dao";
+import { BaseService } from "./base.service";
 
-class ChiefComplaintService extends BaseService<
-  IChiefComplaint
-> {
+class ChiefComplaintService extends BaseService<IChiefComplaint> {
   findEqual = (
     data: IChiefComplaint,
     chiefComplaints: IChiefComplaint[]

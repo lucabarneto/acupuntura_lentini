@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { IPatient } from "../types/mongo/IPatient.ts";
-import { ModelMiddlewares } from "./modelMiddlewares.ts";
-import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
-import { appointmentMiddlewares } from "./appoinment.model.ts";
-import { reportMiddlewares } from "./report.model.ts";
-import { DATE_REGEX, TIME_REGEX, MIN_DATE } from "../constants.ts";
-import { ID } from "../types/general/ID.interface.ts";
+import { IPatient } from "../types/mongo/IPatient";
+import { ModelMiddlewares } from "./modelMiddlewares";
+import { chiefComplaintMiddlewares } from "./chiefComplaint.model";
+import { appointmentMiddlewares } from "./appoinment.model";
+import { reportMiddlewares } from "./report.model";
+import { DATE_REGEX, TIME_REGEX, MIN_DATE } from "../constants";
+import { ID } from "../types/general/ID.interface";
 
 type PatientModel = mongoose.Model<IPatient>;
 

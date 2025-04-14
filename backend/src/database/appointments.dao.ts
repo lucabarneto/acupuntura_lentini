@@ -1,6 +1,6 @@
-import { IAppointment } from "../types/mongo/IAppointment.ts";
-import { AppointmentModel } from "../models/appoinment.model.ts";
-import { MongoDAO } from "./mongo.dao.ts";
+import { IAppointment } from "../types/mongo/IAppointment";
+import { AppointmentModel } from "../models/appoinment.model";
+import { MongoDAO } from "./mongo.dao";
 
 class AppointmentDAO extends MongoDAO<IAppointment> {}
 

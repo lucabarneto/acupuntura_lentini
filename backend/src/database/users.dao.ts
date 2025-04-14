@@ -1,8 +1,8 @@
-import { IUser } from "../types/mongo/IUser.ts";
-import { UserModel } from "../models/user.model.ts";
-import { MongoDAO } from "./mongo.dao.ts";
-import { DAOReturnValue } from "../types/general/Dao.interface.ts";
-import { AuthenticationError } from "../services/errors/authentication.error.ts";
+import { IUser } from "../types/mongo/IUser";
+import { UserModel } from "../models/user.model";
+import { MongoDAO } from "./mongo.dao";
+import { DAOReturnValue } from "../types/general/Dao.interface";
+import { AuthenticationError } from "../services/errors/authentication.error";
 
 class UserDAO extends MongoDAO<IUser> {
   getByEmail = async (email: string): Promise<DAOReturnValue<IUser>> => {

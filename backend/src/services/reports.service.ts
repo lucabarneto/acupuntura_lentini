@@ -1,6 +1,6 @@
-import { IReport } from "../types/mongo/IReport.ts";
-import { reportDAO } from "../database/reports.dao.ts";
-import { BaseService } from "./base.service.ts";
+import { IReport } from "../types/mongo/IReport";
+import { reportDAO } from "../database/reports.dao";
+import { BaseService } from "./base.service";
 
 class Report extends BaseService<IReport> {
   findEqual = (data: IReport, reports: IReport[]): boolean =>

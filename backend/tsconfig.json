@@ -9,8 +9,6 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "noUnusedLocals": true,
     "typeRoots": ["./node_modules/@types", "./types"]
   },

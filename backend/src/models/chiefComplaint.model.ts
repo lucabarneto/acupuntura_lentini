@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint.ts";
-import { ModelMiddlewares } from "./modelMiddlewares.ts";
-import { consultationMiddlewares } from "./consultation.model.ts";
-import { patientMiddlewares } from "./patient.model.ts";
-import { reportMiddlewares } from "./report.model.ts";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint";
+import { ModelMiddlewares } from "./modelMiddlewares";
+import { consultationMiddlewares } from "./consultation.model";
+import { patientMiddlewares } from "./patient.model";
+import { reportMiddlewares } from "./report.model";
 
 type ChiefComplaintModel = mongoose.Model<IChiefComplaint>;
 

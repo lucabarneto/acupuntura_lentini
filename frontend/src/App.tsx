@@ -1,9 +1,8 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { HashRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { Panes } from "./components/panes";
-import { NavigationPane } from "./components/panes/NavigationPane";
 import { Patients } from "./pages/main_pane/Patients";
 import { NoDetails } from "./pages/details_pane/NoDetails";
 import { PatientDetails } from "./pages/details_pane/PatientDetails";
@@ -28,8 +27,7 @@ import { Reports } from "./pages/main_pane/Reports";
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <NavigationPane />
+      <HashRouter>
         <Routes>
           <Route
             path="/"
@@ -222,7 +220,7 @@ function App() {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 }

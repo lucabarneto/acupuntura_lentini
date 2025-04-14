@@ -18,7 +18,10 @@ export const getAllResources = createAsyncThunk<
     }
   },
   {
-    condition: (arg: undefined, { getState }) => {
+    condition: (arg, { getState }) => {
+      if (arg) {
+        /* */
+      }
       const { resources } = getState();
 
       if (resources.ids.length !== 0 && resources.previousCrudAction !== null) {

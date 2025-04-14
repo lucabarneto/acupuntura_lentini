@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.ts";
+import { MONGO_ID_REGEX, MIN_DATE } from "../../constants";
 import { Types } from "mongoose";
 
 export const IReport = z.object({

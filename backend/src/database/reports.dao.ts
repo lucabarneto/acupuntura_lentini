@@ -1,6 +1,6 @@
-import { IReport } from "../types/mongo/IReport.ts";
-import { ReportModel } from "../models/report.model.ts";
-import { MongoDAO } from "./mongo.dao.ts";
+import { IReport } from "../types/mongo/IReport";
+import { ReportModel } from "../models/report.model";
+import { MongoDAO } from "./mongo.dao";
 
 class ReportDAO extends MongoDAO<IReport> {}
 

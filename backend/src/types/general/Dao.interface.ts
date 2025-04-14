@@ -1,4 +1,4 @@
-import { SortQueries } from "./SortQueries.ts";
+import { SortQueries } from "./SortQueries";
 
 export interface SuccessReturnValue<T> {
   status: "success";

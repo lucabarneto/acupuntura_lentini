@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { ITemplate } from "../types/mongo/ITemplate.ts";
-import { templateService } from "../services/templates.service.ts";
-import { RequestParams } from "../types/express/RequestParams.ts";
-import { logger } from "../utils/logger.ts";
-import { SuccessResponse } from "../types/express/Response.ts";
+import { ITemplate } from "../types/mongo/ITemplate";
+import { templateService } from "../services/templates.service";
+import { RequestParams } from "../types/express/RequestParams";
+import { logger } from "../utils/logger";
+import { SuccessResponse } from "../types/express/Response";
 
 export class TemplateController {
   handleId = async (

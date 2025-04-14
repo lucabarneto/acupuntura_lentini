@@ -19,7 +19,10 @@ export const getAllTemplates = createAsyncThunk<
     }
   },
   {
-    condition: (arg: undefined, { getState }) => {
+    condition: (arg, { getState }) => {
+      if (arg) {
+        /* */
+      }
       const { templates } = getState();
 
       if (templates.ids.length !== 0 && templates.previousCrudAction !== null) {

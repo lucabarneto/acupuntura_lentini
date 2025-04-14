@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ITemplate } from "../types/mongo/ITemplate.ts";
+import { ITemplate } from "../types/mongo/ITemplate";
 
 type TemplateModel = mongoose.Model<ITemplate>;
 

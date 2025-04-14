@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { IConsultation } from "../types/mongo/IConsultation.ts";
-import { chiefComplaintMiddlewares } from "./chiefComplaint.model.ts";
-import { ModelMiddlewares } from "./modelMiddlewares.ts";
-import { DATE_REGEX } from "../constants.ts";
+import { IConsultation } from "../types/mongo/IConsultation";
+import { chiefComplaintMiddlewares } from "./chiefComplaint.model";
+import { ModelMiddlewares } from "./modelMiddlewares";
+import { DATE_REGEX } from "../constants";
 
 type ConsultationModel = mongoose.Model<IConsultation>;
 

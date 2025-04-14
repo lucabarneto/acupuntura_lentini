@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { logger } from "../utils/logger.ts";
-import { AccessToken } from "../utils/jwt.ts";
+import { logger } from "../utils/logger";
+import { AccessToken } from "../utils/jwt";
 
 export class SessionController {
   logUserIn = (req: Request, res: Response, next: NextFunction) => {

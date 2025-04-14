@@ -1,4 +1,4 @@
-import { IAuthenticationError } from "../../types/general/Error.interface.ts";
+import { IAuthenticationError } from "../../types/general/Error.interface";
 
 export class AuthenticationError extends Error implements IAuthenticationError {
   status: "error";

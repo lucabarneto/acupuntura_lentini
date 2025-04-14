@@ -1,6 +1,6 @@
-import { IConsultation } from "../types/mongo/IConsultation.ts";
-import { ConsultationModel } from "../models/consultation.model.ts";
-import { MongoDAO } from "./mongo.dao.ts";
+import { IConsultation } from "../types/mongo/IConsultation";
+import { ConsultationModel } from "../models/consultation.model";
+import { MongoDAO } from "./mongo.dao";
 
 class ConsultationDAO extends MongoDAO<IConsultation> {}
 

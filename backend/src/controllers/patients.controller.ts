@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { IPatient } from "../types/mongo/IPatient.ts";
-import { patientService } from "../services/patients.service.ts";
-import { RequestParams } from "../types/express/RequestParams.ts";
-import { RequestQueries } from "../types/express/RequestQueries.ts";
-import { logger } from "../utils/logger.ts";
-import { SortQueries } from "../types/general/SortQueries.ts";
-import { SuccessResponse } from "../types/express/Response.ts";
+import { IPatient } from "../types/mongo/IPatient";
+import { patientService } from "../services/patients.service";
+import { RequestParams } from "../types/express/RequestParams";
+import { RequestQueries } from "../types/express/RequestQueries";
+import { logger } from "../utils/logger";
+import { SortQueries } from "../types/general/SortQueries";
+import { SuccessResponse } from "../types/express/Response";
 
 export class PatientController {
   handleId = async (

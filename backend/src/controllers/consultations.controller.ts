@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IConsultation } from "../types/mongo/IConsultation.ts";
-import { consultationService } from "../services/consultations.service.ts";
-import { RequestParams } from "../types/express/RequestParams.ts";
-import { logger } from "../utils/logger.ts";
-import { SuccessResponse } from "../types/express/Response.ts";
+import { IConsultation } from "../types/mongo/IConsultation";
+import { consultationService } from "../services/consultations.service";
+import { RequestParams } from "../types/express/RequestParams";
+import { logger } from "../utils/logger";
+import { SuccessResponse } from "../types/express/Response";
 
 export class ConsultationController {
   handleId = async (
@@ -46,7 +46,11 @@ export class ConsultationController {
       logger.http(`Consultation found succesfully (ID: ${req.params.id})`);
       res
         .status(200)
-        .send({ status: "success", statusCode: 200, payload: req.consultation! });
+        .send({
+          status: "success",
+          statusCode: 200,
+          payload: req.consultation!,
+        });
     } catch (err) {
       next(err);
     }

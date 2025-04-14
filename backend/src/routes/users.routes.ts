@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { IUser } from "../types/mongo/IUser.ts";
-import { UserController } from "../controllers/users.controller.ts";
-import { validateRequest } from "../middlewares/validateRequest.ts";
-import { RequestParams } from "../types/express/RequestParams.ts";
-import { authenticate } from "../middlewares/authenticate.ts";
-import { adminCredentials } from "../middlewares/adminCredentials.ts";
+import { IUser } from "../types/mongo/IUser";
+import { UserController } from "../controllers/users.controller";
+import { validateRequest } from "../middlewares/validateRequest";
+import { RequestParams } from "../types/express/RequestParams";
+import { authenticate } from "../middlewares/authenticate";
+import { adminCredentials } from "../middlewares/adminCredentials";
 
 const userController = new UserController();
 

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
-import { ErrorResponse } from "../types/express/Response.ts";
-import { CustomError } from "../types/general/Error.interface.ts";
-import { logger } from "../utils/logger.ts";
+import { ErrorResponse } from "../types/express/Response";
+import { CustomError } from "../types/general/Error.interface";
+import { logger } from "../utils/logger";
 
 export const errorHandler = (
   err: CustomError,

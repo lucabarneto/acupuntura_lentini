@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { ID } from "../types/general/ID.interface.ts";
-import { DAO, DAOReturnValue } from "../types/general/Dao.interface.ts";
-import { SortQueries } from "../types/general/SortQueries.ts";
-import { NotFoundError } from "../services/errors/not_found.error.ts";
+import { ID } from "../types/general/ID.interface";
+import { DAO, DAOReturnValue } from "../types/general/Dao.interface";
+import { SortQueries } from "../types/general/SortQueries";
+import { NotFoundError } from "../services/errors/not_found.error";
 
 export abstract class MongoDAO<Interface> implements DAO<Interface> {
   protected model: mongoose.Model<Interface>;

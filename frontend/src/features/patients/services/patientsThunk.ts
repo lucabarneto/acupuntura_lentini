@@ -18,7 +18,10 @@ export const getAllPatients = createAsyncThunk<
     }
   },
   {
-    condition: (arg: undefined, { getState }) => {
+    condition: (arg, { getState }) => {
+      if (arg) {
+        /* */
+      }
       const { patients, chief_complaints } = getState();
 
       if (
