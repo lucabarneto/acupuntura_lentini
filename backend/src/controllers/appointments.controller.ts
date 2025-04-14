@@ -45,13 +45,11 @@ export class AppointmentController {
   ) => {
     try {
       logger.http(`Appointment found succesfully (ID: ${req.params.id})`);
-      res
-        .status(200)
-        .send({
-          status: "success",
-          statusCode: 200,
-          payload: req.appointment!,
-        });
+      res.status(200).send({
+        status: "success",
+        statusCode: 200,
+        payload: req.appointment!,
+      });
     } catch (err) {
       next(err);
     }

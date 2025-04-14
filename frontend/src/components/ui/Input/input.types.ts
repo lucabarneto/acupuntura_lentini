@@ -26,7 +26,7 @@ export interface TextInputType extends InputType<HTMLInputElement> {
   regex?: string;
 }
 
-type TextInputTypes = "text" | "tel" | "email" | "date";
+type TextInputTypes = "text" | "tel" | "email" | "date" | "password";
 
 export interface SelectInputType extends InputType<HTMLSelectElement> {
   options: SelectOptions[];

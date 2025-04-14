@@ -1,0 +1,30 @@
+.login {
+  width: 100vw;
+  height: calc(100vh - 3rem);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--clr-surface-container-highest);
+}
+
+.login-content {
+  max-width: 33%;
+  width: 33%;
+  padding: 2rem;
+
+  background-color: var(--clr-surface);
+}
+
+.login-content h1 {
+  margin-bottom: 1.5rem;
+}
+
+.login-content .field {
+  margin-bottom: 1rem;
+}
+
+.login-content button {
+  width: 100%;
+}

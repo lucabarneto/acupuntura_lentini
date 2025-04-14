@@ -8,13 +8,18 @@ export class SessionController {
       const accessToken = AccessToken.generateToken(req.user!);
 
       res.cookie("authCookie", accessToken, {
-        maxAge: 28800000,
+        maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
+        secure: true, // disable this property when developing
+        sameSite: "none", // change to lax when developing
       });
 
       logger.info(`User logged in.`);
 
-      res.send({ token: accessToken });
+      res.send({
+        status: "success",
+        payload: { token: accessToken, user: req.myUser },
+      });
     } catch (err) {
       next(err);
     }

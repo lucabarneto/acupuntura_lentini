@@ -14,13 +14,13 @@ resourceRouter.param("id", resourceController.handleId);
 
 resourceRouter.get(
   "/",
-  // authenticate("jwt", { session: false }),
+  authenticate("jwt", { session: false }),
   resourceController.getAllResources
 );
 
 resourceRouter.get(
   "/:id",
-  // authenticate("jwt", { session: false }),
+  authenticate("jwt", { session: false }),
   validateRequest({ params: RequestParams }),
   resourceController.getResourceById
 );

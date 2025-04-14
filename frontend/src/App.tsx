@@ -1,5 +1,5 @@
 import "./App.css";
-import { HashRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { Panes } from "./components/panes";
@@ -23,76 +23,93 @@ import { AddConsultationTechniques } from "./pages/details_pane/AddConsultationT
 import { AddReport } from "./pages/details_pane/AddReport";
 import { ReportDetails } from "./pages/details_pane/ReportDetails";
 import { Reports } from "./pages/main_pane/Reports";
+import { Login } from "./pages/main_pane/Login";
+import { ProtectedRoute } from "./components/panes/ProtectedRoute";
 
 function App() {
   return (
     <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={
-              <Panes
-                defaultMainPane={<Patients />}
-                defaultDetailsPane={<NoDetails />}
-              />
-            }
-          />
-          <Route path="/patients">
-            <Route
-              index
-              element={
+              <ProtectedRoute>
                 <Panes
                   defaultMainPane={<Patients />}
                   defaultDetailsPane={<NoDetails />}
                 />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/patients">
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<NoDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path=":patient_name"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<PatientDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<PatientDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
           </Route>
           <Route
             path="/chiefcomplaints/:chief_complaint_title"
             element={
-              <Panes
-                defaultMainPane={<Patients />}
-                defaultDetailsPane={<ChiefComplaintDetails />}
-              />
+              <ProtectedRoute>
+                <Panes
+                  defaultMainPane={<Patients />}
+                  defaultDetailsPane={<ChiefComplaintDetails />}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/consultations/:id"
             element={
-              <Panes
-                defaultMainPane={<Patients />}
-                defaultDetailsPane={<ConsultationDetails />}
-              />
+              <ProtectedRoute>
+                <Panes
+                  defaultMainPane={<Patients />}
+                  defaultDetailsPane={<ConsultationDetails />}
+                />
+              </ProtectedRoute>
             }
           />
           <Route path="/resources">
             <Route
               index
               element={
-                <Panes
-                  defaultMainPane={<Resources />}
-                  defaultDetailsPane={<NoDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Resources />}
+                    defaultDetailsPane={<NoDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path=":resource_title"
               element={
-                <Panes
-                  defaultMainPane={<Resources />}
-                  defaultDetailsPane={<ResourceDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Resources />}
+                    defaultDetailsPane={<ResourceDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
           </Route>
@@ -100,10 +117,12 @@ function App() {
             <Route
               index
               element={
-                <Panes
-                  defaultMainPane={<Templates />}
-                  defaultDetailsPane={<NoDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Templates />}
+                    defaultDetailsPane={<NoDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
@@ -120,19 +139,23 @@ function App() {
             <Route
               index
               element={
-                <Panes
-                  defaultMainPane={<Reports />}
-                  defaultDetailsPane={<NoDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Reports />}
+                    defaultDetailsPane={<NoDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path=":report_title"
               element={
-                <Panes
-                  defaultMainPane={<Reports />}
-                  defaultDetailsPane={<ReportDetails />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Reports />}
+                    defaultDetailsPane={<ReportDetails />}
+                  />
+                </ProtectedRoute>
               }
             />
           </Route>
@@ -140,87 +163,105 @@ function App() {
             <Route
               index
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<Add />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<Add />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="patient"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddPatient />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddPatient />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="bazitable"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddBaziTable />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddBaziTable />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="presumptiveanalysis"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddPresumptiveAnalysis />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddPresumptiveAnalysis />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="chiefcomplaint"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddChiefComplaint />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddChiefComplaint />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="template"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddTemplate />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddTemplate />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="consultation"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddConsultation />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddConsultation />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="consultationtechniques"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddConsultationTechniques />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddConsultationTechniques />}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route
               path="report"
               element={
-                <Panes
-                  defaultMainPane={<Patients />}
-                  defaultDetailsPane={<AddReport />}
-                />
+                <ProtectedRoute>
+                  <Panes
+                    defaultMainPane={<Patients />}
+                    defaultDetailsPane={<AddReport />}
+                  />
+                </ProtectedRoute>
               }
             />
           </Route>
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </Provider>
   );
 }

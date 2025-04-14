@@ -1,7 +1,8 @@
 import { ITemplate, ITemplateDTO } from "../types/template.types";
 import { API } from "../../../app/api.ts";
+import { BASEURL } from "../../../utils/axios.ts";
 
-const URL = "http://localhost:8080/api/templates";
+const URL = BASEURL + "/api/templates";
 
 class TemplatesAPI extends API<ITemplate, ITemplateDTO> {}
 

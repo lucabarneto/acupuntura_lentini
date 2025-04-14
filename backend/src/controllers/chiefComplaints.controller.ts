@@ -45,9 +45,11 @@ export class ChiefComplaintController {
   ) => {
     try {
       logger.http(`Chief Complaint found succesfully (ID: ${req.params.id})`);
-      res
-        .status(200)
-        .send({ status: "success", statusCode: 200, payload: req.chief_complaint! });
+      res.status(200).send({
+        status: "success",
+        statusCode: 200,
+        payload: req.chief_complaint!,
+      });
     } catch (err) {
       next(err);
     }

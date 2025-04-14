@@ -6,9 +6,11 @@ import { resourcesReducer } from "../features/resources/services/resourcesSlice"
 import { templatesReducer } from "../features/templates/services/templatesSlice";
 import { consultationsReducer } from "../features/consultations/services/consultationsSlice";
 import { reportsReducer } from "../features/reports/services/reportsSlice";
+import { authReducer } from "../features/auth/services/authSlice";
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     patients: patientsReducer,
     chief_complaints: chiefComplaintsReducer,
     resources: resourcesReducer,

@@ -56,7 +56,7 @@ export const useAppNavigate = () => {
     return newNavigationState;
   };
 
-  const appNavigate = (url: string, state: AppNavigateState): void => {
+  const appNavigate = (url: string, state?: AppNavigateState): void => {
     navigate(url, { state });
   };
 

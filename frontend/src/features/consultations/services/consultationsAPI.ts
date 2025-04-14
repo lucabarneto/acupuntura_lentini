@@ -3,8 +3,9 @@ import { API } from "../../../app/api";
 import { AnyStringArrayObject } from "../../../types/general.types";
 import { ConsultationTechniquesDTO } from "./consultationTechniquesDTO";
 import { IConsultation, IConsultationForm } from "../types/consultation.types";
+import { BASEURL } from "../../../utils/axios";
 
-const URL = "http://localhost:8080/api/consultations";
+const URL = BASEURL + "/api/consultations";
 
 class ConsultationAPI extends API<IConsultation, IConsultationForm> {
   async addConsultationTechniques(

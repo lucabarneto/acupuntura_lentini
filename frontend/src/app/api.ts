@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../utils/axios";
 
 export abstract class API<T extends object, F extends object> {
   private url: string;
@@ -9,7 +9,7 @@ export abstract class API<T extends object, F extends object> {
 
   async getAllEntities(): Promise<T[] | undefined> {
     try {
-      const res = await axios.get(this.url);
+      const res = await api.get(this.url);
 
       if (res.data.status === "error") throw res.data;
 
@@ -21,7 +21,7 @@ export abstract class API<T extends object, F extends object> {
 
   async getEntityById(id: string): Promise<T | undefined> {
     try {
-      const res = await axios.get(`${this.url}/${id}`);
+      const res = await api.get(`${this.url}/${id}`);
 
       if (res.data.status === "error") throw res.data;
 
@@ -36,13 +36,13 @@ export abstract class API<T extends object, F extends object> {
       let res;
 
       if (hasFiles) {
-        res = await axios.post(this.url, body, {
+        res = await api.post(this.url, body, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
       } else {
-        res = await axios.post(this.url, body);
+        res = await api.post(this.url, body);
       }
 
       if (res.data.status === "error") throw res.data;
@@ -55,7 +55,7 @@ export abstract class API<T extends object, F extends object> {
 
   async updateEntity(id: string, body: T) {
     try {
-      const res = await axios.put(`${this.url}/${id}`, body);
+      const res = await api.put(`${this.url}/${id}`, body);
 
       if (res.data.status === "error") throw res.data;
 
@@ -67,7 +67,7 @@ export abstract class API<T extends object, F extends object> {
 
   async deleteEntity(id: string): Promise<object | undefined> {
     try {
-      const res = await axios.delete(`${this.url}/${id}`);
+      const res = await api.delete(`${this.url}/${id}`);
 
       if (res.data.status === "error") throw res.data;
 

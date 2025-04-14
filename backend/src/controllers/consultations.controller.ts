@@ -44,13 +44,11 @@ export class ConsultationController {
   ) => {
     try {
       logger.http(`Consultation found succesfully (ID: ${req.params.id})`);
-      res
-        .status(200)
-        .send({
-          status: "success",
-          statusCode: 200,
-          payload: req.consultation!,
-        });
+      res.status(200).send({
+        status: "success",
+        statusCode: 200,
+        payload: req.consultation!,
+      });
     } catch (err) {
       next(err);
     }

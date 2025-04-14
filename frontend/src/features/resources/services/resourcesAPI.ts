@@ -1,7 +1,8 @@
 import { IResource, IResourceForm } from "../types/resource.types";
 import { API } from "../../../app/api";
+import { BASEURL } from "../../../utils/axios";
 
-const URL = "http://localhost:8080/api/resources";
+const URL = BASEURL + "/api/resources";
 
 class ResourcesAPI extends API<IResource, IResourceForm> {}
 
