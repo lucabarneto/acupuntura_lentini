@@ -1,6 +1,6 @@
-import { IUser } from "../types/mongo/IUser";
-import { userDAO } from "../database/users.dao";
-import { BaseService } from "./base.service";
+import { IUser } from "../types/mongo/IUser.js";
+import { userDAO } from "../database/users.dao.js";
+import { BaseService } from "./base.service.js";
 
 class UserService extends BaseService<IUser> {
   findEqual = (data: IUser, users: IUser[]): boolean =>

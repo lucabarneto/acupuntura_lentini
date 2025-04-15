@@ -1,4 +1,4 @@
-import { SortQueries } from "./SortQueries";
+import { SortQueries } from "./SortQueries.js";
 
 export interface SuccessReturnValue<T> {
   status: "success";

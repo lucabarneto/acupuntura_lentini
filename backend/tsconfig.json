@@ -6,11 +6,29 @@
     "files": true
   },
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    },
     "rootDir": "./src",
     "outDir": "./dist",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowImportingTsExtensions": false,
     "noUnusedLocals": true,
     "typeRoots": ["./node_modules/@types", "./types"]
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false,
+    "replacers": {
+      "baseUrl-replacer": {
+        "enabled": true,
+        "baseUrl": "./src",
+        "outDir": "./dist",
+        "extensions": [".js"]
+      }
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

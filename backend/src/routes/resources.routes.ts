@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { IResource } from "../types/mongo/IResource";
-import { ResourceController } from "../controllers/resources.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
-import { authenticate } from "../middlewares/authenticate";
-import { adminCredentials } from "../middlewares/adminCredentials";
+import { IResource } from "../types/mongo/IResource.js";
+import { ResourceController } from "../controllers/resources.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import { adminCredentials } from "../middlewares/adminCredentials.js";
 
 const resourceController = new ResourceController();
 

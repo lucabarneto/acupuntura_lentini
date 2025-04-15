@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { IAppointment } from "../types/mongo/IAppointment";
-import { AppointmentController } from "../controllers/appointments.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
-import { authenticate } from "../middlewares/authenticate";
+import { IAppointment } from "../types/mongo/IAppointment.js";
+import { AppointmentController } from "../controllers/appointments.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const appointmentController = new AppointmentController();
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Types } from "mongoose";
-import { MONGO_ID_REGEX, MIN_DATE } from "../../constants";
+import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.js";
 
 export const IAppointment = z.object({
   _id: z.string().regex(MONGO_ID_REGEX).optional(),

@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { IPatient } from "../types/mongo/IPatient";
-import { PatientController } from "../controllers/patients.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
-import { RequestQueries } from "../types/express/RequestQueries";
 import multer from "multer";
-import { uploadImage } from "../middlewares/uploadImage";
-import { authenticate } from "../middlewares/authenticate";
+import { IPatient } from "../types/mongo/IPatient.js";
+import { PatientController } from "../controllers/patients.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { RequestQueries } from "../types/express/RequestQueries.js";
+import { uploadImage } from "../middlewares/uploadImage.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const patientController = new PatientController();
 

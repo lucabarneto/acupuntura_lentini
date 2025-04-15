@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { IReport } from "../types/mongo/IReport";
-import { reportService } from "../services/reports.service";
-import { RequestParams } from "../types/express/RequestParams";
-import { RequestQueries } from "../types/express/RequestQueries";
-import { logger } from "../utils/logger";
-import { SortQueries } from "../types/general/SortQueries";
-import { SuccessResponse } from "../types/express/Response";
+import { IReport } from "../types/mongo/IReport.js";
+import { reportService } from "../services/reports.service.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { RequestQueries } from "../types/express/RequestQueries.js";
+import { logger } from "../utils/logger.js";
+import { SortQueries } from "../types/general/SortQueries.js";
+import { SuccessResponse } from "../types/express/Response.js";
 
 export class ReportController {
   handleId = async (

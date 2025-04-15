@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IConsultation } from "../types/mongo/IConsultation";
-import { consultationService } from "../services/consultations.service";
-import { RequestParams } from "../types/express/RequestParams";
-import { logger } from "../utils/logger";
-import { SuccessResponse } from "../types/express/Response";
+import { IConsultation } from "../types/mongo/IConsultation.js";
+import { consultationService } from "../services/consultations.service.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { logger } from "../utils/logger.js";
+import { SuccessResponse } from "../types/express/Response.js";
 
 export class ConsultationController {
   handleId = async (

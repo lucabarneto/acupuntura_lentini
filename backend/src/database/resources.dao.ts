@@ -1,6 +1,6 @@
-import { IResource } from "../types/mongo/IResource";
-import { ResourceModel } from "../models/resource.model";
-import { MongoDAO } from "./mongo.dao";
+import { IResource } from "../types/mongo/IResource.js";
+import { ResourceModel } from "../models/resource.model.js";
+import { MongoDAO } from "./mongo.dao.js";
 
 class ResourceDAO extends MongoDAO<IResource> {}
 

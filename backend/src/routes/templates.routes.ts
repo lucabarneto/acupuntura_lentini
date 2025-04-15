@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { ITemplate } from "../types/mongo/ITemplate";
-import { TemplateController } from "../controllers/templates.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
-import { authenticate } from "../middlewares/authenticate";
+import { ITemplate } from "../types/mongo/ITemplate.js";
+import { TemplateController } from "../controllers/templates.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const templateController = new TemplateController();
 

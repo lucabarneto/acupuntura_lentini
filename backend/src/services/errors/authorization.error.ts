@@ -1,4 +1,4 @@
-import { IAuthorizationError } from "../../types/general/Error.interface";
+import { IAuthorizationError } from "../../types/general/Error.interface.js";
 
 export class AuthorizationError extends Error implements IAuthorizationError {
   name: "AuthorizationError";

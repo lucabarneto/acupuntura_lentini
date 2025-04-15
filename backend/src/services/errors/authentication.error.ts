@@ -1,4 +1,4 @@
-import { IAuthenticationError } from "../../types/general/Error.interface";
+import { IAuthenticationError } from "../../types/general/Error.interface.js";
 
 export class AuthenticationError extends Error implements IAuthenticationError {
   status: "error";

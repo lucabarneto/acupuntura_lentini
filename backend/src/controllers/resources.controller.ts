@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IResource } from "../types/mongo/IResource";
-import { resourceService } from "../services/resources.service";
-import { RequestParams } from "../types/express/RequestParams";
-import { logger } from "../utils/logger";
-import { SuccessResponse } from "../types/express/Response";
+import { IResource } from "../types/mongo/IResource.js";
+import { resourceService } from "../services/resources.service.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { logger } from "../utils/logger.js";
+import { SuccessResponse } from "../types/express/Response.js";
 
 export class ResourceController {
   handleId = async (

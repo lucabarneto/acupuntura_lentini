@@ -1,6 +1,6 @@
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint";
-import { ChiefComplaintModel } from "../models/chiefComplaint.model";
-import { MongoDAO } from "./mongo.dao";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint.js";
+import { ChiefComplaintModel } from "../models/chiefComplaint.model.js";
+import { MongoDAO } from "./mongo.dao.js";
 
 class ChiefComplaintDAO extends MongoDAO<IChiefComplaint> {}
 

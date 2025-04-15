@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint";
-import { ChiefComplaintController } from "../controllers/chiefComplaints.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
-import { authenticate } from "../middlewares/authenticate";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint.js";
+import { ChiefComplaintController } from "../controllers/chiefComplaints.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const chiefComplaintController = new ChiefComplaintController();
 

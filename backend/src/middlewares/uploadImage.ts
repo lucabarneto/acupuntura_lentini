@@ -1,7 +1,7 @@
 import streamifier from "streamifier";
 import { v2 as cloudinary } from "cloudinary";
 import { Request, Response, NextFunction } from "express";
-import { logger } from "../utils/logger";
+import { logger } from "../utils/logger.js";
 
 type AssetFolders = "profile_picture" | "patient_tongue_image";
 

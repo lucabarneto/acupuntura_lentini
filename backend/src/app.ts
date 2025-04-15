@@ -3,11 +3,11 @@ import express from "express";
 import cors from "cors";
 import passport from "passport";
 import cookieParser from "cookie-parser";
-import { DatabaseConnection } from "./config/database_connection.config";
-import { router } from "./routes/index.routes";
-import { logger } from "./utils/logger";
-import { errorHandler } from "./middlewares/errorHandler";
-import { initializePassport } from "./config/passport.config";
+import { DatabaseConnection } from "./config/database_connection.config.js";
+import { router } from "./routes/index.routes.js";
+import { logger } from "./utils/logger.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { initializePassport } from "./config/passport.config.js";
 
 const app = express();
 

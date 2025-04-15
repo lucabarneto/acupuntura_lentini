@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { IAppointment } from "../types/mongo/IAppointment";
-import { ModelMiddlewares } from "./modelMiddlewares";
-import { patientMiddlewares } from "./patient.model";
-import { MIN_DATE } from "../constants";
+import { IAppointment } from "../types/mongo/IAppointment.js";
+import { ModelMiddlewares } from "./modelMiddlewares.js";
+import { patientMiddlewares } from "./patient.model.js";
+import { MIN_DATE } from "../constants.js";
 
 type AppointmentModel = mongoose.Model<IAppointment>;
 

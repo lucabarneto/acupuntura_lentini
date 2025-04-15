@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { IReport } from "../types/mongo/IReport";
-import { ReportController } from "../controllers/reports.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestQueries } from "../types/express/RequestQueries";
-import { RequestParams } from "../types/express/RequestParams";
-import { authenticate } from "../middlewares/authenticate";
+import { IReport } from "../types/mongo/IReport.js";
+import { ReportController } from "../controllers/reports.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestQueries } from "../types/express/RequestQueries.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const reportController = new ReportController();
 

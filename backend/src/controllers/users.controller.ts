@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { IUser } from "../types/mongo/IUser";
-import { userService } from "../services/users.service";
-import { RequestParams } from "../types/express/RequestParams";
-import { logger } from "../utils/logger";
-import { Encryption } from "../utils/bcrypt";
-import { SuccessResponse } from "../types/express/Response";
+import { IUser } from "../types/mongo/IUser.js";
+import { userService } from "../services/users.service.js";
+import { RequestParams } from "../types/express/RequestParams.js";
+import { logger } from "../utils/logger.js";
+import { Encryption } from "../utils/bcrypt.js";
+import { SuccessResponse } from "../types/express/Response.js";
 
 export class UserController {
   handleId = async (

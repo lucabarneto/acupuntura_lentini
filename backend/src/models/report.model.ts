@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { IReport } from "../types/mongo/IReport";
-import { ModelMiddlewares } from "./modelMiddlewares";
-import { patientMiddlewares } from "./patient.model";
-import { chiefComplaintMiddlewares } from "./chiefComplaint.model";
-import { MIN_DATE } from "../constants";
+import { IReport } from "../types/mongo/IReport.js";
+import { ModelMiddlewares } from "./modelMiddlewares.js";
+import { patientMiddlewares } from "./patient.model.js";
+import { chiefComplaintMiddlewares } from "./chiefComplaint.model.js";
+import { MIN_DATE } from "../constants.js";
 
 type ReportModel = mongoose.Model<IReport>;
 

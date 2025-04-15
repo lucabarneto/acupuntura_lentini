@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { IConsultation } from "../types/mongo/IConsultation";
-import { ConsultationController } from "../controllers/consultations.controller";
-import { validateRequest } from "../middlewares/validateRequest";
-import { RequestParams } from "../types/express/RequestParams";
+import { IConsultation } from "../types/mongo/IConsultation.js";
+import { ConsultationController } from "../controllers/consultations.controller.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { RequestParams } from "../types/express/RequestParams.js";
 import multer from "multer";
-import { uploadImage } from "../middlewares/uploadImage";
-import { authenticate } from "../middlewares/authenticate";
+import { uploadImage } from "../middlewares/uploadImage.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const consultationController = new ConsultationController();
 

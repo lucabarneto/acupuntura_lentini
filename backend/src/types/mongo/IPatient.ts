@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MONGO_ID_REGEX, MIN_DATE } from "../../constants";
+import { MONGO_ID_REGEX, MIN_DATE } from "../../constants.js";
 
 const FourPillars = z.enum(["hour", "day", "month", "year"]);
 

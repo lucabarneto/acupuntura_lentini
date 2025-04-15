@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { ID } from "..//types/general/ID.interface";
+import { ID } from "..//types/general/ID.interface.js";
 
 type Reference = {
   ref_id: ID;

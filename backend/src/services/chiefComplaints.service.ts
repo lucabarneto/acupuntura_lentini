@@ -1,6 +1,6 @@
-import { IChiefComplaint } from "../types/mongo/IChiefComplaint";
-import { chiefComplaintDAO } from "../database/chiefComplaints.dao";
-import { BaseService } from "./base.service";
+import { IChiefComplaint } from "../types/mongo/IChiefComplaint.js";
+import { chiefComplaintDAO } from "../database/chiefComplaints.dao.js";
+import { BaseService } from "./base.service.js";
 
 class ChiefComplaintService extends BaseService<IChiefComplaint> {
   findEqual = (
