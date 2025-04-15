@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger.js";
+import { envConfig } from "../config/env.config.js";
 import { AccessToken } from "../utils/jwt.js";
 
 export class SessionController {
@@ -10,8 +11,8 @@ export class SessionController {
       res.cookie("authCookie", accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        secure: true, // disable this property when developing
-        sameSite: "none", // change to lax when developing
+        secure: envConfig.environment === "DEVELOPMENT" ? false : true,
+        sameSite: envConfig.environment === "DEVELOPMENT" ? "lax" : "none",
       });
 
       logger.info(`User logged in.`);

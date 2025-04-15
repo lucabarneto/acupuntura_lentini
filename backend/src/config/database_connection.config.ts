@@ -1,12 +1,12 @@
-import "dotenv/config";
 import mongoose from "mongoose";
 import { logger } from "../utils/logger.js";
+import { envConfig } from "./env.config.js";
 
 export class DatabaseConnection {
   private static instance: DatabaseConnection | undefined;
 
   constructor() {
-    mongoose.connect(process.env.MONGO_URL!).catch((err) => {
+    mongoose.connect(envConfig.mongoUri).catch((err) => {
       console.error("Cannot connect to database: ", err);
       process.exit();
     });

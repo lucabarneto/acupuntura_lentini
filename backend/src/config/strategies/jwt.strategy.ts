@@ -1,4 +1,4 @@
-import "dotenv/config";
+import { envConfig } from "../env.config.js";
 import { Request } from "express";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 
@@ -15,7 +15,7 @@ const cookieExtractor = (req: Request) => {
 export const jwtStrategy = new JwtStrategy(
   {
     jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-    secretOrKey: process.env.SECRET_KEY!,
+    secretOrKey: envConfig.jwtSecret,
   },
   async (jwt_payload, done) => {
     try {

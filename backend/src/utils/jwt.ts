@@ -1,10 +1,11 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
+import { envConfig } from "../config/env.config.js";
 
 export class AccessToken {
   static generateToken = (user: string | Buffer | object) =>
-    jwt.sign(user, process.env.SECRET_KEY!, { expiresIn: "1d" });
+    jwt.sign(user, envConfig.jwtSecret, { expiresIn: "1d" });
 
   static validateToken = (token: string) =>
-    jwt.verify(token, process.env.SECRET_KEY!);
+    jwt.verify(token, envConfig.jwtSecret);
 }
