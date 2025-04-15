@@ -18,7 +18,7 @@ export const PatientListItem = ({ patient, state }: Props) => {
       image={
         patient.profile_picture
           ? (patient.profile_picture as string)
-          : "/src/assets/user_placeholder.svg"
+          : "/img/user_placeholder.svg"
       }
       alt="Rostro de la persona paciente"
       title={`${patient.first_name} ${patient.last_name}`}

@@ -16,7 +16,7 @@ export const FileInput = ({ id, form, changeEvent }: Props) => {
         <div className="image-container">
           <img
             className="profile-picture"
-            src="/src/assets/placeholder.svg"
+            src="/img/placeholder.svg"
             alt="Imagen placeholder"
             ref={thumbnail}
           />

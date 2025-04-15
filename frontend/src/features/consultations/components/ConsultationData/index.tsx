@@ -13,9 +13,7 @@ export const ConsultationData = (props: Props) => {
       <h1>Sesión del {readableDate}</h1>
       <div className="consultation-data-content">
         <img
-          src={
-            consultation.patient_tongue_image || "/src/assets/placeholder.svg"
-          }
+          src={consultation.patient_tongue_image || "/img/placeholder.svg"}
           alt="Imagen de la lengua del paciente"
         />
         <div className="consultation-description">

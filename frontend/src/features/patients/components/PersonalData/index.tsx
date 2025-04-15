@@ -23,7 +23,7 @@ export const PersonalData = (props: Props) => {
         src={
           profile_picture
             ? (profile_picture as string)
-            : "/src/assets/user_placeholder.svg"
+            : "/img/user_placeholder.svg"
         }
         alt="Foto de perfil de la persona usuaria"
       />

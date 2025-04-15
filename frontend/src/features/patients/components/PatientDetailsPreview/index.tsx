@@ -9,7 +9,11 @@ export const PatientDetailsPreview = (props: Props) => {
   return (
     <article className="patient-details-preview">
       <img
-        src={patient.profile_picture}
+        src={
+          patient.profile_picture
+            ? (patient.profile_picture as string)
+            : "/img/user_placeholder.svg"
+        }
         alt="Foto de perfil de la persona paciente"
       />
       <div>
