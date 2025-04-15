@@ -4,7 +4,7 @@ import { AddHeader } from "../../../components/ui/AddHeader";
 import { PatientDetailsPreview } from "../../../features/patients/components/PatientDetailsPreview";
 import { PresumptiveAnalysisType } from "../../../features/patients/types/presumptive_analysis.types";
 import { AddPresumptiveAnalysisForm } from "../../../features/patients/components/AddPresumptiveAnalysisForm";
-import { useAddPresumptiveAnalysisa } from "../../../features/patients/hooks/useAddPresumptiveAnalysis";
+import { useAddPresumptiveAnalysis } from "../../../features/patients/hooks/useAddPresumptiveAnalysis";
 
 const initialForm: PresumptiveAnalysisType = {
   meridian_time: "",
@@ -20,7 +20,7 @@ const initialForm: PresumptiveAnalysisType = {
 
 export const AddPresumptiveAnalysis = () => {
   const { addNavigation, addForm, entityData } =
-    useAddPresumptiveAnalysisa(initialForm);
+    useAddPresumptiveAnalysis(initialForm);
 
   return (
     <section className="add-patient-pane add-presumptive-analysis-pane">

@@ -5,18 +5,14 @@ export const customZodError: ZodErrorMap = (issue, ctx) => {
     case ZodIssueCode.invalid_type:
       return issue.received === "undefined"
         ? {
-            message: `${
-              issue.path[3]
-                ? issue.path[3]
-                : issue.path[2]
-                ? issue.path[2]
-                : issue.path[1]
-                ? issue.path[1]
-                : issue.path[0]
-            } is required!`,
+            message: `${issue.path[issue.path.length - 1]} is required!`,
           }
         : {
-            message: `${issue.path[0]} is typed incorrectly! Expected '${issue.expected}', received '${issue.received}'.`,
+            message: `${
+              issue.path[issue.path.length - 1]
+            } is typed incorrectly! Expected '${issue.expected}', received '${
+              issue.received
+            }'.`,
           };
     case ZodIssueCode.unrecognized_keys:
       return {

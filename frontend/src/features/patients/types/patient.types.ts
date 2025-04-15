@@ -21,6 +21,24 @@ export type IPatient = {
   reports: ReportsRef[];
 };
 
+export type IPatientUpdate = {
+  _id: string;
+  first_name: string;
+  last_name: string;
+  age: string;
+  mail: string;
+  marital_status: "casado" | "soltero" | "casada" | "soltera";
+  tel: string;
+  profile_picture: string;
+  birth?: BirthType;
+  bazi_table?: BaziTableType;
+  presumptive_analysis?: PresumptiveAnalysisType;
+  next_appointment?: number;
+  chief_complaints: { chief_complaint: string }[];
+  appointments?: { appointment: string }[];
+  reports: { report: string }[];
+};
+
 export type BirthType = {
   date: string;
   time: string;

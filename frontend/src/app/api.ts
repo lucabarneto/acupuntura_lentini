@@ -1,6 +1,10 @@
 import { api } from "../utils/axios";
 
-export abstract class API<T extends object, F extends object> {
+export abstract class API<
+  T extends object,
+  F extends object,
+  U extends object
+> {
   private url: string;
 
   constructor(url: string) {
@@ -53,7 +57,7 @@ export abstract class API<T extends object, F extends object> {
     }
   }
 
-  async updateEntity(id: string, body: T) {
+  async updateEntity(id: string, body: U): Promise<T | undefined> {
     try {
       const res = await api.put(`${this.url}/${id}`, body);
 

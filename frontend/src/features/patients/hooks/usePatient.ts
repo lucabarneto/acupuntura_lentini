@@ -5,7 +5,7 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import * as slice from "../services/patientsSlice";
 import * as thunk from "../services/patientsThunk";
 import { useEffect } from "react";
-import { IPatient, IPatientForm } from "../types/patient.types";
+import { IPatient, IPatientForm, IPatientUpdate } from "../types/patient.types";
 import { SelectOptions } from "../../../components/ui/Input/input.types";
 
 type DispatchCallback = (arg: any) => void;
@@ -19,6 +19,16 @@ export const usePatient = (id: string = "") => {
   const patientURLName =
     patient &&
     `${patient.first_name.toLowerCase()}_${patient.last_name.toLowerCase()}`;
+
+  const updatablePatient: IPatientUpdate = patient && {
+    ...patient,
+    chief_complaints: patient.chief_complaints.map((ref) => {
+      return { chief_complaint: ref.chief_complaint._id };
+    }),
+    reports: patient.reports.map((ref) => {
+      return { report: ref.report._id };
+    }),
+  };
 
   useEffect(() => {
     dispatch(thunk.getAllPatients());
@@ -37,7 +47,7 @@ export const usePatient = (id: string = "") => {
   const addPatient = (body: IPatientForm, callback?: DispatchCallback) =>
     dispatch(thunk.addPatient(body)).unwrap().then(callback);
 
-  const updatePatient = (body: IPatient, callback?: DispatchCallback) =>
+  const updatePatient = (body: IPatientUpdate, callback?: DispatchCallback) =>
     dispatch(thunk.updatePatient(body)).unwrap().then(callback);
 
   const deletePatient = (id: string, callback?: DispatchCallback) =>
@@ -65,6 +75,7 @@ export const usePatient = (id: string = "") => {
       patient,
       patientSelectOptions,
       patientURLName,
+      updatablePatient,
     },
   };
 };

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IPatient, IPatientForm } from "../types/patient.types";
+import { IPatient, IPatientForm, IPatientUpdate } from "../types/patient.types";
 import { patientsAPI } from "./patientsAPI";
 import { RootState } from "../../../app/store";
 
@@ -62,7 +62,7 @@ export const addPatient = createAsyncThunk(
 
 export const updatePatient = createAsyncThunk(
   "patients/updatePatient",
-  async (data: IPatient) => {
+  async (data: IPatientUpdate) => {
     try {
       const result = await patientsAPI.updateEntity(data._id, data);
       return result as IPatient;

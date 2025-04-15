@@ -1,22 +1,31 @@
-import axios from "axios";
 import { API } from "../../../app/api";
 import { AnyStringArrayObject } from "../../../types/general.types";
 import { ConsultationTechniquesDTO } from "./consultationTechniquesDTO";
-import { IConsultation, IConsultationForm } from "../types/consultation.types";
-import { BASEURL } from "../../../utils/axios";
+import {
+  IConsultation,
+  IConsultationForm,
+  IConsultationUpdate,
+} from "../types/consultation.types";
+import { api, BASEURL } from "../../../utils/axios";
 
 const URL = BASEURL + "/api/consultations";
 
-class ConsultationAPI extends API<IConsultation, IConsultationForm> {
+class ConsultationAPI extends API<
+  IConsultation,
+  IConsultationForm,
+  IConsultation
+> {
   async addConsultationTechniques(
     consultation: IConsultation,
     techniques: AnyStringArrayObject
   ): Promise<IConsultation | undefined> {
     try {
-      console.log(consultation);
       const adaptedTechniques = ConsultationTechniquesDTO.adapt(techniques);
-      const update = { ...consultation, resources: adaptedTechniques };
-      const res = await axios.put(`${URL}/${consultation._id}`, update);
+      const update: IConsultationUpdate = {
+        ...consultation,
+        resources: adaptedTechniques,
+      };
+      const res = await api.put(`${URL}/${consultation._id}`, update);
 
       if (res.data.status === "error") throw res.data;
       return res.data.payload as IConsultation;

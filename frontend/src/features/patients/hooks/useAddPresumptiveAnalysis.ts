@@ -5,25 +5,26 @@ import { useForm } from "../../../hooks/useForm";
 import { usePatient } from "./usePatient";
 import { PresumptiveAnalysisType } from "../types/presumptive_analysis.types";
 import { AddHookReturnTypeWithEntityData } from "../../../types/add.feature.types";
-import { IPatient } from "../types/patient.types";
+import { IPatient, IPatientUpdate } from "../types/patient.types";
 import { AnyStringObject } from "../../../types/general.types";
 
-export const useAddPresumptiveAnalysisa = (
+export const useAddPresumptiveAnalysis = (
   initialForm: PresumptiveAnalysisType
 ): AddHookReturnTypeWithEntityData<PresumptiveAnalysisType, IPatient> => {
   const { confirmLeaveAddFlow, leaveAddFlowModal, leaveAddFlow } = useAddFlow();
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
   const { entityData, utilityMethods, crudMethods } = usePatient(patientId);
-  const patientURLName = utilityMethods.createURLName(entityData.patient);
+  const patientURLName =
+    entityData.patient && utilityMethods.createURLName(entityData.patient);
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-presumptive-analysis-form";
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      const updatedPatient = {
-        ...entityData.patient,
+      const updatedPatient: IPatientUpdate = {
+        ...entityData.updatablePatient,
         presumptive_analysis: formData.fields,
       };
 

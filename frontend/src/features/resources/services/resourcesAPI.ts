@@ -4,6 +4,6 @@ import { BASEURL } from "../../../utils/axios";
 
 const URL = BASEURL + "/api/resources";
 
-class ResourcesAPI extends API<IResource, IResourceForm> {}
+class ResourcesAPI extends API<IResource, IResourceForm, IResourceForm> {}
 
 export const resourcesAPI = new ResourcesAPI(URL);

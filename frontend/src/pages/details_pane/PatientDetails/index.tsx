@@ -45,7 +45,7 @@ export const PatientDetails = () => {
             )
           }
         />
-        <PatientReports reports={patient.reports}/>
+        <PatientReports reports={patient.reports} />
         <Birth
           birth={patient.birth}
           bazi_table={patient.bazi_table}

@@ -5,7 +5,7 @@ import { useForm } from "../../../hooks/useForm";
 import { BaziTableType } from "../types/bazi_table.types";
 import { usePatient } from "./usePatient";
 import { AddHookReturnTypeWithEntityData } from "../../../types/add.feature.types";
-import { IPatient } from "../types/patient.types";
+import { IPatient, IPatientUpdate } from "../types/patient.types";
 import { AnyStringObject } from "../../../types/general.types";
 
 export const useAddBaziTable = (
@@ -15,15 +15,16 @@ export const useAddBaziTable = (
   const { extraData, appNavigate, setNavigationState } = useAppNavigate();
   const patientId = extraData.patientId;
   const { entityData, crudMethods, utilityMethods } = usePatient(patientId);
-  const patientURLName = utilityMethods.createURLName(entityData.patient);
+  const patientURLName =
+    entityData.patient && utilityMethods.createURLName(entityData.patient);
   const form = useForm(initialForm);
   const { formData } = form;
   const formId = "add-bazi-table-form";
 
   useEffect(() => {
     if (formData.isSubmittable) {
-      const updatedPatient = {
-        ...entityData.patient,
+      const updatedPatient: IPatientUpdate = {
+        ...entityData.updatablePatient,
         bazi_table: formData.fields,
       };
 
