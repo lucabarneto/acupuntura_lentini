@@ -26,8 +26,16 @@ const loadConfig = () => {
     logger.info("env variables loaded from local .env file");
   }
 
+  console.log(
+    process.env.ENVIRONMENT,
+    process.env.PERSISTENCE,
+    process.env.SECRET_KEY,
+    process.env.MONGO_URI,
+    process.env.CLOUDINARY_URI
+  );
+
   return {
-    environment: getEnv("ENVIRONMENT"),
+    environment: process.env.ENVIRONMENT,
     persistence: getEnv("PERSISTENCE"),
     jwtSecret: getEnv("SECRET_KEY"),
     mongoUri: getEnv("MONGO_URI"),
