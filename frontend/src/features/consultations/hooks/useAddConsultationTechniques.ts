@@ -67,7 +67,7 @@ export const useAddConsultationTechniques = (
     },
     entityData: {
       entity: consultation,
-      entityId: consultation._id,
+      entityId: extraData.consultationId,
     },
   };
 };

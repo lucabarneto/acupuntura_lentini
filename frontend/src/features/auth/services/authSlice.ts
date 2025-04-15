@@ -22,12 +22,14 @@ const authSlice = createSlice({
       state.authenticated = true;
       state.token = payload.token;
       state.user = payload.user;
+      localStorage.setItem("authenticated", "true");
     });
     builder.addCase(loginUser.rejected, (state) => {
       state.loading = "idle";
       state.authenticated = false;
       state.token = null;
       state.user = null;
+      localStorage.setItem("authenticated", "false");
     });
   },
 });

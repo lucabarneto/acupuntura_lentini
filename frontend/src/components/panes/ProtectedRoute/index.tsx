@@ -1,15 +1,13 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
-import { RootState } from "../../../app/store";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const ProtectedRoute = ({ children }: Props) => {
-  const { authenticated } = useSelector((state: RootState) => state.auth);
+  const authenticated = localStorage.getItem("authenticated");
 
-  if (!authenticated) {
+  if (!authenticated || authenticated === "false") {
     return <Navigate to="/login" />;
   }
 
