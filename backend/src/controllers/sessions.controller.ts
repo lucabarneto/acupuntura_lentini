@@ -11,8 +11,8 @@ export class SessionController {
       res.cookie("authCookie", accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        secure: envConfig.environment === "DEVELOPMENT" ? false : true,
-        sameSite: envConfig.environment === "DEVELOPMENT" ? "lax" : "none",
+        secure: envConfig.environment === "development" ? false : true,
+        sameSite: envConfig.environment === "development" ? "lax" : "none",
       });
 
       logger.info(`User logged in.`);

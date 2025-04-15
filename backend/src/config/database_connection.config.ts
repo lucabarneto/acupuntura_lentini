@@ -6,7 +6,7 @@ export class DatabaseConnection {
   private static instance: DatabaseConnection | undefined;
 
   constructor() {
-    mongoose.connect(envConfig.mongoUri).catch((err) => {
+    mongoose.connect(envConfig.mongoUrl).catch((err) => {
       console.error("Cannot connect to database: ", err);
       process.exit();
     });
