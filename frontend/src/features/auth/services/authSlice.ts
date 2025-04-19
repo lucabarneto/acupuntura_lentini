@@ -23,11 +23,7 @@ const authSlice = createSlice({
       state.token = payload.token;
       state.user = payload.user;
       console.log(payload.token);
-      if (typeof payload.token !== "string") {
-        localStorage.setItem("authenticated", "false");
-      } else {
-        localStorage.setItem("authenticated", "true");
-      }
+      localStorage.setItem("authenticated", "true");
     });
     builder.addCase(loginUser.rejected, (state) => {
       state.loading = "idle";

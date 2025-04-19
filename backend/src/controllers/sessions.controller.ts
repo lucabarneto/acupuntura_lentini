@@ -9,7 +9,7 @@ export class SessionController {
       const accessToken = AccessToken.generateToken(req.user!);
 
       res.cookie("authCookie", accessToken, {
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: envConfig.environment === "development" ? false : true,
         sameSite: envConfig.environment === "development" ? "lax" : "none",
